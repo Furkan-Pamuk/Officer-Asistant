@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
@@ -76,7 +75,6 @@ function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string 
     <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
       <div className="flex items-center justify-between gap-2">
         <h2 className="font-bold">⚓ Port Info — VHF</h2>
-        <Link href="/ports" className="rounded-full border px-3 py-1 text-xs font-bold">Full directory →</Link>
       </div>
       <div className="mt-2 grid gap-3 sm:grid-cols-2">
         {ports.map((p) => (
