@@ -1,11 +1,13 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 export default function ShipMap({ lat, lon, label }: { lat: number; lon: number; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const seamarkRef = useRef<L.TileLayer | null>(null);
+  const [seamarks, setSeamarks] = useState(true);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -18,6 +20,11 @@ export default function ShipMap({ lat, lon, label }: { lat: number; lon: number;
         attribution: "© OpenStreetMap contributors",
       }).addTo(map);
       mapRef.current = map;
+      seamarkRef.current = L.tileLayer("https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        opacity: 0.9,
+        attribution: "© OpenSeaMap contributors",
+      });
       setTimeout(() => map.invalidateSize(), 300);
     } else {
       mapRef.current.setView([lat, lon], 6);
@@ -34,8 +41,27 @@ export default function ShipMap({ lat, lon, label }: { lat: number; lon: number;
   }, [lat, lon, label]);
 
   useEffect(() => {
+    const map = mapRef.current;
+    const layer = seamarkRef.current;
+    if (!map || !layer) return;
+    if (seamarks) layer.addTo(map);
+    else map.removeLayer(layer);
+  }, [seamarks, lat, lon]);
+
+  useEffect(() => {
     return () => { mapRef.current?.remove(); mapRef.current = null; };
   }, []);
 
-  return <div ref={ref} className="h-64 w-full rounded-2xl border border-white/20" />;
+  return (
+    <div className="relative">
+      <div ref={ref} className="h-64 w-full rounded-2xl border border-white/20" />
+      <button
+        onClick={() => setSeamarks((v) => !v)}
+        title="Toggle seamarks (buoys/beacons via OpenSeaMap)"
+        className={`absolute right-3 top-3 z-[500] rounded-full border px-3 py-1.5 text-xs font-black shadow ${seamarks ? "border-teal-700 bg-teal-600 text-white" : "bg-white/95 dark:bg-black/90"}`}
+      >
+        ⚓ Seamarks {seamarks ? "on" : "off"}
+      </button>
+    </div>
+  );
 }
