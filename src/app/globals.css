@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Day palette — SHARK (60-30-10, ≥4.5:1 text contrast)
+   60% base surfaces: foam #F4F7FA
+   30% secondary: white cards #FFFFFF, cool grey fills
+   10% accent: deep navy #0E1E33 buttons, harbor teal #2AA198 highlights
+   Body ink abyss #081120 */
+:root {
+  --background: #F4F7FA;
+  --foreground: #081120;
+  --card: #FFFFFF;
+  --muted: #D9E4EA;
+  --accent: #2AA198;
+}
+
+html:not(.dark) body {
+  background: #F4F7FA;
+  color: #081120;
+}
+html:not(.dark) .bg-white {
+  background-color: #FFFFFF !important;
+}
+html:not(.dark) .bg-slate-50,
+html:not(.dark) .bg-amber-50 {
+  background-color: #E6EEF2 !important;
+}
+html:not(.dark) .bg-amber-100 {
+  background-color: #CFE3DE !important;
+}
+html:not(.dark) .bg-amber-400 {
+  background-color: #2AA198 !important;
+}
+html:not(.dark) .border-amber-200 {
+  border-color: #9FB3C0 !important;
+}
+html:not(.dark) .border-amber-300,
+html:not(.dark) .border-amber-400 {
+  border-color: #647E8F !important;
+}
+html:not(.dark) .text-stone-900,
+html:not(.dark) .text-stone-950,
+html:not(.dark) .text-black {
+  color: #081120 !important;
+}
+html:not(.dark) .text-stone-700,
+html:not(.dark) .text-stone-600 {
+  color: #33475C !important;
+}
+html:not(.dark) .text-stone-500 {
+  color: #5B7186 !important;
+}
+html:not(.dark) .bg-stone-900 {
+  background-color: #0E1E33 !important;
+  color: #F4F7FA !important;
+}
+html:not(.dark) .text-amber-50 {
+  color: #F4F7FA !important;
+}
+html:not(.dark) .text-amber-100 {
+  color: #D9E8E3 !important;
+}
+html:not(.dark) .text-amber-700,
+html:not(.dark) .text-amber-800,
+html:not(.dark) .text-amber-900,
+html:not(.dark) .text-amber-950 {
+  color: #0E6E64 !important;
+}
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) select {
+  background-color: #FFFFFF !important;
+  color: #081120 !important;
+  border-color: #9FB3C0 !important;
+}
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #7A8FA0 !important;
+}
+
+h1, h2 {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #ff7070;
+  --card: #0b0b0c;
+  --muted: #160707;
+  --accent: #ff2d2d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Day: ensure strong contrast on soft yellow */
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Night-vision remap: keep layout, shift hardcoded light utilities to black/red */
+.dark body {
+  background: #000;
+  color: #ff8080;
+}
+.dark .bg-white {
+  background-color: #0b0b0c !important;
+  border-color: #3a0d0d !important;
+}
+.dark .bg-slate-50 {
+  background-color: #150707 !important;
+}
+.dark .bg-slate-100 {
+  background-color: #220a0a !important;
+}
+.dark .text-slate-900,
+.dark .text-black {
+  color: #ff6b6b !important;
+}
+.dark .text-slate-700,
+.dark .text-slate-600 {
+  color: #e08a8a !important;
+}
+.dark .text-slate-500 {
+  color: #a86060 !important;
+}
+.dark .border-slate-200 {
+  border-color: #3a0d0d !important;
+}
+.dark .bg-slate-900 {
+  background-color: #b91c1c !important;
+  color: #fff !important;
+}
+.dark .hover\:bg-slate-100:hover {
+  background-color: #2a0d0d !important;
+}
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #0b0b0c !important;
+  color: #ffb3b3 !important;
+  border-color: #3a0d0d !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #8a4a4a !important;
+}
+
+/* Dancing water drop */
+@keyframes oa-drop-dance {
+  0%, 100% { transform: translateY(0) rotate(-6deg) scale(1); }
+  25% { transform: translateY(-5px) rotate(6deg) scale(1.03); }
+  50% { transform: translateY(0) rotate(-4deg) scale(1); }
+  75% { transform: translateY(-3px) rotate(5deg) scale(1.02); }
+}
+.oa-drop {
+  display: inline-block;
+  animation: oa-drop-dance 2.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.oa-drop-happy {
+  animation-duration: 0.9s;
+}
+
+/* Confetti burst */
+@keyframes oa-confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(180px) rotate(540deg); opacity: 0; }
+}
+.oa-confetti {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  animation: oa-confetti-fall 2.4s ease-in forwards;
+}
+
+/* Signing-off walker: drawn officer with suitcase, left to right */
+@keyframes oa-run-across {
+  from { transform: translateX(-25vw); }
+  to { transform: translateX(115vw); }
+}
+@keyframes oa-leg-swing {
+  from { transform: rotate(-22deg); }
+  to { transform: rotate(22deg); }
+}
+@keyframes oa-wave-arm {
+  from { transform: rotate(-14deg); }
+  to { transform: rotate(24deg); }
+}
+@keyframes oa-caption-in {
+  0% { opacity: 0; transform: translate(-50%, 10px) scale(0.85); }
+  15% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  85% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -8px) scale(0.96); }
+}
+.oa-runner {
+  animation: oa-run-across 4s linear forwards;
+}
+.oa-leg {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: oa-leg-swing 0.5s ease-in-out infinite alternate;
+}
+.oa-leg-back {
+  animation-delay: -0.5s;
+}
+.oa-wave-arm {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: oa-wave-arm 0.45s ease-in-out infinite alternate;
+}
+.oa-caption {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: oa-caption-in 4s ease forwards;
+  background: #2AA198;
+  color: #081120;
+  font-size: 1.75rem;
+  font-weight: 900;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+.dark .oa-caption {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* Pinboard — deep navy board with harbor-teal frame (brand palette) */
+.oa-cork {
+  background-color: #0e1e33;
+  background-image:
+    radial-gradient(rgba(42, 161, 152, 0.16) 1.5px, transparent 1.6px),
+    radial-gradient(rgba(244, 247, 250, 0.08) 1.5px, transparent 1.6px),
+    linear-gradient(135deg, #14304d 0%, #0b1826 60%, #0e1e33 100%);
+  background-size: 14px 14px, 18px 18px, cover;
+  background-position: 0 0, 7px 9px, 0 0;
+  box-shadow: inset 0 0 0 6px #2AA198, inset 0 0 30px rgba(0, 0, 0, 0.4);
+}
+.oa-playing-card:hover {
+  z-index: 50 !important;
+}
+
+/* Keep the sticky header above the Leaflet map panes */
+.leaflet-container {
+  z-index: 0;
+  background: #DCE5EC;
+}
+.dark .leaflet-container {
+  background: #000;
+}
+/* Night look without a second tile provider (which may demand an API key):
+   darken + desaturate the standard OSM tiles */
+.dark .leaflet-tile-pane {
+  filter: grayscale(0.7) brightness(0.55) contrast(1.05);
+}
+.leaflet-pane {
+  z-index: 1 !important;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 10 !important;
+}
+
+input,
+textarea,
+select {
+  color: #1c1917;
+}

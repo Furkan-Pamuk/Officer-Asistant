@@ -1,0 +1,5 @@
+# Keep deployments lean: docs/ holds large reference PDFs (IMPA, ISGOTT, …)
+# that are never served or imported at runtime.
+docs
+.next
+node_modules
