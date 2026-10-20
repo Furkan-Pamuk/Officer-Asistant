@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
+import PortLogPanel from "@/components/PortLogPanel";
+import StoryModal from "@/components/StoryModal";
 import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { CHOKEPOINTS } from "@/lib/route-data";
 import { LAND_RINGS } from "@/lib/world-land";
@@ -115,6 +117,7 @@ export default function RoutePage() {
   const [seamarks, setSeamarks] = useState(true);
   const [customs, setCustoms] = useState<CustomStop[]>([]);
   const [avoid, setAvoid] = useState<string[]>([]);
+  const [storyOpen, setStoryOpen] = useState(false);
   const idRef = useRef(1);
   const fitKeyRef = useRef("");
 
@@ -461,6 +464,7 @@ export default function RoutePage() {
           )}
           </div>
           <RoutePortInfo fromCode={from} toCode={to} />
+          <PortLogPanel />
         </div>
 
         <div className="grid content-start gap-3">
@@ -561,6 +565,12 @@ export default function RoutePage() {
                 <div className="text-xs font-bold opacity-60">TOTAL DISTANCE</div>
                 <div className="text-3xl font-black">{Math.round(plan.totalNm).toLocaleString("en-US")} <span className="text-base">nm</span></div>
                 <div className="mt-1 text-xs opacity-70">{fromPort?.name} → {toPort?.name} • {displayLegs.length} legs</div>
+                <button
+                  onClick={() => setStoryOpen(true)}
+                  className="mt-2 rounded-full bg-amber-400 px-4 py-1.5 text-sm font-black text-stone-950 dark:bg-red-600 dark:text-white"
+                >
+                  📸 Story
+                </button>
                 {plan.via.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {plan.via.map((v) => (
@@ -611,6 +621,15 @@ export default function RoutePage() {
           </ul>
           <p className="mt-2 text-xs opacity-60">Simplified sea-lane network — not a substitute for real voyage planning; verify against charts and current publications. Straight consecutive legs are grouped here; the map draws the full track through every waypoint.</p>
         </div>
+      )}
+      {storyOpen && plan && fromPort && toPort && (
+        <StoryModal
+          fromCode={fromPort.code}
+          toCode={toPort.code}
+          fromTime={depart || undefined}
+          toTime={isFinite(arrMs) ? new Date(arrMs).toISOString() : undefined}
+          onClose={() => setStoryOpen(false)}
+        />
       )}
     </div>
   );

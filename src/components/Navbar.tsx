@@ -24,7 +24,6 @@ const ITEMS: Item[] = [
     subs: [
       { href: "/route", label: "📍 Route Planner" },
       { href: "/log", label: "📓 Deck Log" },
-      { href: "/portlog", label: "🗺️ Port Log" },
       { href: "/bell-book", label: "🔔 Bell Book" },
       { href: "/celestial", label: "☀️ Celestial" },
       { href: "/documents", label: "📑 Documents" },
