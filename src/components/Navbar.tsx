@@ -61,12 +61,7 @@ const ITEMS: Item[] = [
     subs: [
       { href: "/inspections", label: "🧭 Inspections" },
       { href: "/checklists", label: "✅ Checklists" },
-      { href: "/library", label: "📚 Library" },
-    ],
-  },
-  {
-    label: "Library",
-    subs: [
+      { header: "📚 Library" },
       { href: "/library", label: "📚 Publications" },
       { href: "/library?tab=links", label: "🔗 Useful links" },
       { header: "📑 Documents" },
