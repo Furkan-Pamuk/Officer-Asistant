@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LIBRARY_BOOKS } from "@/lib/data";
 
-type Tab = "pub" | "docs" | "books";
+type Tab = "pub" | "books";
 
 const DOC_TABS: { tab: string; label: string; desc: string }[] = [
   { tab: "orders", label: "📜 Orders", desc: "Master's standing orders + signature block." },
@@ -23,12 +23,15 @@ export default function Library() {
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tab");
-      if (t === "pub" || t === "docs" || t === "books") setTab(t);
+      if (t === "pub" || t === "books") setTab(t);
     } catch { /* ignore */ }
   }, []);
   function pick(t: Tab) {
     setTab(t);
     router.replace(t === "pub" ? "/library" : `/library?tab=${t}`, { scroll: false });
+  }
+  function goDoc(tab: string) {
+    router.push(tab === "orders" ? "/documents" : `/documents?tab=${tab}`);
   }
   const btn = (t: Tab, label: string) =>
     `min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === t ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`;
@@ -40,8 +43,10 @@ export default function Library() {
       </div>
       <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
         <button onClick={() => pick("pub")} className={btn("pub", "📚 Publications")}>📚 Publications ({LIBRARY_BOOKS.length})</button>
-        <button onClick={() => pick("docs")} className={btn("docs", "📑 Documents")}>📑 Documents ({DOC_TABS.length})</button>
         <button onClick={() => pick("books")} className={btn("books", "📕 Books")}>📕 Books ({LIBRARY_BOOKS.length})</button>
+        {DOC_TABS.map((d) => (
+          <button key={d.tab} onClick={() => goDoc(d.tab)} className="min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold opacity-70 hover:opacity-100">{d.label}</button>
+        ))}
       </div>
       {tab === "pub" ? (
         <div className="grid gap-3 md:grid-cols-2">
@@ -53,15 +58,6 @@ export default function Library() {
               <p className="mt-1 text-xs text-slate-500">Used for: {b.inspections.join(", ")}</p>
               <a href={b.link} target="_blank" rel="noreferrer" className="mt-2 inline-block rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white">Open official source</a>
             </div>
-          ))}
-        </div>
-      ) : tab === "docs" ? (
-        <div className="grid gap-3 sm:grid-cols-2">
-          {DOC_TABS.map((d) => (
-            <a key={d.tab} href={d.tab === "orders" ? "/documents" : `/documents?tab=${d.tab}`} className="rounded-2xl border bg-white p-4 hover:shadow">
-              <h2 className="font-semibold">{d.label}</h2>
-              <p className="mt-1 text-sm text-slate-600">{d.desc}</p>
-            </a>
           ))}
         </div>
       ) : (
