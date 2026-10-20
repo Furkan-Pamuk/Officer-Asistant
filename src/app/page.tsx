@@ -22,7 +22,6 @@ const MENU_CARDS: MenuCard[] = [
     href: "/route",
     links: [
       { href: "/route", label: "Route Planner" },
-      { href: "/ports", label: "Port Info" },
       { href: "/log", label: "Deck Log" },
       { href: "/documents", label: "Documents" },
       { href: "/bell-book", label: "Bell Book" },

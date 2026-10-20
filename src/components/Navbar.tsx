@@ -23,7 +23,6 @@ const ITEMS: Item[] = [
     label: "Navigation",
     subs: [
       { href: "/route", label: "📍 Route Planner" },
-      { href: "/ports", label: "⚓ Port Info" },
       { href: "/log", label: "📓 Deck Log" },
       { href: "/portlog", label: "🗺️ Port Log" },
       { href: "/bell-book", label: "🔔 Bell Book" },
