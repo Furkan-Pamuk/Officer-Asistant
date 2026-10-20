@@ -4,6 +4,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { NEWS, SECTIONS, type NewsPost } from "@/lib/news";
+import FishMap from "@/components/FishMap";
 
 const LEGACY_KEY = "oa-crew-posts";
 
@@ -84,6 +85,11 @@ export default function NewsPostClient({ params }: { params: Promise<{ id: strin
         <p className="text-sm font-bold opacity-60">👤 {post.author ?? "Anonymous"}{post.author && post.port ? " • " : ""}{post.port ?? ""}</p>
       )}
       {post.body.map((p, i) => <p key={i} className="font-medium leading-relaxed opacity-90">{p}</p>)}
+      {post.visual === "fishmap" && (
+        <div className="rounded-2xl border border-amber-200 bg-white p-3 dark:border-red-950 dark:bg-neutral-950 print:border-black">
+          <FishMap />
+        </div>
+      )}
       <div className="print:hidden">
         <button onClick={() => sharePost(post, photo)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share story</button>
       </div>

@@ -1,4 +1,4 @@
-export type NewsSection = "news" | "crew" | "blog" | "guide";
+export type NewsSection = "news" | "crew" | "blog";
 
 export interface NewsPost {
   id: string;
@@ -9,13 +9,13 @@ export interface NewsPost {
   section: NewsSection;
   author?: string;
   port?: string;
+  visual?: "fishmap";
 }
 
 export const SECTIONS: { id: NewsSection; label: string; blurb: string }[] = [
   { id: "news", label: "📰 News", blurb: "Fleet, regulation and Shark updates." },
   { id: "crew", label: "💬 Sizden Gelenler", blurb: "Stories from the crew, for the crew." },
-  { id: "blog", label: "✍️ Blogs", blurb: "Life-at-sea reads from the Shark team." },
-  { id: "guide", label: "🗺️ What to do & where to eat", blurb: "Port-city tips: sights and food near the berth." },
+  { id: "blog", label: "✍️ Blogs", blurb: "Life-at-sea reads, port guides and the fishing grounds." },
 ];
 
 export const NEWS: NewsPost[] = [
@@ -125,7 +125,7 @@ export const NEWS: NewsPost[] = [
     date: "2026-10-10",
     tag: "Guide",
     title: "Istanbul in 24 hours: Balat to Karaköy",
-    section: "guide",
+    section: "blog",
     author: "Shark Team",
     port: "Istanbul (TRIST)",
     body: [
@@ -139,7 +139,7 @@ export const NEWS: NewsPost[] = [
     date: "2026-10-08",
     tag: "Guide",
     title: "Singapore on a short stay: hawker first",
-    section: "guide",
+    section: "blog",
     author: "Shark Team",
     port: "Singapore (SGSIN)",
     body: [
@@ -153,7 +153,7 @@ export const NEWS: NewsPost[] = [
     date: "2026-10-05",
     tag: "Guide",
     title: "Rotterdam: harbour city in half a day",
-    section: "guide",
+    section: "blog",
     author: "Shark Team",
     port: "Rotterdam (NLRTM)",
     body: [
@@ -167,13 +167,28 @@ export const NEWS: NewsPost[] = [
     date: "2026-10-02",
     tag: "Guide",
     title: "Barcelona: old town and sea in one run",
-    section: "guide",
+    section: "blog",
     author: "Shark Team",
     port: "Barcelona (ESBCN)",
     body: [
       "What to do: Gothic Quarter lanes, La Boqueria market hall in the morning, then Barceloneta beach walk to cool off.",
       "Where to eat: market tapas inside La Boqueria, paella near the Barceloneta waterfront, and churros with chocolate in the old town.",
       "Crew tips change fast — verify opening hours locally; watch pockets in crowds as in any big port city.",
+    ],
+  },
+  {
+    id: "fish-map",
+    date: "2026-10-21",
+    tag: "Fishing",
+    title: "Fish map: what swims where, ocean by ocean",
+    section: "blog",
+    author: "Shark Team",
+    visual: "fishmap",
+    body: [
+      "Every ocean has its signature catch, and knowing it turns a boring anchorage wait or a Sunday off into dinner. This map marks the world's great fishing grounds with the species that made them famous.",
+      "Cold, nutrient-rich currents grow the biggest stocks: cod and haddock in the North Sea and Barents Sea, pollock and salmon in the Bering Sea, anchoveta off Peru where the Humboldt current wells up.",
+      "Warm waters mean tuna: yellowfin and bigeye across the tropical Indian Ocean, skipjack everywhere warm, bluefin running the Mediterranean. Reef edges add coral trout, grouper and mahi-mahi.",
+      "Two rules before you wet a line: check local seasons, quotas and marine reserves (many grounds are strictly managed), and never eat reef fish you cannot identify — ciguatera is real in the tropics.",
     ],
   },
 ];

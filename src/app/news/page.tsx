@@ -205,6 +205,7 @@ export default function NewsPage() {
               <span className="opacity-60">{featured.date}</span>
             </div>
             <div className="mt-2 text-2xl font-black">{featured.title}</div>
+            {featured.visual === "fishmap" && <div className="mt-1 text-xs font-black opacity-70">🗺️ Interactive fishing map inside</div>}
             <div className="mt-1 text-sm opacity-80">{featured.body[0].slice(0, 160)}…</div>
             {(featured.author || featured.port) && (
               <div className="mt-2 text-xs font-bold opacity-70">{featured.author ?? ""}{featured.author && featured.port ? " • " : ""}{featured.port ?? ""}</div>
@@ -224,6 +225,7 @@ export default function NewsPage() {
                   <span className="opacity-60">{n.date}</span>
                 </div>
                 <div className="mt-1 text-lg font-black">{n.title}</div>
+                {n.visual === "fishmap" && <div className="mt-1 text-xs font-black opacity-70">🗺️ Interactive fishing map inside</div>}
                 <div className="text-sm opacity-70">{n.body[0].slice(0, 140)}…</div>
                 {(n.author || n.port) && (
                   <div className="mt-1 text-xs font-bold opacity-60">{n.author ?? ""}{n.author && n.port ? " • " : ""}{n.port ?? ""}</div>
