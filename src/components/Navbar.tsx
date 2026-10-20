@@ -26,7 +26,6 @@ const ITEMS: Item[] = [
       { href: "/log", label: "📓 Deck Log" },
       { href: "/bell-book", label: "🔔 Bell Book" },
       { href: "/celestial", label: "☀️ Celestial" },
-      { href: "/documents", label: "📑 Documents" },
     ],
   },
   {
@@ -35,6 +34,8 @@ const ITEMS: Item[] = [
       { href: "/inspections", label: "🧭 Inspections" },
       { href: "/checklists", label: "✅ Checklists" },
       { href: "/library", label: "📚 Library" },
+      { href: "/library?tab=links", label: "🔗 Useful links" },
+      { href: "/documents", label: "📑 Documents" },
     ],
   },
   {
@@ -91,7 +92,11 @@ export default function Navbar() {
 
   // Active-route styling only after mount: the server prerender doesn't know
   // the pathname, so computing it during the first render causes hydration mismatch.
-  const isActive = (href: string) => mounted && (path === href || path?.startsWith(href + "/"));
+  const isActive = (href: string) => {
+    if (!mounted) return false;
+    const base = href.split("?")[0];
+    return path === base || path?.startsWith(base + "/");
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-amber-200 bg-white/95 backdrop-blur print:hidden dark:border-red-950 dark:bg-black/95">

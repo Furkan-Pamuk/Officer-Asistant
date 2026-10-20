@@ -82,6 +82,33 @@ export const LIBRARY_BOOKS: LibraryBook[] = [
   { id: "itf-hra", title: "ITF IBF High Risk Areas", abbr: "HRA", description: "Piracy/armed-robbery high risk areas, IBF warlike area list. Always check the current ITF designation before voyage planning.", link: "https://www.itfglobal.org/en", inspections: ["ism-isps", "psc"] },
 ];
 
+export interface UsefulLink {
+  id: string;
+  name: string;
+  url: string;
+  desc: string;
+  group: "Official" | "Vetting & PSC" | "Welfare" | "Tools";
+}
+
+export const USEFUL_LINKS: UsefulLink[] = [
+  { id: "imo", name: "IMO", url: "https://www.imo.org", desc: "Conventions, codes and circulars — the source of SOLAS/MARPOL/STCW/COLREG texts.", group: "Official" },
+  { id: "ilo", name: "ILO Maritime Labour", url: "https://www.ilo.org/global/standards/maritime-labour-convention/lang--en/index.htm", desc: "MLC text, amendments and abandonment database.", group: "Official" },
+  { id: "iho", name: "IHO", url: "https://iho.int", desc: "Chart standards (S-57/S-101/S-52) and ENCs background.", group: "Official" },
+  { id: "iala", name: "IALA", url: "https://www.iala-aism.org", desc: "Buoyage system, VTS and AtoN guidance.", group: "Official" },
+  { id: "ocimf", name: "OCIMF", url: "https://www.ocimf.org", desc: "SIRE 2.0 programme and tanker publications.", group: "Vetting & PSC" },
+  { id: "cdi", name: "CDI", url: "https://www.cdi.org.uk", desc: "Chemical/gas carrier inspection scheme.", group: "Vetting & PSC" },
+  { id: "equasis", name: "Equasis", url: "https://www.equasis.org", desc: "Ship safety record database (free account).", group: "Vetting & PSC" },
+  { id: "parismou", name: "Paris MoU", url: "https://www.parismou.org", desc: "European PSC regime, ship risk profile, detention lists.", group: "Vetting & PSC" },
+  { id: "tokyomou", name: "Tokyo MoU", url: "https://www.tokyo-mou.org", desc: "Asia-Pacific PSC regime and inspection data.", group: "Vetting & PSC" },
+  { id: "itf-sea", name: "ITF Seafarers", url: "https://www.itfseafarers.org", desc: "Contracts, abandonment help and union contacts.", group: "Welfare" },
+  { id: "seafarerhelp", name: "SeafarerHelp (ISWAN)", url: "https://www.seafarerhelp.org", desc: "Free 24/7 multilingual helpline for seafarers and families.", group: "Welfare" },
+  { id: "mts", name: "Mission to Seafarers", url: "https://www.missiontoseafarers.org", desc: "Port centres, chaplains and crew support worldwide.", group: "Welfare" },
+  { id: "marinetraffic", name: "MarineTraffic", url: "https://www.marinetraffic.com", desc: "AIS positions, port calls and vessel particulars.", group: "Tools" },
+  { id: "vesselfinder", name: "VesselFinder", url: "https://www.vesselfinder.com", desc: "AIS tracking and port congestion snapshots.", group: "Tools" },
+  { id: "windy", name: "Windy", url: "https://www.windy.com", desc: "Wind, waves and weather overlays for passage awareness.", group: "Tools" },
+  { id: "noaa-tides", name: "NOAA Tides & Currents", url: "https://tidesandcurrents.noaa.gov", desc: "US tide predictions and currents (US waters).", group: "Tools" },
+];
+
 export const SEED_CARDS: CheckCard[] = [
   // PSC
   { id: "psc-001", inspection: "psc", department: "deck", category: "Certificates", title: "Certificates & documents ready", checkPoint: "All statutory certificates valid, endorsed and posted as required?", howToPrepare: "Check expiry wall: Safety Equipment, Safety Construction, Safety Radio, SMC, ISSC, MLC. Update certificates file 48h before arrival.", evidence: "Certificate file + flag endorsements", reference: "Paris MOU deficiency 101xx" },

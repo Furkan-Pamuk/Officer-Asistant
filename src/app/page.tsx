@@ -18,24 +18,24 @@ const MENU_CARDS: MenuCard[] = [
   {
     icon: "🧭",
     title: "Navigation",
-    description: "Routes, ports, logs, celestial, bell book and documents.",
+    description: "Routes, logs, celestial and bell book.",
     href: "/route",
     links: [
       { href: "/route", label: "Route Planner" },
       { href: "/log", label: "Deck Log" },
-      { href: "/documents", label: "Documents" },
       { href: "/bell-book", label: "Bell Book" },
     ],
   },
   {
     icon: "🛡️",
     title: "Safety",
-    description: "Inspections, checklists and library.",
+    description: "Inspections, checklists, library and documents.",
     href: "/inspections",
     links: [
       { href: "/inspections", label: "Inspections" },
       { href: "/checklists", label: "Checklists" },
       { href: "/library", label: "Library" },
+      { href: "/documents", label: "Documents" },
     ],
   },
   {
