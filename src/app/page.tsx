@@ -29,13 +29,12 @@ const MENU_CARDS: MenuCard[] = [
   {
     icon: "🛡️",
     title: "Safety",
-    description: "Inspections, checklists, library and documents.",
+    description: "Inspections, checklists and library.",
     href: "/inspections",
     links: [
       { href: "/inspections", label: "Inspections" },
       { href: "/checklists", label: "Checklists" },
       { href: "/library", label: "Library" },
-      { href: "/documents", label: "Documents" },
     ],
   },
   {
