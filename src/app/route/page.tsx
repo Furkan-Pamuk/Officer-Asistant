@@ -1,6 +1,9 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PORTS, type Port } from "@/lib/ports";
+import { db } from "@/lib/db";
+import { useLiveQuery } from "@/hooks/useLiveQuery";
+import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { CHOKEPOINTS } from "@/lib/route-data";
 import { LAND_RINGS } from "@/lib/world-land";
 import { formatDuration, mergeLegs, planRoute, planRouteWithStops, type RoutePlan, type TrackPoint } from "@/lib/route";
@@ -46,6 +49,50 @@ interface CustomStop {
   lon: number;
 }
 
+function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string }) {
+  const codes = [fromCode, toCode].filter(Boolean);
+  const saved = useLiveQuery(
+    () => (codes.length > 0 ? db.portVhf.where("portCode").anyOf(codes).toArray() : Promise.resolve([])),
+    [fromCode, toCode]
+  );
+  const byCode = new Map((saved ?? []).map((s) => [s.portCode, s]));
+  const ports = codes
+    .map((c) => PORTS.find((p) => p.code === c))
+    .filter((p): p is Port => !!p);
+  if (ports.length === 0) return null;
+  const rows = (port: Port) => {
+    const s = byCode.get(port.code);
+    const d = VHF_DEFAULTS[port.code] ?? {};
+    return [
+      { label: "VTS", value: s?.vts || d.vts || "—" },
+      { label: "Pilot", value: s?.pilot || d.pilot || "—" },
+      { label: "Harbour", value: s?.harbour || d.harbour || "—" },
+      { label: "Port ctl", value: s?.portControl || d.portControl || "—" },
+    ];
+  };
+  return (
+    <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="font-bold">⚓ Port Info — VHF</h2>
+        <Link href="/ports" className="rounded-full border px-3 py-1 text-xs font-bold">Full directory →</Link>
+      </div>
+      <div className="mt-2 grid gap-3 sm:grid-cols-2">
+        {ports.map((p) => (
+          <div key={p.code} className="rounded-xl bg-amber-50/60 px-3 py-2 dark:bg-black dark:ring-1 dark:ring-red-950">
+            <p className="text-sm font-black">{p.name} <span className="font-mono text-[11px] opacity-60">{p.code}</span></p>
+            <div className="mt-1 grid grid-cols-2 gap-x-3 gap-y-0.5 text-xs">
+              {rows(p).map((r) => (
+                <p key={r.label}><span className="font-bold opacity-60">{r.label}:</span> <strong>{r.value}</strong></p>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-2 text-[11px] opacity-60">Presets are a starting point — verify with ALRS Vol 6. Edit values in Port Info.</p>
+    </div>
+  );
+}
+
 export default function RoutePage() {
   const mapEl = useRef<HTMLDivElement>(null);
   const mapRef = useRef<{
@@ -55,6 +102,7 @@ export default function RoutePage() {
     routeLayer: import("leaflet").LayerGroup;
     stopLayer: import("leaflet").LayerGroup;
     markers: Map<string, import("leaflet").CircleMarker>;
+    seamarkLayer: import("leaflet").TileLayer;
   } | null>(null);
   const [from, setFrom] = useState("NLRTM");
   const [to, setTo] = useState("TRIST");
@@ -64,6 +112,7 @@ export default function RoutePage() {
   const [ready, setReady] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [seamarks, setSeamarks] = useState(true);
   const [customs, setCustoms] = useState<CustomStop[]>([]);
   const [avoid, setAvoid] = useState<string[]>([]);
   const idRef = useRef(1);
@@ -80,7 +129,7 @@ export default function RoutePage() {
       if (raw) {
         const s = JSON.parse(raw) as {
           from?: string; to?: string; speed?: string; closed?: string[];
-          customs?: { id?: number; lat?: number; lon?: number }[]; avoid?: string[];
+          customs?: { id?: number; lat?: number; lon?: number }[]; avoid?: string[]; seamarks?: boolean;
         };
         if (s.from && PORTS.some((p) => p.code === s.from)) setFrom(s.from);
         if (s.to && PORTS.some((p) => p.code === s.to)) setTo(s.to);
@@ -96,6 +145,7 @@ export default function RoutePage() {
           }
         }
         if (Array.isArray(s.avoid)) setAvoid(s.avoid.filter((a) => typeof a === "string" && a.length > 0));
+        if (typeof s.seamarks === "boolean") setSeamarks(s.seamarks);
       }
     } catch {
       /* ignore */
@@ -107,11 +157,11 @@ export default function RoutePage() {
   useEffect(() => {
     if (!ready) return;
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ from, to, speed, closed, customs, avoid }));
+      localStorage.setItem(LS_KEY, JSON.stringify({ from, to, speed, closed, customs, avoid, seamarks }));
     } catch {
       /* ignore */
     }
-  }, [from, to, speed, closed, customs, avoid, ready]);
+  }, [from, to, speed, closed, customs, avoid, seamarks, ready]);
 
   const plan: RoutePlan | null = useMemo(() => {
     if (!from || !to || from === to) return null;
@@ -205,7 +255,12 @@ export default function RoutePage() {
       const portLayer = L.layerGroup().addTo(map);
       const routeLayer = L.layerGroup().addTo(map);
       const stopLayer = L.layerGroup().addTo(map);
-      mapRef.current = { map, L, portLayer, routeLayer, stopLayer, markers: new Map() };
+      const seamarkLayer = L.tileLayer("https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        opacity: 0.9,
+        attribution: '&copy; <a href="https://www.openseamap.org/">OpenSeaMap</a> contributors',
+      });
+      mapRef.current = { map, L, portLayer, routeLayer, stopLayer, seamarkLayer, markers: new Map() };
       // Port markers: built once, handlers stay valid forever.
       for (const p of PORTS) {
         const m = L.circleMarker([p.lat, p.lon], {
@@ -262,6 +317,14 @@ export default function RoutePage() {
   }, []);
   const insertCustomAtRef = useRef(insertCustomAt);
   insertCustomAtRef.current = insertCustomAt;
+
+  // OpenSeaMap seamark overlay (buoys/beacons, crowd-sourced).
+  useEffect(() => {
+    const ref = mapRef.current;
+    if (!ref || !mapReady) return;
+    if (seamarks && ready) ref.seamarkLayer.addTo(ref.map);
+    else ref.map.removeLayer(ref.seamarkLayer);
+  }, [seamarks, mapReady, ready]);
 
   // Port highlight (no marker rebuild).
   useEffect(() => {
@@ -379,13 +442,25 @@ export default function RoutePage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
-        <div className="relative">
+        <div className="grid content-start gap-4">
+          <div className="relative">
           <div ref={mapEl} className="z-0 h-[420px] w-full overflow-hidden rounded-2xl border border-amber-200 dark:border-red-950" />
           {!mapReady && (
             <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-neutral-100 text-sm font-bold opacity-80 dark:bg-neutral-900">
               Loading map…
             </div>
           )}
+          {mapReady && (
+            <button
+              onClick={() => setSeamarks((v) => !v)}
+              title="Toggle seamarks (buoys/beacons via OpenSeaMap)"
+              className={`absolute right-3 top-3 z-[500] rounded-full border px-3 py-1.5 text-xs font-black shadow ${seamarks ? "border-teal-700 bg-teal-600 text-white" : "border-amber-200 bg-white/95 dark:border-red-950 dark:bg-black/90"}`}
+            >
+              ⚓ Seamarks {seamarks ? "on" : "off"}
+            </button>
+          )}
+          </div>
+          <RoutePortInfo fromCode={from} toCode={to} />
         </div>
 
         <div className="grid content-start gap-3">

@@ -119,8 +119,7 @@ export const PORTS: Port[] = [
   { code: "GIGIB", name: "Gibraltar", country: "Gibraltar", lat: 36.15, lon: -5.37 },
 ];
 
-export function searchPorts(q: string): Port[] {
-  const s = q.trim().toLowerCase();
+export function searchPorts(q: string): Port[] {  const s = q.trim().toLowerCase();
   if (s.length < 2) return [];
   const starts: Port[] = [];
   const contains: Port[] = [];
@@ -132,3 +131,111 @@ export function searchPorts(q: string): Port[] {
   }
   return [...starts, ...contains].slice(0, 20);
 }
+
+// Verified preset VHF working channels (port authority / VTS sources).
+// Presets are a starting point only — channels change, so always confirm with
+// ALRS Vol 6 and the latest port info before calling. User-saved values on
+// the device always override these presets.
+export interface VhfPreset {
+  vts?: string;
+  pilot?: string;
+  harbour?: string;
+  portControl?: string;
+}
+
+export const VHF_DEFAULTS: Record<string, VhfPreset> = {
+  NLRTM: { vts: "Ch 11", portControl: "Ch 14" },
+  BEANR: { vts: "Ch 12", pilot: "Ch 65/64" },
+  DEHAM: { vts: "Ch 14", pilot: "Ch 09" },
+  DEBRV: { vts: "Ch 22", pilot: "Ch 06" },
+  GBFXT: { vts: "Ch 71", pilot: "Ch 09", portControl: "Ch 74" },
+  GBSOU: { vts: "Ch 12", pilot: "Ch 09" },
+  SEGOT: { vts: "Ch 13", pilot: "Ch 11", portControl: "Ch 12" },
+  PLGDN: { vts: "Ch 71", pilot: "Ch 14", harbour: "Ch 14" },
+  PTLIS: { vts: "Ch 74", pilot: "Ch 14" },
+  PTSIE: { vts: "Ch 12", portControl: "Ch 12" },
+  FRLEH: { vts: "Ch 12", pilot: "Ch 20" },
+  GIGIB: { vts: "Ch 12", pilot: "Ch 12" },
+  ZADUR: { vts: "Ch 12" },
+  ZACPT: { vts: "Ch 14" },
+  NGLAG: { vts: "Ch 12/14", pilot: "Ch 14", harbour: "Ch 14" },
+  GHEMA: { vts: "Ch 14", pilot: "Ch 14" },
+  SNDKR: { vts: "Ch 14", pilot: "Ch 12" },
+  CIABJ: { vts: "Ch 12", pilot: "Ch 12", harbour: "Ch 12" },
+  BRSSZ: { pilot: "Ch 11" },
+  BRPNG: { pilot: "Ch 13" },
+  ARBUE: { vts: "Ch 09", pilot: "Ch 09" },
+  PECLL: { vts: "Ch 16/13" },
+  COCTG: { vts: "Ch 16", pilot: "Ch 11" },
+  PABLB: { vts: "Ch 12" },
+  PACBT: { vts: "Ch 12" },
+  PAMIT: { vts: "Ch 12" },
+  USNYC: { vts: "Ch 11/14", pilot: "Ch 73" },
+  USCHS: { pilot: "Ch 16" },
+  USHOU: { vts: "Ch 05A/11/12" },
+  USNOL: { vts: "Ch 05A/12/67", pilot: "Ch 67" },
+  USLAX: { vts: "Ch 14", pilot: "Ch 73" },
+  USSEA: { vts: "Ch 05A/14", pilot: "Ch 71" },
+  CAVAN: { vts: "Ch 12", pilot: "Ch 17" },
+  CAMTR: { vts: "Ch 10" },
+  EGPSD: { vts: "Ch 13" },
+  EGSUZ: { vts: "Ch 12" },
+  EGDAM: { vts: "Ch 14" },
+  SAJED: { vts: "Ch 12", portControl: "Ch 11" },
+  JOAQ: { vts: "Ch 12", pilot: "Ch 08/09" },
+  DJJIB: { vts: "Ch 12" },
+  AEJEA: { vts: "Ch 16" },
+  AEFJR: { vts: "Ch 09", portControl: "Ch 10" },
+  QAHMD: { vts: "Ch 14" },
+  BHKBH: { vts: "Ch 74" },
+  KWKWI: { vts: "Ch 16/11" },
+  IQUMQ: { vts: "Ch 16", pilot: "Ch 12" },
+  PKKHI: { vts: "Ch 12", pilot: "Ch 12", portControl: "Ch 16" },
+  INNSA: { vts: "Ch 12", pilot: "Ch 13" },
+  INMUN: { vts: "Ch 77" },
+  KEMOM: { vts: "Ch 12" },
+  TZDAR: { vts: "Ch 16" },
+  MUPLU: { vts: "Ch 14" },
+  MYTPP: { vts: "Ch 88", pilot: "Ch 83/76" },
+  MYPKG: { vts: "Ch 12" },
+  SGSIN: { vts: "Ch 10/14/73", pilot: "Ch 20", portControl: "Ch 05/18" },
+  VNCMT: { pilot: "Ch 16" },
+  HKHKG: { vts: "Ch 12", portControl: "Ch 14" },
+  CNSHA: { vts: "Ch 09/71", pilot: "Ch 69" },
+  CNNGB: { vts: "Ch 08" },
+  CNQIN: { vts: "Ch 08", pilot: "Ch 09" },
+  KRBUS: { vts: "Ch 12", pilot: "Ch 13", portControl: "Ch 10" },
+  JPTOK: { vts: "Ch 16" },
+  JPYOK: { vts: "Ch 16" },
+  JPOSA: { vts: "Ch 16", pilot: "Ch 16" },
+  TWKHH: { vts: "Ch 11/12/14" },
+  PHMNL: { vts: "Ch 19", pilot: "Ch 69" },
+  AUBNE: { vts: "Ch 12", pilot: "Ch 12" },
+  AUSYD: { vts: "Ch 13", portControl: "Ch 12" },
+  AUMEL: { vts: "Ch 12", pilot: "Ch 09" },
+  AUFRE: { vts: "Ch 12", pilot: "Ch 08" },
+  NZAKL: { vts: "Ch 12" },
+  TRIST: { vts: "Ch 11/12/13/14", pilot: "Ch 71", portControl: "Ch 74" },
+  TRMER: { vts: "Ch 11" },
+  TRIZM: { vts: "Ch 13" },
+  GRPAT: { vts: "Ch 13/14" },
+  GRPIR: { vts: "Ch 13/14/15" },
+  MTMLA: { vts: "Ch 14" },
+  ESALG: { vts: "Ch 14" },
+  ESVLC: { vts: "Ch 14" },
+  ESBCN: { vts: "Ch 10", pilot: "Ch 14" },
+  ITGOA: { vts: "Ch 11", pilot: "Ch 12" },
+  ITNAP: { vts: "Ch 12", pilot: "Ch 12" },
+  FRMRS: { vts: "Ch 12" },
+  MATNG: { vts: "Ch 14" },
+  LBBEY: { vts: "Ch 12", pilot: "Ch 14" },
+};
+
+// Globally allocated calling/distress channels (ITU) — same everywhere.
+export const STANDARD_CHANNELS: { ch: string; use: string }[] = [
+  { ch: "Ch 16", use: "Distress, safety and calling (voice watch)." },
+  { ch: "Ch 70", use: "DSC distress/safety/calling only — no voice traffic." },
+  { ch: "Ch 13", use: "Bridge-to-bridge safety of navigation." },
+  { ch: "Ch 06", use: "Intership + SAR on-scene coordination." },
+  { ch: "Ch 08", use: "Intership (commercial working)." },
+];
