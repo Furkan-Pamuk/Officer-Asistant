@@ -48,6 +48,13 @@ const ITEMS: Item[] = [
     ],
   },
   {
+    label: "Cargo",
+    subs: [
+      { href: "/cargo", label: "📖 Cargo Information Booklet" },
+      { href: "/cargo/cleaning", label: "🧽 Tank Cleaning Methods" },
+    ],
+  },
+  {
     label: "Life",
     subs: [
       { href: "/menu", label: "🍽️ Weekly Menu" },

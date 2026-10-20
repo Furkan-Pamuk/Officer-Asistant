@@ -1,0 +1,675 @@
+// Cargo Information Booklet — concise reference for common bulk liquid cargoes.
+//
+// IBC fields (pollution category, S/P hazards, ship/tank type, UN numbers)
+// were verified against the IBC Code product tables (Ch. 17/18/19 index).
+// Physical constants are standard reference values (20 °C unless noted).
+// They are INDICATIVE ONLY — the SDS, the IBC/IGC Code and the ship's
+// Procedures & Arrangements Manual always govern.
+
+export type WaterBehavior = "floats" | "sinks" | "dissolves" | "partly";
+
+export interface CargoEntry {
+  slug: string;
+  name: string;
+  synonyms: string[];
+  un: string;
+  /** e.g. "IBC Ch.17 · Cat Y · S/P · Ship 2 · 2G" or a status note */
+  ibc: string;
+  /** true when the IBC line above is NOT letter-verified — check current Code */
+  verifyIbc?: boolean;
+  category: string;
+  formula: string;
+  boiling: string;
+  flash: string;
+  density: string;
+  solubility: string;
+  water: WaterBehavior;
+  toxic: boolean;
+  health: string;
+  staticAccumulator?: boolean;
+  drying?: "drying" | "semi-drying" | "non-drying";
+  segregation: string;
+  cleaning: string[];
+  cleanNote?: string;
+  notes?: string;
+}
+
+export const CLEANING_METHODS: { key: string; title: string; body: string }[] = [
+  { key: "hot", title: "Hot-water wash", body: "Wash with hot water (60–80 °C) after ambient rinse. Standard finish for water-soluble and low-viscosity cargoes." },
+  { key: "cold-first", title: "Cold wash FIRST (drying oils)", body: "Semi-drying and drying oils polymerise into a hard film if first met with hot water. Always start cold, then go hot." },
+  { key: "caustic", title: "Caustic wash", body: "Dilute caustic-soda solution circulated to saponify fats, fatty acids and vegetable/animal oils, followed by thorough fresh-water rinse." },
+  { key: "solvent", title: "Solvent wash", body: "Approved hydrocarbon solvent for polymerised or non-water-soluble residues (monomers, resins). Ventilate, no ignition sources." },
+  { key: "prewash", title: "MARPOL prewash", body: "Mandatory prewash with unloading to a reception facility for solidifying and high-viscosity NLS cargoes (Annex II, P&A Manual procedure)." },
+  { key: "ventilate", title: "Ventilate / gas-free", body: "Mechanical ventilation until gas readings are safe. Dense vapours (chlorinated solvents) settle low — sample at several levels." },
+  { key: "inhibitor", title: "Inhibitor certificate", body: "Polymerising monomers (styrene, vinyl acetate, MMA) need a valid inhibitor certificate, temperature control and a maximum voyage time." },
+  { key: "neutralize", title: "Neutralise + rinse", body: "After acids or caustics: copious water rinse first, then neutralise wash water as needed. Never add water to concentrated acid residues carelessly — heat." },
+  { key: "heating", title: "Heat during discharge", body: "Solidifying cargoes (phenol, palm oil, tallow, anhydrides) need heating coils / hot-water circulation to stay liquid until stripped." },
+];
+
+export function cleaningTitle(key: string): string {
+  return CLEANING_METHODS.find((m) => m.key === key)?.title ?? key;
+}
+
+export const CARGO_CATEGORIES = [
+  "Alcohols & Glycols",
+  "Aromatics",
+  "Esters",
+  "Ketones",
+  "Acids & Alkalis",
+  "Amines",
+  "Nitriles",
+  "Halogenated",
+  "Ethers & Oxides",
+  "Oils & Fats",
+  "Fuels & Solvents",
+  "Other",
+] as const;
+
+const IBC18 = "IBC Ch.18 — Code does not apply (low hazard); follow SDS and port rules";
+const ANNEX1 = "MARPOL Annex I oil cargo — not an IBC NLS product";
+const CHECK17 = "IBC Ch.17 product — confirm category in the current Code edition";
+
+export const CARGOES: CargoEntry[] = [
+  {
+    slug: "methanol", name: "Methyl alcohol (Methanol)", synonyms: ["Methanol", "Colonial spirit", "Carbinol", "Wood alcohol"],
+    un: "1230", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3", category: "Alcohols & Glycols",
+    formula: "CH₃OH", boiling: "64.7 °C", flash: "11 °C (c.c.)", density: "0.791", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Highly toxic: blindness, metabolic acidosis. Absorbed via skin and inhalation. Antidote (hospital only): ethanol or fomepizole. See MFAG.",
+    segregation: "Oxidizers, acids, alkali metals, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "ethanol", name: "Ethyl alcohol (Ethanol)", synonyms: ["Ethanol", "Alcohol", "Cologne spirits"],
+    un: "1170", ibc: IBC18, category: "Alcohols & Glycols",
+    formula: "C₂H₅OH", boiling: "78.4 °C", flash: "13 °C (c.c.)", density: "0.789", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Low toxicity in bulk handling; vapours narcotic at high concentration. Flammable.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "isopropanol", name: "Isopropyl alcohol", synonyms: ["Isopropanol", "Propan-2-ol", "Dimethylcarbinol", "IPA"],
+    un: "1219", ibc: IBC18, category: "Alcohols & Glycols",
+    formula: "C₃H₈O", boiling: "82.6 °C", flash: "12 °C (c.c.)", density: "0.786", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Narcotic vapours; irritant. More toxic than ethanol if swallowed.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "n-butanol", name: "n-Butyl alcohol", synonyms: ["n-Butanol", "Butyl alcohol", "1-Butanol"],
+    un: "1120", ibc: IBC18, category: "Alcohols & Glycols",
+    formula: "C₄H₉OH", boiling: "117.7 °C", flash: "35 °C (c.c.)", density: "0.810", solubility: "7.9 g/100 ml",
+    water: "partly", toxic: false,
+    health: "Irritant to eyes/respiratory tract; narcotic at high vapour concentration.",
+    segregation: "Oxidizers, acids.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "ethylene-glycol", name: "Ethylene glycol", synonyms: ["Monoethylene glycol", "MEG", "1,2-Ethanediol"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3", category: "Alcohols & Glycols",
+    formula: "C₂H₆O₂", boiling: "197.3 °C", flash: "111 °C (c.c.)", density: "1.113", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Toxic if swallowed (oxalate kidney injury). Antidote (hospital only): ethanol or fomepizole. Sweet taste — danger to crew unfamiliar with it.",
+    segregation: "Strong oxidizers, strong acids.",
+    cleaning: ["hot"],
+  },
+  {
+    slug: "propylene-glycol", name: "Propylene glycol", synonyms: ["1,2-Propanediol", "Methyl ethylene glycol", "MPG"],
+    un: "—", ibc: IBC18, category: "Alcohols & Glycols",
+    formula: "C₃H₈O₂", boiling: "188.2 °C", flash: "107 °C (c.c.)", density: "1.036", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Low toxicity (food/pharma grade uses). Mild irritant in bulk handling.",
+    segregation: "Strong oxidizers.",
+    cleaning: ["hot"],
+  },
+  {
+    slug: "glycerine", name: "Glycerine", synonyms: ["Glycerin", "Glycerol", "Glyceritol", "1,2,3-Propanetriol"],
+    un: "—", ibc: IBC18, category: "Alcohols & Glycols",
+    formula: "C₃H₈O₃", boiling: "290 °C (decomposes)", flash: "≈160 °C — combustible, not flammable", density: "1.261", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Non-toxic. Viscous — needs hot wash and good stripping.",
+    segregation: "Strong oxidizers (esp. nitric acid mixtures).",
+    cleaning: ["hot"],
+  },
+  {
+    slug: "benzene", name: "Benzene (and mixtures ≥10% benzene)", synonyms: ["Benzene", "Benzol", "Phenyl hydride"],
+    un: "1114", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Aromatics",
+    formula: "C₆H₆", boiling: "80.1 °C", flash: "−11 °C (c.c.)", density: "0.877", solubility: "0.18 g/100 ml",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "CARCINOGEN (leukaemia). No antidote — minimise exposure, closed operations, benzene monitoring. Acute: narcotic.",
+    segregation: "Oxidizers, nitric/sulphuric acid mixtures, halogens.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: follow controlled tank-washing and gas-freeing procedure.",
+  },
+  {
+    slug: "toluene", name: "Toluene", synonyms: ["Methylbenzene", "Toluol", "Phenylmethane"],
+    un: "1294", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Aromatics",
+    formula: "C₇H₈", boiling: "110.6 °C", flash: "4 °C (c.c.)", density: "0.867", solubility: "0.05 g/100 ml",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "Narcotic vapours; liver/kidney effects on chronic exposure. No specific antidote — fresh air, MFAG.",
+    segregation: "Oxidizers, strong acids.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: controlled washing procedure.",
+  },
+  {
+    slug: "xylenes", name: "Xylenes (mixed isomers)", synonyms: ["Xylene", "Dimethylbenzenes", "Xylols", "o-/m-/p-Xylene"],
+    un: "1307", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Aromatics",
+    formula: "C₈H₁₀", boiling: "138–144 °C", flash: "≈25 °C (c.c., mixed)", density: "≈0.87", solubility: "Insoluble",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "Narcotic; eye/skin irritant. No specific antidote.",
+    segregation: "Oxidizers, strong acids.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: controlled washing procedure.",
+  },
+  {
+    slug: "styrene", name: "Styrene monomer", synonyms: ["Styrene", "Vinylbenzene", "Phenylethylene", "Styrol"],
+    un: "2055", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Aromatics",
+    formula: "C₈H₈", boiling: "145 °C", flash: "31 °C (c.c.)", density: "0.906", solubility: "0.03 g/100 ml",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "POLYMERISABLE — needs valid inhibitor certificate, temperature control, max voyage time. Irritant, possible carcinogen.",
+    segregation: "Peroxides, oxidizers, strong acids, aluminium chloride (polymerisation initiators).",
+    cleaning: ["inhibitor", "solvent", "ventilate"], cleanNote: "Check inhibitor certificate before loading; never carry uninhibited. Polymer residues need solvent wash.",
+  },
+  {
+    slug: "phenol", name: "Phenol (molten)", synonyms: ["Carbolic acid", "Hydroxybenzene", "Phenylic acid"],
+    un: "1671 (solid) / 2312 (molten)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2", category: "Aromatics",
+    formula: "C₆H₅OH", boiling: "181.7 °C", flash: "79 °C (c.c.)", density: "1.07 (molten)", solubility: "8.3 g/100 ml",
+    water: "sinks", toxic: true,
+    health: "Corrosive + systemic poison, rapidly absorbed through skin (can be fatal). Remove contaminated clothing at once, irrigate, hospital. No home antidote.",
+    segregation: "Oxidizers, nitric acid, aluminium chloride, formaldehyde (uncontrolled reaction).",
+    cleaning: ["heating", "prewash", "hot"], cleanNote: "Solidifying (mp 41 °C): keep heated during discharge; MARPOL prewash applies.",
+  },
+  {
+    slug: "acetic-acid", name: "Acetic acid (glacial)", synonyms: ["Ethanoic acid", "Glacial acetic acid", "Vinegar acid (conc.)"],
+    un: "2789 (>80%) / 2790 (10–80%)", ibc: CHECK17, verifyIbc: true, category: "Acids & Alkalis",
+    formula: "C₂H₄O₂", boiling: "118.1 °C", flash: "39 °C (c.c.)", density: "1.049", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive to skin, eyes, airways (glacial). Vapours irritant. Irrigate copiously.",
+    segregation: "Oxidizers (esp. nitric acid), caustics, ethylene glycol mixtures.",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "formic-acid", name: "Formic acid", synonyms: ["Methanoic acid", "Ameisensäure (98%)"],
+    un: "1779", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
+    formula: "CH₂O₂", boiling: "100.8 °C", flash: "50 °C (c.c.)", density: "1.22", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive; vapours severely irritant. Stronger skin injury than acetic acid. Irrigate copiously.",
+    segregation: "Oxidizers, sulphuric acid, caustics, furfuryl alcohol.",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "sulphuric-acid", name: "Sulphuric acid", synonyms: ["Sulfuric acid", "Oil of vitriol", "Battery acid (dilute)"],
+    un: "1830", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
+    formula: "H₂SO₄", boiling: "≈337 °C (decomposes)", flash: "Non-flammable", density: "1.84 (conc.)", solubility: "Miscible (great heat!)",
+    water: "dissolves", toxic: true,
+    health: "Severely corrosive; dilution heat causes violent boiling/splashing. Add acid to water, never reverse. Sinks then dissolves with heat.",
+    segregation: "Organics, chlorates, carbides, cyanides, water (heat), most metals (hydrogen gas).",
+    cleaning: ["hot", "neutralize"], cleanNote: "Rinse with plenty of water first; neutralise wash water before discharge per P&A Manual.",
+  },
+  {
+    slug: "hydrochloric-acid", name: "Hydrochloric acid", synonyms: ["Muriatic acid", "Hydrogen chloride solution", "HCl"],
+    un: "1789", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 1G", category: "Acids & Alkalis",
+    formula: "HCl (aq)", boiling: "≈108 °C (20% azeotrope)", flash: "Non-flammable", density: "≈1.18 (37%)", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive liquid and vapour (fuming). Attacks many metals releasing hydrogen. Irrigate, ventilate.",
+    segregation: "Caustics, oxidizers, sulphuric acid, formaldehyde, metals (H₂ evolution).",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "nitric-acid", name: "Nitric acid", synonyms: ["Aqua fortis", "Azotic acid"],
+    un: "2031", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G (≥70% and <70%)", category: "Acids & Alkalis",
+    formula: "HNO₃", boiling: "≈121 °C (azeotrope)", flash: "Non-flammable — strong oxidizer", density: "≈1.51 (conc.)", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive + oxidizer: destroys tissue, yellows skin. Fumes toxic (nitrogen oxides). Can ignite organics on contact.",
+    segregation: "ALL organics and flammables, caustics, cyanides, metals (toxic fumes).",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "phosphoric-acid", name: "Phosphoric acid", synonyms: ["Orthophosphoric acid"],
+    un: "1805", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
+    formula: "H₃PO₄", boiling: "158 °C (decomposes)", flash: "Non-flammable", density: "1.88 (85%)", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive (weaker fuming than HCl/HNO₃ but serious eye injury risk). Irrigate.",
+    segregation: "Caustics, strong bases, aluminium and light metals.",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "caustic-soda", name: "Sodium hydroxide solution", synonyms: ["Caustic soda", "Lye", "NaOH solution"],
+    un: "1824", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
+    formula: "NaOH (aq)", boiling: "≈140 °C (50%)", flash: "Non-flammable", density: "≈1.53 (50%)", solubility: "Miscible (heat on dilution)",
+    water: "dissolves", toxic: true,
+    health: "Corrosive — deep tissue burns, severe eye injury. Reacts with aluminium/zinc releasing hydrogen. Irrigate copiously.",
+    segregation: "ALL acids, aluminium, zinc, tin (H₂ gas), ammonium salts (ammonia gas).",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "caustic-potash", name: "Potassium hydroxide solution", synonyms: ["Caustic potash", "Lye", "KOH solution"],
+    un: "1814", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
+    formula: "KOH (aq)", boiling: "≈140 °C (50%)", flash: "Non-flammable", density: "≈1.45 (50%)", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Same hazards as caustic soda: corrosive burns, eye injury, hydrogen with light metals.",
+    segregation: "ALL acids, aluminium, zinc, ammonium salts.",
+    cleaning: ["hot", "neutralize"],
+  },
+  {
+    slug: "ammonia-aq", name: "Ammonia aqueous (≤28%)", synonyms: ["Ammonium hydroxide", "Ammonia solution", "Hartshorn"],
+    un: "2672", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Acids & Alkalis",
+    formula: "NH₃ (aq)", boiling: "≈38 °C (25%)", flash: "Vapours flammable (LEL 15%)", density: "≈0.91 (25%)", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive vapours — eyes and airways. High concentrations fatal. No antidote: fresh air, oxygen, hospital.",
+    segregation: "Acids, halogens, mercury, copper and copper alloys (corrosion).",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "methyl-acetate", name: "Methyl acetate", synonyms: ["Acetic acid methyl ester", "Methyl ethanoate"],
+    un: "1231", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Esters",
+    formula: "C₃H₆O₂", boiling: "57 °C", flash: "−10 °C (c.c.)", density: "0.933", solubility: "≈25 g/100 ml",
+    water: "partly", toxic: false, staticAccumulator: true,
+    health: "Highly flammable; narcotic vapours, irritant. Hydrolyses slowly in water.",
+    segregation: "Oxidizers, acids, caustics, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "ethyl-acetate", name: "Ethyl acetate", synonyms: ["Acetic ester", "Ethyl ethanoate", "Vinegar naphtha"],
+    un: "1173", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Esters",
+    formula: "C₄H₈O₂", boiling: "77.1 °C", flash: "−4 °C (c.c.)", density: "0.902", solubility: "8.3 g/100 ml",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Highly flammable; narcotic at high vapour levels, fruity odour hides danger.",
+    segregation: "Oxidizers, acids, caustics.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "vinyl-acetate", name: "Vinyl acetate (stabilised)", synonyms: ["VAM", "Vinyl acetate monomer", "Ethenyl acetate"],
+    un: "1301", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Esters",
+    formula: "C₄H₆O₂", boiling: "72.7 °C", flash: "−8 °C (c.c.)", density: "0.934", solubility: "2 g/100 ml",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "POLYMERISABLE — inhibitor certificate and temperature control required. Narcotic, irritant, possible carcinogen.",
+    segregation: "Peroxides, oxidizers, acids, UV/light-initiated sources.",
+    cleaning: ["inhibitor", "solvent", "ventilate"],
+  },
+  {
+    slug: "butyl-acetate", name: "Butyl acetate (all isomers)", synonyms: ["n-Butyl acetate", "Acetic acid butyl ester"],
+    un: "1123", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Esters",
+    formula: "C₆H₁₂O₂", boiling: "126 °C", flash: "≈22–27 °C (c.c.)", density: "0.882", solubility: "0.7 g/100 ml",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Flammable; narcotic vapours, irritant.",
+    segregation: "Oxidizers, acids, caustics.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "acetone", name: "Acetone", synonyms: ["Dimethyl ketone", "Propan-2-one", "2-Propanone"],
+    un: "1090", ibc: IBC18, category: "Ketones",
+    formula: "C₃H₆O", boiling: "56.1 °C", flash: "−17 °C (c.c.)", density: "0.791", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Extremely flammable; narcotic vapours. Low systemic toxicity but dangerous fire risk.",
+    segregation: "Oxidizers, nitric/sulphuric acid mixtures, chloroform + base mixtures.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "mek", name: "Methyl ethyl ketone", synonyms: ["MEK", "Butan-2-one", "2-Butanone", "Ethyl methyl ketone"],
+    un: "1193", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ketones",
+    formula: "C₄H₈O", boiling: "79.6 °C", flash: "−9 °C (c.c.)", density: "0.805", solubility: "27 g/100 ml",
+    water: "partly", toxic: false,
+    health: "Highly flammable; narcotic, irritant. Potentiates neurotoxicity of n-hexane mixtures.",
+    segregation: "Oxidizers, strong acids.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "mibk", name: "Methyl isobutyl ketone", synonyms: ["MIBK", "Hexone", "4-Methyl-2-pentanone", "Isopropylacetone"],
+    un: "1245", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ketones",
+    formula: "C₆H₁₂O", boiling: "116 °C", flash: "14 °C (c.c.)", density: "0.802", solubility: "1.7 g/100 ml",
+    water: "floats", toxic: false,
+    health: "Flammable; narcotic vapours, irritant.",
+    segregation: "Oxidizers, strong acids.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "ethanolamine", name: "Ethanolamine (MEA)", synonyms: ["Monoethanolamine", "2-Aminoethanol", "Colamine"],
+    un: "2491", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Amines",
+    formula: "C₂H₇NO", boiling: "170.5 °C", flash: "85 °C (c.c.)", density: "1.012", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive amine — skin/eye burns, vapour irritant. Absorbs CO₂; keep dry and away from acids.",
+    segregation: "Acids, oxidizers, halogenated organics, copper alloys.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "cyclohexylamine", name: "Cyclohexylamine", synonyms: ["Aminocyclohexane", "Hexahydroaniline"],
+    un: "2357", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Amines",
+    formula: "C₆H₁₃N", boiling: "134.5 °C", flash: "32 °C (c.c.)", density: "0.867", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive amine; vapours irritant, fishy odour. Flammable.",
+    segregation: "Acids, oxidizers, chlorinated compounds.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "aniline", name: "Aniline", synonyms: ["Aminobenzene", "Aniline oil", "Phenylamine"],
+    un: "1547", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Amines",
+    formula: "C₆H₇N", boiling: "184.1 °C", flash: "70 °C (c.c.)", density: "1.022", solubility: "3.6 g/100 ml",
+    water: "sinks", toxic: true,
+    health: "Systemic poison: methaemoglobinaemia (blue lips, breathlessness). Hospital antidote: methylene blue. Absorbed through intact skin.",
+    segregation: "Oxidizers, acids, acetic anhydride.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Darkens on air/light — wall-wash standard is strict after aniline.",
+  },
+  {
+    slug: "acrylonitrile", name: "Acrylonitrile (stabilised)", synonyms: ["Vinyl cyanide", "Propenenitrile", "Cyanoethylene"],
+    un: "1093", ibc: CHECK17, verifyIbc: true, category: "Nitriles",
+    formula: "C₃H₃N", boiling: "77.3 °C", flash: "−1 °C (c.c.)", density: "0.81", solubility: "7.3 g/100 ml",
+    water: "partly", toxic: true,
+    health: "VERY TOXIC — cyanide-like poisoning, flammable. Polymerisable: inhibitor required. BA and cyanide-antidote kit per MFAG; hospital fast.",
+    segregation: "Acids, amines, oxidizers, peroxides, UV/light.",
+    cleaning: ["inhibitor", "hot", "ventilate"],
+  },
+  {
+    slug: "adiponitrile", name: "Adiponitrile", synonyms: ["1,4-Dicyanobutane", "Tetramethylene dicyanide", "Hexanedinitrile"],
+    un: "2205", ibc: CHECK17, verifyIbc: true, category: "Nitriles",
+    formula: "C₆H₈N₂", boiling: "295 °C", flash: "163 °C (c.c.)", density: "0.965", solubility: "≈4 g/100 ml",
+    water: "partly", toxic: true,
+    health: "Cyanide-like systemic poison (slower onset than acrylonitrile). Same MFAG/antidote precautions. Combustible.",
+    segregation: "Strong acids, oxidizers.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "acrylamide-sol", name: "Acrylamide solution (≤50%)", synonyms: ["Acrylamide", "Propenamide solution"],
+    un: "2074", ibc: CHECK17, verifyIbc: true, category: "Other",
+    formula: "C₃H₅NO (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable (solution)", density: "≈1.0–1.1", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Cumulative NEUROTOXIN — absorbed through skin. No antidote; strict closed handling, hygiene, biological monitoring.",
+    segregation: "Oxidizers, acids, bases (polymerisation).",
+    cleaning: ["hot"],
+  },
+  {
+    slug: "formaldehyde-sol", name: "Formaldehyde solutions (≤45%)", synonyms: ["Formalin", "Formaldehyde", "Methylene oxide solution"],
+    un: "1198 / 2209", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
+    formula: "CH₂O (aq, +methanol)", boiling: "≈96 °C (37%)", flash: "≈56–64 °C (c.c., varies)", density: "≈1.09", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Carcinogen and strong sensitiser; corrosive to airways. Polymerises to paraformaldehyde if cold — keep within carried temperature range.",
+    segregation: "Oxidizers, acids, alkalis, phenol (uncontrolled reaction).",
+    cleaning: ["hot", "ventilate"], cleanNote: "Hot wash dissolves paraformaldehyde deposits; ventilate well.",
+  },
+  {
+    slug: "furfural", name: "Furfural", synonyms: ["2-Furaldehyde", "Fural", "Furol", "Pyromucic aldehyde"],
+    un: "1199", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
+    formula: "C₅H₄O₂", boiling: "161.7 °C", flash: "60 °C (c.c.)", density: "1.16", solubility: "8.3 g/100 ml",
+    water: "sinks", toxic: true,
+    health: "Toxic (liver), irritant; darkens and polymerises on air/acids. Combustible.",
+    segregation: "Strong acids, oxidizers, caustics.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "edc", name: "Ethylene dichloride (1,2-Dichloroethane)", synonyms: ["EDC", "1,2-Dichloroethane", "Ethylene chloride"],
+    un: "1184", ibc: CHECK17, verifyIbc: true, category: "Halogenated",
+    formula: "C₂H₄Cl₂", boiling: "83.5 °C", flash: "13 °C (c.c.)", density: "1.235", solubility: "0.9 g/100 ml",
+    water: "sinks", toxic: true,
+    health: "Carcinogen; narcotic, liver/kidney toxin. Dense vapours linger low — ventilate and sample low levels.",
+    segregation: "Aluminium and light alloys, amines, oxidizers, caustics.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Sinks in water and in the tank sump — strip fully; verify with low-level gas readings.",
+  },
+  {
+    slug: "perchloroethylene", name: "Perchloroethylene", synonyms: ["Tetrachloroethylene", "PERC", "Tetrachloroethene", "Dry-cleaning fluid"],
+    un: "1897", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Halogenated",
+    formula: "C₂Cl₄", boiling: "121.3 °C", flash: "Non-flammable", density: "1.623", solubility: "0.015 g/100 ml",
+    water: "sinks", toxic: true,
+    health: "Narcotic, liver toxin, possible carcinogen. Non-flammable but decomposes to phosgene in flame — keep away from welding/heat.",
+    segregation: "Reactive metals (aluminium powder, magnesium), strong bases.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Heavy sinker — strip fully; low-level ventilation and gas readings.",
+  },
+  {
+    slug: "mma", name: "Methyl methacrylate (stabilised)", synonyms: ["MMA", "Methyl 2-methylprop-2-enoate", "Acrylic monomer"],
+    un: "1247", ibc: CHECK17, verifyIbc: true, category: "Esters",
+    formula: "C₅H₈O₂", boiling: "101 °C", flash: "10 °C (c.c.)", density: "0.944", solubility: "1.5 g/100 ml",
+    water: "floats", toxic: true,
+    health: "POLYMERISABLE — inhibitor certificate, temperature control. Irritant, sensitiser.",
+    segregation: "Peroxides, oxidizers, amines, UV/light.",
+    cleaning: ["inhibitor", "solvent", "ventilate"],
+  },
+  {
+    slug: "cresols", name: "Cresols (all isomers)", synonyms: ["Cresol", "Methylphenols", "Cresylic acid", "o-/m-/p-Cresol"],
+    un: "2076", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Aromatics",
+    formula: "C₇H₈O", boiling: "191–203 °C", flash: "81–86 °C (c.c.)", density: "≈1.03–1.05", solubility: "≈2 g/100 ml",
+    water: "sinks", toxic: true,
+    health: "Like phenol: corrosive + systemic poison via skin. Remove clothing, irrigate, hospital.",
+    segregation: "Oxidizers, nitric acid, aluminium chloride.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "cyclohexane", name: "Cyclohexane", synonyms: ["Hexamethylene", "Hexanaphthene"],
+    un: "1145", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
+    formula: "C₆H₁₂", boiling: "80.7 °C", flash: "−20 °C (c.c.)", density: "0.779", solubility: "Insoluble",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Narcotic vapours; low systemic toxicity but serious fire risk.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "cyclohexanone", name: "Cyclohexanone", synonyms: ["Anone", "Pimelic ketone"],
+    un: "1915", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 2G", category: "Ketones",
+    formula: "C₆H₁₀O", boiling: "155.6 °C", flash: "44 °C (c.c.)", density: "0.947", solubility: "2.3 g/100 ml",
+    water: "floats", toxic: true,
+    health: "Irritant; narcotic at high levels. Combustible.",
+    segregation: "Oxidizers, nitric acid.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "hexane", name: "Hexane (all isomers)", synonyms: ["n-Hexane", "Hexanes", "Hexyl hydride"],
+    un: "1208", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
+    formula: "C₆H₁₄", boiling: "68.7 °C", flash: "−26 °C (c.c.)", density: "0.66", solubility: "Insoluble",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "n-Hexane is a NEUROTOXIN (peripheral nerves) on chronic exposure; narcotic acutely. Static-accumulator — strict flow-rate control.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "heptane", name: "Heptane (all isomers)", synonyms: ["n-Heptane", "Heptanes"],
+    un: "1206", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
+    formula: "C₇H₁₆", boiling: "98.4 °C", flash: "−4 °C (c.c.)", density: "0.684", solubility: "Insoluble",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Narcotic vapours; less neurotoxic than n-hexane. Static-accumulator.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "octane", name: "Octane (all isomers)", synonyms: ["n-Octane", "Octanes"],
+    un: "1262", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
+    formula: "C₈H₁₈", boiling: "125.7 °C", flash: "13 °C (c.c.)", density: "0.703", solubility: "Insoluble",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Narcotic vapours. Static-accumulator.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "mtbe", name: "Methyl tert-butyl ether", synonyms: ["MTBE", "tert-Butyl methyl ether", "Methyl tertiary-butyl ether"],
+    un: "2398", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ethers & Oxides",
+    formula: "C₅H₁₂O", boiling: "55.2 °C", flash: "−28 °C (c.c.)", density: "0.740", solubility: "≈5 g/100 ml",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Extremely flammable; narcotic, irritant. Persistent in water — pollution concern despite Cat Z.",
+    segregation: "Oxidizers, strong acids, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "white-spirit", name: "White spirit (low aromatic)", synonyms: ["Stoddard solvent", "Mineral spirit", "Turpentine substitute"],
+    un: "1300", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
+    formula: "C₇–C₁₂ mixture", boiling: "150–200 °C", flash: ">21 °C (typ. ≈40 °C, c.c.)", density: "≈0.78–0.80", solubility: "Insoluble",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Aspiration hazard if swallowed; narcotic vapours. Static-accumulator.",
+    segregation: "Oxidizers, open flames.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "propylene-oxide", name: "Propylene oxide", synonyms: ["Methyloxirane", "1,2-Epoxypropane", "PO"],
+    un: "1280", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Ethers & Oxides",
+    formula: "C₃H₆O", boiling: "34.2 °C", flash: "−37 °C (c.c.)", density: "0.83", solubility: "≈60 g/100 ml",
+    water: "partly", toxic: true,
+    health: "Carcinogen; extremely flammable, wide explosive range. Reacts violently with acids, bases, amines (polymerisation). Cool, inerted stowage.",
+    segregation: "Acids, bases, amines, oxidizers, rust/iron salts.",
+    cleaning: ["ventilate", "hot"], cleanNote: "Gas-free thoroughly; no catalytic contaminants (rust, acids) in the tank.",
+  },
+  {
+    slug: "ethylene-oxide", name: "Ethylene oxide", synonyms: ["Oxirane", "EO", "Epoxyethane"],
+    un: "1040", ibc: CHECK17, verifyIbc: true, category: "Ethers & Oxides",
+    formula: "C₂H₄O", boiling: "10.7 °C", flash: "−20 °C (c.c.)", density: "0.88 (liquid)", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Carcinogen; can polymerise explosively with catalysts. Extremely flammable gas/liquid. Nitrogen-inerted systems only.",
+    segregation: "Acids, bases, amines, metal chlorides, oxidizers.",
+    cleaning: ["ventilate"], cleanNote: "Specialist cargo — follow the IBC/IGC special requirements and shore instructions exactly.",
+  },
+  {
+    slug: "hydrogen-peroxide", name: "Hydrogen peroxide solutions", synonyms: ["H₂O₂", "Peroxide", "Hydrogen dioxide solution"],
+    un: "2015 (>60%) / 2014 (8–60%)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship 2 · 2G (>60%) / Ship 3 (8–60%)", category: "Other",
+    formula: "H₂O₂ (aq)", boiling: "≈150 °C (decomposes)", flash: "Non-flammable — strong oxidizer", density: "≈1.2–1.45", solubility: "Miscible",
+    water: "dissolves", toxic: true,
+    health: "Corrosive + powerful oxidizer: burns, bleaches, decomposes with heat/pressure (vented tanks!). Catalysed by rust, dust, organics.",
+    segregation: "ALL organics and flammables, rust, dust, alkalis, metals (catalytic decomposition).",
+    cleaning: ["hot"], cleanNote: "Rinse only with clean water; tanks must be passivated and vented. Never seal unvented.",
+  },
+  {
+    slug: "maleic-anhydride", name: "Maleic anhydride (molten)", synonyms: ["Maleic acid anhydride", "2,5-Furandione", "Toxilic anhydride"],
+    un: "2215", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
+    formula: "C₄H₂O₃", boiling: "202 °C", flash: "102 °C (c.c.)", density: "1.48 (solid)", solubility: "Reacts → maleic acid",
+    water: "sinks", toxic: true,
+    health: "Corrosive to skin/eyes/airways; sensitiser. Molten burn risk. Solidifying (mp 53 °C).",
+    segregation: "Water (reaction heat), oxidizers, bases, amines.",
+    cleaning: ["heating", "hot"], cleanNote: "Keep molten to discharge; hot-water wash converts residues to soluble maleic acid.",
+  },
+  {
+    slug: "phthalic-anhydride", name: "Phthalic anhydride (molten)", synonyms: ["1,3-Isobenzofurandione", "Phthalic acid anhydride"],
+    un: "2214", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Other",
+    formula: "C₈H₄O₃", boiling: "295 °C", flash: "152 °C (c.c.)", density: "1.53 (solid)", solubility: "Reacts slowly → phthalic acid",
+    water: "sinks", toxic: true,
+    health: "Sensitiser (asthma/rhinitis), irritant. High-melting solid (mp 131 °C) — burn risk when molten.",
+    segregation: "Oxidizers, strong bases, water (slow reaction).",
+    cleaning: ["heating", "hot", "caustic"], cleanNote: "Caustic wash dissolves sublimed deposits; keep heated to strip.",
+  },
+  {
+    slug: "urea-solution", name: "Urea solution", synonyms: ["Carbamide solution", "Urea liquor"],
+    un: "—", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Other",
+    formula: "(NH₂)₂CO (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.1–1.33", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Low toxicity. Note: UAN (urea–ammonium nitrate) variants carry extra S/P entries — check the exact product name.",
+    segregation: "Strong oxidizers, nitrites, chlorine (forms irritant gases).",
+    cleaning: ["hot"],
+  },
+  {
+    slug: "palm-oil", name: "Palm oil", synonyms: ["Palmolein", "Palm stearin (fraction)"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
+    formula: "Triglycerides (C16:0/C18:1)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91–0.92", solubility: "Insoluble",
+    water: "floats", toxic: false, drying: "non-drying",
+    health: "Edible oil — non-toxic. Solidifying (mp ≈35 °C): heating + MARPOL prewash.",
+    segregation: "Oxidizers; keep from contamination (food-grade parcels need wall-wash standard).",
+    cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine. Heat to discharge, prewash to reception facility.",
+  },
+  {
+    slug: "soybean-oil", name: "Soyabean oil", synonyms: ["Soybean oil", "Soya oil"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
+    formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
+    water: "floats", toxic: false, drying: "semi-drying",
+    health: "Edible oil — non-toxic.",
+    segregation: "Oxidizers; driers/contamination (food-grade parcels).",
+    cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first — hot water first bakes a varnish film that fails wall-wash.",
+  },
+  {
+    slug: "coconut-oil", name: "Coconut oil", synonyms: ["Copra oil"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
+    formula: "Triglycerides (C12:0 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
+    water: "floats", toxic: false, drying: "non-drying",
+    health: "Edible oil — non-toxic. Solidifies ≈24 °C: mild heating may be needed.",
+    segregation: "Oxidizers; contamination (food grade).",
+    cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine.",
+  },
+  {
+    slug: "sunflower-oil", name: "Sunflower seed oil", synonyms: ["Sunflower oil"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
+    formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
+    water: "floats", toxic: false, drying: "semi-drying",
+    health: "Edible oil — non-toxic.",
+    segregation: "Oxidizers; contamination (food grade).",
+    cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first, then hot, then caustic if needed.",
+  },
+  {
+    slug: "cottonseed-oil", name: "Cotton seed oil", synonyms: ["Cottonseed oil"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
+    formula: "Triglycerides", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
+    water: "floats", toxic: false, drying: "semi-drying",
+    health: "Edible (refined) oil — non-toxic. Crude grades need full caustic wash.",
+    segregation: "Oxidizers; contamination (food grade).",
+    cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first.",
+  },
+  {
+    slug: "tallow", name: "Tallow", synonyms: ["Beef tallow", "Animal fat", "Rendered fat"],
+    un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Oils & Fats",
+    formula: "Triglycerides (saturated rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.87 (molten)", solubility: "Insoluble",
+    water: "floats", toxic: false, drying: "non-drying",
+    health: "Non-toxic. Solidifies ≈40 °C — strong heating needed; odour retention.",
+    segregation: "Oxidizers.",
+    cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat well above melting point to strip; caustic wash for fatty-acid film.",
+  },
+  {
+    slug: "molasses", name: "Molasses", synonyms: ["Blackstrap molasses", "Cane molasses", "Treacle (bulk)"],
+    un: "—", ibc: IBC18, category: "Other",
+    formula: "Sugars (aq, ≈80 Brix)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.4", solubility: "Miscible (slowly)",
+    water: "dissolves", toxic: false,
+    health: "Non-toxic but FERMENTS — CO₂ and flammable vapours in headspace. Enclosed-space danger; ventilate and test atmosphere before entry.",
+    segregation: "None chemical — but keep dry-ish stow, prevent fermentation (heat).",
+    cleaning: ["hot"], cleanNote: "Hot-water wash dissolves residues; huge water volumes needed. High-density-plume behaviour if spilled.",
+  },
+  {
+    slug: "sorbitol-sol", name: "Sorbitol solution", synonyms: ["D-Glucitol solution", "Sorbitol syrup"],
+    un: "—", ibc: IBC18, category: "Other",
+    formula: "C₆H₁₄O₆ (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.3 (70%)", solubility: "Miscible",
+    water: "dissolves", toxic: false,
+    health: "Non-toxic (food additive). Viscous — hot wash.",
+    segregation: "Strong oxidizers.",
+    cleaning: ["hot"],
+  },
+  {
+    slug: "kerosene", name: "Kerosene", synonyms: ["Paraffin (UK)", "Jet A-1 (grade)", "Illuminating oil"],
+    un: "1223", ibc: ANNEX1, category: "Fuels & Solvents",
+    formula: "C₉–C₁₆ mixture", boiling: "150–300 °C", flash: ">38 °C (c.c.)", density: "≈0.79", solubility: "Insoluble",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Aspiration hazard; narcotic vapours. Static-accumulator — bonding, flow-rate control, no splash filling.",
+    segregation: "Oxidizers, open flames. (Annex I segregation per ISGOTT.)",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "diesel", name: "Diesel oil / Gas oil", synonyms: ["Gasoil", "DERV", "Marine gas oil (MGO)", "Diesel fuel"],
+    un: "1202", ibc: ANNEX1, category: "Fuels & Solvents",
+    formula: "C₁₀–C₂₈ mixture", boiling: "180–360 °C", flash: ">60 °C (c.c.)", density: "≈0.84", solubility: "Insoluble",
+    water: "floats", toxic: false, staticAccumulator: true,
+    health: "Aspiration hazard; prolonged skin contact — dermatitis/oil acne. Combustible (not highly flammable) but tank atmospheres still hazardous.",
+    segregation: "Oxidizers.",
+    cleaning: ["hot", "ventilate"],
+  },
+  {
+    slug: "gasoline", name: "Motor gasoline", synonyms: ["Petrol", "Gasolene", "Mogas"],
+    un: "1203", ibc: ANNEX1, category: "Fuels & Solvents",
+    formula: "C₄–C₁₂ mixture", boiling: "30–200 °C", flash: "<−40 °C (c.c.)", density: "≈0.74", solubility: "Insoluble",
+    water: "floats", toxic: true, staticAccumulator: true,
+    health: "Extremely flammable; vapours narcotic. Contains benzene — chronic exposure risk. Static-accumulator: strict ISGOTT precautions.",
+    segregation: "Oxidizers, ignition sources of every kind.",
+    cleaning: ["hot", "ventilate"], cleanNote: "Gas-free fully; static precautions apply during washing too.",
+  },
+  {
+    slug: "butadiene", name: "Butadiene (inhibited)", synonyms: ["1,3-Butadiene", "Divinyl", "Bivinyl"],
+    un: "1010", ibc: "IGC Code gas-carrier cargo — not an IBC product", category: "Other",
+    formula: "C₄H₆", boiling: "−4.4 °C", flash: "−76 °C (gas)", density: "0.62 (liquid)", solubility: "Slight",
+    water: "partly", toxic: true,
+    health: "Carcinogen; extremely flammable gas. Forms explosive ‘popcorn’ polymer with rust/air — inhibitor (TBC) and oxygen control essential.",
+    segregation: "Air/oxygen ingress, rust, oxidizers, acids.",
+    cleaning: ["inhibitor", "ventilate"], cleanNote: "Gas-carrier procedures (IGC): inerting, popcorn-polymer watch. Not a chemical-tanker tank-cleaning job.",
+  },
+];
+
+export function findCargo(slug: string): CargoEntry | undefined {
+  return CARGOES.find((c) => c.slug === slug);
+}
+
+export function searchCargoes(q: string): CargoEntry[] {
+  const needle = q.trim().toLowerCase().replace(/\s+/g, " ");
+  if (!needle) return CARGOES;
+  const digits = needle.replace(/[^0-9]/g, "");
+  return CARGOES.filter((c) => {
+    if (digits.length >= 2 && c.un.replace(/[^0-9]/g, "").includes(digits)) return true;
+    if (c.name.toLowerCase().includes(needle)) return true;
+    if (c.synonyms.some((s) => s.toLowerCase().includes(needle))) return true;
+    if (c.formula.toLowerCase().includes(needle)) return true;
+    return false;
+  });
+}
