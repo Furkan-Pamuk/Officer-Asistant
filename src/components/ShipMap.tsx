@@ -25,11 +25,12 @@ export default function ShipMap({ lat, lon, label }: { lat: number; lon: number;
         opacity: 0.9,
         attribution: "© OpenSeaMap contributors",
       });
-      setTimeout(() => map.invalidateSize(), 300);
     } else {
       mapRef.current.setView([lat, lon], 6);
     }
     const map = mapRef.current;
+    let live = true;
+    setTimeout(() => { if (live) map.invalidateSize(); }, 300);
     const icon = L.divIcon({
       html: `<div style="font-size:30px;line-height:1;transform:translate(-4px,-14px)">🚢</div>`,
       className: "",
@@ -37,7 +38,7 @@ export default function ShipMap({ lat, lon, label }: { lat: number; lon: number;
       iconAnchor: [15, 15],
     });
     const marker = L.marker([lat, lon], { icon, title: label }).addTo(map);
-    return () => { marker.remove(); };
+    return () => { live = false; marker.remove(); };
   }, [lat, lon, label]);
 
   useEffect(() => {

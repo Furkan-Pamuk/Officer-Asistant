@@ -1,6 +1,6 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { EMERGENCY_CARDS, LIGHTS_BUOYS, CHART_SYMBOLS, WEATHER_NOTES, MASTER_STANDING_ORDERS, PHONETIC, PHONETIC_NUMERALS, SIGNAL_NOTES, MORSE_LETTERS, MORSE_PROSIGNS, MORSE_NOTES, COLREG_SECTIONS, type EmergencyCard } from "@/lib/navigation-documents";
 import { FlagFigure, MorseCode } from "@/components/SignalFlags";
 import { CardinalGrid, LateralRow, OtherMarksRow, RhythmList } from "@/components/BuoyDiagrams";
@@ -391,8 +391,7 @@ function Morse() {
   );
 }
 
-function buildColregText(): string {
-  return "COLREG — WORKING NOTES (summaries, not the official text)\n" +
+function buildColregText(): string {  return "COLREG — WORKING NOTES (summaries, not the official text)\n" +
     COLREG_SECTIONS.map((s) => `\n${s.heading.toUpperCase()}\n` + s.points.map((p) => `• ${p}`).join("\n")).join("\n") +
     "\n\n— via Shark";
 }
@@ -422,12 +421,19 @@ function Colreg() {
 type Tab = "orders" | "cards" | "lights" | "symbols" | "weather" | "signals" | "morse" | "colreg";
 
 function DocsInner() {
-  const params = useSearchParams();
   const router = useRouter();
-  const raw = params.get("tab");
-  const tab: Tab = raw === "cards" || raw === "lights" || raw === "symbols" || raw === "weather" || raw === "signals" || raw === "morse" || raw === "colreg" ? raw : "orders";
+  // Tab is read from the URL client-side (effect) so nothing suspends
+  // during render — the page hydrates deterministically.
+  const [tab, setTabState] = useState<Tab>("orders");
+  useEffect(() => {
+    try {
+      const t = new URLSearchParams(window.location.search).get("tab");
+      if (t === "cards" || t === "lights" || t === "symbols" || t === "weather" || t === "signals" || t === "morse" || t === "colreg") setTabState(t);
+    } catch { /* ignore */ }
+  }, []);
   function setTab(t: Tab) {
-    router.replace(t === "orders" ? "/documents" : `/documents?tab=${t}`);
+    setTabState(t);
+    router.replace(t === "orders" ? "/documents" : `/documents?tab=${t}`, { scroll: false });
   }
   return (
     <div className="grid gap-4">
@@ -451,9 +457,5 @@ function DocsInner() {
 }
 
 export default function DocumentsPage() {
-  return (
-    <Suspense fallback={<p>Loading documents…</p>}>
-      <DocsInner />
-    </Suspense>
-  );
+  return <DocsInner />;
 }

@@ -5,6 +5,7 @@ import { useLiveQuery } from "@/hooks/useLiveQuery";
 import PortLogPanel from "@/components/PortLogPanel";
 import StoryModal from "@/components/StoryModal";
 import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
+import { LOAD_MARKS, zoneAt } from "@/lib/loadlines";
 import { CHOKEPOINTS } from "@/lib/route-data";
 import { LAND_RINGS } from "@/lib/world-land";
 import { formatDuration, mergeLegs, planRoute, planRouteWithStops, type RoutePlan, type TrackPoint } from "@/lib/route";
@@ -48,6 +49,43 @@ interface CustomStop {
   id: number;
   lat: number;
   lon: number;
+}
+
+function RouteLoadZone({ fromCode, toCode, departMs, arriveMs }: { fromCode: string; toCode: string; departMs: number; arriveMs: number }) {
+  const legs: { port: Port; ms: number }[] = [];
+  const fp = PORTS.find((p) => p.code === fromCode);
+  const tp = PORTS.find((p) => p.code === toCode);
+  if (fp && isFinite(departMs)) legs.push({ port: fp, ms: departMs });
+  if (tp && toCode !== fromCode && isFinite(arriveMs)) legs.push({ port: tp, ms: arriveMs });
+  if (legs.length === 0) return null;
+  const monthOf = (ms: number) => new Date(ms).getMonth() + 1;
+  const dateOf = (ms: number) => new Date(ms).toISOString().slice(0, 10);
+  return (
+    <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+      <h2 className="font-bold">🔍 Which zone is my port in?</h2>
+      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+        {legs.map(({ port, ms }) => {
+          const hit = zoneAt(port.lat, port.lon, monthOf(ms));
+          const mark = LOAD_MARKS.find((x) => x.mark === hit?.mark);
+          return (
+            <div key={port.code} className="rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black dark:ring-1 dark:ring-red-950">
+              <p><strong>{port.name}</strong> <span className="opacity-60">{dateOf(ms)}</span></p>
+              {hit && mark ? (
+                <>
+                  <p className="mt-0.5 text-xl font-black">{hit.mark} <span className="text-sm font-bold opacity-70">{hit.zone.name}</span></p>
+                  {hit.zone.smallOnly && <p className="text-xs font-bold opacity-70">For vessels {hit.zone.smallOnly}.</p>}
+                  {hit.zone.note && <p className="text-xs opacity-70">Note: {hit.zone.note}.</p>}
+                </>
+              ) : (
+                <p className="mt-0.5 opacity-70">Outside simplified zones — check the ILLC chart.</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <p className="mt-2 text-[11px] opacity-60">From uses departure date, To uses ETA date. Simplified ILLC guide — the official chart governs.</p>
+    </div>
+  );
 }
 
 function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string }) {
@@ -462,6 +500,7 @@ export default function RoutePage() {
           )}
           </div>
           <RoutePortInfo fromCode={from} toCode={to} />
+          <RouteLoadZone fromCode={from} toCode={to} departMs={depMs} arriveMs={arrMs} />
           <PortLogPanel />
         </div>
 
