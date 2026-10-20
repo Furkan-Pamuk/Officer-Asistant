@@ -18,33 +18,6 @@ function isLink(s: SubEntry): s is { href: string; label: string; external?: boo
   return "href" in s;
 }
 
-// Book links mirror LIBRARY_BOOKS official sources (kept local so the
-// navbar never pulls the whole check-card dataset into its bundle).
-const BOOK_LINKS: { href: string; label: string }[] = [
-  { href: "https://www.imo.org/en/OurWork/Safety/Pages/SOLAS.aspx", label: "📕 SOLAS" },
-  { href: "https://www.imo.org/en/OurWork/Environment/Pages/-info.aspx", label: "📕 MARPOL" },
-  { href: "https://www.imo.org/en/OurWork/HumanElement/Pages/STCW-Convention.aspx", label: "📕 STCW" },
-  { href: "https://www.ilo.org/global/standards/maritime-labour-convention/lang--en/index.htm", label: "📕 MLC" },
-  { href: "https://www.ocimf.org/programmes/sire-2-0", label: "📕 SIRE 2.0" },
-  { href: "https://www.who.int/publications/i/item/9789241549657", label: "📕 WHO Ship Sanitation" },
-  { href: "https://www.imo.org/en/OurWork/HumanElement/Pages/ISMCode.aspx", label: "📕 ISM Code" },
-  { href: "https://www.isgott.org/", label: "📕 ISGOTT" },
-  { href: "https://www.sigtto.org/", label: "📕 SIGTTO" },
-  { href: "https://www.imo.org/en/OurWork/Safety/Pages/SMCP.aspx", label: "📕 SMCP" },
-  { href: "https://www.itfglobal.org/en", label: "📕 ITF HRA" },
-];
-
-const DOC_TABS: { href: string; label: string }[] = [
-  { href: "/documents", label: "📜 Orders" },
-  { href: "/documents?tab=cards", label: "🆘 Cards" },
-  { href: "/documents?tab=lights", label: "💡 Buoys" },
-  { href: "/documents?tab=symbols", label: "🧭 Symbols" },
-  { href: "/documents?tab=weather", label: "⛅ Weather" },
-  { href: "/documents?tab=signals", label: "🚩 Signals" },
-  { href: "/documents?tab=morse", label: "📻 Morse" },
-  { href: "/documents?tab=colreg", label: "⚖️ COLREG" },
-];
-
 const ITEMS: Item[] = [
   { label: "Dashboard", href: "/dashboard" },
   {
@@ -61,13 +34,7 @@ const ITEMS: Item[] = [
     subs: [
       { href: "/inspections", label: "🧭 Inspections" },
       { href: "/checklists", label: "✅ Checklists" },
-      { header: "📚 Library" },
-      { href: "/library", label: "📚 Publications" },
-      { href: "/library?tab=links", label: "🔗 Useful links" },
-      { header: "📑 Documents" },
-      ...DOC_TABS,
-      { header: "📕 Books & official sources" },
-      ...BOOK_LINKS.map((b) => ({ ...b, external: true })),
+      { href: "/library", label: "📚 Library" },
     ],
   },
   {
