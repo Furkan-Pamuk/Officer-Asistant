@@ -70,6 +70,7 @@ export default function Navbar() {
   const path = usePathname();
   const profile = useProfile();
   const [open, setOpen] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const barRef = useRef<HTMLDivElement>(null);
 
@@ -79,6 +80,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setOpen(null);
+    setMobileOpen(false);
   }, [path]);
 
   useEffect(() => {
@@ -100,7 +102,14 @@ export default function Navbar() {
           <SharkMark />
           Shark
         </Link>
-        <nav className="flex flex-1 flex-wrap items-center gap-1 text-sm">
+        <button
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-label="Menu"
+          className="ml-auto rounded-full border border-amber-200 px-3 py-1.5 text-lg font-black md:hidden dark:border-red-900"
+        >
+          {mobileOpen ? "✕" : "☰"}
+        </button>
+        <nav className="hidden flex-1 flex-wrap items-center gap-1 text-sm md:flex">
           {ITEMS.map((item) =>
             item.subs ? (
               <div key={item.label} className="relative">
@@ -144,6 +153,32 @@ export default function Navbar() {
           {profile?.rank && <span className="hidden text-xs font-bold xl:block">{profile.rank}</span>}
         </Link>
       </div>
+      {mobileOpen && (
+        <div className="grid gap-1 border-t border-amber-200 px-4 py-3 md:hidden dark:border-red-950">
+          {ITEMS.map((item) =>
+            item.subs ? (
+              <div key={item.label}>
+                <p className="px-3 pb-0.5 pt-1 text-[11px] font-black tracking-widest opacity-50">{item.label.toUpperCase()}</p>
+                <div className="grid gap-0.5">
+                  {item.subs.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      className={`block rounded-xl px-5 py-2 text-sm font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "opacity-80"}`}
+                    >
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link key={item.label} href={item.href!} className="block rounded-xl px-3 py-2 text-sm font-black">
+                {item.label}
+              </Link>
+            )
+          )}
+        </div>
+      )}
     </header>
   );
 }
