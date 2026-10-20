@@ -1,6 +1,6 @@
 "use client";
 import Dexie, { type Table } from "dexie";
-import type { BellArchive, BellEntry, CatalogueItem, ContactMessage, Contract, CrewRow, CrewSnap, CvData, Dish, EditorQuestion, InventoryItem, JobChecklist, LogEntry, Med, MenuSnap, Note, PortDocRow, PortVhf, Profile, ProviderUsage, SavedList, StoreRequest, TodoList, TodoLog, TodoTask, VesselCache, Voyage, WaterDay, WeightEntry, WeekPlan } from "./types";
+import type { BellArchive, BellEntry, CatalogueItem, ContactMessage, Contract, CrewPost, CrewRow, CrewSnap, CvData, Dish, EditorQuestion, InventoryItem, JobChecklist, LogEntry, Med, MenuSnap, Note, PortDocRow, PortVhf, Profile, ProviderUsage, SavedList, StoreRequest, TodoList, TodoLog, TodoTask, VesselCache, Voyage, WaterDay, WeightEntry, WeekPlan } from "./types";
 import { JOB_TEMPLATES } from "./data";
 
 export interface ProgressRow {
@@ -42,6 +42,7 @@ class OfficerDB extends Dexie {
   voyages!: Table<Voyage, string>;
   bellLog!: Table<BellEntry, string>;
   bellArchive!: Table<BellArchive, string>;
+  crewPosts!: Table<CrewPost, string>;
   inventory!: Table<InventoryItem, string>;
   portdocs!: Table<PortDocRow, string>;
 
@@ -121,6 +122,9 @@ class OfficerDB extends Dexie {
     });
     this.version(20).stores({
       bellArchive: "id, contractId",
+    });
+    this.version(21).stores({
+      crewPosts: "id, date",
     });
   }
 }

@@ -1,5 +1,4 @@
--- Officer Assistant initial schema (Supabase / Postgres)
-create table if not exists profiles (
+-- Officer Assistant initial schema (Supabase / Postgres)create table if not exists profiles (
   id uuid primary key references auth.users(id),
   display_name text,
   avatar_url text,
@@ -59,3 +58,21 @@ create policy "own subscription" on subscriptions for select using (auth.uid() =
 create policy "own questions" on editor_questions for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 alter table contracts enable row level security;
 create policy "own contracts" on contracts for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- Crew wall (Sizden Gelenler), for the future shared backend. Submissions
+-- land as 'pending' and become visible to everyone once approved.
+create table if not exists crew_posts (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id),
+  author text not null,
+  title text not null,
+  text text default '',
+  port text,
+  photo_url text,
+  status text default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  created_at timestamptz default now()
+);
+
+alter table crew_posts enable row level security;
+create policy "approved readable" on crew_posts for select using (status = 'approved');
+create policy "authenticated submit" on crew_posts for insert with check (auth.uid() = user_id);

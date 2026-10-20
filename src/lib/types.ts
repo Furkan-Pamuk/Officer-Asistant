@@ -345,6 +345,20 @@ export interface BellArchive {
   entries: BellEntry[];
 }
 
+// Crew wall post (Sizden Gelenler). Photos live on-device (Dexie) until the
+// shared backend lands; `status` is forward-compatible with server moderation.
+export interface CrewPost {
+  id: string;
+  author: string;
+  title: string;
+  text: string;
+  port?: string;
+  photo?: string | null; // compressed JPEG data URL
+  date: string; // yyyy-mm-dd
+  status: "approved" | "pending";
+  createdAt: string; // ISO
+}
+
 export interface PortDocRow {
   id: string; // `${contractId}_pd_${module}`
   contractId: string;
