@@ -31,7 +31,7 @@ const SEGREGATION = [
   "Nitriles (acrylonitrile) × acids, amines, peroxides — plus cyanide-like toxicity.",
   "Monomers × polymerisation initiators (peroxides, strong acids, UV, rust for some).",
   "Caustics × aluminium, zinc, tin (hydrogen gas) and × ammonium salts (ammonia gas).",
-  "Always confirm with the SDS and the USCG CHRIS compatibility chart: find each cargo's reactive group and never stow incompatible groups in adjacent tanks without the prescribed separation.",
+  "Always confirm with the SDS and the USCG compatibility system (46 CFR 150): find each cargo's group in Table 1 (this booklet shows it on every cargo page), intersect the two groups in Figure 1, then check Appendix I exceptions. Appendix I also lists pairs tested dangerously reactive (or unexpectedly compatible) — e.g. caustic soda (5) vs glycols (20), formic acid (4) vs furfuryl alcohol (20).",
 ];
 
 export default function CargoCleaning() {

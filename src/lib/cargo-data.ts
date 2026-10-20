@@ -29,6 +29,10 @@ export interface CargoEntry {
   staticAccumulator?: boolean;
   drying?: "drying" | "semi-drying" | "non-drying";
   segregation: string;
+  /** USCG 46 CFR 150 compatibility group number */
+  compatGroup: number;
+  /** where the group comes from, e.g. "Table 1" */
+  compatSrc: string;
   cleaning: string[];
   cleanNote?: string;
   notes?: string;
@@ -49,6 +53,39 @@ export const CLEANING_METHODS: { key: string; title: string; body: string }[] = 
 export function cleaningTitle(key: string): string {
   return CLEANING_METHODS.find((m) => m.key === key)?.title ?? key;
 }
+
+// USCG 46 CFR Part 150, Table 2 — Compatibility group titles (only groups used below).
+export const COMPAT_GROUPS: Record<number, string> = {
+  0: "Unassigned Cargoes",
+  1: "Non-Oxidizing Mineral Acids",
+  2: "Sulfuric Acids",
+  3: "Nitric Acids",
+  4: "Organic Acids",
+  5: "Caustics",
+  6: "Ammonia",
+  7: "Aliphatic Amines",
+  8: "Alkanolamines",
+  9: "Aromatic Amines",
+  10: "Amides",
+  11: "Organic Anhydrides",
+  13: "Vinyl Acetates",
+  14: "Acrylates",
+  15: "Substituted Allyls",
+  16: "Alkylene Oxides",
+  18: "Ketones",
+  19: "Aldehydes",
+  20: "Alcohols, Glycols",
+  21: "Phenols, Cresols",
+  30: "Olefins",
+  31: "Paraffins",
+  32: "Aromatic Hydrocarbons",
+  33: "Miscellaneous Hydrocarbon Mixtures",
+  34: "Esters",
+  36: "Halogenated Hydrocarbons",
+  37: "Nitriles",
+  41: "Ethers",
+  43: "Miscellaneous Water Solutions",
+};
 
 export const CARGO_CATEGORIES = [
   "Alcohols & Glycols",
@@ -71,7 +108,7 @@ const CHECK17 = "IBC Ch.17 product — confirm category in the current Code edit
 
 export const CARGOES: CargoEntry[] = [
   {
-    slug: "methanol", name: "Methyl alcohol (Methanol)", synonyms: ["Methanol", "Colonial spirit", "Carbinol", "Wood alcohol"],
+    slug: "methanol", compatGroup: 20, compatSrc: "Table 1", name: "Methyl alcohol (Methanol)", synonyms: ["Methanol", "Colonial spirit", "Carbinol", "Wood alcohol"],
     un: "1230", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3", category: "Alcohols & Glycols",
     formula: "CH₃OH", boiling: "64.7 °C", flash: "11 °C (c.c.)", density: "0.791", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -80,7 +117,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethanol", name: "Ethyl alcohol (Ethanol)", synonyms: ["Ethanol", "Alcohol", "Cologne spirits"],
+    slug: "ethanol", compatGroup: 20, compatSrc: "Table 1", name: "Ethyl alcohol (Ethanol)", synonyms: ["Ethanol", "Alcohol", "Cologne spirits"],
     un: "1170", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₂H₅OH", boiling: "78.4 °C", flash: "13 °C (c.c.)", density: "0.789", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -89,7 +126,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "isopropanol", name: "Isopropyl alcohol", synonyms: ["Isopropanol", "Propan-2-ol", "Dimethylcarbinol", "IPA"],
+    slug: "isopropanol", compatGroup: 20, compatSrc: "Table 1", name: "Isopropyl alcohol", synonyms: ["Isopropanol", "Propan-2-ol", "Dimethylcarbinol", "IPA"],
     un: "1219", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₃H₈O", boiling: "82.6 °C", flash: "12 °C (c.c.)", density: "0.786", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -98,7 +135,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "n-butanol", name: "n-Butyl alcohol", synonyms: ["n-Butanol", "Butyl alcohol", "1-Butanol"],
+    slug: "n-butanol", compatGroup: 20, compatSrc: "Table 1", name: "n-Butyl alcohol", synonyms: ["n-Butanol", "Butyl alcohol", "1-Butanol"],
     un: "1120", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₄H₉OH", boiling: "117.7 °C", flash: "35 °C (c.c.)", density: "0.810", solubility: "7.9 g/100 ml",
     water: "partly", toxic: false,
@@ -107,7 +144,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethylene-glycol", name: "Ethylene glycol", synonyms: ["Monoethylene glycol", "MEG", "1,2-Ethanediol"],
+    slug: "ethylene-glycol", compatGroup: 20, compatSrc: "Table 1", name: "Ethylene glycol", synonyms: ["Monoethylene glycol", "MEG", "1,2-Ethanediol"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3", category: "Alcohols & Glycols",
     formula: "C₂H₆O₂", boiling: "197.3 °C", flash: "111 °C (c.c.)", density: "1.113", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -116,7 +153,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "propylene-glycol", name: "Propylene glycol", synonyms: ["1,2-Propanediol", "Methyl ethylene glycol", "MPG"],
+    slug: "propylene-glycol", compatGroup: 20, compatSrc: "Table 1", name: "Propylene glycol", synonyms: ["1,2-Propanediol", "Methyl ethylene glycol", "MPG"],
     un: "—", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₃H₈O₂", boiling: "188.2 °C", flash: "107 °C (c.c.)", density: "1.036", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -125,7 +162,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "glycerine", name: "Glycerine", synonyms: ["Glycerin", "Glycerol", "Glyceritol", "1,2,3-Propanetriol"],
+    slug: "glycerine", compatGroup: 20, compatSrc: "Table 1", name: "Glycerine", synonyms: ["Glycerin", "Glycerol", "Glyceritol", "1,2,3-Propanetriol"],
     un: "—", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₃H₈O₃", boiling: "290 °C (decomposes)", flash: "≈160 °C — combustible, not flammable", density: "1.261", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -134,7 +171,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "benzene", name: "Benzene (and mixtures ≥10% benzene)", synonyms: ["Benzene", "Benzol", "Phenyl hydride"],
+    slug: "benzene", compatGroup: 32, compatSrc: "Table 1", name: "Benzene (and mixtures ≥10% benzene)", synonyms: ["Benzene", "Benzol", "Phenyl hydride"],
     un: "1114", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Aromatics",
     formula: "C₆H₆", boiling: "80.1 °C", flash: "−11 °C (c.c.)", density: "0.877", solubility: "0.18 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -143,7 +180,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: follow controlled tank-washing and gas-freeing procedure.",
   },
   {
-    slug: "toluene", name: "Toluene", synonyms: ["Methylbenzene", "Toluol", "Phenylmethane"],
+    slug: "toluene", compatGroup: 32, compatSrc: "Table 1", name: "Toluene", synonyms: ["Methylbenzene", "Toluol", "Phenylmethane"],
     un: "1294", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Aromatics",
     formula: "C₇H₈", boiling: "110.6 °C", flash: "4 °C (c.c.)", density: "0.867", solubility: "0.05 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -152,7 +189,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: controlled washing procedure.",
   },
   {
-    slug: "xylenes", name: "Xylenes (mixed isomers)", synonyms: ["Xylene", "Dimethylbenzenes", "Xylols", "o-/m-/p-Xylene"],
+    slug: "xylenes", compatGroup: 32, compatSrc: "Table 1", name: "Xylenes (mixed isomers)", synonyms: ["Xylene", "Dimethylbenzenes", "Xylols", "o-/m-/p-Xylene"],
     un: "1307", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Aromatics",
     formula: "C₈H₁₀", boiling: "138–144 °C", flash: "≈25 °C (c.c., mixed)", density: "≈0.87", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -161,7 +198,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: controlled washing procedure.",
   },
   {
-    slug: "styrene", name: "Styrene monomer", synonyms: ["Styrene", "Vinylbenzene", "Phenylethylene", "Styrol"],
+    slug: "styrene", compatGroup: 30, compatSrc: "Table 1", name: "Styrene monomer", synonyms: ["Styrene", "Vinylbenzene", "Phenylethylene", "Styrol"],
     un: "2055", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Aromatics",
     formula: "C₈H₈", boiling: "145 °C", flash: "31 °C (c.c.)", density: "0.906", solubility: "0.03 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -170,7 +207,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "solvent", "ventilate"], cleanNote: "Check inhibitor certificate before loading; never carry uninhibited. Polymer residues need solvent wash.",
   },
   {
-    slug: "phenol", name: "Phenol (molten)", synonyms: ["Carbolic acid", "Hydroxybenzene", "Phenylic acid"],
+    slug: "phenol", compatGroup: 21, compatSrc: "Table 1", name: "Phenol (molten)", synonyms: ["Carbolic acid", "Hydroxybenzene", "Phenylic acid"],
     un: "1671 (solid) / 2312 (molten)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2", category: "Aromatics",
     formula: "C₆H₅OH", boiling: "181.7 °C", flash: "79 °C (c.c.)", density: "1.07 (molten)", solubility: "8.3 g/100 ml",
     water: "sinks", toxic: true,
@@ -179,7 +216,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "hot"], cleanNote: "Solidifying (mp 41 °C): keep heated during discharge; MARPOL prewash applies.",
   },
   {
-    slug: "acetic-acid", name: "Acetic acid (glacial)", synonyms: ["Ethanoic acid", "Glacial acetic acid", "Vinegar acid (conc.)"],
+    slug: "acetic-acid", compatGroup: 4, compatSrc: "Table 1", name: "Acetic acid (glacial)", synonyms: ["Ethanoic acid", "Glacial acetic acid", "Vinegar acid (conc.)"],
     un: "2789 (>80%) / 2790 (10–80%)", ibc: CHECK17, verifyIbc: true, category: "Acids & Alkalis",
     formula: "C₂H₄O₂", boiling: "118.1 °C", flash: "39 °C (c.c.)", density: "1.049", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -188,7 +225,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "formic-acid", name: "Formic acid", synonyms: ["Methanoic acid", "Ameisensäure (98%)"],
+    slug: "formic-acid", compatGroup: 4, compatSrc: "Table 1", name: "Formic acid", synonyms: ["Methanoic acid", "Ameisensäure (98%)"],
     un: "1779", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "CH₂O₂", boiling: "100.8 °C", flash: "50 °C (c.c.)", density: "1.22", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -197,7 +234,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "sulphuric-acid", name: "Sulphuric acid", synonyms: ["Sulfuric acid", "Oil of vitriol", "Battery acid (dilute)"],
+    slug: "sulphuric-acid", compatGroup: 2, compatSrc: "Table 1", name: "Sulphuric acid", synonyms: ["Sulfuric acid", "Oil of vitriol", "Battery acid (dilute)"],
     un: "1830", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "H₂SO₄", boiling: "≈337 °C (decomposes)", flash: "Non-flammable", density: "1.84 (conc.)", solubility: "Miscible (great heat!)",
     water: "dissolves", toxic: true,
@@ -206,7 +243,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"], cleanNote: "Rinse with plenty of water first; neutralise wash water before discharge per P&A Manual.",
   },
   {
-    slug: "hydrochloric-acid", name: "Hydrochloric acid", synonyms: ["Muriatic acid", "Hydrogen chloride solution", "HCl"],
+    slug: "hydrochloric-acid", compatGroup: 1, compatSrc: "Table 1", name: "Hydrochloric acid", synonyms: ["Muriatic acid", "Hydrogen chloride solution", "HCl"],
     un: "1789", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 1G", category: "Acids & Alkalis",
     formula: "HCl (aq)", boiling: "≈108 °C (20% azeotrope)", flash: "Non-flammable", density: "≈1.18 (37%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -215,7 +252,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "nitric-acid", name: "Nitric acid", synonyms: ["Aqua fortis", "Azotic acid"],
+    slug: "nitric-acid", compatGroup: 3, compatSrc: "Table 1", name: "Nitric acid", synonyms: ["Aqua fortis", "Azotic acid"],
     un: "2031", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G (≥70% and <70%)", category: "Acids & Alkalis",
     formula: "HNO₃", boiling: "≈121 °C (azeotrope)", flash: "Non-flammable — strong oxidizer", density: "≈1.51 (conc.)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -224,7 +261,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "phosphoric-acid", name: "Phosphoric acid", synonyms: ["Orthophosphoric acid"],
+    slug: "phosphoric-acid", compatGroup: 1, compatSrc: "Table 1", name: "Phosphoric acid", synonyms: ["Orthophosphoric acid"],
     un: "1805", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "H₃PO₄", boiling: "158 °C (decomposes)", flash: "Non-flammable", density: "1.88 (85%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -233,7 +270,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "caustic-soda", name: "Sodium hydroxide solution", synonyms: ["Caustic soda", "Lye", "NaOH solution"],
+    slug: "caustic-soda", compatGroup: 5, compatSrc: "Table 1", name: "Sodium hydroxide solution", synonyms: ["Caustic soda", "Lye", "NaOH solution"],
     un: "1824", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "NaOH (aq)", boiling: "≈140 °C (50%)", flash: "Non-flammable", density: "≈1.53 (50%)", solubility: "Miscible (heat on dilution)",
     water: "dissolves", toxic: true,
@@ -242,7 +279,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "caustic-potash", name: "Potassium hydroxide solution", synonyms: ["Caustic potash", "Lye", "KOH solution"],
+    slug: "caustic-potash", compatGroup: 5, compatSrc: "Table 1", name: "Potassium hydroxide solution", synonyms: ["Caustic potash", "Lye", "KOH solution"],
     un: "1814", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "KOH (aq)", boiling: "≈140 °C (50%)", flash: "Non-flammable", density: "≈1.45 (50%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -251,7 +288,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "ammonia-aq", name: "Ammonia aqueous (≤28%)", synonyms: ["Ammonium hydroxide", "Ammonia solution", "Hartshorn"],
+    slug: "ammonia-aq", compatGroup: 6, compatSrc: "Table 1", name: "Ammonia aqueous (≤28%)", synonyms: ["Ammonium hydroxide", "Ammonia solution", "Hartshorn"],
     un: "2672", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Acids & Alkalis",
     formula: "NH₃ (aq)", boiling: "≈38 °C (25%)", flash: "Vapours flammable (LEL 15%)", density: "≈0.91 (25%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -260,7 +297,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "methyl-acetate", name: "Methyl acetate", synonyms: ["Acetic acid methyl ester", "Methyl ethanoate"],
+    slug: "methyl-acetate", compatGroup: 34, compatSrc: "Table 1", name: "Methyl acetate", synonyms: ["Acetic acid methyl ester", "Methyl ethanoate"],
     un: "1231", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Esters",
     formula: "C₃H₆O₂", boiling: "57 °C", flash: "−10 °C (c.c.)", density: "0.933", solubility: "≈25 g/100 ml",
     water: "partly", toxic: false, staticAccumulator: true,
@@ -269,7 +306,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethyl-acetate", name: "Ethyl acetate", synonyms: ["Acetic ester", "Ethyl ethanoate", "Vinegar naphtha"],
+    slug: "ethyl-acetate", compatGroup: 34, compatSrc: "Table 1", name: "Ethyl acetate", synonyms: ["Acetic ester", "Ethyl ethanoate", "Vinegar naphtha"],
     un: "1173", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Esters",
     formula: "C₄H₈O₂", boiling: "77.1 °C", flash: "−4 °C (c.c.)", density: "0.902", solubility: "8.3 g/100 ml",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -278,7 +315,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "vinyl-acetate", name: "Vinyl acetate (stabilised)", synonyms: ["VAM", "Vinyl acetate monomer", "Ethenyl acetate"],
+    slug: "vinyl-acetate", compatGroup: 13, compatSrc: "Table 1", name: "Vinyl acetate (stabilised)", synonyms: ["VAM", "Vinyl acetate monomer", "Ethenyl acetate"],
     un: "1301", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Esters",
     formula: "C₄H₆O₂", boiling: "72.7 °C", flash: "−8 °C (c.c.)", density: "0.934", solubility: "2 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -287,7 +324,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "solvent", "ventilate"],
   },
   {
-    slug: "butyl-acetate", name: "Butyl acetate (all isomers)", synonyms: ["n-Butyl acetate", "Acetic acid butyl ester"],
+    slug: "butyl-acetate", compatGroup: 34, compatSrc: "Table 1", name: "Butyl acetate (all isomers)", synonyms: ["n-Butyl acetate", "Acetic acid butyl ester"],
     un: "1123", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Esters",
     formula: "C₆H₁₂O₂", boiling: "126 °C", flash: "≈22–27 °C (c.c.)", density: "0.882", solubility: "0.7 g/100 ml",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -296,7 +333,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "acetone", name: "Acetone", synonyms: ["Dimethyl ketone", "Propan-2-one", "2-Propanone"],
+    slug: "acetone", compatGroup: 18, compatSrc: "Table 1", name: "Acetone", synonyms: ["Dimethyl ketone", "Propan-2-one", "2-Propanone"],
     un: "1090", ibc: IBC18, category: "Ketones",
     formula: "C₃H₆O", boiling: "56.1 °C", flash: "−17 °C (c.c.)", density: "0.791", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -305,7 +342,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "mek", name: "Methyl ethyl ketone", synonyms: ["MEK", "Butan-2-one", "2-Butanone", "Ethyl methyl ketone"],
+    slug: "mek", compatGroup: 18, compatSrc: "Table 1", name: "Methyl ethyl ketone", synonyms: ["MEK", "Butan-2-one", "2-Butanone", "Ethyl methyl ketone"],
     un: "1193", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ketones",
     formula: "C₄H₈O", boiling: "79.6 °C", flash: "−9 °C (c.c.)", density: "0.805", solubility: "27 g/100 ml",
     water: "partly", toxic: false,
@@ -314,7 +351,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "mibk", name: "Methyl isobutyl ketone", synonyms: ["MIBK", "Hexone", "4-Methyl-2-pentanone", "Isopropylacetone"],
+    slug: "mibk", compatGroup: 18, compatSrc: "Table 1", name: "Methyl isobutyl ketone", synonyms: ["MIBK", "Hexone", "4-Methyl-2-pentanone", "Isopropylacetone"],
     un: "1245", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ketones",
     formula: "C₆H₁₂O", boiling: "116 °C", flash: "14 °C (c.c.)", density: "0.802", solubility: "1.7 g/100 ml",
     water: "floats", toxic: false,
@@ -323,7 +360,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethanolamine", name: "Ethanolamine (MEA)", synonyms: ["Monoethanolamine", "2-Aminoethanol", "Colamine"],
+    slug: "ethanolamine", compatGroup: 8, compatSrc: "Table 1", name: "Ethanolamine (MEA)", synonyms: ["Monoethanolamine", "2-Aminoethanol", "Colamine"],
     un: "2491", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Amines",
     formula: "C₂H₇NO", boiling: "170.5 °C", flash: "85 °C (c.c.)", density: "1.012", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -332,7 +369,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "cyclohexylamine", name: "Cyclohexylamine", synonyms: ["Aminocyclohexane", "Hexahydroaniline"],
+    slug: "cyclohexylamine", compatGroup: 7, compatSrc: "Table 2 (member of Group 7)", name: "Cyclohexylamine", synonyms: ["Aminocyclohexane", "Hexahydroaniline"],
     un: "2357", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Amines",
     formula: "C₆H₁₃N", boiling: "134.5 °C", flash: "32 °C (c.c.)", density: "0.867", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -341,7 +378,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "aniline", name: "Aniline", synonyms: ["Aminobenzene", "Aniline oil", "Phenylamine"],
+    slug: "aniline", compatGroup: 9, compatSrc: "Table 1", name: "Aniline", synonyms: ["Aminobenzene", "Aniline oil", "Phenylamine"],
     un: "1547", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Amines",
     formula: "C₆H₇N", boiling: "184.1 °C", flash: "70 °C (c.c.)", density: "1.022", solubility: "3.6 g/100 ml",
     water: "sinks", toxic: true,
@@ -350,7 +387,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Darkens on air/light — wall-wash standard is strict after aniline.",
   },
   {
-    slug: "acrylonitrile", name: "Acrylonitrile (stabilised)", synonyms: ["Vinyl cyanide", "Propenenitrile", "Cyanoethylene"],
+    slug: "acrylonitrile", compatGroup: 15, compatSrc: "Table 1", name: "Acrylonitrile (stabilised)", synonyms: ["Vinyl cyanide", "Propenenitrile", "Cyanoethylene"],
     un: "1093", ibc: CHECK17, verifyIbc: true, category: "Nitriles",
     formula: "C₃H₃N", boiling: "77.3 °C", flash: "−1 °C (c.c.)", density: "0.81", solubility: "7.3 g/100 ml",
     water: "partly", toxic: true,
@@ -359,7 +396,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "hot", "ventilate"],
   },
   {
-    slug: "adiponitrile", name: "Adiponitrile", synonyms: ["1,4-Dicyanobutane", "Tetramethylene dicyanide", "Hexanedinitrile"],
+    slug: "adiponitrile", compatGroup: 37, compatSrc: "Table 1", name: "Adiponitrile", synonyms: ["1,4-Dicyanobutane", "Tetramethylene dicyanide", "Hexanedinitrile"],
     un: "2205", ibc: CHECK17, verifyIbc: true, category: "Nitriles",
     formula: "C₆H₈N₂", boiling: "295 °C", flash: "163 °C (c.c.)", density: "0.965", solubility: "≈4 g/100 ml",
     water: "partly", toxic: true,
@@ -368,7 +405,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "acrylamide-sol", name: "Acrylamide solution (≤50%)", synonyms: ["Acrylamide", "Propenamide solution"],
+    slug: "acrylamide-sol", compatGroup: 10, compatSrc: "Table 1", name: "Acrylamide solution (≤50%)", synonyms: ["Acrylamide", "Propenamide solution"],
     un: "2074", ibc: CHECK17, verifyIbc: true, category: "Other",
     formula: "C₃H₅NO (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable (solution)", density: "≈1.0–1.1", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -377,7 +414,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "formaldehyde-sol", name: "Formaldehyde solutions (≤45%)", synonyms: ["Formalin", "Formaldehyde", "Methylene oxide solution"],
+    slug: "formaldehyde-sol", compatGroup: 19, compatSrc: "Table 1", name: "Formaldehyde solutions (≤45%)", synonyms: ["Formalin", "Formaldehyde", "Methylene oxide solution"],
     un: "1198 / 2209", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "CH₂O (aq, +methanol)", boiling: "≈96 °C (37%)", flash: "≈56–64 °C (c.c., varies)", density: "≈1.09", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -386,7 +423,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Hot wash dissolves paraformaldehyde deposits; ventilate well.",
   },
   {
-    slug: "furfural", name: "Furfural", synonyms: ["2-Furaldehyde", "Fural", "Furol", "Pyromucic aldehyde"],
+    slug: "furfural", compatGroup: 19, compatSrc: "Table 1", name: "Furfural", synonyms: ["2-Furaldehyde", "Fural", "Furol", "Pyromucic aldehyde"],
     un: "1199", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "C₅H₄O₂", boiling: "161.7 °C", flash: "60 °C (c.c.)", density: "1.16", solubility: "8.3 g/100 ml",
     water: "sinks", toxic: true,
@@ -395,7 +432,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "edc", name: "Ethylene dichloride (1,2-Dichloroethane)", synonyms: ["EDC", "1,2-Dichloroethane", "Ethylene chloride"],
+    slug: "edc", compatGroup: 36, compatSrc: "Table 1", name: "Ethylene dichloride (1,2-Dichloroethane)", synonyms: ["EDC", "1,2-Dichloroethane", "Ethylene chloride"],
     un: "1184", ibc: CHECK17, verifyIbc: true, category: "Halogenated",
     formula: "C₂H₄Cl₂", boiling: "83.5 °C", flash: "13 °C (c.c.)", density: "1.235", solubility: "0.9 g/100 ml",
     water: "sinks", toxic: true,
@@ -404,7 +441,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Sinks in water and in the tank sump — strip fully; verify with low-level gas readings.",
   },
   {
-    slug: "perchloroethylene", name: "Perchloroethylene", synonyms: ["Tetrachloroethylene", "PERC", "Tetrachloroethene", "Dry-cleaning fluid"],
+    slug: "perchloroethylene", compatGroup: 36, compatSrc: "Table 1", name: "Perchloroethylene", synonyms: ["Tetrachloroethylene", "PERC", "Tetrachloroethene", "Dry-cleaning fluid"],
     un: "1897", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Halogenated",
     formula: "C₂Cl₄", boiling: "121.3 °C", flash: "Non-flammable", density: "1.623", solubility: "0.015 g/100 ml",
     water: "sinks", toxic: true,
@@ -413,7 +450,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Heavy sinker — strip fully; low-level ventilation and gas readings.",
   },
   {
-    slug: "mma", name: "Methyl methacrylate (stabilised)", synonyms: ["MMA", "Methyl 2-methylprop-2-enoate", "Acrylic monomer"],
+    slug: "mma", compatGroup: 14, compatSrc: "Table 1", name: "Methyl methacrylate (stabilised)", synonyms: ["MMA", "Methyl 2-methylprop-2-enoate", "Acrylic monomer"],
     un: "1247", ibc: CHECK17, verifyIbc: true, category: "Esters",
     formula: "C₅H₈O₂", boiling: "101 °C", flash: "10 °C (c.c.)", density: "0.944", solubility: "1.5 g/100 ml",
     water: "floats", toxic: true,
@@ -422,7 +459,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "solvent", "ventilate"],
   },
   {
-    slug: "cresols", name: "Cresols (all isomers)", synonyms: ["Cresol", "Methylphenols", "Cresylic acid", "o-/m-/p-Cresol"],
+    slug: "cresols", compatGroup: 21, compatSrc: "Table 1", name: "Cresols (all isomers)", synonyms: ["Cresol", "Methylphenols", "Cresylic acid", "o-/m-/p-Cresol"],
     un: "2076", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Aromatics",
     formula: "C₇H₈O", boiling: "191–203 °C", flash: "81–86 °C (c.c.)", density: "≈1.03–1.05", solubility: "≈2 g/100 ml",
     water: "sinks", toxic: true,
@@ -431,7 +468,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "cyclohexane", name: "Cyclohexane", synonyms: ["Hexamethylene", "Hexanaphthene"],
+    slug: "cyclohexane", compatGroup: 31, compatSrc: "Table 1", name: "Cyclohexane", synonyms: ["Hexamethylene", "Hexanaphthene"],
     un: "1145", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₆H₁₂", boiling: "80.7 °C", flash: "−20 °C (c.c.)", density: "0.779", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -440,7 +477,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "cyclohexanone", name: "Cyclohexanone", synonyms: ["Anone", "Pimelic ketone"],
+    slug: "cyclohexanone", compatGroup: 18, compatSrc: "Table 1", name: "Cyclohexanone", synonyms: ["Anone", "Pimelic ketone"],
     un: "1915", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 2G", category: "Ketones",
     formula: "C₆H₁₀O", boiling: "155.6 °C", flash: "44 °C (c.c.)", density: "0.947", solubility: "2.3 g/100 ml",
     water: "floats", toxic: true,
@@ -449,7 +486,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "hexane", name: "Hexane (all isomers)", synonyms: ["n-Hexane", "Hexanes", "Hexyl hydride"],
+    slug: "hexane", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Hexane (all isomers)", synonyms: ["n-Hexane", "Hexanes", "Hexyl hydride"],
     un: "1208", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₆H₁₄", boiling: "68.7 °C", flash: "−26 °C (c.c.)", density: "0.66", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -458,7 +495,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "heptane", name: "Heptane (all isomers)", synonyms: ["n-Heptane", "Heptanes"],
+    slug: "heptane", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Heptane (all isomers)", synonyms: ["n-Heptane", "Heptanes"],
     un: "1206", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₇H₁₆", boiling: "98.4 °C", flash: "−4 °C (c.c.)", density: "0.684", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -467,7 +504,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "octane", name: "Octane (all isomers)", synonyms: ["n-Octane", "Octanes"],
+    slug: "octane", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Octane (all isomers)", synonyms: ["n-Octane", "Octanes"],
     un: "1262", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₈H₁₈", boiling: "125.7 °C", flash: "13 °C (c.c.)", density: "0.703", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -476,7 +513,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "mtbe", name: "Methyl tert-butyl ether", synonyms: ["MTBE", "tert-Butyl methyl ether", "Methyl tertiary-butyl ether"],
+    slug: "mtbe", compatGroup: 41, compatSrc: "Table 1", name: "Methyl tert-butyl ether", synonyms: ["MTBE", "tert-Butyl methyl ether", "Methyl tertiary-butyl ether"],
     un: "2398", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ethers & Oxides",
     formula: "C₅H₁₂O", boiling: "55.2 °C", flash: "−28 °C (c.c.)", density: "0.740", solubility: "≈5 g/100 ml",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -485,7 +522,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "white-spirit", name: "White spirit (low aromatic)", synonyms: ["Stoddard solvent", "Mineral spirit", "Turpentine substitute"],
+    slug: "white-spirit", compatGroup: 33, compatSrc: "Table 1", name: "White spirit (low aromatic)", synonyms: ["Stoddard solvent", "Mineral spirit", "Turpentine substitute"],
     un: "1300", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₇–C₁₂ mixture", boiling: "150–200 °C", flash: ">21 °C (typ. ≈40 °C, c.c.)", density: "≈0.78–0.80", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -494,7 +531,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "propylene-oxide", name: "Propylene oxide", synonyms: ["Methyloxirane", "1,2-Epoxypropane", "PO"],
+    slug: "propylene-oxide", compatGroup: 16, compatSrc: "Table 1", name: "Propylene oxide", synonyms: ["Methyloxirane", "1,2-Epoxypropane", "PO"],
     un: "1280", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Ethers & Oxides",
     formula: "C₃H₆O", boiling: "34.2 °C", flash: "−37 °C (c.c.)", density: "0.83", solubility: "≈60 g/100 ml",
     water: "partly", toxic: true,
@@ -503,7 +540,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["ventilate", "hot"], cleanNote: "Gas-free thoroughly; no catalytic contaminants (rust, acids) in the tank.",
   },
   {
-    slug: "ethylene-oxide", name: "Ethylene oxide", synonyms: ["Oxirane", "EO", "Epoxyethane"],
+    slug: "ethylene-oxide", compatGroup: 0, compatSrc: "Table 1", name: "Ethylene oxide", synonyms: ["Oxirane", "EO", "Epoxyethane"],
     un: "1040", ibc: CHECK17, verifyIbc: true, category: "Ethers & Oxides",
     formula: "C₂H₄O", boiling: "10.7 °C", flash: "−20 °C (c.c.)", density: "0.88 (liquid)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -512,7 +549,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["ventilate"], cleanNote: "Specialist cargo — follow the IBC/IGC special requirements and shore instructions exactly.",
   },
   {
-    slug: "hydrogen-peroxide", name: "Hydrogen peroxide solutions", synonyms: ["H₂O₂", "Peroxide", "Hydrogen dioxide solution"],
+    slug: "hydrogen-peroxide", compatGroup: 0, compatSrc: "Table 1", name: "Hydrogen peroxide solutions", synonyms: ["H₂O₂", "Peroxide", "Hydrogen dioxide solution"],
     un: "2015 (>60%) / 2014 (8–60%)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship 2 · 2G (>60%) / Ship 3 (8–60%)", category: "Other",
     formula: "H₂O₂ (aq)", boiling: "≈150 °C (decomposes)", flash: "Non-flammable — strong oxidizer", density: "≈1.2–1.45", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -521,7 +558,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"], cleanNote: "Rinse only with clean water; tanks must be passivated and vented. Never seal unvented.",
   },
   {
-    slug: "maleic-anhydride", name: "Maleic anhydride (molten)", synonyms: ["Maleic acid anhydride", "2,5-Furandione", "Toxilic anhydride"],
+    slug: "maleic-anhydride", compatGroup: 11, compatSrc: "Table 1", name: "Maleic anhydride (molten)", synonyms: ["Maleic acid anhydride", "2,5-Furandione", "Toxilic anhydride"],
     un: "2215", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "C₄H₂O₃", boiling: "202 °C", flash: "102 °C (c.c.)", density: "1.48 (solid)", solubility: "Reacts → maleic acid",
     water: "sinks", toxic: true,
@@ -530,7 +567,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "hot"], cleanNote: "Keep molten to discharge; hot-water wash converts residues to soluble maleic acid.",
   },
   {
-    slug: "phthalic-anhydride", name: "Phthalic anhydride (molten)", synonyms: ["1,3-Isobenzofurandione", "Phthalic acid anhydride"],
+    slug: "phthalic-anhydride", compatGroup: 11, compatSrc: "Table 1", name: "Phthalic anhydride (molten)", synonyms: ["1,3-Isobenzofurandione", "Phthalic acid anhydride"],
     un: "2214", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Other",
     formula: "C₈H₄O₃", boiling: "295 °C", flash: "152 °C (c.c.)", density: "1.53 (solid)", solubility: "Reacts slowly → phthalic acid",
     water: "sinks", toxic: true,
@@ -539,7 +576,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "hot", "caustic"], cleanNote: "Caustic wash dissolves sublimed deposits; keep heated to strip.",
   },
   {
-    slug: "urea-solution", name: "Urea solution", synonyms: ["Carbamide solution", "Urea liquor"],
+    slug: "urea-solution", compatGroup: 43, compatSrc: "Table 1", name: "Urea solution", synonyms: ["Carbamide solution", "Urea liquor"],
     un: "—", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Other",
     formula: "(NH₂)₂CO (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.1–1.33", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -548,7 +585,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "palm-oil", name: "Palm oil", synonyms: ["Palmolein", "Palm stearin (fraction)"],
+    slug: "palm-oil", compatGroup: 34, compatSrc: "Table 1", name: "Palm oil", synonyms: ["Palmolein", "Palm stearin (fraction)"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C16:0/C18:1)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91–0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying",
@@ -557,7 +594,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine. Heat to discharge, prewash to reception facility.",
   },
   {
-    slug: "soybean-oil", name: "Soyabean oil", synonyms: ["Soybean oil", "Soya oil"],
+    slug: "soybean-oil", compatGroup: 34, compatSrc: "Table 1", name: "Soyabean oil", synonyms: ["Soybean oil", "Soya oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying",
@@ -566,7 +603,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first — hot water first bakes a varnish film that fails wall-wash.",
   },
   {
-    slug: "coconut-oil", name: "Coconut oil", synonyms: ["Copra oil"],
+    slug: "coconut-oil", compatGroup: 34, compatSrc: "Table 1", name: "Coconut oil", synonyms: ["Copra oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C12:0 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying",
@@ -575,7 +612,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine.",
   },
   {
-    slug: "sunflower-oil", name: "Sunflower seed oil", synonyms: ["Sunflower oil"],
+    slug: "sunflower-oil", compatGroup: 34, compatSrc: "Table 1", name: "Sunflower seed oil", synonyms: ["Sunflower oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying",
@@ -584,7 +621,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first, then hot, then caustic if needed.",
   },
   {
-    slug: "cottonseed-oil", name: "Cotton seed oil", synonyms: ["Cottonseed oil"],
+    slug: "cottonseed-oil", compatGroup: 34, compatSrc: "Table 1", name: "Cotton seed oil", synonyms: ["Cottonseed oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying",
@@ -593,7 +630,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first.",
   },
   {
-    slug: "tallow", name: "Tallow", synonyms: ["Beef tallow", "Animal fat", "Rendered fat"],
+    slug: "tallow", compatGroup: 34, compatSrc: "Table 1", name: "Tallow", synonyms: ["Beef tallow", "Animal fat", "Rendered fat"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (saturated rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.87 (molten)", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying",
@@ -602,7 +639,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat well above melting point to strip; caustic wash for fatty-acid film.",
   },
   {
-    slug: "molasses", name: "Molasses", synonyms: ["Blackstrap molasses", "Cane molasses", "Treacle (bulk)"],
+    slug: "molasses", compatGroup: 20, compatSrc: "Table 1", name: "Molasses", synonyms: ["Blackstrap molasses", "Cane molasses", "Treacle (bulk)"],
     un: "—", ibc: IBC18, category: "Other",
     formula: "Sugars (aq, ≈80 Brix)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.4", solubility: "Miscible (slowly)",
     water: "dissolves", toxic: false,
@@ -611,7 +648,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"], cleanNote: "Hot-water wash dissolves residues; huge water volumes needed. High-density-plume behaviour if spilled.",
   },
   {
-    slug: "sorbitol-sol", name: "Sorbitol solution", synonyms: ["D-Glucitol solution", "Sorbitol syrup"],
+    slug: "sorbitol-sol", compatGroup: 20, compatSrc: "Table 1", name: "Sorbitol solution", synonyms: ["D-Glucitol solution", "Sorbitol syrup"],
     un: "—", ibc: IBC18, category: "Other",
     formula: "C₆H₁₄O₆ (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.3 (70%)", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -620,7 +657,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "kerosene", name: "Kerosene", synonyms: ["Paraffin (UK)", "Jet A-1 (grade)", "Illuminating oil"],
+    slug: "kerosene", compatGroup: 33, compatSrc: "Table 1", name: "Kerosene", synonyms: ["Paraffin (UK)", "Jet A-1 (grade)", "Illuminating oil"],
     un: "1223", ibc: ANNEX1, category: "Fuels & Solvents",
     formula: "C₉–C₁₆ mixture", boiling: "150–300 °C", flash: ">38 °C (c.c.)", density: "≈0.79", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -629,7 +666,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "diesel", name: "Diesel oil / Gas oil", synonyms: ["Gasoil", "DERV", "Marine gas oil (MGO)", "Diesel fuel"],
+    slug: "diesel", compatGroup: 33, compatSrc: "Table 1", name: "Diesel oil / Gas oil", synonyms: ["Gasoil", "DERV", "Marine gas oil (MGO)", "Diesel fuel"],
     un: "1202", ibc: ANNEX1, category: "Fuels & Solvents",
     formula: "C₁₀–C₂₈ mixture", boiling: "180–360 °C", flash: ">60 °C (c.c.)", density: "≈0.84", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -638,7 +675,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "gasoline", name: "Motor gasoline", synonyms: ["Petrol", "Gasolene", "Mogas"],
+    slug: "gasoline", compatGroup: 33, compatSrc: "Table 1", name: "Motor gasoline", synonyms: ["Petrol", "Gasolene", "Mogas"],
     un: "1203", ibc: ANNEX1, category: "Fuels & Solvents",
     formula: "C₄–C₁₂ mixture", boiling: "30–200 °C", flash: "<−40 °C (c.c.)", density: "≈0.74", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -647,7 +684,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Gas-free fully; static precautions apply during washing too.",
   },
   {
-    slug: "butadiene", name: "Butadiene (inhibited)", synonyms: ["1,3-Butadiene", "Divinyl", "Bivinyl"],
+    slug: "butadiene", compatGroup: 30, compatSrc: "Table 1", name: "Butadiene (inhibited)", synonyms: ["1,3-Butadiene", "Divinyl", "Bivinyl"],
     un: "1010", ibc: "IGC Code gas-carrier cargo — not an IBC product", category: "Other",
     formula: "C₄H₆", boiling: "−4.4 °C", flash: "−76 °C (gas)", density: "0.62 (liquid)", solubility: "Slight",
     water: "partly", toxic: true,

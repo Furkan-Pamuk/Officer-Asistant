@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CARGOES, cleaningTitle, findCargo } from "@/lib/cargo-data";
+import { CARGOES, COMPAT_GROUPS, cleaningTitle, findCargo } from "@/lib/cargo-data";
 
 export function generateStaticParams() {
   return CARGOES.map((c) => ({ slug: c.slug }));
@@ -15,6 +15,7 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
     ["Cargo name", c.name],
     ["UN number", c.un],
     ["IBC / MARPOL status", c.ibc],
+    ["USCG compatibility group", `Group ${c.compatGroup} — ${COMPAT_GROUPS[c.compatGroup] ?? "?"} (${c.compatSrc}, 46 CFR 150)`],
     ["Chemical formula", c.formula],
     ["Boiling point", c.boiling],
     ["Flash point", c.flash],
@@ -59,7 +60,7 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-bold">🚧 Compatibility / segregation</h2>
         <p className="mt-1 text-sm">Keep away from: {c.segregation}</p>
-        <p className="mt-2 text-xs text-slate-500">Check the USCG CHRIS compatibility group and the SDS before stowing next to other cargoes (see Tank Cleaning Methods page).</p>
+        <p className="mt-2 text-xs text-slate-500">Stowage check: take both cargoes&apos; groups from Table 1 above, intersect them in Figure 1 (Compatibility Chart), then check Appendix I exceptions. Group 0 (unassigned) cargoes are handled as incompatible with everything until the Coast Guard assigns a group (§150.140).</p>
       </div>
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-bold">🧽 Tank cleaning</h2>
