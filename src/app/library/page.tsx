@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LIBRARY_BOOKS } from "@/lib/data";
+import { KNOTS } from "@/lib/navigation-documents";
+import { KnotFigure } from "@/components/KnotDiagrams";
 
-type Tab = "pub" | "books";
+type Tab = "pub" | "books" | "knots";
 
 const DOC_TABS: { tab: string; label: string; desc: string }[] = [
   { tab: "orders", label: "📜 Orders", desc: "Master's standing orders + signature block." },
@@ -23,7 +25,7 @@ export default function Library() {
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tab");
-      if (t === "pub" || t === "books") setTab(t);
+      if (t === "pub" || t === "books" || t === "knots") setTab(t);
     } catch { /* ignore */ }
   }, []);
   function pick(t: Tab) {
@@ -44,6 +46,7 @@ export default function Library() {
       <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
         <button onClick={() => pick("pub")} className={btn("pub", "📚 Publications")}>📚 Publications ({LIBRARY_BOOKS.length})</button>
         <button onClick={() => pick("books")} className={btn("books", "📕 Books")}>📕 Books ({LIBRARY_BOOKS.length})</button>
+        <button onClick={() => pick("knots")} className={btn("knots", "🪢 Knots")}>🪢 Knots ({KNOTS.length})</button>
         {DOC_TABS.map((d) => (
           <button key={d.tab} onClick={() => goDoc(d.tab)} className="min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold opacity-70 hover:opacity-100">{d.label}</button>
         ))}
@@ -57,6 +60,29 @@ export default function Library() {
               <p className="mt-1 text-sm text-slate-600">{b.description}</p>
               <p className="mt-1 text-xs text-slate-500">Used for: {b.inspections.join(", ")}</p>
               <a href={b.link} target="_blank" rel="noreferrer" className="mt-2 inline-block rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white">Open official source</a>
+            </div>
+          ))}
+        </div>
+      ) : tab === "knots" ? (
+        <div className="grid gap-3 md:grid-cols-2">
+          {KNOTS.map((k) => (
+            <div key={k.id} className="rounded-2xl border bg-white p-4">
+              <div className="flex items-start gap-3">
+                <span className="shrink-0 rounded-lg bg-white p-1 ring-1 ring-amber-200 dark:bg-neutral-900 print:ring-black"><KnotFigure id={k.id} /></span>
+                <div>
+                  <h2 className="font-semibold">{k.name}{k.tr ? <span className="ml-2 text-sm font-normal opacity-60">({k.tr})</span> : null}</h2>
+                  <p className="mt-1 text-sm text-slate-600">{k.uses}</p>
+                </div>
+              </div>
+              {k.warning && <p className="mt-2 rounded-xl bg-red-50 px-3 py-2 text-sm font-bold text-red-700">⚠️ {k.warning}</p>}
+              <ol className="mt-2 grid gap-1.5">
+                {k.steps.map((s, i) => (
+                  <li key={i} className="flex gap-2 rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
+                    <span className="font-black">{i + 1}.</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
           ))}
         </div>

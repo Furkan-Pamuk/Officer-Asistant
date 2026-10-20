@@ -632,6 +632,120 @@ export const SIGNAL_NOTES: DocSection[] = [
   },
 ];
 
+export interface KnotInfo {
+  id: string;
+  name: string;
+  tr?: string;
+  uses: string;
+  warning?: string;
+  steps: string[];
+}
+
+export const KNOTS: KnotInfo[] = [
+  {
+    id: "bowline",
+    name: "Bowline",
+    tr: "İzbarço bağı",
+    uses: "The king of knots — a fixed loop for sheets, mooring lines, hoisting and rescue loops.",
+    warning: "Can shake loose when unloaded and flogging — back it up with a stopper knot for life-critical use.",
+    steps: [
+      "Form a small loop ('the hole') in the standing part, free end on top.",
+      "Bring the working end ('the rabbit') UP through the hole.",
+      "Pass it BEHIND the standing part ('round the tree').",
+      "Tuck it back DOWN through the hole and dress by pulling loop, end and standing part tight.",
+    ],
+  },
+  {
+    id: "clove",
+    name: "Clove Hitch",
+    tr: "Kazık bağı",
+    uses: "Fast temporary fastening to rails, posts and bollards; starting point for lashings; hanging fenders.",
+    warning: "Slips and rolls under changing load — never for critical loads; back up with two half hitches.",
+    steps: [
+      "Pass the end around the post, crossing OVER the standing part to form an X.",
+      "Wrap a second time to form a second X on top of the first.",
+      "Tuck the end UNDER the last crossing (the diagonal).",
+      "Pull both ends to dress — the two crossings must lie parallel, never stacked.",
+    ],
+  },
+  {
+    id: "reef",
+    name: "Reef (Square) Knot",
+    tr: "Camadan bağı",
+    uses: "Reefing sails, tying bundles, bandages — light, NON-critical jobs with equal ropes.",
+    warning: "NEVER for joining two ropes under load or for life support — it capsizes. Use a sheet bend or carrick bend instead.",
+    steps: [
+      "Left end OVER right, tuck under ('left over right').",
+      "Then right end OVER left, tuck under ('right over left').",
+      "Dress flat and symmetric — both tails must exit on the SAME side.",
+      "If the tails sit on opposite sides you tied a thief/granny by mistake — redo it.",
+    ],
+  },
+  {
+    id: "eight",
+    name: "Figure-Eight",
+    tr: "Sekiz bağı",
+    uses: "Stopper knot at a rope's end — stops sheets and halyards running through blocks.",
+    warning: "Bulky but secure; for joining ropes use a figure-eight bend, not two stoppers.",
+    steps: [
+      "Form a loop with the working end crossing over the standing part.",
+      "Pass the end BEHIND the standing part.",
+      "Bring it back DOWN through the loop from the top.",
+      "Dress so the '8' lies flat with parallel strands.",
+    ],
+  },
+  {
+    id: "sheet",
+    name: "Sheet Bend",
+    tr: "Sancak bağı",
+    uses: "Joining two ropes — including different diameters and materials; net work.",
+    warning: "Tails must finish on the SAME side; for slippery rope or big size difference use the DOUBLE sheet bend (two turns).",
+    steps: [
+      "Form a bight (U-turn) in the thicker rope.",
+      "Pass the thinner end UP through the bight.",
+      "Take it BEHIND both legs of the bight, right round.",
+      "Tuck it under ITSELF (not under the bight) and dress tight.",
+    ],
+  },
+  {
+    id: "rolling",
+    name: "Rolling Hitch",
+    uses: "Bending a line to a spar, rail or another rope under lengthwise pull; taking the strain as a stopper.",
+    warning: "Direction matters — the turns must bite against the direction of pull or it slides.",
+    steps: [
+      "Take TWO full turns around the spar on the side the pull comes from.",
+      "Take a THIRD turn above the first two, crossing over them.",
+      "Lock with a half hitch around the standing part on the pull side.",
+      "Test under load before trusting — re-dress if it creeps.",
+    ],
+  },
+  {
+    id: "roundturn",
+    name: "Round Turn + Two Half Hitches",
+    uses: "Mooring to rings, posts and bollards; hanging fenders; securing alongside.",
+    warning: "The round turn takes the load — the half hitches only lock it. Keep the turn complete (360°+).",
+    steps: [
+      "Take a FULL round turn (360°+) around the post or ring.",
+      "Pass the end around the standing part and through — first half hitch.",
+      "Repeat in the SAME direction — second half hitch.",
+      "Pull the standing part to take the strain, slide hitches snug.",
+    ],
+  },
+  {
+    id: "timber",
+    name: "Timber Hitch",
+    tr: "Tomruk bağı",
+    uses: "Dragging/hauling spars and logs; starting diagonal lashings.",
+    warning: "Holds ONLY under steady tension in the pulling direction — slacks off the moment load releases.",
+    steps: [
+      "Take a turn around the log, end crossing over the standing part.",
+      "Wrap the end back around the standing part.",
+      "Tuck it 3+ times around ITSELF inside the loop (each tuck inside the previous).",
+      "Haul the standing part — the tucks jam against the log.",
+    ],
+  },
+];
+
 export interface MorseEntry {
   ch: string;
   code: string;
