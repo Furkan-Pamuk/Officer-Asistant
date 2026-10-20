@@ -56,7 +56,11 @@ function RouteLoadZone({ fromCode, toCode, departMs, arriveMs }: { fromCode: str
   const fp = PORTS.find((p) => p.code === fromCode);
   const tp = PORTS.find((p) => p.code === toCode);
   if (fp && isFinite(departMs)) legs.push({ port: fp, ms: departMs });
-  if (tp && toCode !== fromCode && isFinite(arriveMs)) legs.push({ port: tp, ms: arriveMs });
+  // Destination falls back to the departure date when no ETA is computed yet.
+  if (tp && toCode !== fromCode) {
+    const ms = isFinite(arriveMs) ? arriveMs : departMs;
+    if (isFinite(ms)) legs.push({ port: tp, ms });
+  }
   if (legs.length === 0) return null;
   const monthOf = (ms: number) => new Date(ms).getMonth() + 1;
   const dateOf = (ms: number) => new Date(ms).toISOString().slice(0, 10);
@@ -83,7 +87,7 @@ function RouteLoadZone({ fromCode, toCode, departMs, arriveMs }: { fromCode: str
           );
         })}
       </div>
-      <p className="mt-2 text-[11px] opacity-60">From uses departure date, To uses ETA date. Simplified ILLC guide — the official chart governs.</p>
+      <p className="mt-2 text-[11px] opacity-60">From uses departure date, To uses ETA date (departure date until the route computes). Simplified ILLC guide — the official chart governs.</p>
     </div>
   );
 }
