@@ -84,6 +84,17 @@ export default function Navbar() {
     setMounted(true);
   }, []);
 
+  // Lock background scroll while the mobile menu is open so the menu —
+  // not the page behind it — scrolls.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
   useEffect(() => {
     setOpen(null);
     setMobileOpen(false);
@@ -178,7 +189,7 @@ export default function Navbar() {
         </Link>
       </div>
       {mobileOpen && (
-        <div className="grid gap-1 border-t border-amber-200 px-4 py-3 md:hidden dark:border-red-950">
+        <div className="grid max-h-[70vh] gap-1 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-3 md:hidden dark:border-red-950">
           {ITEMS.map((item) =>
             item.subs ? (
               <div key={item.label}>

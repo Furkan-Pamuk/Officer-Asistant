@@ -65,9 +65,65 @@ export default function LogPage() {
       id: uid("log"), contractId, time: now.toISOString(),
       lat: s.lat, lon: s.lon, tz: s.tz,
       compass: f.compass, windKn: s.windKn, windDir: s.windDir, waveM: s.waveM, visKm: s.visKm,
-      dryT: f.dryT, wetT: f.wetT, variation: f.variation, note: f.note, auto: false,
+      dryT: f.dryT || s.dryT, wetT: f.wetT || s.wetT, variation: f.variation || s.variation, note: f.note, auto: false,
     });
     setStatus(`logged ${now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`);
+  }
+
+  // Phone compass (magnetometer): one-shot heading into the compass field.
+  // iOS needs explicit permission; Android exposes alpha directly.
+  async function phoneCompass() {
+    try {
+      const DOE = DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> };
+      if (typeof DOE.requestPermission === "function") {
+        const res = await DOE.requestPermission();
+        if (res !== "granted") {
+          setStatus("compass permission denied");
+          return;
+        }
+      }
+      setStatus("reading compass — hold the phone flat…");
+      const h = await new Promise<number | null>((resolve) => {
+        let done = false;
+        const to = setTimeout(() => { if (!done) { done = true; window.removeEventListener("deviceorientation", onE); resolve(null); } }, 6000);
+        function onE(e: DeviceOrientationEvent & { webkitCompassHeading?: number }) {
+          const v = e.webkitCompassHeading ?? (e.absolute === false ? null : e.alpha);
+          if (v === null || v === undefined || !isFinite(v)) return;
+          if (!done) {
+            done = true;
+            clearTimeout(to);
+            window.removeEventListener("deviceorientation", onE);
+            resolve(Math.round(((v % 360) + 360) % 360));
+          }
+        }
+        window.addEventListener("deviceorientation", onE);
+      });
+      if (h === null) {
+        setStatus("no compass sensor (or need HTTPS/location)");
+      } else {
+        setF((p) => ({ ...p, compass: String(h) }));
+        setStatus(`compass ${h}° from phone`);
+      }
+    } catch {
+      setStatus("compass not available on this device");
+    }
+  }
+
+  // Fetch weather + variation into the form (logNow also auto-fills blanks).
+  async function fillWeather() {
+    setStatus("fetching weather…");
+    const s = await snapshotPosition();
+    if (s.lat === null) {
+      setStatus("no position yet — allow location first");
+      return;
+    }
+    setF((p) => ({
+      ...p,
+      dryT: p.dryT || s.dryT,
+      wetT: p.wetT || s.wetT,
+      variation: p.variation || s.variation,
+    }));
+    setStatus(s.dryT || s.variation ? "weather filled (dry/wet + variation)" : "offline — type manually");
   }
 
   // Auto log now runs globally (AutoLog engine) on every screen while the
@@ -101,7 +157,7 @@ export default function LogPage() {
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">📓 Deck Log — hourly</h1>
-          <p className="text-sm opacity-70">Position + wind/sea/visibility auto-filled from GPS & open data in vessel timezone. Compass, temperatures and variation are manual (chart/bridge). {status}</p>
+          <p className="text-sm opacity-70">Position, wind/sea/visibility, dry/wet bulb and variation auto-fill from GPS & open data in vessel timezone (typed values always win). Compass: type it or read the phone sensor. {status}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <label className="flex items-center gap-1 text-xs font-bold">Keep
@@ -130,7 +186,11 @@ export default function LogPage() {
           <input value={f.wetT} onChange={(e) => setF({ ...f, wetT: e.target.value })} placeholder="Wet bulb °C" inputMode="decimal" className={inp} />
         </div>
         <input value={f.note} onChange={(e) => setF({ ...f, note: e.target.value })} placeholder="Note (optional)" className={`${inp} mt-2`} />
-        <button onClick={logNow} className="mt-2 rounded-full bg-stone-900 px-5 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Log now</button>
+        <div className="mt-2 flex flex-wrap gap-2">
+          <button onClick={logNow} className="rounded-full bg-stone-900 px-5 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Log now</button>
+          <button onClick={phoneCompass} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🧭 Phone compass</button>
+          <button onClick={fillWeather} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🌤️ Fill weather</button>
+        </div>
         <p className="mt-1 text-xs opacity-60">Allow location when asked — needed for lat/lon + timezone. Auto keeps logging on any screen while the app is open.</p>
       </div>
 

@@ -16,8 +16,8 @@ export const INTERVALS = [
   { id: "4h", label: "4 hours", ms: 4 * 3600000 },
 ];
 
-// Hourly deck log: auto position + wind/sea/visibility from the same
-// sources as the tracker, manual compass/temperatures/variation.
+// Hourly deck log: auto position + wind/sea/visibility/temperatures from the
+// same sources as the tracker, manual compass (or phone sensor).
 export interface LogSnapshot {
   lat: number | null;
   lon: number | null;
@@ -26,6 +26,41 @@ export interface LogSnapshot {
   windDir: string;
   waveM: string;
   visKm: string;
+  dryT: string;
+  wetT: string;
+  variation: string;
+}
+
+// Wet-bulb from dry-bulb (°C) + relative humidity (%) — Stull (2011).
+// Valid roughly -20…50 °C and 5…99% RH; guarded inputs.
+export function wetBulbStull(t: number, rh: number): number | null {
+  if (!isFinite(t) || !isFinite(rh) || t < -20 || t > 50 || rh < 5 || rh > 100) return null;
+  const tw =
+    t * Math.atan(0.151977 * Math.sqrt(rh + 8.313659)) +
+    Math.atan(t + rh) -
+    Math.atan(rh - 1.676331) +
+    0.00391838 * Math.pow(rh, 1.5) * Math.atan(0.023101 * rh) -
+    4.686035;
+  return Math.round(tw * 10) / 10;
+}
+
+// Magnetic variation (declination) from the NOAA World Magnetic Model
+// (published demo key, online only). East positive → "5.3°E" style.
+export async function fetchVariation(lat: number, lon: number): Promise<string> {
+  try {
+    const r = await fetch(
+      `https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1=${lat}&lon1=${lon}&key=zNEw7&resultFormat=json`,
+      { signal: AbortSignal.timeout(9000) }
+    );
+    if (!r.ok) return "";
+    const j = await r.json();
+    const d = Number(j?.result?.[0]?.declination);
+    if (!isFinite(d)) return "";
+    const a = Math.abs(Math.round(d * 10) / 10);
+    return `${a}°${d < 0 ? "W" : "E"}`;
+  } catch {
+    return "";
+  }
 }
 
 export async function snapshotPosition(): Promise<LogSnapshot> {
@@ -40,18 +75,19 @@ export async function snapshotPosition(): Promise<LogSnapshot> {
   } catch {
     /* ignore */
   }
-  let windKn = "", windDir = "", waveM = "", visKm = "";
+  let windKn = "", windDir = "", waveM = "", visKm = "", dryT = "", wetT = "", variation = "";
   if (lat !== null && lon !== null) {
     try {
-      const [m, w] = await Promise.all([
+      const [m, w, v] = await Promise.all([
         fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_direction&timezone=auto`).then((r) => {
           if (!r.ok) throw 0;
           return r.json();
         }),
-        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wind_speed_10m,wind_direction_10m&hourly=visibility&forecast_days=1&wind_speed_unit=kn&timezone=auto`).then((r) => {
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=wind_speed_10m,wind_direction_10m,temperature_2m,relative_humidity_2m&hourly=visibility&forecast_days=1&wind_speed_unit=kn&timezone=auto`).then((r) => {
           if (!r.ok) throw 0;
           return r.json();
         }),
+        fetchVariation(lat, lon),
       ]);
       windKn = String(Math.round(w.current.wind_speed_10m));
       windDir = String(Math.round(w.current.wind_direction_10m));
@@ -63,11 +99,17 @@ export async function snapshotPosition(): Promise<LogSnapshot> {
       } catch {
         /* ignore */
       }
+      const t2m = Number(w.current.temperature_2m);
+      const rh = Number(w.current.relative_humidity_2m);
+      if (isFinite(t2m)) dryT = String(Math.round(t2m * 10) / 10);
+      const tw = wetBulbStull(t2m, rh);
+      if (tw !== null) wetT = String(tw);
+      variation = v;
     } catch {
       /* offline — manual fields still work */
     }
   }
-  return { lat, lon, tz, windKn, windDir, waveM, visKm };
+  return { lat, lon, tz, windKn, windDir, waveM, visKm, dryT, wetT, variation };
 }
 
 // Prune entries older than the retention window

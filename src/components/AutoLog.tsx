@@ -102,9 +102,9 @@ export default function AutoLog() {
             windDir: s.windDir,
             waveM: s.waveM,
             visKm: s.visKm,
-            dryT: "",
-            wetT: "",
-            variation: "",
+            dryT: s.dryT,
+            wetT: s.wetT,
+            variation: s.variation,
             note: "",
             auto: true,
           });

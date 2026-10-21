@@ -504,9 +504,9 @@ export default function RoutePage() {
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
-        <div className="grid content-start gap-4">
-          <div className="relative">
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1fr_340px]">
+        <div className="contents">
+          <div className="relative order-1 lg:col-start-1 lg:row-start-1 lg:self-start">
           <div ref={mapEl} className="z-0 h-[420px] w-full overflow-hidden rounded-2xl border border-amber-200 dark:border-red-950" />
           {!mapReady && (
             <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-neutral-100 text-sm font-bold opacity-80 dark:bg-neutral-900">
@@ -523,13 +523,13 @@ export default function RoutePage() {
             </button>
           )}
           </div>
-          <RoutePortInfo fromCode={from} toCode={to} />
-          <RouteLoadZone fromCode={from} toCode={to} departMs={depMs} arriveMs={arrMs} />
-          <PortLogPanel />
+          <div className="order-7 lg:col-start-1 lg:row-start-2 lg:self-start"><RoutePortInfo fromCode={from} toCode={to} /></div>
+          <div className="order-8 lg:col-start-1 lg:row-start-3 lg:self-start"><RouteLoadZone fromCode={from} toCode={to} departMs={depMs} arriveMs={arrMs} /></div>
+          <div className="order-9 lg:col-start-1 lg:row-start-4 lg:self-start"><PortLogPanel /></div>
         </div>
 
-        <div className="grid content-start gap-3">
-          <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+        <div className="contents">
+          <div className="order-2 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:col-start-2 lg:row-start-1 lg:self-start">
             <label className="text-xs font-bold opacity-60">From</label>
             <select value={from} onChange={(e) => handleFrom(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
               {PORTS.map((p) => (
@@ -555,7 +555,7 @@ export default function RoutePage() {
             <p className="mt-2 text-xs opacity-60">Tip: click a port on the map — first click sets From, second sets To.</p>
           </div>
 
-          <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+          <div className="order-3 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:col-start-2 lg:row-start-2 lg:self-start">
             <div className="flex items-center justify-between">
               <h2 className="font-bold">✏️ Edit route</h2>
               <button
@@ -614,7 +614,7 @@ export default function RoutePage() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+          <div className="order-6 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:col-start-2 lg:row-start-3 lg:self-start">
             <h2 className="font-bold">Straits &amp; Canals</h2>
             <p className="text-xs opacity-60">Switch off a passage you cannot use (no permit, closed, sanctions) — the router will go around or report no route.</p>
             <div className="mt-2 grid gap-1.5">
@@ -636,7 +636,7 @@ export default function RoutePage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+          <div className="order-4 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:col-start-2 lg:row-start-4 lg:self-start">
             {plan ? (
               <>
                 <div className="text-xs font-bold opacity-60">TOTAL DISTANCE</div>
@@ -665,7 +665,7 @@ export default function RoutePage() {
             )}
           </div>
 
-          <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+          <div className="order-5 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:col-start-2 lg:row-start-5 lg:self-start">
             <h2 className="font-bold">⏱️ ETA Calculator</h2>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
