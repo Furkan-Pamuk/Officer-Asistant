@@ -1,5 +1,6 @@
 import { PORTS, type Port } from "./ports";
 import { CHOKEPOINTS, EDGES, PORT_GATEWAYS, WAYPOINTS } from "./route-data";
+import { LAND_RINGS } from "./world-land";
 
 export interface RouteLeg {
   from: string;
@@ -52,6 +53,34 @@ export interface ExtraNode {
   lat: number;
   lon: number;
   linkTo: string[];
+}
+
+// Coarse land check (simplified Natural Earth rings, [lon,lat]).
+export function isWater(lat: number, lon: number): boolean {
+  for (const ring of LAND_RINGS) {
+    let minX = 180, maxX = -180;
+    for (const [x] of ring) {
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+    }
+    if (lon < minX || lon > maxX) continue;
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+      if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+    if (inside) return false;
+  }
+  return true;
+}
+
+// A custom stop links only to nearby waypoints reachable over water:
+// endpoints plus the segment midpoint must all be water. This keeps the
+// drawn route from jumping across peninsulas/isthmuses to a waypoint on
+// the wrong side of land.
+function waterLinked(lat1: number, lon1: number, lat2: number, lon2: number): boolean {
+  if (!isWater(lat1, lon1) || !isWater(lat2, lon2)) return false;
+  return isWater((lat1 + lat2) / 2, (lon1 + lon2) / 2);
 }
 
 function buildGraph(
@@ -209,9 +238,11 @@ export function planRouteWithStops(
   const to = PORTS.find((p) => p.code === toCode);
   if (!from || !to || fromCode === toCode) return null;
   const extra: ExtraNode[] = customs.map((c, i) => {
-    const near = WAYPOINTS.map((w) => ({ id: `w:${w.id}`, nm: haversineNm(c.lat, c.lon, w.lat, w.lon) }))
+    const near = WAYPOINTS.filter((w) => !avoid.includes(w.id))
+      .map((w) => ({ id: `w:${w.id}`, nm: haversineNm(c.lat, c.lon, w.lat, w.lon), w }))
       .sort((a, b) => a.nm - b.nm)
-      .slice(0, 3)
+      .slice(0, 6)
+      .filter((n) => waterLinked(c.lat, c.lon, n.w.lat, n.w.lon))
       .map((n) => n.id);
     return { id: `c:${i}`, label: `Via ${i + 1}`, lat: c.lat, lon: c.lon, linkTo: near };
   });

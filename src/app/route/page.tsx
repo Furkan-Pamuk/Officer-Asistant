@@ -7,8 +7,7 @@ import StoryModal from "@/components/StoryModal";
 import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { LOAD_MARKS, zoneAt } from "@/lib/loadlines";
 import { CHOKEPOINTS } from "@/lib/route-data";
-import { LAND_RINGS } from "@/lib/world-land";
-import { formatDuration, mergeLegs, planRoute, planRouteWithStops, type RoutePlan, type TrackPoint } from "@/lib/route";
+import { formatDuration, haversineNm, isWater, mergeLegs, planRoute, planRouteWithStops, type RoutePlan, type TrackPoint } from "@/lib/route";
 
 const LS_KEY = "oa-route-v1";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -23,26 +22,6 @@ function fmtDate(ms: number) {
   const d = new Date(ms);
   const p = (n: number) => String(n).padStart(2, "0");
   return `${p(d.getDate())} ${MONTHS[d.getMonth()]} ${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
-}
-
-// Coarse land check (simplified Natural Earth rings, [lon,lat]) — non-blocking
-// guard so custom stops dropped on land get flagged, not silently kept.
-function isWater(lat: number, lon: number): boolean {
-  for (const ring of LAND_RINGS) {
-    let minX = 180, maxX = -180;
-    for (const [x] of ring) {
-      if (x < minX) minX = x;
-      if (x > maxX) maxX = x;
-    }
-    if (lon < minX || lon > maxX) continue;
-    let inside = false;
-    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-      const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
-      if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside;
-    }
-    if (inside) return false;
-  }
-  return true;
 }
 
 interface CustomStop {
@@ -158,6 +137,13 @@ export default function RoutePage() {
   const [customs, setCustoms] = useState<CustomStop[]>([]);
   const [avoid, setAvoid] = useState<string[]>([]);
   const [storyOpen, setStoryOpen] = useState(false);
+  const [notice, setNotice] = useState("");
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function flashNotice(msg: string) {
+    setNotice(msg);
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    noticeTimer.current = setTimeout(() => setNotice(""), 5000);
+  }
   const idRef = useRef(1);
   const fitKeyRef = useRef("");
 
@@ -224,13 +210,36 @@ export default function RoutePage() {
     setClosed((prev) => (prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]));
   }
 
+  // Route edits belong to one port pair: changing ports clears custom
+  // stops and avoided waypoints so an old edit can't hijack a new route.
+  function handleFrom(code: string) {
+    setFrom(code);
+    setCustoms([]);
+    setAvoid([]);
+  }
+  function handleTo(code: string) {
+    setTo(code);
+    setCustoms([]);
+    setAvoid([]);
+  }
+  function handleSwap() {
+    setFrom(to);
+    setTo(from);
+    setCustoms([]);
+    setAvoid([]);
+  }
+
   function pickPort(code: string) {
     const s = selRef.current;
     if (!s.from || (s.from && s.to)) {
       setFrom(code);
       setTo("");
+      setCustoms([]);
+      setAvoid([]);
     } else if (code !== s.from) {
       setTo(code);
+      setCustoms([]);
+      setAvoid([]);
     }
   }
   const pickPortRef = useRef(pickPort);
@@ -243,6 +252,10 @@ export default function RoutePage() {
   }
 
   function insertCustomAt(lat: number, lon: number, trackIdx?: number) {
+    if (!isWater(lat, lon)) {
+      flashNotice("That point is on land — pick a water point for a stop.");
+      return;
+    }
     const p = planRef.current;
     const pts = p?.points ?? [];
     let at = customsRef.current.length;
@@ -265,13 +278,20 @@ export default function RoutePage() {
   const customsRef = useRef(customs);
   customsRef.current = customs;
 
-  // Dragging an auto waypoint turns it into a custom stop at the new position;
-  // the original waypoint is avoided so the router doesn't loop back through it.
+  // Dragging an auto waypoint turns it into a custom stop at the new position.
+  // The original is avoided only when dragged far (>50 nm); small nudges keep
+  // it routable so tiny corrections don't blow up the whole route.
   function convertWaypoint(trackIdx: number, wayId: string, lat: number, lon: number) {
+    if (!isWater(lat, lon)) {
+      flashNotice("That point is on land — drag the stop back to water.");
+      return;
+    }
     const pts = planRef.current?.points ?? [];
+    const orig = pts[trackIdx];
+    const moved = orig ? haversineNm(orig.lat, orig.lon, lat, lon) : Infinity;
     const at = countCustomsBefore(pts, trackIdx);
     const id = idRef.current++;
-    setAvoid((prev) => (prev.includes(wayId) ? prev : [...prev, wayId]));
+    if (moved > 50) setAvoid((prev) => (prev.includes(wayId) ? prev : [...prev, wayId]));
     setCustoms((prev) => [...prev.slice(0, at), { id, lat, lon }, ...prev.slice(at)]);
   }
 
@@ -511,14 +531,14 @@ export default function RoutePage() {
         <div className="grid content-start gap-3">
           <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
             <label className="text-xs font-bold opacity-60">From</label>
-            <select value={from} onChange={(e) => setFrom(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
+            <select value={from} onChange={(e) => handleFrom(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
               {PORTS.map((p) => (
                 <option key={p.code} value={p.code}>{p.name} ({p.country})</option>
               ))}
             </select>
             <div className="mt-2 flex items-center gap-2">
               <button
-                onClick={() => { setFrom(to); setTo(from); }}
+                onClick={handleSwap}
                 className="rounded-full border px-3 py-1 text-xs font-bold"
                 title="Swap"
               >
@@ -526,7 +546,7 @@ export default function RoutePage() {
               </button>
             </div>
             <label className="mt-2 block text-xs font-bold opacity-60">To</label>
-            <select value={to} onChange={(e) => setTo(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
+            <select value={to} onChange={(e) => handleTo(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
               <option value="">Select…</option>
               {PORTS.map((p) => (
                 <option key={p.code} value={p.code}>{p.name} ({p.country})</option>
@@ -549,6 +569,22 @@ export default function RoutePage() {
             {editMode && (
               <div className="mt-2 text-xs">
                 <p className="opacity-60">Drag any numbered stop to move it (orange = yours, teal = auto) • click the route line or the map to add a stop • each stop&apos;s popup removes it.</p>
+                {notice && <p className="mt-2 rounded-xl bg-red-50 px-3 py-2 font-bold text-red-700 dark:bg-red-950">{notice}</p>}
+                {customs.length > 0 && (
+                  <ul className="mt-2 grid gap-1">
+                    {customs.map((c, i) => (
+                      <li key={c.id} className="flex items-center justify-between gap-2 rounded-xl bg-amber-50 px-3 py-1.5 dark:bg-black">
+                        <span><b>Stop {i + 1}</b> · {c.lat.toFixed(2)}, {c.lon.toFixed(2)}{isWater(c.lat, c.lon) ? "" : " · on land!"}</span>
+                        <button
+                          onClick={() => setCustoms((prev) => prev.filter((x) => x.id !== c.id))}
+                          className="shrink-0 rounded-full border border-red-400 px-2 py-0.5 font-bold text-red-700"
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <div className="mt-2 flex items-center gap-2">
                   <span className="font-bold">{customs.length} custom stop{customs.length === 1 ? "" : "s"} • {avoid.length} avoided</span>
                   {(customs.length > 0 || avoid.length > 0) && (
