@@ -50,9 +50,9 @@ const ITEMS: Item[] = [
   {
     label: "Cargo",
     subs: [
-      { href: "/cargo", label: "📖 Cargo Information Booklet" },
-      { href: "/cargo/cleaning", label: "🧽 Tank Cleaning Methods" },
+      { href: "/cargo", label: "🧪 Chemical / Oil" },
       { href: "/bulks", label: "🧱 Solid Bulk (IMSBC)" },
+      { href: "/gas", label: "🧊 Gas (LPG / LNG)" },
     ],
   },
   {

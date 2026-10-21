@@ -14,7 +14,7 @@ export default function CargoBooklet() {
   return (
     <div className="grid gap-4">
       <div>
-        <h1 className="text-2xl font-bold">📖 Cargo Information Booklet</h1>
+        <h1 className="text-2xl font-bold">🧪 Chemical / Oil Booklet</h1>
         <p className="text-sm text-slate-600">
           Search by cargo name or UN number. {CARGOES.length} common bulk liquid cargoes.
           Values are indicative — the SDS and the IBC/IGC Code always govern.

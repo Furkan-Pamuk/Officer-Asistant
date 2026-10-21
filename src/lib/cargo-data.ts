@@ -756,15 +756,6 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Gas-free fully; static precautions apply during washing too.",
   },
   {
-    slug: "butadiene", conductivity: "Very low (liquid)", tlv: "2 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 2.1", ems: "F-D, S-U", vapour: "Very high (gas)", colour: "Colourless", odour: "Faint gasoline-aromatic", odourThreshold: "Low", viscosity: "Low (liquid)", floater: "—", detection: "Butadiene tube (low range); LEL meter", compatGroup: 30, compatSrc: "Table 1", name: "Butadiene (inhibited)", synonyms: ["1,3-Butadiene", "Divinyl", "Bivinyl"],
-    un: "1010", ibc: "IGC Code gas-carrier cargo — not an IBC product", category: "Other",
-    formula: "C₄H₆", boiling: "−4.4 °C", flash: "−76 °C (gas)", density: "0.62 (liquid)", solubility: "Slight",
-    water: "partly", toxic: true,
-    health: "Carcinogen; extremely flammable gas. Forms explosive ‘popcorn’ polymer with rust/air — inhibitor (TBC) and oxygen control essential.",
-    segregation: "Air/oxygen ingress, rust, oxidizers, acids.",
-    cleaning: ["inhibitor", "ventilate"], cleanNote: "Gas-carrier procedures (IGC): inerting, popcorn-polymer watch. Not a chemical-tanker tank-cleaning job.",
-  },
-  {
     slug: "fame", conductivity: "Low (variable; higher than diesel)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "<0.01 kPa (negligible)", colour: "Pale yellow", odour: "Mild oily", odourThreshold: "n/a", viscosity: "Low-moderate", floater: "Persistent floater", detection: "No vapour tube at ambient — O₂/LEL on entry; microbial check if water present", name: "Fatty acid methyl esters (FAME / Biodiesel B100)", synonyms: ["FAME", "Biodiesel", "B100", "RME", "SME", "Methyl esters"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "C16–C18 methyl esters", boiling: "Non-volatile (>300 °C)", flash: ">120 °C (typ. >130 °C)", density: "≈0.87–0.89", solubility: "Insoluble",
