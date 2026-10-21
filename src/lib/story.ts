@@ -104,8 +104,11 @@ export function buildStorySVG(s: StoryStats, pts: RoutePoint[]): string {
   let startX = 0, startY = 0, endX = 0, endY = 0;
   let land = "";
   if (pts.length >= 2) {
-    // land backdrop: project, then clip to the map frame in screen space
-    const pr = projFactory(pts, mx, my, mw, mh);
+    // land backdrop: project, then clip to the map frame in screen space.
+    // The route is projected into a padded inner box so track, endpoints
+    // and frame never touch.
+    const PAD = 80;
+    const pr = projFactory(pts, mx + PAD, my + PAD, mw - PAD * 2, mh - PAD * 2);
     const P = pts.map((p) => pr.proj(p.lon, p.lat));
     path = "M" + P.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" L");
     [startX, startY] = P[0];
@@ -144,6 +147,26 @@ export function buildStorySVG(s: StoryStats, pts: RoutePoint[]): string {
   <text x="80" y="205" font-family="Arial,sans-serif" font-size="26" fill="#8B98A5">DON'T BE THE PREY. BE THE SHARK.</text>
   <text x="80" y="330" font-family="Arial,sans-serif" font-size="64" font-weight="900" fill="#FFFFFF">${esc(s.fromName.toUpperCase())}</text>
   <text x="80" y="400" font-family="Arial,sans-serif" font-size="44" font-weight="bold" fill="#2AA198">↓  ${esc(s.toName.toUpperCase())}</text>
+  <g>
+    <path d="M855,235 L878,178 L982,178 L1005,235 Z" fill="#F1F5F9"/>
+    <path d="M905,178 L930,205 L955,178" fill="none" stroke="#0f172a" stroke-width="5"/>
+    <rect x="862" y="192" width="34" height="12" rx="4" fill="#0f172a"/>
+    <rect x="964" y="192" width="34" height="12" rx="4" fill="#0f172a"/>
+    <line x1="866" y1="198" x2="892" y2="198" stroke="#c9a227" stroke-width="2.5"/>
+    <line x1="968" y1="198" x2="994" y2="198" stroke="#c9a227" stroke-width="2.5"/>
+    <circle cx="930" cy="218" r="3.5" fill="#c9a227"/>
+    <ellipse cx="930" cy="128" rx="44" ry="46" fill="#8B98A5"/>
+    <ellipse cx="930" cy="150" rx="27" ry="20" fill="#E2E8F0"/>
+    <circle cx="913" cy="116" r="10" fill="#ffffff"/><circle cx="913" cy="117" r="4.5" fill="#0f172a"/>
+    <circle cx="947" cy="116" r="10" fill="#ffffff"/><circle cx="947" cy="117" r="4.5" fill="#0f172a"/>
+    <path d="M902,146 Q930,158 958,146" fill="none" stroke="#0f172a" stroke-width="4"/>
+    <path d="M912,149 L917,157 L922,149 L927,157 L932,149 L937,157 L942,149 L947,157" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <path d="M892,128 q-6,10 0,20 M968,128 q6,10 0,20" fill="none" stroke="#475569" stroke-width="3"/>
+    <ellipse cx="930" cy="86" rx="50" ry="11" fill="#0f172a"/>
+    <path d="M890,84 L892,52 Q930,40 968,52 L970,84 Z" fill="#F1F5F9"/>
+    <rect x="890" y="78" width="80" height="8" fill="#0f172a"/>
+    <circle cx="930" cy="62" r="9" fill="#c9a227"/><circle cx="930" cy="62" r="3.5" fill="#0f172a"/>
+  </g>
   ${grid}
   ${land}
   <rect x="${mx}" y="${my}" width="${mw}" height="${mh}" fill="none" stroke="#2AA198" stroke-width="3" opacity="0.6"/>
@@ -155,9 +178,9 @@ export function buildStorySVG(s: StoryStats, pts: RoutePoint[]): string {
   <line x1="80" y1="1560" x2="1000" y2="1560" stroke="#1b2a4a" stroke-width="3"/>
   <g>
     <rect x="400" y="1620" width="280" height="140" rx="40" fill="#081120" stroke="#2AA198" stroke-width="4"/>
-    <path d="M470 1720 C478 1680 492 1652 528 1640 C518 1662 516 1680 516 1700 Z" fill="#8B98A5"/>
-    <rect x="448" y="1700" width="130" height="8" rx="4" fill="#2AA198"/>
-    <rect x="462" y="1714" width="100" height="8" rx="4" fill="#2AA198" opacity="0.45"/>
+    <path d="M511 1720 C519 1680 533 1652 569 1640 C559 1662 557 1680 557 1700 Z" fill="#8B98A5"/>
+    <rect x="489" y="1700" width="102" height="8" rx="4" fill="#2AA198"/>
+    <rect x="503" y="1714" width="74" height="8" rx="4" fill="#2AA198" opacity="0.45"/>
   </g>
   <text x="540" y="1800" text-anchor="middle" font-family="Arial,sans-serif" font-size="34" font-weight="900" fill="#FFFFFF">SHARK</text>
   <text x="540" y="1845" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" fill="#8B98A5">${esc(s.dateLabel)} • shark at sea</text>
