@@ -5,8 +5,10 @@ import { LIBRARY_BOOKS } from "@/lib/data";
 import { KNOTS } from "@/lib/navigation-documents";
 import { KnotStepFigures } from "@/components/KnotDiagrams";
 import HraMap from "@/components/HraMap";
+import SarMap from "@/components/SarMap";
+import FirstAid from "@/components/FirstAid";
 
-type Tab = "pub" | "books" | "knots" | "hra";
+type Tab = "pub" | "books" | "knots" | "hra" | "sar" | "aid";
 
 const DOC_TABS: { tab: string; label: string; desc: string }[] = [
   { tab: "orders", label: "📜 Orders", desc: "Master's standing orders + signature block." },
@@ -26,7 +28,7 @@ export default function Library() {
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tab");
-      if (t === "pub" || t === "books" || t === "knots" || t === "hra") setTab(t);
+      if (t === "pub" || t === "books" || t === "knots" || t === "hra" || t === "sar" || t === "aid") setTab(t);
     } catch { /* ignore */ }
   }, []);
   function pick(t: Tab) {
@@ -49,6 +51,8 @@ export default function Library() {
         <button onClick={() => pick("books")} className={btn("books", "📕 Books")}>📕 Books ({LIBRARY_BOOKS.length})</button>
         <button onClick={() => pick("knots")} className={btn("knots", "🪢 Knots")}>🪢 Knots ({KNOTS.length})</button>
         <button onClick={() => pick("hra")} className={btn("hra", "🗺️ HRA Map")}>🗺️ HRA Map</button>
+        <button onClick={() => pick("sar")} className={btn("sar", "🛰️ SAR Map")}>🛰️ SAR Map</button>
+        <button onClick={() => pick("aid")} className={btn("aid", "🩹 First Aid")}>🩹 First Aid</button>
         {DOC_TABS.map((d) => (
           <button key={d.tab} onClick={() => goDoc(d.tab)} className="min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold opacity-70 hover:opacity-100">{d.label}</button>
         ))}
@@ -111,6 +115,10 @@ export default function Library() {
             </div>
           </div>
         </div>
+      ) : tab === "sar" ? (
+        <SarMap />
+      ) : tab === "aid" ? (
+        <FirstAid />
       ) : tab === "knots" ? (
         <div className="grid gap-3 md:grid-cols-2">
           {KNOTS.map((k) => (
