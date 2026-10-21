@@ -12,7 +12,7 @@ export default function ShipMap({ lat, lon, label }: { lat: number; lon: number;
   useEffect(() => {
     if (!ref.current) return;
     if (!mapRef.current) {
-      const map = L.map(ref.current, { scrollWheelZoom: false }).setView([lat, lon], 6);
+      const map = L.map(ref.current, { scrollWheelZoom: true }).setView([lat, lon], 6);
       // Single keyless source (OpenStreetMap); night look comes from a CSS
       // filter in globals.css so no second provider or key is ever needed.
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
