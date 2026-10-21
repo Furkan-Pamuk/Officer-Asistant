@@ -26,7 +26,7 @@ export default function SarMap() {
         <path d={land} fill="#1d3a52" />
         {SAR_CENTRES.map((c) => (
           <g key={c.n}>
-            <circle cx={X(c.lon)} cy={Y(c.lat)} r="9" fill="#dc2626" stroke="#fff" strokeWidth="1.5" />
+            <circle cx={X(c.lon)} cy={Y(c.lat)} r="9" fill="#ea580c" stroke="#fff" strokeWidth="1.5" />
             <text x={X(c.lon)} y={Y(c.lat) + 4} textAnchor="middle" fontSize="10" fontWeight="900" fill="#fff">{c.n}</text>
           </g>
         ))}
@@ -35,7 +35,7 @@ export default function SarMap() {
         {SAR_CENTRES.map((c) => (
           <li key={c.n} className="rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-700 text-xs font-black text-white">{c.n}</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-600 text-xs font-black text-white">{c.n}</span>
               <strong>{c.name}</strong>
             </div>
             <p className="mt-0.5 opacity-80">{c.authority} · {c.coverage}</p>
