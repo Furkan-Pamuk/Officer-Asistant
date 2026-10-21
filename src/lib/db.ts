@@ -151,15 +151,11 @@ function checklistSeedId(contractId: string, t: { id: string }, i: number) {
 export async function seedChecklistsForContract(contractId: string) {
   const rows = await db.checklists.where("contractId").equals(contractId).toArray();
   const now = new Date().toISOString();
-  // Templates removed from the shipped set (user request) disappear from
-  // existing contracts too. Titles are matched exactly; user-renamed forks
-  // (different titles) are never touched.
-  const GONE = new Set([
-    "E 009 Bunkering Safety Checklist",
-    "E 019 Navigation in Shallow or Coastal Waters",
-    "E 020 Navigation in Heavy Weather",
-  ]);
-  const goneIds = rows.filter((r) => GONE.has(r.title)).map((r) => r.id);
+  // Drop seeded template rows whose template no longer ships (e.g. removed
+  // log/record/report cards). Custom user checklists and user-renamed forks
+  // (titles matching no template) are never touched.
+  const live = new Set(JOB_TEMPLATES.map((t) => t.title));
+  const goneIds = rows.filter((r) => !r.custom && !live.has(r.title)).map((r) => r.id);
   if (goneIds.length) await db.checklists.bulkDelete(goneIds).catch(() => {});
   if (rows.length === 0) {
     // bulkPut (upsert): double-invoked seeds must not throw on key conflicts
