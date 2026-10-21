@@ -10,6 +10,8 @@ import {
   getPortDoc,
   prefillFromContract,
   savePortDoc,
+  fillModuleFromShipData,
+  pushShipData,
   crewRowsFor,
   voyageRowsFor,
   type PortDocModule,
@@ -41,19 +43,33 @@ function DocsInner() {
       setData(null);
       return;
     }
-    getPortDoc(contractId, mod.id).then((row) => {
+    let live = true;
+    (async () => {
+      const row = await getPortDoc(contractId, mod.id);
+      let d: PortDocData;
       if (row) {
         try {
-          setData(JSON.parse(row.data) as PortDocData);
-          return;
+          d = JSON.parse(row.data) as PortDocData;
         } catch {
-          /* fall through to blank */
+          d = blankData(mod);
+          if (contract) Object.assign(d.fields, prefillFromContract(mod, contract as unknown as Record<string, unknown>));
         }
+      } else {
+        d = blankData(mod);
+        if (contract) Object.assign(d.fields, prefillFromContract(mod, contract as unknown as Record<string, unknown>));
       }
-      const blank = blankData(mod);
-      if (contract) Object.assign(blank.fields, prefillFromContract(mod, contract as unknown as Record<string, unknown>));
-      setData(blank);
-    });
+      // Ship Data is the master copy: fill this module's blank fields from it.
+      const merged = await fillModuleFromShipData(contractId, mod.id, d.fields);
+      if (!live) return;
+      if (merged.changed) {
+        d = { ...d, fields: merged.fields };
+        savePortDoc(contractId, mod.id, d).catch(() => {});
+      }
+      setData(d);
+    })();
+    return () => {
+      live = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contractId, modId]);
 
@@ -83,6 +99,8 @@ function DocsInner() {
     savePortDoc(contractId, mod.id, next);
     if (mod.id === "ship-data") {
       setShipHead({ ship: next.fields.shipName ?? "", port: next.fields.arrPort ?? "", date: next.fields.arrDate ?? "" });
+      // Master copy changed → push into the other papers (blank fields only).
+      pushShipData(contractId, next.fields).catch(() => {});
     }
     // Arrival feeds departure while departure is still blank — afterwards
     // departure lives its own life (manual edits are never overwritten).
@@ -132,6 +150,16 @@ function DocsInner() {
   function setField(key: string, v: string) {
     if (!data) return;
     update({ ...data, fields: { ...data.fields, [key]: v } });
+  }
+
+  async function refillFromShip() {
+    if (!data || !contractId || mod.id === "ship-data") return;
+    const merged = await fillModuleFromShipData(contractId, mod.id, data.fields);
+    if (merged.changed) {
+      update({ ...data, fields: merged.fields });
+    } else {
+      alert("Nothing blank to fill — every field already has a value.");
+    }
   }
 
   function setCell(i: number, key: string, v: string) {
@@ -306,7 +334,17 @@ function DocsInner() {
         <p className="text-sm opacity-70">Loading…</p>
       ) : mod.kind === "form" ? (
         <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-          <h2 className="font-bold">{mod.label} <span className="font-normal opacity-60">• {mod.hint}</span></h2>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-bold">{mod.label} <span className="font-normal opacity-60">• {mod.hint}</span></h2>
+            {mod.id !== "ship-data" && (
+              <button onClick={refillFromShip} title="Copy blank fields from Ship Data" className="rounded-full border px-3 py-1 text-xs font-bold print:hidden">⚡ Fill from Ship Data</button>
+            )}
+          </div>
+          {mod.id === "ship-data" ? (
+            <p className="mt-1 text-xs opacity-60">🚢 Master copy — values typed here auto-fill the other papers (blank fields only; your edits are never overwritten).</p>
+          ) : (
+            <p className="mt-1 text-xs opacity-60">Blank fields auto-fill from 🚢 Ship Data when this paper opens.</p>
+          )}
           <div className="mt-3 grid gap-2 md:grid-cols-2">
             {(mod.fields ?? []).map((f) => (
               <label key={f.key} className="grid gap-1 text-sm">

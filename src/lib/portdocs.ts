@@ -269,6 +269,107 @@ export async function savePortDoc(contractId: string, module: string, data: Port
   });
 }
 
+// ---- Ship Data is the master copy ----
+// Source field (ship-data) → target fields in other modules.
+// Only BLANK target fields are ever filled — manual edits always win.
+const SHIP_DATA_LINKS: Record<string, { mod: string; key: string }[]> = {
+  shipName: [{ mod: "mdh", key: "shipName" }],
+  imo: [{ mod: "general-declaration", key: "imo" }, { mod: "mdh", key: "imo" }],
+  callSign: [{ mod: "general-declaration", key: "callSign" }],
+  flag: [{ mod: "general-declaration", key: "flag" }, { mod: "mdh", key: "flag" }],
+  grossTonnage: [{ mod: "general-declaration", key: "grossTonnage" }, { mod: "mdh", key: "grossTonnage" }],
+  netTonnage: [{ mod: "general-declaration", key: "netTonnage" }, { mod: "mdh", key: "netTonnage" }],
+  voyageNo: [{ mod: "general-declaration", key: "voyageNo" }],
+  arrPort: [{ mod: "general-declaration", key: "arrPort" }, { mod: "mdh", key: "port" }],
+  arrDate: [{ mod: "mdh", key: "date" }],
+  depPort: [{ mod: "general-declaration", key: "lastPort" }, { mod: "mdh", key: "fromPort" }],
+  nextPort: [{ mod: "mdh", key: "toPort" }],
+};
+
+const isBlank = (v: unknown) => !String(v ?? "").trim();
+
+// Master's name from the latest crew-accounts month (user's own data).
+async function crewMasterName(contractId: string): Promise<string> {
+  const crew = await crewRowsFor(contractId);
+  return crew.find((c) => /^(master|captain|skipper)/i.test((c.rank || "").trim()))?.name ?? "";
+}
+
+function composeShipType(s: Record<string, string>): string {
+  return [s.shipName, s.shipType].map((x) => (x || "").trim()).filter(Boolean).join(" / ");
+}
+
+function composeRegistry(s: Record<string, string>): string {
+  return [s.portOfRegistry, s.dateOfRegistry, s.officialNo].map((x) => (x || "").trim()).filter(Boolean).join(" / ");
+}
+
+// Fill blank fields of one module from Ship Data (+ crew master). Returns
+// the merged fields and whether anything changed. Never touches non-blanks.
+export async function fillModuleFromShipData(
+  contractId: string, modId: string, fields: Record<string, string>,
+  shipOverride?: Record<string, string>
+): Promise<{ fields: Record<string, string>; changed: boolean }> {
+  if (modId === "ship-data") return { fields, changed: false };
+  let s: Record<string, string> = shipOverride ?? {};
+  if (!shipOverride) {
+    const ship = await getPortDoc(contractId, "ship-data");
+    if (ship) {
+      try {
+        s = (JSON.parse(ship.data) as PortDocData).fields ?? {};
+      } catch {
+        /* ignore */
+      }
+    }
+  }
+  const out = { ...fields };
+  let changed = false;
+  const put = (key: string, v: string) => {
+    if (isBlank(out[key]) && !isBlank(v)) {
+      out[key] = String(v).trim();
+      changed = true;
+    }
+  };
+  for (const [src, targets] of Object.entries(SHIP_DATA_LINKS)) {
+    for (const t of targets) {
+      if (t.mod === modId) put(t.key, s[src] ?? "");
+    }
+  }
+  if (modId === "general-declaration") {
+    put("shipType", composeShipType(s));
+    put("certRegistry", composeRegistry(s));
+  }
+  if (modId === "general-declaration" || modId === "mdh") {
+    if (isBlank(out.masterName)) {
+      const m = await crewMasterName(contractId);
+      if (m) {
+        out.masterName = m;
+        changed = true;
+      }
+    }
+  }
+  return { fields: out, changed };
+}
+
+// Push Ship Data into all other modules (blank fields only). Called after
+// every Ship Data save so the papers stay in sync.
+export async function pushShipData(contractId: string, shipFields: Record<string, string>): Promise<void> {
+  for (const mod of PORT_DOC_MODULES) {
+    if (mod.id === "ship-data" || mod.kind !== "form") continue;
+    const row = await getPortDoc(contractId, mod.id);
+    let cur: PortDocData;
+    if (row) {
+      try {
+        cur = JSON.parse(row.data) as PortDocData;
+      } catch {
+        continue;
+      }
+    } else {
+      cur = blankData(mod);
+    }
+    const merged = await fillModuleFromShipData(contractId, mod.id, cur.fields, shipFields);
+    if (merged.changed) await savePortDoc(contractId, mod.id, { ...cur, fields: merged.fields });
+  }
+}
+
 // Header prefill from the active contract (vessel data only — never personal data).
 export function prefillFromContract(mod: PortDocModule, c: Record<string, unknown>): Record<string, string> {
   const f: Record<string, string> = {};
