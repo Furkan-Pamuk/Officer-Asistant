@@ -7,7 +7,7 @@ import StoryModal from "@/components/StoryModal";
 import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { LOAD_MARKS, zoneAt } from "@/lib/loadlines";
 import { CHOKEPOINTS } from "@/lib/route-data";
-import { formatDuration, haversineNm, isWater, mergeLegs, planRoute, planRouteWithStops, type RoutePlan, type TrackPoint } from "@/lib/route";
+import { formatDuration, haversineNm, isWater, mergeLegs, planRoute, planRouteWithStops, unwrapTrack, wrapLon, type RoutePlan, type TrackPoint } from "@/lib/route";
 
 const LS_KEY = "oa-route-v1";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -252,6 +252,7 @@ export default function RoutePage() {
   }
 
   function insertCustomAt(lat: number, lon: number, trackIdx?: number) {
+    lon = wrapLon(lon);
     if (!isWater(lat, lon)) {
       flashNotice("That point is on land — pick a water point for a stop.");
       return;
@@ -282,6 +283,7 @@ export default function RoutePage() {
   // The original is avoided only when dragged far (>50 nm); small nudges keep
   // it routable so tiny corrections don't blow up the whole route.
   function convertWaypoint(trackIdx: number, wayId: string, lat: number, lon: number) {
+    lon = wrapLon(lon);
     if (!isWater(lat, lon)) {
       flashNotice("That point is on land — drag the stop back to water.");
       return;
@@ -409,8 +411,13 @@ export default function RoutePage() {
     if (!ref || !mapReady) return;
     ref.routeLayer.clearLayers();
     if (plan && plan.legs.length > 0) {
-      const pts = [[plan.legs[0].fromLat, plan.legs[0].fromLon] as [number, number]].concat(
+      const raw = [[plan.legs[0].fromLat, plan.legs[0].fromLon] as [number, number]].concat(
         plan.legs.map((l) => [l.toLat, l.toLon] as [number, number])
+      );
+      // Unwrap across the antimeridian so transpacific legs draw over the
+      // Pacific (Leaflet wraps out-of-range longitudes when rendering).
+      const pts = unwrapTrack(raw.map(([lat, lon]) => ({ lat, lon }))).map(
+        (p) => [p.lat, p.lon] as [number, number]
       );
       const line = ref.L.polyline(pts, { color: "#b45309", weight: 3 });
       if (selRef.current.editMode) {

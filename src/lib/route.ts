@@ -78,9 +78,39 @@ export function isWater(lat: number, lon: number): boolean {
 // endpoints plus the segment midpoint must all be water. This keeps the
 // drawn route from jumping across peninsulas/isthmuses to a waypoint on
 // the wrong side of land.
+function midLon(lon1: number, lon2: number): number {
+  let d = lon2 - lon1;
+  if (d > 180) d -= 360;
+  if (d < -180) d += 360;
+  return wrapLon(lon1 + d / 2);
+}
+
 function waterLinked(lat1: number, lon1: number, lat2: number, lon2: number): boolean {
   if (!isWater(lat1, lon1) || !isWater(lat2, lon2)) return false;
-  return isWater((lat1 + lat2) / 2, (lon1 + lon2) / 2);
+  return isWater((lat1 + lat2) / 2, midLon(lon1, lon2));
+}
+
+// Longitude helpers for antimeridian-safe drawing: unwrapping keeps a
+// transpacific track continuous (Leaflet wraps out-of-range longitudes
+// when rendering, so the line draws across the Pacific instead of
+// backwards over Eurasia/America).
+export function wrapLon(lon: number): number {
+  while (lon > 180) lon -= 360;
+  while (lon < -180) lon += 360;
+  return lon;
+}
+
+export function unwrapTrack<T extends { lat: number; lon: number }>(pts: T[]): T[] {
+  let prev: number | null = null;
+  return pts.map((p) => {
+    let lon = p.lon;
+    if (prev != null) {
+      while (lon - prev > 180) lon -= 360;
+      while (lon - prev < -180) lon += 360;
+    }
+    prev = lon;
+    return { ...p, lon };
+  });
 }
 
 function buildGraph(

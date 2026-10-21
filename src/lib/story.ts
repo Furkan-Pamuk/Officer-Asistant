@@ -1,5 +1,5 @@
 import { PORTS } from "./ports";
-import { planRoute } from "./route";
+import { planRoute, unwrapTrack } from "./route";
 import { LAND_RINGS } from "./world-land";
 
 export interface StoryStats {
@@ -48,7 +48,10 @@ function esc(s: string) {
 }
 
 function projFactory(pts: RoutePoint[], mx: number, my: number, mw: number, mh: number) {
-  const lats = pts.map((p) => p.lat), lons = pts.map((p) => p.lon);
+  // Unwrap across the antimeridian so transpacific tracks span the Pacific,
+  // not the whole world backwards.
+  const up = unwrapTrack(pts);
+  const lats = up.map((p) => p.lat), lons = up.map((p) => p.lon);
   const minLat = Math.min(...lats), maxLat = Math.max(...lats);
   let minLon = Math.min(...lons), maxLon = Math.max(...lons);
   if (maxLon - minLon < 4) { minLon -= 2; maxLon += 2; }
@@ -60,8 +63,25 @@ function projFactory(pts: RoutePoint[], mx: number, my: number, mw: number, mh: 
   const scale = Math.min(mw / spanX, mh / spanY);
   const ox = mx + (mw - spanX * scale) / 2, oy = my + (mh - spanY * scale) / 2;
   return {
+    // mean longitude of the (unwrapped) track — land rings are shifted by
+    // multiples of 360° to sit nearest to it (antimeridian-safe backdrop).
+    refLon: (minLon + maxLon) / 2,
     proj: (lon: number, lat: number): [number, number] => [ox + (lon - minLon) * kx * scale, oy + (maxLat - lat) * scale],
   };
+}
+
+// Shift a land ring by ±360° so it sits nearest the track's longitudes.
+function shiftRing(ring: number[][], refLon: number): number[][] {
+  let sx = 0;
+  for (const [x] of ring) sx += x;
+  sx /= Math.max(1, ring.length);
+  let best = 0, bd = Infinity;
+  for (const k of [-1, 0, 1]) {
+    const d = Math.abs(sx + k * 360 - refLon);
+    if (d < bd) { bd = d; best = k; }
+  }
+  if (best === 0) return ring;
+  return ring.map(([x, y]) => [x + best * 360, y]);
 }
 
 // Sutherland–Hodgman clip of a lon/lat ring against a bbox
@@ -109,13 +129,14 @@ export function buildStorySVG(s: StoryStats, pts: RoutePoint[]): string {
     // and frame never touch.
     const PAD = 80;
     const pr = projFactory(pts, mx + PAD, my + PAD, mw - PAD * 2, mh - PAD * 2);
-    const P = pts.map((p) => pr.proj(p.lon, p.lat));
+    const up = unwrapTrack(pts);
+    const P = up.map((p) => pr.proj(p.lon, p.lat));
     path = "M" + P.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" L");
     [startX, startY] = P[0];
     [endX, endY] = P[P.length - 1];
     const fx0 = mx, fy0 = my, fx1 = mx + mw, fy1 = my + mh;
     for (const ring of LAND_RINGS) {
-      const sp = ring.map(([x, y]) => pr.proj(x, y));
+      const sp = shiftRing(ring, pr.refLon).map(([x, y]) => pr.proj(x, y));
       let rMinX = 1e9, rMaxX = -1e9, rMinY = 1e9, rMaxY = -1e9;
       for (const [x, y] of sp) {
         if (x < rMinX) rMinX = x; if (x > rMaxX) rMaxX = x;
