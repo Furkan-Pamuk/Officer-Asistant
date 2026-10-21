@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { EMERGENCY_CARDS, LIGHTS_BUOYS, CHART_SYMBOLS, WEATHER_NOTES, MASTER_STANDING_ORDERS, PHONETIC, PHONETIC_NUMERALS, SIGNAL_NOTES, MORSE_LETTERS, MORSE_PROSIGNS, MORSE_NOTES, COLREG_SECTIONS, type EmergencyCard } from "@/lib/navigation-documents";
+import { EMERGENCY_CARDS, LIGHTS_BUOYS, CHART_SYMBOLS, WEATHER_NOTES, MASTER_STANDING_ORDERS, PHONETIC, PHONETIC_NUMERALS, SIGNAL_NOTES, MORSE_LETTERS, MORSE_PROSIGNS, MORSE_NOTES, type EmergencyCard } from "@/lib/navigation-documents";
+import { COLREG_RULES, LIGHT_CONFIGS, MANEUVER_SIGNALS, FOG_PATTERNS } from "@/lib/colreg";
+import ColregLights from "@/components/ColregLights";
+import SoundSignals from "@/components/SoundSignals";
 import { FlagFigure, MorseCode } from "@/components/SignalFlags";
 import { CardinalGrid, LateralRow, OtherMarksRow, RhythmList } from "@/components/BuoyDiagrams";
 import { BeaufortTable, CloudGallery, FrontSymbols, TwelfthsStrip } from "@/components/WeatherDiagrams";
@@ -391,28 +394,47 @@ function Morse() {
   );
 }
 
-function buildColregText(): string {  return "COLREG — WORKING NOTES (summaries, not the official text)\n" +
-    COLREG_SECTIONS.map((s) => `\n${s.heading.toUpperCase()}\n` + s.points.map((p) => `• ${p}`).join("\n")).join("\n") +
-    "\n\n— via Shark";
+function buildColregText(): string {
+  const rules = COLREG_RULES.map((r) => `\nRULE ${r.n} — ${r.t}\n` + r.pts.map((p) => `• ${p}`).join("\n")).join("\n");
+  const lights = "\nLIGHTS\n" + LIGHT_CONFIGS.map((c) => `• ${c.name}: ${c.note}`).join("\n");
+  const sounds = "\nSOUND\n" + MANEUVER_SIGNALS.map((m) => `• ${m.s} = ${m.m}`).join("\n") +
+    "\nFOG (≤2 min)\n" + FOG_PATTERNS.map((f) => `• ${f.v}: ${f.seq.join(" ")}${f.note ? ` (${f.note})` : ""}`).join("\n");
+  return "COLREG — COMPLETE STUDY REFERENCE (summaries, not the official text)\n" + rules + "\n" + lights + "\n" + sounds + "\n\n— via Shark";
 }
 
+type ColregTab = "rules" | "lights" | "sounds";
+
 function Colreg() {
+  const [sec, setSec] = useState<ColregTab>("rules");
+  const sbtn = (t: ColregTab, label: string) =>
+    `rounded-full px-3 py-1.5 text-sm font-bold ${sec === t ? "bg-slate-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border opacity-70 hover:opacity-100"}`;
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("COLREG working notes", buildColregText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
+        <button onClick={() => shareText("COLREG complete reference", buildColregText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
         <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
       </div>
-      {COLREG_SECTIONS.map((s, i) => (
-        <div key={s.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-          <h2 className="font-black">{s.icon} {i + 1}. {s.heading}</h2>
-          <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
-            {s.points.map((p, j) => (
-              <li key={j} className="rounded-xl bg-amber-50/60 px-3 py-2 dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">• {p}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950 print:hidden">
+        <button onClick={() => setSec("rules")} className={sbtn("rules", `📖 Rules (${COLREG_RULES.length})`)}>📖 Rules ({COLREG_RULES.length})</button>
+        <button onClick={() => setSec("lights")} className={sbtn("lights", `💡 Lights (${LIGHT_CONFIGS.length})`)}>💡 Lights ({LIGHT_CONFIGS.length})</button>
+        <button onClick={() => setSec("sounds")} className={sbtn("sounds", "📯 Sounds")}>📯 Sounds</button>
+      </div>
+      {sec === "rules" ? (
+        COLREG_RULES.map((r) => (
+          <div key={r.n} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
+            <h2 className="font-black">Rule {r.n} — {r.t}</h2>
+            <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
+              {r.pts.map((p, j) => (
+                <li key={j} className="rounded-xl bg-amber-50/60 px-3 py-2 dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">• {p}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : sec === "lights" ? (
+        <ColregLights />
+      ) : (
+        <SoundSignals />
+      )}
       <p className="text-xs opacity-60">Study summaries — the official COLREG text (IMO) always governs. Keep a current copy on the bridge.</p>
     </div>
   );
