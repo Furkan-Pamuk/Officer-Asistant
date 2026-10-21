@@ -21,8 +21,16 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
     ["Flash point", c.flash],
     ["Density (water = 1)", c.density],
     ["Solubility in water", c.solubility],
-    ["Spill behaviour", c.water === "floats" ? "Floats (floater)" : c.water === "sinks" ? "Sinks (sinker — high density)" : c.water === "dissolves" ? "Dissolves / dilutes" : "Partly soluble"],
+    ["Spill behaviour", c.water === "floats" ? `Floats (floater)${c.floater !== "—" ? " — PERSISTENT FLOATER, stays floating (verify MEPC list)" : ""}` : c.water === "sinks" ? "Sinks (sinker — high density)" : c.water === "dissolves" ? "Dissolves / dilutes" : "Partly soluble"],
     ["Toxic", c.toxic ? "YES — see health notes" : "Not classified toxic (still handle per SDS)"],
+    ["Exposure limit (TWA)", c.tlv],
+    ["IMDG class", c.imdg],
+    ["EmS (fire / spillage)", c.ems],
+    ["Vapour pressure (20 °C)", c.vapour],
+    ["Colour", c.colour],
+    ["Odour", c.odour],
+    ["Odour threshold", c.odourThreshold],
+    ["Viscosity", c.viscosity],
     ...(c.staticAccumulator ? [["Static accumulator", "YES — bonding, flow-rate control, no splash filling"] as [string, string]] : []),
     ...(c.drying ? [["Drying-oil class", c.drying === "non-drying" ? "Non-drying oil" : c.drying === "semi-drying" ? "SEMI-DRYING — cold wash first" : "DRYING — cold wash first"] as [string, string]] : []),
   ];
@@ -33,6 +41,7 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">{c.name}</h1>
         {c.toxic && <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700">☠ toxic</span>}
+        {c.floater !== "—" && <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-bold text-teal-800">🌊 persistent floater</span>}
       </div>
       <p className="text-sm text-slate-500">Also known as: {c.synonyms.join(" · ")}</p>
       {c.verifyIbc && (
@@ -55,7 +64,13 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-bold">🏥 Health hazards & first aid</h2>
         <p className="mt-1 text-sm">{c.health}</p>
+        <p className="mt-2 text-sm"><span className="font-bold">Antidote: </span>{c.antidote}</p>
         <p className="mt-2 text-xs text-slate-500">First aid per the SDS / MFAG. Antidotes are hospital-administered — never delay evacuation and medical advice.</p>
+      </div>
+      <div className="rounded-2xl border bg-white p-4">
+        <h2 className="font-bold">🧪 Gas detection</h2>
+        <p className="mt-1 text-sm">{c.detection}</p>
+        <p className="mt-2 text-xs text-slate-500">Confirm tube range and calibration before entry. LEL + O₂ + toxics + benzene check as applicable; follow the enclosed-space procedure.</p>
       </div>
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-bold">🚧 Compatibility / segregation</h2>
