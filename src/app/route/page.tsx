@@ -517,7 +517,7 @@ export default function RoutePage() {
             <button
               onClick={() => setSeamarks((v) => !v)}
               title="Toggle seamarks (buoys/beacons via OpenSeaMap)"
-              className={`absolute right-3 top-3 z-[500] rounded-full border px-3 py-1.5 text-xs font-black shadow ${seamarks ? "border-teal-700 bg-teal-600 text-white" : "border-amber-200 bg-white/95 dark:border-red-950 dark:bg-black/90"}`}
+              className={`absolute right-3 top-3 z-30 rounded-full border px-3 py-1.5 text-xs font-black shadow ${seamarks ? "border-teal-700 bg-teal-600 text-white" : "border-amber-200 bg-white/95 dark:border-red-950 dark:bg-black/90"}`}
             >
               ⚓ Seamarks {seamarks ? "on" : "off"}
             </button>
