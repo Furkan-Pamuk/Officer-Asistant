@@ -20,6 +20,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "cargo", label: "Cargo" },
   { id: "engine", label: "Engine" },
   { id: "deck", label: "Deck" },
+  { id: "safety", label: "Safety" },
 ];
 
 const GROUPS: { id: ChecklistGroup; label: string }[] = [
@@ -27,6 +28,7 @@ const GROUPS: { id: ChecklistGroup; label: string }[] = [
   { id: "cargo", label: "Cargo" },
   { id: "engine", label: "Engine" },
   { id: "deck", label: "Deck" },
+  { id: "safety", label: "Safety" },
 ];
 
 const INTERVALS: TodoInterval[] = ["daily", "weekly", "monthly", "once"];

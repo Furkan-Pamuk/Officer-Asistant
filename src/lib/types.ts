@@ -1,5 +1,5 @@
 export type Department = "deck" | "engine" | "both";
-export type InspectionTypeId = "flag" | "psc" | "uscg" | "class" | "sire" | "cdi" | "sanitation" | "ism-isps" | "safety";
+export type InspectionTypeId = "flag" | "psc" | "uscg" | "class" | "sire" | "cdi" | "sanitation" | "ism-isps";
 
 export interface InspectionType {
   id: InspectionTypeId;
@@ -23,7 +23,7 @@ export interface CheckCard {
   flags?: string[];
 }
 
-export type ChecklistGroup = "bridge" | "cargo" | "engine" | "deck";
+export type ChecklistGroup = "bridge" | "cargo" | "engine" | "deck" | "safety";
 
 export interface JobChecklistTemplate {
   id: string;
