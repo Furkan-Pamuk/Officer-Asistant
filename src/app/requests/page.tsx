@@ -60,12 +60,12 @@ export default function RequestsPage() {
     async function seed() {
       try {
         const v = localStorage.getItem("oa-impa-v");
-        if (v === "3" && (await db.catalogue.count()) > 0) return;
+        if (v === "4" && (await db.catalogue.count()) > 0) return;
         setSeeding("Loading IMPA catalogue…");
         const text = await fetch("/impa.csv").then((r) => { if (!r.ok) throw 0; return r.text(); });
         await db.catalogue.clear();
         const n = await importCatalogue(parseCatalogueCSV(text));
-        localStorage.setItem("oa-impa-v", "3");
+        localStorage.setItem("oa-impa-v", "4");
         setSeeding(n ? `${n} IMPA items loaded.` : "");
       } catch { setSeeding(""); }
     }
