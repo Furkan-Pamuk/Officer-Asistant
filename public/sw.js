@@ -1,4 +1,4 @@
-const CACHE = "officer-assistant-v3";
+const CACHE = "officer-assistant-v4";
 const CORE = ["/", "/dashboard", "/inspections", "/checklists", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event: ExtendableEvent) => {
