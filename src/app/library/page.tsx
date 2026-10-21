@@ -6,7 +6,7 @@ import { KNOTS } from "@/lib/navigation-documents";
 import { KnotStepFigures } from "@/components/KnotDiagrams";
 import HraMap from "@/components/HraMap";
 import SarMap from "@/components/SarMap";
-import FirstAid from "@/components/FirstAid";
+import FirstAidGuide from "@/components/FirstAidGuide";
 
 type Tab = "pub" | "books" | "knots" | "hra" | "sar" | "aid";
 
@@ -118,7 +118,7 @@ export default function Library() {
       ) : tab === "sar" ? (
         <SarMap />
       ) : tab === "aid" ? (
-        <FirstAid />
+        <FirstAidGuide />
       ) : tab === "knots" ? (
         <div className="grid gap-3 md:grid-cols-2">
           {KNOTS.map((k) => (
