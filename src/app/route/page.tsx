@@ -544,6 +544,14 @@ export default function RoutePage() {
               >
                 ⇅ Swap
               </button>
+              <button
+                onClick={() => setStoryOpen(true)}
+                disabled={!plan}
+                className="rounded-full bg-amber-400 px-3 py-1 text-xs font-black text-stone-950 disabled:opacity-40 dark:bg-red-600 dark:text-white"
+                title="Story for these two ports"
+              >
+                📸 Story
+              </button>
             </div>
             <label className="mt-2 block text-xs font-bold opacity-60">To</label>
             <select value={to} onChange={(e) => handleTo(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
