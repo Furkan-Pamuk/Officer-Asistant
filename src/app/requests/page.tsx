@@ -20,7 +20,14 @@ const TABS: { id: Scope; label: string }[] = [
 const TAB_IDS: RequestTab[] = ["galley", "stationery", "spare-deck", "spare-engine", "other"];
 
 function normCat(c: string): RequestTab {
-  return (TAB_IDS as string[]).includes(c) ? (c as RequestTab) : "other";
+  // Legacy values pass through unchanged.
+  if ((TAB_IDS as string[]).includes(c)) return c as RequestTab;
+  // Official IMPA groups -> the 5 request tabs (hotel side vs deck vs engine).
+  if (["provisions", "welfare", "cloth-linen", "galley", "clothing", "lavatory", "cleaning", "medicine"].includes(c)) return "galley";
+  if (c === "stationery") return "stationery";
+  if (["petroleum", "pneumatic-tools", "electrical", "machinery"].includes(c)) return "spare-engine";
+  if (["rope", "rigging-deck", "paint", "painting", "safety-gear", "safety", "hose", "nautical", "hardware", "brushes", "metal", "screws", "pipes", "pipe-fittings", "valves", "bearings", "packing", "welding", "hand-tools", "cutting", "measuring"].includes(c)) return "spare-deck";
+  return "other";
 }
 
 export default function RequestsPage() {
@@ -53,12 +60,12 @@ export default function RequestsPage() {
     async function seed() {
       try {
         const v = localStorage.getItem("oa-impa-v");
-        if (v === "2" && (await db.catalogue.count()) > 0) return;
+        if (v === "3" && (await db.catalogue.count()) > 0) return;
         setSeeding("Loading IMPA catalogue…");
         const text = await fetch("/impa.csv").then((r) => { if (!r.ok) throw 0; return r.text(); });
         await db.catalogue.clear();
         const n = await importCatalogue(parseCatalogueCSV(text));
-        localStorage.setItem("oa-impa-v", "2");
+        localStorage.setItem("oa-impa-v", "3");
         setSeeding(n ? `${n} IMPA items loaded.` : "");
       } catch { setSeeding(""); }
     }
