@@ -52,6 +52,7 @@ const ITEMS: Item[] = [
     subs: [
       { href: "/cargo", label: "📖 Cargo Information Booklet" },
       { href: "/cargo/cleaning", label: "🧽 Tank Cleaning Methods" },
+      { href: "/bulks", label: "🧱 Solid Bulk (IMSBC)" },
     ],
   },
   {
