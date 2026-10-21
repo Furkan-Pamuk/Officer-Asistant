@@ -109,23 +109,6 @@ export default function LogPage() {
     }
   }
 
-  // Fetch weather + variation into the form (logNow also auto-fills blanks).
-  async function fillWeather() {
-    setStatus("fetching weather…");
-    const s = await snapshotPosition();
-    if (s.lat === null) {
-      setStatus("no position yet — allow location first");
-      return;
-    }
-    setF((p) => ({
-      ...p,
-      dryT: p.dryT || s.dryT,
-      wetT: p.wetT || s.wetT,
-      variation: p.variation || s.variation,
-    }));
-    setStatus(s.dryT || s.variation ? "weather filled (dry/wet + variation)" : "offline — type manually");
-  }
-
   // Auto log now runs globally (AutoLog engine) on every screen while the
   // app is open — this page only flips the persisted switch.
   if (!contractId) {
@@ -189,7 +172,6 @@ export default function LogPage() {
         <div className="mt-2 flex flex-wrap gap-2">
           <button onClick={logNow} className="rounded-full bg-stone-900 px-5 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Log now</button>
           <button onClick={phoneCompass} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🧭 Phone compass</button>
-          <button onClick={fillWeather} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🌤️ Fill weather</button>
         </div>
         <p className="mt-1 text-xs opacity-60">Allow location when asked — needed for lat/lon + timezone. Auto keeps logging on any screen while the app is open.</p>
       </div>
