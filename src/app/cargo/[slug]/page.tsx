@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CARGOES, COMPAT_GROUPS, cleaningTitle, findCargo } from "@/lib/cargo-data";
+import { CARGOES, COMPAT_GROUPS, cargoTags, cleaningTitle, findCargo } from "@/lib/cargo-data";
 
 export function generateStaticParams() {
   return CARGOES.map((c) => ({ slug: c.slug }));
@@ -31,6 +31,7 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
     ["Odour", c.odour],
     ["Odour threshold", c.odourThreshold],
     ["Viscosity", c.viscosity],
+    ["Electric conductivity", `${c.conductivity}${c.staticAccumulator ? " — static-accumulator territory (<50 pS/m): bonding, flow control, no splash filling" : ""}`],
     ...(c.staticAccumulator ? [["Static accumulator", "YES — bonding, flow-rate control, no splash filling"] as [string, string]] : []),
     ...(c.drying ? [["Drying-oil class", c.drying === "non-drying" ? "Non-drying oil" : c.drying === "semi-drying" ? "SEMI-DRYING — cold wash first" : "DRYING — cold wash first"] as [string, string]] : []),
   ];
@@ -40,8 +41,15 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
       <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">← Back to booklet</Link>
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">{c.name}</h1>
-        {c.toxic && <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700">☠ toxic</span>}
-        {c.floater !== "—" && <span className="rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-bold text-teal-800">🌊 persistent floater</span>}
+        {cargoTags(c).map((t) => (
+          <span key={t.label} title={t.label} className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+            t.tone === "red" ? "bg-red-100 text-red-700" :
+            t.tone === "amber" ? "bg-amber-100 text-amber-800" :
+            t.tone === "yellow" ? "bg-yellow-100 text-yellow-800" :
+            t.tone === "teal" ? "bg-teal-100 text-teal-800" : "bg-slate-200 text-slate-700"}`}>
+            {t.icon} {t.label}
+          </span>
+        ))}
       </div>
       <p className="text-sm text-slate-500">Also known as: {c.synonyms.join(" · ")}</p>
       {c.verifyIbc && (

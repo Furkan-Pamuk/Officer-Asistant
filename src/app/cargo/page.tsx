@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { CARGOES, CARGO_CATEGORIES, searchCargoes } from "@/lib/cargo-data";
+import { CARGOES, CARGO_CATEGORIES, cargoTags, searchCargoes } from "@/lib/cargo-data";
 
 export default function CargoBooklet() {
   const [q, setQ] = useState("");
@@ -45,8 +45,13 @@ export default function CargoBooklet() {
             <div className="flex items-center justify-between gap-2">
               <h2 className="font-semibold">{c.name}</h2>
               <span className="flex shrink-0 gap-1">
-                {c.toxic && <span className="rounded-full bg-red-100 px-2 py-0.5 text-[11px] font-bold text-red-700">☠</span>}
-                {c.floater !== "—" && <span className="rounded-full bg-teal-100 px-2 py-0.5 text-[11px] font-bold text-teal-800">🌊</span>}
+                {cargoTags(c).map((t) => (
+                  <span key={t.label} title={t.label} className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
+                    t.tone === "red" ? "bg-red-100 text-red-700" :
+                    t.tone === "amber" ? "bg-amber-100 text-amber-800" :
+                    t.tone === "yellow" ? "bg-yellow-100 text-yellow-800" :
+                    t.tone === "teal" ? "bg-teal-100 text-teal-800" : "bg-slate-200 text-slate-700"}`}>{t.icon}</span>
+                ))}
               </span>
             </div>
             <p className="mt-0.5 text-xs text-slate-500">

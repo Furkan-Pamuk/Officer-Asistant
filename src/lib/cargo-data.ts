@@ -52,6 +52,8 @@ export interface CargoEntry {
   floater: string;
   /** which gas-detection tube / instrument to use */
   detection: string;
+  /** electric conductivity band, e.g. "Very low (<1 pS/m)" */
+  conductivity: string;
   cleaning: string[];
   cleanNote?: string;
   notes?: string;
@@ -71,6 +73,54 @@ export const CLEANING_METHODS: { key: string; title: string; body: string }[] = 
 
 export function cleaningTitle(key: string): string {
   return CLEANING_METHODS.find((m) => m.key === key)?.title ?? key;
+}
+
+// ---------- Danger & property tags (badges) ----------
+
+export interface CargoTag {
+  icon: string;
+  label: string;
+  tone: "red" | "amber" | "yellow" | "slate" | "teal";
+}
+
+const HIGH_TOXIC = new Set([
+  "benzene", "methanol", "ethylene-glycol", "acrylonitrile", "adiponitrile",
+  "acrylamide-sol", "ethylene-oxide", "propylene-oxide", "butadiene",
+  "formaldehyde-sol", "edc", "perchloroethylene", "aniline", "nitrobenzene",
+  "phenol", "cresols", "styrene", "furfural",
+]);
+const CORROSIVE_EXTRA = new Set([
+  "phenol", "cresols", "acetic-anhydride", "maleic-anhydride", "phthalic-anhydride",
+]);
+const FLAMMABLE = new Set([
+  "methanol", "ethanol", "isopropanol", "n-butanol", "benzene", "toluene",
+  "xylenes", "styrene", "acetic-acid", "formic-acid", "methyl-acetate",
+  "ethyl-acetate", "vinyl-acetate", "butyl-acetate", "acetone", "mek", "mibk",
+  "hexane", "heptane", "octane", "mtbe", "white-spirit", "cyclohexane",
+  "cyclohexanone", "turpentine", "kerosene", "gasoline", "pygas", "thf",
+  "epichlorohydrin", "pyridine", "n-propanol", "cyclohexylamine", "edc", "mma",
+  "acrylonitrile", "formaldehyde-sol", "dmf", "propionic-acid", "acetic-anhydride",
+  "ethylene-oxide", "propylene-oxide", "butadiene",
+]);
+const OXIDIZER = new Set(["hydrogen-peroxide", "nitric-acid"]);
+const POLYMERIZABLE = new Set([
+  "styrene", "vinyl-acetate", "mma", "acrylonitrile", "butadiene",
+  "ethylene-oxide", "propylene-oxide", "formaldehyde-sol",
+]);
+
+export function cargoTags(c: CargoEntry): CargoTag[] {
+  const t: CargoTag[] = [];
+  if (HIGH_TOXIC.has(c.slug)) t.push({ icon: "☠", label: "Highly toxic", tone: "red" });
+  else if (c.toxic) t.push({ icon: "☠", label: "Toxic", tone: "red" });
+  if (c.category === "Acids & Alkalis" || CORROSIVE_EXTRA.has(c.slug))
+    t.push({ icon: "🧪", label: "Corrosive", tone: "amber" });
+  if (FLAMMABLE.has(c.slug)) t.push({ icon: "🔥", label: "Flammable", tone: "amber" });
+  if (c.staticAccumulator) t.push({ icon: "⚡", label: "Static accumulator", tone: "yellow" });
+  if (c.water === "sinks") t.push({ icon: "⬇", label: "High density (sinker)", tone: "slate" });
+  if (c.floater !== "—") t.push({ icon: "🌊", label: "Persistent floater", tone: "teal" });
+  if (OXIDIZER.has(c.slug)) t.push({ icon: "🧨", label: "Oxidizer", tone: "amber" });
+  if (POLYMERIZABLE.has(c.slug)) t.push({ icon: "🔗", label: "Polymerizable", tone: "amber" });
+  return t;
 }
 
 // USCG 46 CFR Part 150, Table 2 — Compatibility group titles (only groups used below).
@@ -130,7 +180,7 @@ const CHECK17 = "IBC Ch.17 product — confirm category in the current Code edit
 
 export const CARGOES: CargoEntry[] = [
   {
-    slug: "methanol", tlv: "200 ppm TWA · STEL 250 (TLV)", antidote: "Ethanol or fomepizole — HOSPITAL ONLY; never delay evacuation", imdg: "Class 3 (subsidiary 6.1)", ems: "F-E, S-D", vapour: "12.8 kPa", colour: "Colourless", odour: "Pungent alcoholic", odourThreshold: "High — poor warning (smelt far above safe level)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Alcohol/methanol tube; PID for screening", compatGroup: 20, compatSrc: "Table 1", name: "Methyl alcohol (Methanol)", synonyms: ["Methanol", "Colonial spirit", "Carbinol", "Wood alcohol"],
+    slug: "methanol", conductivity: "High (conductive)", tlv: "200 ppm TWA · STEL 250 (TLV)", antidote: "Ethanol or fomepizole — HOSPITAL ONLY; never delay evacuation", imdg: "Class 3 (subsidiary 6.1)", ems: "F-E, S-D", vapour: "12.8 kPa", colour: "Colourless", odour: "Pungent alcoholic", odourThreshold: "High — poor warning (smelt far above safe level)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Alcohol/methanol tube; PID for screening", compatGroup: 20, compatSrc: "Table 1", name: "Methyl alcohol (Methanol)", synonyms: ["Methanol", "Colonial spirit", "Carbinol", "Wood alcohol"],
     un: "1230", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3", category: "Alcohols & Glycols",
     formula: "CH₃OH", boiling: "64.7 °C", flash: "11 °C (c.c.)", density: "0.791", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -139,7 +189,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethanol", tlv: "1000 ppm TWA (PEL)", antidote: "No specific antidote — supportive care", imdg: "Class 3", ems: "F-E, S-D", vapour: "5.9 kPa", colour: "Colourless", odour: "Alcoholic, pleasant at low levels", odourThreshold: "Moderate (~10 ppm)", viscosity: "Low (1.2 cP)", floater: "—", detection: "Alcohol tube; LEL meter", compatGroup: 20, compatSrc: "Table 1", name: "Ethyl alcohol (Ethanol)", synonyms: ["Ethanol", "Alcohol", "Cologne spirits"],
+    slug: "ethanol", conductivity: "High (conductive)", tlv: "1000 ppm TWA (PEL)", antidote: "No specific antidote — supportive care", imdg: "Class 3", ems: "F-E, S-D", vapour: "5.9 kPa", colour: "Colourless", odour: "Alcoholic, pleasant at low levels", odourThreshold: "Moderate (~10 ppm)", viscosity: "Low (1.2 cP)", floater: "—", detection: "Alcohol tube; LEL meter", compatGroup: 20, compatSrc: "Table 1", name: "Ethyl alcohol (Ethanol)", synonyms: ["Ethanol", "Alcohol", "Cologne spirits"],
     un: "1170", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₂H₅OH", boiling: "78.4 °C", flash: "13 °C (c.c.)", density: "0.789", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -148,7 +198,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "isopropanol", tlv: "200 ppm TWA · STEL 400 (TLV)", antidote: "No specific antidote — supportive care", imdg: "Class 3", ems: "F-E, S-D", vapour: "4.4 kPa", colour: "Colourless", odour: "Sharp alcoholic", odourThreshold: "Moderate", viscosity: "Low (2.4 cP)", floater: "—", detection: "Alcohol tube; LEL meter", compatGroup: 20, compatSrc: "Table 1", name: "Isopropyl alcohol", synonyms: ["Isopropanol", "Propan-2-ol", "Dimethylcarbinol", "IPA"],
+    slug: "isopropanol", conductivity: "High (conductive)", tlv: "200 ppm TWA · STEL 400 (TLV)", antidote: "No specific antidote — supportive care", imdg: "Class 3", ems: "F-E, S-D", vapour: "4.4 kPa", colour: "Colourless", odour: "Sharp alcoholic", odourThreshold: "Moderate", viscosity: "Low (2.4 cP)", floater: "—", detection: "Alcohol tube; LEL meter", compatGroup: 20, compatSrc: "Table 1", name: "Isopropyl alcohol", synonyms: ["Isopropanol", "Propan-2-ol", "Dimethylcarbinol", "IPA"],
     un: "1219", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₃H₈O", boiling: "82.6 °C", flash: "12 °C (c.c.)", density: "0.786", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -157,7 +207,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "n-butanol", tlv: "20 ppm TWA (TLV)", antidote: "No specific antidote — supportive care", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.6 kPa", colour: "Colourless", odour: "Sweet solvent, wine-like", odourThreshold: "Low (~0.3 ppm)", viscosity: "Low (2.9 cP)", floater: "—", detection: "Alcohol tube; LEL meter", compatGroup: 20, compatSrc: "Table 1", name: "n-Butyl alcohol", synonyms: ["n-Butanol", "Butyl alcohol", "1-Butanol"],
+    slug: "n-butanol", conductivity: "High (conductive)", tlv: "20 ppm TWA (TLV)", antidote: "No specific antidote — supportive care", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.6 kPa", colour: "Colourless", odour: "Sweet solvent, wine-like", odourThreshold: "Low (~0.3 ppm)", viscosity: "Low (2.9 cP)", floater: "—", detection: "Alcohol tube; LEL meter", compatGroup: 20, compatSrc: "Table 1", name: "n-Butyl alcohol", synonyms: ["n-Butanol", "Butyl alcohol", "1-Butanol"],
     un: "1120", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₄H₉OH", boiling: "117.7 °C", flash: "35 °C (c.c.)", density: "0.810", solubility: "7.9 g/100 ml",
     water: "partly", toxic: false,
@@ -166,7 +216,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethylene-glycol", tlv: "25 ppm vapour TWA (TLV)", antidote: "Ethanol or fomepizole — HOSPITAL ONLY", imdg: "Not regulated (no UN)", ems: "—", vapour: "0.008 kPa (very low)", colour: "Colourless, syrupy", odour: "Odourless (sweet taste — danger)", odourThreshold: "None — no warning", viscosity: "Moderate (16 cP)", floater: "—", detection: "No vapour tube at ambient; mist sampling if heated", compatGroup: 20, compatSrc: "Table 1", name: "Ethylene glycol", synonyms: ["Monoethylene glycol", "MEG", "1,2-Ethanediol"],
+    slug: "ethylene-glycol", conductivity: "Moderate (rises with water contamination)", tlv: "25 ppm vapour TWA (TLV)", antidote: "Ethanol or fomepizole — HOSPITAL ONLY", imdg: "Not regulated (no UN)", ems: "—", vapour: "0.008 kPa (very low)", colour: "Colourless, syrupy", odour: "Odourless (sweet taste — danger)", odourThreshold: "None — no warning", viscosity: "Moderate (16 cP)", floater: "—", detection: "No vapour tube at ambient; mist sampling if heated", compatGroup: 20, compatSrc: "Table 1", name: "Ethylene glycol", synonyms: ["Monoethylene glycol", "MEG", "1,2-Ethanediol"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3", category: "Alcohols & Glycols",
     formula: "C₂H₆O₂", boiling: "197.3 °C", flash: "111 °C (c.c.)", density: "1.113", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -175,7 +225,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "propylene-glycol", tlv: "— (no established OEL)", antidote: "No specific antidote — supportive care", imdg: "Not regulated (no UN)", ems: "—", vapour: "~0.01 kPa (very low)", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High (48 cP)", floater: "—", detection: "No vapour tube at ambient", compatGroup: 20, compatSrc: "Table 1", name: "Propylene glycol", synonyms: ["1,2-Propanediol", "Methyl ethylene glycol", "MPG"],
+    slug: "propylene-glycol", conductivity: "Moderate (50–1000 pS/m)", tlv: "— (no established OEL)", antidote: "No specific antidote — supportive care", imdg: "Not regulated (no UN)", ems: "—", vapour: "~0.01 kPa (very low)", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High (48 cP)", floater: "—", detection: "No vapour tube at ambient", compatGroup: 20, compatSrc: "Table 1", name: "Propylene glycol", synonyms: ["1,2-Propanediol", "Methyl ethylene glycol", "MPG"],
     un: "—", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₃H₈O₂", boiling: "188.2 °C", flash: "107 °C (c.c.)", density: "1.036", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -184,7 +234,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "glycerine", tlv: "— (mist: 10 mg/m³ guidance)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "Very high (1410 cP)", floater: "—", detection: "No vapour tube", compatGroup: 20, compatSrc: "Table 1", name: "Glycerine", synonyms: ["Glycerin", "Glycerol", "Glyceritol", "1,2,3-Propanetriol"],
+    slug: "glycerine", conductivity: "Moderate (50–1000 pS/m)", tlv: "— (mist: 10 mg/m³ guidance)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "Very high (1410 cP)", floater: "—", detection: "No vapour tube", compatGroup: 20, compatSrc: "Table 1", name: "Glycerine", synonyms: ["Glycerin", "Glycerol", "Glyceritol", "1,2,3-Propanetriol"],
     un: "—", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₃H₈O₃", boiling: "290 °C (decomposes)", flash: "≈160 °C — combustible, not flammable", density: "1.261", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -193,7 +243,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "benzene", tlv: "0.5 ppm TWA · STEL 2.5 (TLV)", antidote: "No antidote — fresh air, oxygen, hospital; NO mouth-to-mouth if ingested", imdg: "Class 3", ems: "F-E, S-D", vapour: "10.0 kPa", colour: "Colourless", odour: "Sweet aromatic, gasoline-like", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.65 cP)", floater: "—", detection: "Benzene-specific tube (ppb–ppm); PID with correction factor", compatGroup: 32, compatSrc: "Table 1", name: "Benzene (and mixtures ≥10% benzene)", synonyms: ["Benzene", "Benzol", "Phenyl hydride"],
+    slug: "benzene", conductivity: "Very low (<1 pS/m)", tlv: "0.5 ppm TWA · STEL 2.5 (TLV)", antidote: "No antidote — fresh air, oxygen, hospital; NO mouth-to-mouth if ingested", imdg: "Class 3", ems: "F-E, S-D", vapour: "10.0 kPa", colour: "Colourless", odour: "Sweet aromatic, gasoline-like", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.65 cP)", floater: "—", detection: "Benzene-specific tube (ppb–ppm); PID with correction factor", compatGroup: 32, compatSrc: "Table 1", name: "Benzene (and mixtures ≥10% benzene)", synonyms: ["Benzene", "Benzol", "Phenyl hydride"],
     un: "1114", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Aromatics",
     formula: "C₆H₆", boiling: "80.1 °C", flash: "−11 °C (c.c.)", density: "0.877", solubility: "0.18 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -202,7 +252,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: follow controlled tank-washing and gas-freeing procedure.",
   },
   {
-    slug: "toluene", tlv: "20 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.9 kPa", colour: "Colourless", odour: "Sweet, pungent solvent", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Toluene tube or PID; LEL meter", compatGroup: 32, compatSrc: "Table 1", name: "Toluene", synonyms: ["Methylbenzene", "Toluol", "Phenylmethane"],
+    slug: "toluene", conductivity: "Very low (<1 pS/m)", tlv: "20 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.9 kPa", colour: "Colourless", odour: "Sweet, pungent solvent", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Toluene tube or PID; LEL meter", compatGroup: 32, compatSrc: "Table 1", name: "Toluene", synonyms: ["Methylbenzene", "Toluol", "Phenylmethane"],
     un: "1294", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Aromatics",
     formula: "C₇H₈", boiling: "110.6 °C", flash: "4 °C (c.c.)", density: "0.867", solubility: "0.05 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -211,7 +261,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: controlled washing procedure.",
   },
   {
-    slug: "xylenes", tlv: "100 ppm TWA · STEL 150 (TLV)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.9 kPa", colour: "Colourless", odour: "Sweet solvent", odourThreshold: "Low (~1 ppm)", viscosity: "Low (0.8 cP)", floater: "—", detection: "Xylene tube or PID; LEL meter", compatGroup: 32, compatSrc: "Table 1", name: "Xylenes (mixed isomers)", synonyms: ["Xylene", "Dimethylbenzenes", "Xylols", "o-/m-/p-Xylene"],
+    slug: "xylenes", conductivity: "Very low (<1 pS/m)", tlv: "100 ppm TWA · STEL 150 (TLV)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.9 kPa", colour: "Colourless", odour: "Sweet solvent", odourThreshold: "Low (~1 ppm)", viscosity: "Low (0.8 cP)", floater: "—", detection: "Xylene tube or PID; LEL meter", compatGroup: 32, compatSrc: "Table 1", name: "Xylenes (mixed isomers)", synonyms: ["Xylene", "Dimethylbenzenes", "Xylols", "o-/m-/p-Xylene"],
     un: "1307", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Aromatics",
     formula: "C₈H₁₀", boiling: "138–144 °C", flash: "≈25 °C (c.c., mixed)", density: "≈0.87", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -220,7 +270,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Static-accumulator: controlled washing procedure.",
   },
   {
-    slug: "styrene", tlv: "10 ppm TWA (TLV — verify current)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.7 kPa", colour: "Colourless to yellowish", odour: "Sharp sweet plastic smell", odourThreshold: "Very low (~0.1 ppm)", viscosity: "Low (0.8 cP)", floater: "—", detection: "Styrene tube or PID", compatGroup: 30, compatSrc: "Table 1", name: "Styrene monomer", synonyms: ["Styrene", "Vinylbenzene", "Phenylethylene", "Styrol"],
+    slug: "styrene", conductivity: "Very low (<1 pS/m)", tlv: "10 ppm TWA (TLV — verify current)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.7 kPa", colour: "Colourless to yellowish", odour: "Sharp sweet plastic smell", odourThreshold: "Very low (~0.1 ppm)", viscosity: "Low (0.8 cP)", floater: "—", detection: "Styrene tube or PID", compatGroup: 30, compatSrc: "Table 1", name: "Styrene monomer", synonyms: ["Styrene", "Vinylbenzene", "Phenylethylene", "Styrol"],
     un: "2055", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Aromatics",
     formula: "C₈H₈", boiling: "145 °C", flash: "31 °C (c.c.)", density: "0.906", solubility: "0.03 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -229,7 +279,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "solvent", "ventilate"], cleanNote: "Check inhibitor certificate before loading; never carry uninhibited. Polymer residues need solvent wash.",
   },
   {
-    slug: "phenol", tlv: "5 ppm TWA, skin (TLV)", antidote: "No antidote — strip clothing, irrigate (PEG if available), hospital", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.05 kPa (very low)", colour: "White crystals; molten colourless-pink", odour: "Sweet medicinal, tarry", odourThreshold: "Very low", viscosity: "Low when molten (~4 cP)", floater: "—", detection: "Phenol tube (vapour low at ambient; sample mist if hot)", compatGroup: 21, compatSrc: "Table 1", name: "Phenol (molten)", synonyms: ["Carbolic acid", "Hydroxybenzene", "Phenylic acid"],
+    slug: "phenol", conductivity: "Moderate (50–1000 pS/m)", tlv: "5 ppm TWA, skin (TLV)", antidote: "No antidote — strip clothing, irrigate (PEG if available), hospital", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.05 kPa (very low)", colour: "White crystals; molten colourless-pink", odour: "Sweet medicinal, tarry", odourThreshold: "Very low", viscosity: "Low when molten (~4 cP)", floater: "—", detection: "Phenol tube (vapour low at ambient; sample mist if hot)", compatGroup: 21, compatSrc: "Table 1", name: "Phenol (molten)", synonyms: ["Carbolic acid", "Hydroxybenzene", "Phenylic acid"],
     un: "1671 (solid) / 2312 (molten)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2", category: "Aromatics",
     formula: "C₆H₅OH", boiling: "181.7 °C", flash: "79 °C (c.c.)", density: "1.07 (molten)", solubility: "8.3 g/100 ml",
     water: "sinks", toxic: true,
@@ -238,7 +288,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "hot"], cleanNote: "Solidifying (mp 41 °C): keep heated during discharge; MARPOL prewash applies.",
   },
   {
-    slug: "acetic-acid", tlv: "10 ppm TWA · STEL 15 (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8 (subsidiary 3, glacial)", ems: "F-E, S-C", vapour: "1.6 kPa", colour: "Colourless", odour: "Vinegar, pungent", odourThreshold: "Very low (~0.2 ppm)", viscosity: "Low (1.2 cP)", floater: "—", detection: "Acetic acid tube", compatGroup: 4, compatSrc: "Table 1", name: "Acetic acid (glacial)", synonyms: ["Ethanoic acid", "Glacial acetic acid", "Vinegar acid (conc.)"],
+    slug: "acetic-acid", conductivity: "Moderate (50–1000 pS/m)", tlv: "10 ppm TWA · STEL 15 (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8 (subsidiary 3, glacial)", ems: "F-E, S-C", vapour: "1.6 kPa", colour: "Colourless", odour: "Vinegar, pungent", odourThreshold: "Very low (~0.2 ppm)", viscosity: "Low (1.2 cP)", floater: "—", detection: "Acetic acid tube", compatGroup: 4, compatSrc: "Table 1", name: "Acetic acid (glacial)", synonyms: ["Ethanoic acid", "Glacial acetic acid", "Vinegar acid (conc.)"],
     un: "2789 (>80%) / 2790 (10–80%)", ibc: CHECK17, verifyIbc: true, category: "Acids & Alkalis",
     formula: "C₂H₄O₂", boiling: "118.1 °C", flash: "39 °C (c.c.)", density: "1.049", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -247,7 +297,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "formic-acid", tlv: "5 ppm TWA · STEL 10 (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8", ems: "F-A, S-B", vapour: "4.6 kPa", colour: "Colourless, fuming", odour: "Pungent, penetrating", odourThreshold: "Low (~0.5 ppm)", viscosity: "Low (1.8 cP)", floater: "—", detection: "Formic acid tube", compatGroup: 4, compatSrc: "Table 1", name: "Formic acid", synonyms: ["Methanoic acid", "Ameisensäure (98%)"],
+    slug: "formic-acid", conductivity: "Moderate (rises in water)", tlv: "5 ppm TWA · STEL 10 (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8", ems: "F-A, S-B", vapour: "4.6 kPa", colour: "Colourless, fuming", odour: "Pungent, penetrating", odourThreshold: "Low (~0.5 ppm)", viscosity: "Low (1.8 cP)", floater: "—", detection: "Formic acid tube", compatGroup: 4, compatSrc: "Table 1", name: "Formic acid", synonyms: ["Methanoic acid", "Ameisensäure (98%)"],
     un: "1779", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "CH₂O₂", boiling: "100.8 °C", flash: "50 °C (c.c.)", density: "1.22", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -256,7 +306,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "sulphuric-acid", tlv: "0.2 mg/m³ TWA, mist (TLV)", antidote: "No antidote — irrigate; do NOT induce vomiting", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible (mist hazard)", colour: "Colourless, oily", odour: "Odourless (mist chokes)", odourThreshold: "n/a (mist, not vapour)", viscosity: "High (27 cP conc.)", floater: "—", detection: "Acid-mist filter sampling — no vapour tube", compatGroup: 2, compatSrc: "Table 1", name: "Sulphuric acid", synonyms: ["Sulfuric acid", "Oil of vitriol", "Battery acid (dilute)"],
+    slug: "sulphuric-acid", conductivity: "High (conductive)", tlv: "0.2 mg/m³ TWA, mist (TLV)", antidote: "No antidote — irrigate; do NOT induce vomiting", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible (mist hazard)", colour: "Colourless, oily", odour: "Odourless (mist chokes)", odourThreshold: "n/a (mist, not vapour)", viscosity: "High (27 cP conc.)", floater: "—", detection: "Acid-mist filter sampling — no vapour tube", compatGroup: 2, compatSrc: "Table 1", name: "Sulphuric acid", synonyms: ["Sulfuric acid", "Oil of vitriol", "Battery acid (dilute)"],
     un: "1830", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "H₂SO₄", boiling: "≈337 °C (decomposes)", flash: "Non-flammable", density: "1.84 (conc.)", solubility: "Miscible (great heat!)",
     water: "dissolves", toxic: true,
@@ -265,7 +315,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"], cleanNote: "Rinse with plenty of water first; neutralise wash water before discharge per P&A Manual.",
   },
   {
-    slug: "hydrochloric-acid", tlv: "2 ppm ceiling (TLV-C)", antidote: "No antidote — irrigate, fresh air", imdg: "Class 8", ems: "F-A, S-B", vapour: "High (fuming solution)", colour: "Colourless, fuming", odour: "Sharp, choking", odourThreshold: "Low", viscosity: "Low (~2 cP)", floater: "—", detection: "Hydrogen chloride tube", compatGroup: 1, compatSrc: "Table 1", name: "Hydrochloric acid", synonyms: ["Muriatic acid", "Hydrogen chloride solution", "HCl"],
+    slug: "hydrochloric-acid", conductivity: "High (conductive)", tlv: "2 ppm ceiling (TLV-C)", antidote: "No antidote — irrigate, fresh air", imdg: "Class 8", ems: "F-A, S-B", vapour: "High (fuming solution)", colour: "Colourless, fuming", odour: "Sharp, choking", odourThreshold: "Low", viscosity: "Low (~2 cP)", floater: "—", detection: "Hydrogen chloride tube", compatGroup: 1, compatSrc: "Table 1", name: "Hydrochloric acid", synonyms: ["Muriatic acid", "Hydrogen chloride solution", "HCl"],
     un: "1789", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 1G", category: "Acids & Alkalis",
     formula: "HCl (aq)", boiling: "≈108 °C (20% azeotrope)", flash: "Non-flammable", density: "≈1.18 (37%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -274,7 +324,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "nitric-acid", tlv: "2 ppm TWA · STEL 4 (TLV)", antidote: "No antidote — irrigate; NO₂ fumes: hospital (delayed oedema)", imdg: "Class 8 (subsidiary 5.1)", ems: "F-A, S-B", vapour: "High (fuming conc.)", colour: "Colourless to yellow, fuming", odour: "Acrid, choking", odourThreshold: "Low", viscosity: "Low", floater: "—", detection: "Nitrogen dioxide / nitric acid tube", compatGroup: 3, compatSrc: "Table 1", name: "Nitric acid", synonyms: ["Aqua fortis", "Azotic acid"],
+    slug: "nitric-acid", conductivity: "High (conductive)", tlv: "2 ppm TWA · STEL 4 (TLV)", antidote: "No antidote — irrigate; NO₂ fumes: hospital (delayed oedema)", imdg: "Class 8 (subsidiary 5.1)", ems: "F-A, S-B", vapour: "High (fuming conc.)", colour: "Colourless to yellow, fuming", odour: "Acrid, choking", odourThreshold: "Low", viscosity: "Low", floater: "—", detection: "Nitrogen dioxide / nitric acid tube", compatGroup: 3, compatSrc: "Table 1", name: "Nitric acid", synonyms: ["Aqua fortis", "Azotic acid"],
     un: "2031", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G (≥70% and <70%)", category: "Acids & Alkalis",
     formula: "HNO₃", boiling: "≈121 °C (azeotrope)", flash: "Non-flammable — strong oxidizer", density: "≈1.51 (conc.)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -283,7 +333,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "phosphoric-acid", tlv: "1 mg/m³ TWA · STEL 3, mist (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High", floater: "—", detection: "Acid-mist sampling — no vapour tube", compatGroup: 1, compatSrc: "Table 1", name: "Phosphoric acid", synonyms: ["Orthophosphoric acid"],
+    slug: "phosphoric-acid", conductivity: "High (conductive)", tlv: "1 mg/m³ TWA · STEL 3, mist (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High", floater: "—", detection: "Acid-mist sampling — no vapour tube", compatGroup: 1, compatSrc: "Table 1", name: "Phosphoric acid", synonyms: ["Orthophosphoric acid"],
     un: "1805", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "H₃PO₄", boiling: "158 °C (decomposes)", flash: "Non-flammable", density: "1.88 (85%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -292,7 +342,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "caustic-soda", tlv: "2 mg/m³ ceiling, mist (TLV-C)", antidote: "No antidote — irrigate; do NOT induce vomiting", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible", colour: "Colourless", odour: "Odourless (soapy feel)", odourThreshold: "None", viscosity: "High (~80 cP at 50%)", floater: "—", detection: "Caustic-mist sampling — no vapour tube", compatGroup: 5, compatSrc: "Table 1", name: "Sodium hydroxide solution", synonyms: ["Caustic soda", "Lye", "NaOH solution"],
+    slug: "caustic-soda", conductivity: "High (conductive)", tlv: "2 mg/m³ ceiling, mist (TLV-C)", antidote: "No antidote — irrigate; do NOT induce vomiting", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible", colour: "Colourless", odour: "Odourless (soapy feel)", odourThreshold: "None", viscosity: "High (~80 cP at 50%)", floater: "—", detection: "Caustic-mist sampling — no vapour tube", compatGroup: 5, compatSrc: "Table 1", name: "Sodium hydroxide solution", synonyms: ["Caustic soda", "Lye", "NaOH solution"],
     un: "1824", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "NaOH (aq)", boiling: "≈140 °C (50%)", flash: "Non-flammable", density: "≈1.53 (50%)", solubility: "Miscible (heat on dilution)",
     water: "dissolves", toxic: true,
@@ -301,7 +351,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "caustic-potash", tlv: "2 mg/m³ ceiling, mist (TLV-C)", antidote: "No antidote — irrigate; do NOT induce vomiting", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible", colour: "Colourless", odour: "Odourless (soapy feel)", odourThreshold: "None", viscosity: "High", floater: "—", detection: "Caustic-mist sampling — no vapour tube", compatGroup: 5, compatSrc: "Table 1", name: "Potassium hydroxide solution", synonyms: ["Caustic potash", "Lye", "KOH solution"],
+    slug: "caustic-potash", conductivity: "High (conductive)", tlv: "2 mg/m³ ceiling, mist (TLV-C)", antidote: "No antidote — irrigate; do NOT induce vomiting", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible", colour: "Colourless", odour: "Odourless (soapy feel)", odourThreshold: "None", viscosity: "High", floater: "—", detection: "Caustic-mist sampling — no vapour tube", compatGroup: 5, compatSrc: "Table 1", name: "Potassium hydroxide solution", synonyms: ["Caustic potash", "Lye", "KOH solution"],
     un: "1814", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "KOH (aq)", boiling: "≈140 °C (50%)", flash: "Non-flammable", density: "≈1.45 (50%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -310,7 +360,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "ammonia-aq", tlv: "25 ppm TWA · STEL 35 (TLV)", antidote: "No antidote — fresh air, oxygen, hospital", imdg: "Class 8", ems: "F-A, S-B", vapour: "High (releases NH₃)", colour: "Colourless", odour: "Sharp pungent, urine-like", odourThreshold: "Low (~5 ppm)", viscosity: "Low", floater: "—", detection: "Ammonia tube", compatGroup: 6, compatSrc: "Table 1", name: "Ammonia aqueous (≤28%)", synonyms: ["Ammonium hydroxide", "Ammonia solution", "Hartshorn"],
+    slug: "ammonia-aq", conductivity: "High (conductive)", tlv: "25 ppm TWA · STEL 35 (TLV)", antidote: "No antidote — fresh air, oxygen, hospital", imdg: "Class 8", ems: "F-A, S-B", vapour: "High (releases NH₃)", colour: "Colourless", odour: "Sharp pungent, urine-like", odourThreshold: "Low (~5 ppm)", viscosity: "Low", floater: "—", detection: "Ammonia tube", compatGroup: 6, compatSrc: "Table 1", name: "Ammonia aqueous (≤28%)", synonyms: ["Ammonium hydroxide", "Ammonia solution", "Hartshorn"],
     un: "2672", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Acids & Alkalis",
     formula: "NH₃ (aq)", boiling: "≈38 °C (25%)", flash: "Vapours flammable (LEL 15%)", density: "≈0.91 (25%)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -319,7 +369,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "methyl-acetate", tlv: "200 ppm TWA · STEL 250 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "22 kPa", colour: "Colourless", odour: "Sweet, fruity", odourThreshold: "Low", viscosity: "Low (0.4 cP)", floater: "—", detection: "Ester tube or PID; LEL meter", compatGroup: 34, compatSrc: "Table 1", name: "Methyl acetate", synonyms: ["Acetic acid methyl ester", "Methyl ethanoate"],
+    slug: "methyl-acetate", conductivity: "Low (1–50 pS/m)", tlv: "200 ppm TWA · STEL 250 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "22 kPa", colour: "Colourless", odour: "Sweet, fruity", odourThreshold: "Low", viscosity: "Low (0.4 cP)", floater: "—", detection: "Ester tube or PID; LEL meter", compatGroup: 34, compatSrc: "Table 1", name: "Methyl acetate", synonyms: ["Acetic acid methyl ester", "Methyl ethanoate"],
     un: "1231", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Esters",
     formula: "C₃H₆O₂", boiling: "57 °C", flash: "−10 °C (c.c.)", density: "0.933", solubility: "≈25 g/100 ml",
     water: "partly", toxic: false, staticAccumulator: true,
@@ -328,7 +378,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethyl-acetate", tlv: "400 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "9.7 kPa", colour: "Colourless", odour: "Sweet fruity (nail polish)", odourThreshold: "Low (~4 ppm)", viscosity: "Low (0.45 cP)", floater: "—", detection: "Ester tube or PID; LEL meter", compatGroup: 34, compatSrc: "Table 1", name: "Ethyl acetate", synonyms: ["Acetic ester", "Ethyl ethanoate", "Vinegar naphtha"],
+    slug: "ethyl-acetate", conductivity: "Low (1–50 pS/m)", tlv: "400 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "9.7 kPa", colour: "Colourless", odour: "Sweet fruity (nail polish)", odourThreshold: "Low (~4 ppm)", viscosity: "Low (0.45 cP)", floater: "—", detection: "Ester tube or PID; LEL meter", compatGroup: 34, compatSrc: "Table 1", name: "Ethyl acetate", synonyms: ["Acetic ester", "Ethyl ethanoate", "Vinegar naphtha"],
     un: "1173", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Esters",
     formula: "C₄H₈O₂", boiling: "77.1 °C", flash: "−4 °C (c.c.)", density: "0.902", solubility: "8.3 g/100 ml",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -337,7 +387,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "vinyl-acetate", tlv: "10 ppm TWA · STEL 15 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "11.7 kPa", colour: "Colourless", odour: "Sweet fruity-sharp", odourThreshold: "Low (~0.5 ppm)", viscosity: "Low (0.4 cP)", floater: "—", detection: "Vinyl acetate tube or PID", compatGroup: 13, compatSrc: "Table 1", name: "Vinyl acetate (stabilised)", synonyms: ["VAM", "Vinyl acetate monomer", "Ethenyl acetate"],
+    slug: "vinyl-acetate", conductivity: "Low (1–50 pS/m)", tlv: "10 ppm TWA · STEL 15 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "11.7 kPa", colour: "Colourless", odour: "Sweet fruity-sharp", odourThreshold: "Low (~0.5 ppm)", viscosity: "Low (0.4 cP)", floater: "—", detection: "Vinyl acetate tube or PID", compatGroup: 13, compatSrc: "Table 1", name: "Vinyl acetate (stabilised)", synonyms: ["VAM", "Vinyl acetate monomer", "Ethenyl acetate"],
     un: "1301", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Esters",
     formula: "C₄H₆O₂", boiling: "72.7 °C", flash: "−8 °C (c.c.)", density: "0.934", solubility: "2 g/100 ml",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -346,7 +396,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "solvent", "ventilate"],
   },
   {
-    slug: "butyl-acetate", tlv: "50 ppm TWA · STEL 150 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "1.2 kPa", colour: "Colourless", odour: "Sweet fruity, banana-like", odourThreshold: "Very low (~0.3 ppm)", viscosity: "Low (0.7 cP)", floater: "—", detection: "Ester tube or PID", compatGroup: 34, compatSrc: "Table 1", name: "Butyl acetate (all isomers)", synonyms: ["n-Butyl acetate", "Acetic acid butyl ester"],
+    slug: "butyl-acetate", conductivity: "Low (1–50 pS/m)", tlv: "50 ppm TWA · STEL 150 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "1.2 kPa", colour: "Colourless", odour: "Sweet fruity, banana-like", odourThreshold: "Very low (~0.3 ppm)", viscosity: "Low (0.7 cP)", floater: "—", detection: "Ester tube or PID", compatGroup: 34, compatSrc: "Table 1", name: "Butyl acetate (all isomers)", synonyms: ["n-Butyl acetate", "Acetic acid butyl ester"],
     un: "1123", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Esters",
     formula: "C₆H₁₂O₂", boiling: "126 °C", flash: "≈22–27 °C (c.c.)", density: "0.882", solubility: "0.7 g/100 ml",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -355,7 +405,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "acetone", tlv: "250 ppm TWA · STEL 500 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "24.5 kPa", colour: "Colourless", odour: "Sweet fruity solvent", odourThreshold: "Moderate (~15 ppm)", viscosity: "Low (0.3 cP)", floater: "—", detection: "Acetone/ketone tube; LEL meter", compatGroup: 18, compatSrc: "Table 1", name: "Acetone", synonyms: ["Dimethyl ketone", "Propan-2-one", "2-Propanone"],
+    slug: "acetone", conductivity: "Moderate (50–1000 pS/m)", tlv: "250 ppm TWA · STEL 500 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "24.5 kPa", colour: "Colourless", odour: "Sweet fruity solvent", odourThreshold: "Moderate (~15 ppm)", viscosity: "Low (0.3 cP)", floater: "—", detection: "Acetone/ketone tube; LEL meter", compatGroup: 18, compatSrc: "Table 1", name: "Acetone", synonyms: ["Dimethyl ketone", "Propan-2-one", "2-Propanone"],
     un: "1090", ibc: IBC18, category: "Ketones",
     formula: "C₃H₆O", boiling: "56.1 °C", flash: "−17 °C (c.c.)", density: "0.791", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -364,7 +414,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "mek", tlv: "200 ppm TWA · STEL 300 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "10.5 kPa", colour: "Colourless", odour: "Sharp sweet solvent", odourThreshold: "Low (~5 ppm)", viscosity: "Low (0.4 cP)", floater: "—", detection: "Ketone tube or PID; LEL meter", compatGroup: 18, compatSrc: "Table 1", name: "Methyl ethyl ketone", synonyms: ["MEK", "Butan-2-one", "2-Butanone", "Ethyl methyl ketone"],
+    slug: "mek", conductivity: "Moderate (50–1000 pS/m)", tlv: "200 ppm TWA · STEL 300 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "10.5 kPa", colour: "Colourless", odour: "Sharp sweet solvent", odourThreshold: "Low (~5 ppm)", viscosity: "Low (0.4 cP)", floater: "—", detection: "Ketone tube or PID; LEL meter", compatGroup: 18, compatSrc: "Table 1", name: "Methyl ethyl ketone", synonyms: ["MEK", "Butan-2-one", "2-Butanone", "Ethyl methyl ketone"],
     un: "1193", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ketones",
     formula: "C₄H₈O", boiling: "79.6 °C", flash: "−9 °C (c.c.)", density: "0.805", solubility: "27 g/100 ml",
     water: "partly", toxic: false,
@@ -373,7 +423,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "mibk", tlv: "20 ppm TWA · STEL 75 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.1 kPa", colour: "Colourless", odour: "Pleasant fruity-camphor", odourThreshold: "Very low (~0.5 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Ketone tube or PID", compatGroup: 18, compatSrc: "Table 1", name: "Methyl isobutyl ketone", synonyms: ["MIBK", "Hexone", "4-Methyl-2-pentanone", "Isopropylacetone"],
+    slug: "mibk", conductivity: "Moderate (50–1000 pS/m)", tlv: "20 ppm TWA · STEL 75 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.1 kPa", colour: "Colourless", odour: "Pleasant fruity-camphor", odourThreshold: "Very low (~0.5 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Ketone tube or PID", compatGroup: 18, compatSrc: "Table 1", name: "Methyl isobutyl ketone", synonyms: ["MIBK", "Hexone", "4-Methyl-2-pentanone", "Isopropylacetone"],
     un: "1245", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ketones",
     formula: "C₆H₁₂O", boiling: "116 °C", flash: "14 °C (c.c.)", density: "0.802", solubility: "1.7 g/100 ml",
     water: "floats", toxic: false,
@@ -382,7 +432,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "ethanolamine", tlv: "3 ppm TWA · STEL 6 (TLV)", antidote: "No antidote — irrigate (corrosive amine)", imdg: "Class 8", ems: "F-A, S-B", vapour: "0.05 kPa (very low)", colour: "Colourless, syrupy", odour: "Fishy, ammoniacal", odourThreshold: "Low (~5 ppm)", viscosity: "Moderate (19 cP)", floater: "—", detection: "Amine tube", compatGroup: 8, compatSrc: "Table 1", name: "Ethanolamine (MEA)", synonyms: ["Monoethanolamine", "2-Aminoethanol", "Colamine"],
+    slug: "ethanolamine", conductivity: "High (conductive)", tlv: "3 ppm TWA · STEL 6 (TLV)", antidote: "No antidote — irrigate (corrosive amine)", imdg: "Class 8", ems: "F-A, S-B", vapour: "0.05 kPa (very low)", colour: "Colourless, syrupy", odour: "Fishy, ammoniacal", odourThreshold: "Low (~5 ppm)", viscosity: "Moderate (19 cP)", floater: "—", detection: "Amine tube", compatGroup: 8, compatSrc: "Table 1", name: "Ethanolamine (MEA)", synonyms: ["Monoethanolamine", "2-Aminoethanol", "Colamine"],
     un: "2491", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Amines",
     formula: "C₂H₇NO", boiling: "170.5 °C", flash: "85 °C (c.c.)", density: "1.012", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -391,7 +441,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "cyclohexylamine", tlv: "10 ppm TWA (TLV)", antidote: "No antidote — irrigate (corrosive)", imdg: "Class 8 (subsidiary 3)", ems: "F-E, S-C (verify SDS)", vapour: "1.2 kPa", colour: "Colourless", odour: "Strong fishy amine", odourThreshold: "Low", viscosity: "Low (2 cP)", floater: "—", detection: "Amine tube", compatGroup: 7, compatSrc: "Table 2 (member of Group 7)", name: "Cyclohexylamine", synonyms: ["Aminocyclohexane", "Hexahydroaniline"],
+    slug: "cyclohexylamine", conductivity: "High (conductive)", tlv: "10 ppm TWA (TLV)", antidote: "No antidote — irrigate (corrosive)", imdg: "Class 8 (subsidiary 3)", ems: "F-E, S-C (verify SDS)", vapour: "1.2 kPa", colour: "Colourless", odour: "Strong fishy amine", odourThreshold: "Low", viscosity: "Low (2 cP)", floater: "—", detection: "Amine tube", compatGroup: 7, compatSrc: "Table 2 (member of Group 7)", name: "Cyclohexylamine", synonyms: ["Aminocyclohexane", "Hexahydroaniline"],
     un: "2357", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Amines",
     formula: "C₆H₁₃N", boiling: "134.5 °C", flash: "32 °C (c.c.)", density: "0.867", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -400,7 +450,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "aniline", tlv: "2 ppm TWA, skin (TLV)", antidote: "Methylene blue — HOSPITAL ONLY (methaemoglobinaemia)", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.09 kPa (very low)", colour: "Pale yellow oil (darkens in air)", odour: "Musty fishy amine", odourThreshold: "Low (~1 ppm)", viscosity: "Low (4 cP)", floater: "—", detection: "Aniline / aromatic-amine tube", compatGroup: 9, compatSrc: "Table 1", name: "Aniline", synonyms: ["Aminobenzene", "Aniline oil", "Phenylamine"],
+    slug: "aniline", conductivity: "Moderate (50–1000 pS/m)", tlv: "2 ppm TWA, skin (TLV)", antidote: "Methylene blue — HOSPITAL ONLY (methaemoglobinaemia)", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.09 kPa (very low)", colour: "Pale yellow oil (darkens in air)", odour: "Musty fishy amine", odourThreshold: "Low (~1 ppm)", viscosity: "Low (4 cP)", floater: "—", detection: "Aniline / aromatic-amine tube", compatGroup: 9, compatSrc: "Table 1", name: "Aniline", synonyms: ["Aminobenzene", "Aniline oil", "Phenylamine"],
     un: "1547", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Amines",
     formula: "C₆H₇N", boiling: "184.1 °C", flash: "70 °C (c.c.)", density: "1.022", solubility: "3.6 g/100 ml",
     water: "sinks", toxic: true,
@@ -409,7 +459,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Darkens on air/light — wall-wash standard is strict after aniline.",
   },
   {
-    slug: "acrylonitrile", tlv: "2 ppm TWA, skin (TLV)", antidote: "Cyanide kit (amyl nitrite + thiosulphate) — TRAINED USE + hospital", imdg: "Class 3 (subsidiary 6.1)", ems: "F-E, S-D", vapour: "11 kPa", colour: "Colourless to pale yellow", odour: "Sharp onion-garlic", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.3 cP)", floater: "—", detection: "Acrylonitrile tube; HCN tube as backup", compatGroup: 15, compatSrc: "Table 1", name: "Acrylonitrile (stabilised)", synonyms: ["Vinyl cyanide", "Propenenitrile", "Cyanoethylene"],
+    slug: "acrylonitrile", conductivity: "Moderate (50–1000 pS/m)", tlv: "2 ppm TWA, skin (TLV)", antidote: "Cyanide kit (amyl nitrite + thiosulphate) — TRAINED USE + hospital", imdg: "Class 3 (subsidiary 6.1)", ems: "F-E, S-D", vapour: "11 kPa", colour: "Colourless to pale yellow", odour: "Sharp onion-garlic", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.3 cP)", floater: "—", detection: "Acrylonitrile tube; HCN tube as backup", compatGroup: 15, compatSrc: "Table 1", name: "Acrylonitrile (stabilised)", synonyms: ["Vinyl cyanide", "Propenenitrile", "Cyanoethylene"],
     un: "1093", ibc: CHECK17, verifyIbc: true, category: "Nitriles",
     formula: "C₃H₃N", boiling: "77.3 °C", flash: "−1 °C (c.c.)", density: "0.81", solubility: "7.3 g/100 ml",
     water: "partly", toxic: true,
@@ -418,7 +468,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "hot", "ventilate"],
   },
   {
-    slug: "adiponitrile", tlv: "— (no established OEL)", antidote: "Cyanide kit — TRAINED USE + hospital", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "Negligible", colour: "Colourless", odour: "Practically odourless", odourThreshold: "None", viscosity: "Low (6 cP)", floater: "—", detection: "Nitrile tube — confirm range with SDS", compatGroup: 37, compatSrc: "Table 1", name: "Adiponitrile", synonyms: ["1,4-Dicyanobutane", "Tetramethylene dicyanide", "Hexanedinitrile"],
+    slug: "adiponitrile", conductivity: "Low (1–50 pS/m)", tlv: "— (no established OEL)", antidote: "Cyanide kit — TRAINED USE + hospital", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "Negligible", colour: "Colourless", odour: "Practically odourless", odourThreshold: "None", viscosity: "Low (6 cP)", floater: "—", detection: "Nitrile tube — confirm range with SDS", compatGroup: 37, compatSrc: "Table 1", name: "Adiponitrile", synonyms: ["1,4-Dicyanobutane", "Tetramethylene dicyanide", "Hexanedinitrile"],
     un: "2205", ibc: CHECK17, verifyIbc: true, category: "Nitriles",
     formula: "C₆H₈N₂", boiling: "295 °C", flash: "163 °C (c.c.)", density: "0.965", solubility: "≈4 g/100 ml",
     water: "partly", toxic: true,
@@ -427,7 +477,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "acrylamide-sol", tlv: "0.03 mg/m³ TWA, skin (TLV)", antidote: "No antidote — wash skin, biological monitoring", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "Negligible (solution)", colour: "Colourless", odour: "Odourless", odourThreshold: "None", viscosity: "Low", floater: "—", detection: "No vapour tube (solution) — skin/hygiene controls", compatGroup: 10, compatSrc: "Table 1", name: "Acrylamide solution (≤50%)", synonyms: ["Acrylamide", "Propenamide solution"],
+    slug: "acrylamide-sol", conductivity: "High (conductive)", tlv: "0.03 mg/m³ TWA, skin (TLV)", antidote: "No antidote — wash skin, biological monitoring", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "Negligible (solution)", colour: "Colourless", odour: "Odourless", odourThreshold: "None", viscosity: "Low", floater: "—", detection: "No vapour tube (solution) — skin/hygiene controls", compatGroup: 10, compatSrc: "Table 1", name: "Acrylamide solution (≤50%)", synonyms: ["Acrylamide", "Propenamide solution"],
     un: "2074", ibc: CHECK17, verifyIbc: true, category: "Other",
     formula: "C₃H₅NO (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable (solution)", density: "≈1.0–1.1", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -436,7 +486,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "formaldehyde-sol", tlv: "0.1 ppm TWA (TLV — verify current)", antidote: "No antidote — irrigate, hospital (sensitiser)", imdg: "Class 3+8 (UN1198) / Class 8 (UN2209) — confirm per concentration", ems: "F-E, S-C (UN1198)", vapour: "High (solution releases gas)", colour: "Colourless", odour: "Pungent, suffocating", odourThreshold: "Very low (~0.5 ppm)", viscosity: "Low (~2 cP)", floater: "—", detection: "Formaldehyde tube", compatGroup: 19, compatSrc: "Table 1", name: "Formaldehyde solutions (≤45%)", synonyms: ["Formalin", "Formaldehyde", "Methylene oxide solution"],
+    slug: "formaldehyde-sol", conductivity: "High (conductive)", tlv: "0.1 ppm TWA (TLV — verify current)", antidote: "No antidote — irrigate, hospital (sensitiser)", imdg: "Class 3+8 (UN1198) / Class 8 (UN2209) — confirm per concentration", ems: "F-E, S-C (UN1198)", vapour: "High (solution releases gas)", colour: "Colourless", odour: "Pungent, suffocating", odourThreshold: "Very low (~0.5 ppm)", viscosity: "Low (~2 cP)", floater: "—", detection: "Formaldehyde tube", compatGroup: 19, compatSrc: "Table 1", name: "Formaldehyde solutions (≤45%)", synonyms: ["Formalin", "Formaldehyde", "Methylene oxide solution"],
     un: "1198 / 2209", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "CH₂O (aq, +methanol)", boiling: "≈96 °C (37%)", flash: "≈56–64 °C (c.c., varies)", density: "≈1.09", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -445,7 +495,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Hot wash dissolves paraformaldehyde deposits; ventilate well.",
   },
   {
-    slug: "furfural", tlv: "2 ppm TWA, skin (TLV)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.3 kPa", colour: "Amber", odour: "Burnt almond", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (1.5 cP)", floater: "—", detection: "Furfural / aldehyde tube", compatGroup: 19, compatSrc: "Table 1", name: "Furfural", synonyms: ["2-Furaldehyde", "Fural", "Furol", "Pyromucic aldehyde"],
+    slug: "furfural", conductivity: "Low (1–50 pS/m)", tlv: "2 ppm TWA, skin (TLV)", antidote: "No specific antidote — fresh air, hospital if severe", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.3 kPa", colour: "Amber", odour: "Burnt almond", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (1.5 cP)", floater: "—", detection: "Furfural / aldehyde tube", compatGroup: 19, compatSrc: "Table 1", name: "Furfural", synonyms: ["2-Furaldehyde", "Fural", "Furol", "Pyromucic aldehyde"],
     un: "1199", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "C₅H₄O₂", boiling: "161.7 °C", flash: "60 °C (c.c.)", density: "1.16", solubility: "8.3 g/100 ml",
     water: "sinks", toxic: true,
@@ -454,7 +504,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "edc", tlv: "10 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 3 (subsidiary 6.1)", ems: "F-E, S-D", vapour: "8.7 kPa", colour: "Colourless", odour: "Sweet chloroform-like", odourThreshold: "Moderate (~10 ppm)", viscosity: "Low (0.8 cP)", floater: "—", detection: "Halogenated-hydrocarbon tube or PID", compatGroup: 36, compatSrc: "Table 1", name: "Ethylene dichloride (1,2-Dichloroethane)", synonyms: ["EDC", "1,2-Dichloroethane", "Ethylene chloride"],
+    slug: "edc", conductivity: "Low (1–50 pS/m)", tlv: "10 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 3 (subsidiary 6.1)", ems: "F-E, S-D", vapour: "8.7 kPa", colour: "Colourless", odour: "Sweet chloroform-like", odourThreshold: "Moderate (~10 ppm)", viscosity: "Low (0.8 cP)", floater: "—", detection: "Halogenated-hydrocarbon tube or PID", compatGroup: 36, compatSrc: "Table 1", name: "Ethylene dichloride (1,2-Dichloroethane)", synonyms: ["EDC", "1,2-Dichloroethane", "Ethylene chloride"],
     un: "1184", ibc: CHECK17, verifyIbc: true, category: "Halogenated",
     formula: "C₂H₄Cl₂", boiling: "83.5 °C", flash: "13 °C (c.c.)", density: "1.235", solubility: "0.9 g/100 ml",
     water: "sinks", toxic: true,
@@ -463,7 +513,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Sinks in water and in the tank sump — strip fully; verify with low-level gas readings.",
   },
   {
-    slug: "perchloroethylene", tlv: "25 ppm TWA · STEL 100 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "1.9 kPa", colour: "Colourless", odour: "Sweet ether-like", odourThreshold: "Low (~5 ppm)", viscosity: "Low (0.9 cP)", floater: "—", detection: "Perchloroethylene tube or PID", compatGroup: 36, compatSrc: "Table 1", name: "Perchloroethylene", synonyms: ["Tetrachloroethylene", "PERC", "Tetrachloroethene", "Dry-cleaning fluid"],
+    slug: "perchloroethylene", conductivity: "Very low (<1 pS/m)", tlv: "25 ppm TWA · STEL 100 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "1.9 kPa", colour: "Colourless", odour: "Sweet ether-like", odourThreshold: "Low (~5 ppm)", viscosity: "Low (0.9 cP)", floater: "—", detection: "Perchloroethylene tube or PID", compatGroup: 36, compatSrc: "Table 1", name: "Perchloroethylene", synonyms: ["Tetrachloroethylene", "PERC", "Tetrachloroethene", "Dry-cleaning fluid"],
     un: "1897", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Halogenated",
     formula: "C₂Cl₄", boiling: "121.3 °C", flash: "Non-flammable", density: "1.623", solubility: "0.015 g/100 ml",
     water: "sinks", toxic: true,
@@ -472,7 +522,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Heavy sinker — strip fully; low-level ventilation and gas readings.",
   },
   {
-    slug: "mma", tlv: "50 ppm TWA · STEL 100 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "4.0 kPa", colour: "Colourless", odour: "Sharp fruity-acrid", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "MMA tube or PID", compatGroup: 14, compatSrc: "Table 1", name: "Methyl methacrylate (stabilised)", synonyms: ["MMA", "Methyl 2-methylprop-2-enoate", "Acrylic monomer"],
+    slug: "mma", conductivity: "Low (1–50 pS/m)", tlv: "50 ppm TWA · STEL 100 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "4.0 kPa", colour: "Colourless", odour: "Sharp fruity-acrid", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "MMA tube or PID", compatGroup: 14, compatSrc: "Table 1", name: "Methyl methacrylate (stabilised)", synonyms: ["MMA", "Methyl 2-methylprop-2-enoate", "Acrylic monomer"],
     un: "1247", ibc: CHECK17, verifyIbc: true, category: "Esters",
     formula: "C₅H₈O₂", boiling: "101 °C", flash: "10 °C (c.c.)", density: "0.944", solubility: "1.5 g/100 ml",
     water: "floats", toxic: true,
@@ -481,7 +531,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "solvent", "ventilate"],
   },
   {
-    slug: "cresols", tlv: "5 ppm TWA (TLV)", antidote: "No antidote — strip clothing, irrigate, hospital (like phenol)", imdg: "Class 6.1 (subsidiary 8)", ems: "F-A, S-A (verify SDS)", vapour: "0.05 kPa (very low)", colour: "Pale yellow to brown", odour: "Tar-medicinal, hospital smell", odourThreshold: "Very low", viscosity: "Low-moderate", floater: "—", detection: "Cresol / phenol tube", compatGroup: 21, compatSrc: "Table 1", name: "Cresols (all isomers)", synonyms: ["Cresol", "Methylphenols", "Cresylic acid", "o-/m-/p-Cresol"],
+    slug: "cresols", conductivity: "Moderate (50–1000 pS/m)", tlv: "5 ppm TWA (TLV)", antidote: "No antidote — strip clothing, irrigate, hospital (like phenol)", imdg: "Class 6.1 (subsidiary 8)", ems: "F-A, S-A (verify SDS)", vapour: "0.05 kPa (very low)", colour: "Pale yellow to brown", odour: "Tar-medicinal, hospital smell", odourThreshold: "Very low", viscosity: "Low-moderate", floater: "—", detection: "Cresol / phenol tube", compatGroup: 21, compatSrc: "Table 1", name: "Cresols (all isomers)", synonyms: ["Cresol", "Methylphenols", "Cresylic acid", "o-/m-/p-Cresol"],
     un: "2076", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Aromatics",
     formula: "C₇H₈O", boiling: "191–203 °C", flash: "81–86 °C (c.c.)", density: "≈1.03–1.05", solubility: "≈2 g/100 ml",
     water: "sinks", toxic: true,
@@ -490,7 +540,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "cyclohexane", tlv: "100 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "10.4 kPa", colour: "Colourless", odour: "Sweet solvent", odourThreshold: "Low (~2 ppm)", viscosity: "Low (1 cP)", floater: "—", detection: "Cyclohexane tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1", name: "Cyclohexane", synonyms: ["Hexamethylene", "Hexanaphthene"],
+    slug: "cyclohexane", conductivity: "Very low (<1 pS/m)", tlv: "100 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "10.4 kPa", colour: "Colourless", odour: "Sweet solvent", odourThreshold: "Low (~2 ppm)", viscosity: "Low (1 cP)", floater: "—", detection: "Cyclohexane tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1", name: "Cyclohexane", synonyms: ["Hexamethylene", "Hexanaphthene"],
     un: "1145", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₆H₁₂", boiling: "80.7 °C", flash: "−20 °C (c.c.)", density: "0.779", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -499,7 +549,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "cyclohexanone", tlv: "20 ppm TWA · STEL 50 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.6 kPa", colour: "Colourless to pale yellow", odour: "Acetone-peppermint", odourThreshold: "Very low (~0.1 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Ketone tube or PID", compatGroup: 18, compatSrc: "Table 1", name: "Cyclohexanone", synonyms: ["Anone", "Pimelic ketone"],
+    slug: "cyclohexanone", conductivity: "Moderate (50–1000 pS/m)", tlv: "20 ppm TWA · STEL 50 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.6 kPa", colour: "Colourless to pale yellow", odour: "Acetone-peppermint", odourThreshold: "Very low (~0.1 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Ketone tube or PID", compatGroup: 18, compatSrc: "Table 1", name: "Cyclohexanone", synonyms: ["Anone", "Pimelic ketone"],
     un: "1915", ibc: "IBC Ch.17 · Cat Z · S/P · Ship type 3 · 2G", category: "Ketones",
     formula: "C₆H₁₀O", boiling: "155.6 °C", flash: "44 °C (c.c.)", density: "0.947", solubility: "2.3 g/100 ml",
     water: "floats", toxic: true,
@@ -508,7 +558,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "hexane", tlv: "50 ppm TWA, skin, n-hexane (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "16 kPa", colour: "Colourless", odour: "Faint gasoline", odourThreshold: "Moderate", viscosity: "Low (0.3 cP)", floater: "—", detection: "Hexane tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Hexane (all isomers)", synonyms: ["n-Hexane", "Hexanes", "Hexyl hydride"],
+    slug: "hexane", conductivity: "Very low (<1 pS/m)", tlv: "50 ppm TWA, skin, n-hexane (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "16 kPa", colour: "Colourless", odour: "Faint gasoline", odourThreshold: "Moderate", viscosity: "Low (0.3 cP)", floater: "—", detection: "Hexane tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Hexane (all isomers)", synonyms: ["n-Hexane", "Hexanes", "Hexyl hydride"],
     un: "1208", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₆H₁₄", boiling: "68.7 °C", flash: "−26 °C (c.c.)", density: "0.66", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -517,7 +567,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "heptane", tlv: "400 ppm TWA · STEL 500 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "4.8 kPa", colour: "Colourless", odour: "Faint gasoline", odourThreshold: "Moderate", viscosity: "Low (0.4 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Heptane (all isomers)", synonyms: ["n-Heptane", "Heptanes"],
+    slug: "heptane", conductivity: "Very low (<1 pS/m)", tlv: "400 ppm TWA · STEL 500 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "4.8 kPa", colour: "Colourless", odour: "Faint gasoline", odourThreshold: "Moderate", viscosity: "Low (0.4 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Heptane (all isomers)", synonyms: ["n-Heptane", "Heptanes"],
     un: "1206", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₇H₁₆", boiling: "98.4 °C", flash: "−4 °C (c.c.)", density: "0.684", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -526,7 +576,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "octane", tlv: "300 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "1.4 kPa", colour: "Colourless", odour: "Gasoline-like", odourThreshold: "Moderate", viscosity: "Low (0.5 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Octane (all isomers)", synonyms: ["n-Octane", "Octanes"],
+    slug: "octane", conductivity: "Very low (<1 pS/m)", tlv: "300 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "1.4 kPa", colour: "Colourless", odour: "Gasoline-like", odourThreshold: "Moderate", viscosity: "Low (0.5 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 31, compatSrc: "Table 1 (parent: Alkanes C6–C9)", name: "Octane (all isomers)", synonyms: ["n-Octane", "Octanes"],
     un: "1262", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₈H₁₈", boiling: "125.7 °C", flash: "13 °C (c.c.)", density: "0.703", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -535,7 +585,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "mtbe", tlv: "50 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "32 kPa", colour: "Colourless", odour: "Pungent ether-minty", odourThreshold: "Very low (~0.1 ppm)", viscosity: "Low (0.4 cP)", floater: "—", detection: "MTBE tube or PID; LEL meter", compatGroup: 41, compatSrc: "Table 1", name: "Methyl tert-butyl ether", synonyms: ["MTBE", "tert-Butyl methyl ether", "Methyl tertiary-butyl ether"],
+    slug: "mtbe", conductivity: "Very low (<1 pS/m)", tlv: "50 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "32 kPa", colour: "Colourless", odour: "Pungent ether-minty", odourThreshold: "Very low (~0.1 ppm)", viscosity: "Low (0.4 cP)", floater: "—", detection: "MTBE tube or PID; LEL meter", compatGroup: 41, compatSrc: "Table 1", name: "Methyl tert-butyl ether", synonyms: ["MTBE", "tert-Butyl methyl ether", "Methyl tertiary-butyl ether"],
     un: "2398", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Ethers & Oxides",
     formula: "C₅H₁₂O", boiling: "55.2 °C", flash: "−28 °C (c.c.)", density: "0.740", solubility: "≈5 g/100 ml",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -544,7 +594,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "white-spirit", tlv: "100 ppm TWA, Stoddard (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.2–0.5 kPa (low)", colour: "Colourless", odour: "Kerosene-like", odourThreshold: "Low (~1 ppm)", viscosity: "Low (1–2 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "White spirit (low aromatic)", synonyms: ["Stoddard solvent", "Mineral spirit", "Turpentine substitute"],
+    slug: "white-spirit", conductivity: "Very low (<1 pS/m)", tlv: "100 ppm TWA, Stoddard (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.2–0.5 kPa (low)", colour: "Colourless", odour: "Kerosene-like", odourThreshold: "Low (~1 ppm)", viscosity: "Low (1–2 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "White spirit (low aromatic)", synonyms: ["Stoddard solvent", "Mineral spirit", "Turpentine substitute"],
     un: "1300", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "C₇–C₁₂ mixture", boiling: "150–200 °C", flash: ">21 °C (typ. ≈40 °C, c.c.)", density: "≈0.78–0.80", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -553,7 +603,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "propylene-oxide", tlv: "2 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 3", ems: "F-E, S-D", vapour: "59 kPa (very high)", colour: "Colourless", odour: "Sweet ether", odourThreshold: "Moderate (~10 ppm)", viscosity: "Low (0.3 cP)", floater: "—", detection: "Propylene oxide tube (low range)", compatGroup: 16, compatSrc: "Table 1", name: "Propylene oxide", synonyms: ["Methyloxirane", "1,2-Epoxypropane", "PO"],
+    slug: "propylene-oxide", conductivity: "Low (1–50 pS/m)", tlv: "2 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 3", ems: "F-E, S-D", vapour: "59 kPa (very high)", colour: "Colourless", odour: "Sweet ether", odourThreshold: "Moderate (~10 ppm)", viscosity: "Low (0.3 cP)", floater: "—", detection: "Propylene oxide tube (low range)", compatGroup: 16, compatSrc: "Table 1", name: "Propylene oxide", synonyms: ["Methyloxirane", "1,2-Epoxypropane", "PO"],
     un: "1280", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Ethers & Oxides",
     formula: "C₃H₆O", boiling: "34.2 °C", flash: "−37 °C (c.c.)", density: "0.83", solubility: "≈60 g/100 ml",
     water: "partly", toxic: true,
@@ -562,7 +612,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["ventilate", "hot"], cleanNote: "Gas-free thoroughly; no catalytic contaminants (rust, acids) in the tank.",
   },
   {
-    slug: "ethylene-oxide", tlv: "1 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 2.3 (subsidiary 2.1)", ems: "F-D, S-U", vapour: "Very high (gas at ambient)", colour: "Colourless", odour: "Sweet ether (only at high levels)", odourThreshold: "High — poor warning", viscosity: "Low (liquid)", floater: "—", detection: "Ethylene oxide tube (ppb range)", compatGroup: 0, compatSrc: "Table 1", name: "Ethylene oxide", synonyms: ["Oxirane", "EO", "Epoxyethane"],
+    slug: "ethylene-oxide", conductivity: "Low (1–50 pS/m)", tlv: "1 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 2.3 (subsidiary 2.1)", ems: "F-D, S-U", vapour: "Very high (gas at ambient)", colour: "Colourless", odour: "Sweet ether (only at high levels)", odourThreshold: "High — poor warning", viscosity: "Low (liquid)", floater: "—", detection: "Ethylene oxide tube (ppb range)", compatGroup: 0, compatSrc: "Table 1", name: "Ethylene oxide", synonyms: ["Oxirane", "EO", "Epoxyethane"],
     un: "1040", ibc: CHECK17, verifyIbc: true, category: "Ethers & Oxides",
     formula: "C₂H₄O", boiling: "10.7 °C", flash: "−20 °C (c.c.)", density: "0.88 (liquid)", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -571,7 +621,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["ventilate"], cleanNote: "Specialist cargo — follow the IBC/IGC special requirements and shore instructions exactly.",
   },
   {
-    slug: "hydrogen-peroxide", tlv: "1 ppm TWA (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 5.1 (subsidiary 8)", ems: "F-H, S-Q", vapour: "Low (solution)", colour: "Colourless", odour: "Sharp, faintly ozone-like", odourThreshold: "Low", viscosity: "Low (~1.2 cP)", floater: "—", detection: "Peroxide tube / test strip", compatGroup: 0, compatSrc: "Table 1", name: "Hydrogen peroxide solutions", synonyms: ["H₂O₂", "Peroxide", "Hydrogen dioxide solution"],
+    slug: "hydrogen-peroxide", conductivity: "High (conductive)", tlv: "1 ppm TWA (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 5.1 (subsidiary 8)", ems: "F-H, S-Q", vapour: "Low (solution)", colour: "Colourless", odour: "Sharp, faintly ozone-like", odourThreshold: "Low", viscosity: "Low (~1.2 cP)", floater: "—", detection: "Peroxide tube / test strip", compatGroup: 0, compatSrc: "Table 1", name: "Hydrogen peroxide solutions", synonyms: ["H₂O₂", "Peroxide", "Hydrogen dioxide solution"],
     un: "2015 (>60%) / 2014 (8–60%)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship 2 · 2G (>60%) / Ship 3 (8–60%)", category: "Other",
     formula: "H₂O₂ (aq)", boiling: "≈150 °C (decomposes)", flash: "Non-flammable — strong oxidizer", density: "≈1.2–1.45", solubility: "Miscible",
     water: "dissolves", toxic: true,
@@ -580,7 +630,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"], cleanNote: "Rinse only with clean water; tanks must be passivated and vented. Never seal unvented.",
   },
   {
-    slug: "maleic-anhydride", tlv: "— (dust: 10 mg/m³ PNOS guidance)", antidote: "No antidote — irrigate (corrosive, sensitiser)", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible (solid; sublimes when hot)", colour: "White crystals / molten clear", odour: "Sharp acidic (molten fumes)", odourThreshold: "Low", viscosity: "Low when molten", floater: "—", detection: "Dust sampling when handled solid; acid tube for hot fumes", compatGroup: 11, compatSrc: "Table 1", name: "Maleic anhydride (molten)", synonyms: ["Maleic acid anhydride", "2,5-Furandione", "Toxilic anhydride"],
+    slug: "maleic-anhydride", conductivity: "Low (1–50 pS/m)", tlv: "— (dust: 10 mg/m³ PNOS guidance)", antidote: "No antidote — irrigate (corrosive, sensitiser)", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible (solid; sublimes when hot)", colour: "White crystals / molten clear", odour: "Sharp acidic (molten fumes)", odourThreshold: "Low", viscosity: "Low when molten", floater: "—", detection: "Dust sampling when handled solid; acid tube for hot fumes", compatGroup: 11, compatSrc: "Table 1", name: "Maleic anhydride (molten)", synonyms: ["Maleic acid anhydride", "2,5-Furandione", "Toxilic anhydride"],
     un: "2215", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "C₄H₂O₃", boiling: "202 °C", flash: "102 °C (c.c.)", density: "1.48 (solid)", solubility: "Reacts → maleic acid",
     water: "sinks", toxic: true,
@@ -589,7 +639,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "hot"], cleanNote: "Keep molten to discharge; hot-water wash converts residues to soluble maleic acid.",
   },
   {
-    slug: "phthalic-anhydride", tlv: "1 ppm TWA (TLV)", antidote: "No antidote — irrigate (sensitiser: asthma risk)", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible (solid; sublimes when hot)", colour: "White flakes / molten clear", odour: "Sharp, choking (molten fumes)", odourThreshold: "Very low", viscosity: "Low when molten", floater: "—", detection: "Dust sampling when handled solid; acid tube for hot fumes", compatGroup: 11, compatSrc: "Table 1", name: "Phthalic anhydride (molten)", synonyms: ["1,3-Isobenzofurandione", "Phthalic acid anhydride"],
+    slug: "phthalic-anhydride", conductivity: "Low (1–50 pS/m)", tlv: "1 ppm TWA (TLV)", antidote: "No antidote — irrigate (sensitiser: asthma risk)", imdg: "Class 8", ems: "F-A, S-B", vapour: "Negligible (solid; sublimes when hot)", colour: "White flakes / molten clear", odour: "Sharp, choking (molten fumes)", odourThreshold: "Very low", viscosity: "Low when molten", floater: "—", detection: "Dust sampling when handled solid; acid tube for hot fumes", compatGroup: 11, compatSrc: "Table 1", name: "Phthalic anhydride (molten)", synonyms: ["1,3-Isobenzofurandione", "Phthalic acid anhydride"],
     un: "2214", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Other",
     formula: "C₈H₄O₃", boiling: "295 °C", flash: "152 °C (c.c.)", density: "1.53 (solid)", solubility: "Reacts slowly → phthalic acid",
     water: "sinks", toxic: true,
@@ -598,7 +648,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "hot", "caustic"], cleanNote: "Caustic wash dissolves sublimed deposits; keep heated to strip.",
   },
   {
-    slug: "urea-solution", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless", odour: "Odourless (ammonia trace)", odourThreshold: "None", viscosity: "Low", floater: "—", detection: "No vapour tube (ammonia tube if decomposing)", compatGroup: 43, compatSrc: "Table 1", name: "Urea solution", synonyms: ["Carbamide solution", "Urea liquor"],
+    slug: "urea-solution", conductivity: "High (conductive)", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless", odour: "Odourless (ammonia trace)", odourThreshold: "None", viscosity: "Low", floater: "—", detection: "No vapour tube (ammonia tube if decomposing)", compatGroup: 43, compatSrc: "Table 1", name: "Urea solution", synonyms: ["Carbamide solution", "Urea liquor"],
     un: "—", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Other",
     formula: "(NH₂)₂CO (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.1–1.33", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -607,7 +657,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "palm-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Orange-red crude / pale yellow refined", odour: "Sweet violet-like crude; bland refined", odourThreshold: "n/a (bland)", viscosity: "High (solidifies ~35 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry; visual sheen", compatGroup: 34, compatSrc: "Table 1", name: "Palm oil", synonyms: ["Palmolein", "Palm stearin (fraction)"],
+    slug: "palm-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Orange-red crude / pale yellow refined", odour: "Sweet violet-like crude; bland refined", odourThreshold: "n/a (bland)", viscosity: "High (solidifies ~35 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry; visual sheen", compatGroup: 34, compatSrc: "Table 1", name: "Palm oil", synonyms: ["Palmolein", "Palm stearin (fraction)"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C16:0/C18:1)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91–0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying",
@@ -616,7 +666,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine. Heat to discharge, prewash to reception facility.",
   },
   {
-    slug: "soybean-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland, beany", odourThreshold: "n/a (bland)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Soyabean oil", synonyms: ["Soybean oil", "Soya oil"],
+    slug: "soybean-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland, beany", odourThreshold: "n/a (bland)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Soyabean oil", synonyms: ["Soybean oil", "Soya oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying",
@@ -625,7 +675,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first — hot water first bakes a varnish film that fails wall-wash.",
   },
   {
-    slug: "coconut-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "White solid / clear oil", odour: "Sweet coconut", odourThreshold: "n/a", viscosity: "Moderate (solidifies ~24 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Coconut oil", synonyms: ["Copra oil"],
+    slug: "coconut-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "White solid / clear oil", odour: "Sweet coconut", odourThreshold: "n/a", viscosity: "Moderate (solidifies ~24 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Coconut oil", synonyms: ["Copra oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C12:0 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying",
@@ -634,7 +684,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine.",
   },
   {
-    slug: "sunflower-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland", odourThreshold: "n/a (bland)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Sunflower seed oil", synonyms: ["Sunflower oil"],
+    slug: "sunflower-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland", odourThreshold: "n/a (bland)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Sunflower seed oil", synonyms: ["Sunflower oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying",
@@ -643,7 +693,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first, then hot, then caustic if needed.",
   },
   {
-    slug: "cottonseed-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland, nutty", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Cotton seed oil", synonyms: ["Cottonseed oil"],
+    slug: "cottonseed-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland, nutty", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Cotton seed oil", synonyms: ["Cottonseed oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying",
@@ -652,7 +702,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first.",
   },
   {
-    slug: "tallow", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Cream-white solid / yellow liquid", odour: "Bland animal-fat", odourThreshold: "n/a", viscosity: "High (solid ~40 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Tallow", synonyms: ["Beef tallow", "Animal fat", "Rendered fat"],
+    slug: "tallow", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Cream-white solid / yellow liquid", odour: "Bland animal-fat", odourThreshold: "n/a", viscosity: "High (solid ~40 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", compatGroup: 34, compatSrc: "Table 1", name: "Tallow", synonyms: ["Beef tallow", "Animal fat", "Rendered fat"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (saturated rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.87 (molten)", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying",
@@ -661,7 +711,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat well above melting point to strip; caustic wash for fatty-acid film.",
   },
   {
-    slug: "molasses", tlv: "— (no OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Dark brown-black", odour: "Sweet burnt sugar", odourThreshold: "n/a", viscosity: "Very high", floater: "—", detection: "O₂ + CO₂/LEL (fermentation gases) — enclosed-space procedure", compatGroup: 20, compatSrc: "Table 1", name: "Molasses", synonyms: ["Blackstrap molasses", "Cane molasses", "Treacle (bulk)"],
+    slug: "molasses", conductivity: "High (aqueous, ionic)", tlv: "— (no OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Dark brown-black", odour: "Sweet burnt sugar", odourThreshold: "n/a", viscosity: "Very high", floater: "—", detection: "O₂ + CO₂/LEL (fermentation gases) — enclosed-space procedure", compatGroup: 20, compatSrc: "Table 1", name: "Molasses", synonyms: ["Blackstrap molasses", "Cane molasses", "Treacle (bulk)"],
     un: "—", ibc: IBC18, category: "Other",
     formula: "Sugars (aq, ≈80 Brix)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.4", solubility: "Miscible (slowly)",
     water: "dissolves", toxic: false,
@@ -670,7 +720,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"], cleanNote: "Hot-water wash dissolves residues; huge water volumes needed. High-density-plume behaviour if spilled.",
   },
   {
-    slug: "sorbitol-sol", tlv: "— (no OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless syrup", odour: "Odourless / sweet", odourThreshold: "None", viscosity: "Very high", floater: "—", detection: "No vapour tube", compatGroup: 20, compatSrc: "Table 1", name: "Sorbitol solution", synonyms: ["D-Glucitol solution", "Sorbitol syrup"],
+    slug: "sorbitol-sol", conductivity: "High (conductive)", tlv: "— (no OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless syrup", odour: "Odourless / sweet", odourThreshold: "None", viscosity: "Very high", floater: "—", detection: "No vapour tube", compatGroup: 20, compatSrc: "Table 1", name: "Sorbitol solution", synonyms: ["D-Glucitol solution", "Sorbitol syrup"],
     un: "—", ibc: IBC18, category: "Other",
     formula: "C₆H₁₄O₆ (aq)", boiling: "≈100 °C (solution)", flash: "Non-flammable", density: "≈1.3 (70%)", solubility: "Miscible",
     water: "dissolves", toxic: false,
@@ -679,7 +729,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "kerosene", tlv: "200 mg/m³ vapour TWA (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.1–0.5 kPa (low)", colour: "Pale straw", odour: "Kerosene", odourThreshold: "Low (~1 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "Kerosene", synonyms: ["Paraffin (UK)", "Jet A-1 (grade)", "Illuminating oil"],
+    slug: "kerosene", conductivity: "Low (1–50 pS/m; additized higher)", tlv: "200 mg/m³ vapour TWA (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.1–0.5 kPa (low)", colour: "Pale straw", odour: "Kerosene", odourThreshold: "Low (~1 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "Kerosene", synonyms: ["Paraffin (UK)", "Jet A-1 (grade)", "Illuminating oil"],
     un: "1223", ibc: ANNEX1, category: "Fuels & Solvents",
     formula: "C₉–C₁₆ mixture", boiling: "150–300 °C", flash: ">38 °C (c.c.)", density: "≈0.79", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -688,7 +738,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "diesel", tlv: "100 mg/m³ inhalable TWA (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "<0.1 kPa (very low)", colour: "Straw to amber", odour: "Fuel-oil", odourThreshold: "Low", viscosity: "Low-moderate (3 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "Diesel oil / Gas oil", synonyms: ["Gasoil", "DERV", "Marine gas oil (MGO)", "Diesel fuel"],
+    slug: "diesel", conductivity: "Low (1–50 pS/m; additized higher)", tlv: "100 mg/m³ inhalable TWA (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "<0.1 kPa (very low)", colour: "Straw to amber", odour: "Fuel-oil", odourThreshold: "Low", viscosity: "Low-moderate (3 cP)", floater: "—", detection: "Hydrocarbon tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "Diesel oil / Gas oil", synonyms: ["Gasoil", "DERV", "Marine gas oil (MGO)", "Diesel fuel"],
     un: "1202", ibc: ANNEX1, category: "Fuels & Solvents",
     formula: "C₁₀–C₂₈ mixture", boiling: "180–360 °C", flash: ">60 °C (c.c.)", density: "≈0.84", solubility: "Insoluble",
     water: "floats", toxic: false, staticAccumulator: true,
@@ -697,7 +747,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "gasoline", tlv: "300 ppm TWA · STEL 500 (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "Very high (30–90 kPa blend)", colour: "Pale straw", odour: "Pungent fuel", odourThreshold: "Very low (~0.3 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Gasoline / benzene tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "Motor gasoline", synonyms: ["Petrol", "Gasolene", "Mogas"],
+    slug: "gasoline", conductivity: "Very low (<1 pS/m)", tlv: "300 ppm TWA · STEL 500 (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "Very high (30–90 kPa blend)", colour: "Pale straw", odour: "Pungent fuel", odourThreshold: "Very low (~0.3 ppm)", viscosity: "Low (0.6 cP)", floater: "—", detection: "Gasoline / benzene tube or PID; LEL meter", compatGroup: 33, compatSrc: "Table 1", name: "Motor gasoline", synonyms: ["Petrol", "Gasolene", "Mogas"],
     un: "1203", ibc: ANNEX1, category: "Fuels & Solvents",
     formula: "C₄–C₁₂ mixture", boiling: "30–200 °C", flash: "<−40 °C (c.c.)", density: "≈0.74", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true,
@@ -706,7 +756,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Gas-free fully; static precautions apply during washing too.",
   },
   {
-    slug: "butadiene", tlv: "2 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 2.1", ems: "F-D, S-U", vapour: "Very high (gas)", colour: "Colourless", odour: "Faint gasoline-aromatic", odourThreshold: "Low", viscosity: "Low (liquid)", floater: "—", detection: "Butadiene tube (low range); LEL meter", compatGroup: 30, compatSrc: "Table 1", name: "Butadiene (inhibited)", synonyms: ["1,3-Butadiene", "Divinyl", "Bivinyl"],
+    slug: "butadiene", conductivity: "Very low (liquid)", tlv: "2 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 2.1", ems: "F-D, S-U", vapour: "Very high (gas)", colour: "Colourless", odour: "Faint gasoline-aromatic", odourThreshold: "Low", viscosity: "Low (liquid)", floater: "—", detection: "Butadiene tube (low range); LEL meter", compatGroup: 30, compatSrc: "Table 1", name: "Butadiene (inhibited)", synonyms: ["1,3-Butadiene", "Divinyl", "Bivinyl"],
     un: "1010", ibc: "IGC Code gas-carrier cargo — not an IBC product", category: "Other",
     formula: "C₄H₆", boiling: "−4.4 °C", flash: "−76 °C (gas)", density: "0.62 (liquid)", solubility: "Slight",
     water: "partly", toxic: true,
@@ -715,7 +765,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["inhibitor", "ventilate"], cleanNote: "Gas-carrier procedures (IGC): inerting, popcorn-polymer watch. Not a chemical-tanker tank-cleaning job.",
   },
   {
-    slug: "fame", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "<0.01 kPa (negligible)", colour: "Pale yellow", odour: "Mild oily", odourThreshold: "n/a", viscosity: "Low-moderate", floater: "Persistent floater", detection: "No vapour tube at ambient — O₂/LEL on entry; microbial check if water present", name: "Fatty acid methyl esters (FAME / Biodiesel B100)", synonyms: ["FAME", "Biodiesel", "B100", "RME", "SME", "Methyl esters"],
+    slug: "fame", conductivity: "Low (variable; higher than diesel)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "<0.01 kPa (negligible)", colour: "Pale yellow", odour: "Mild oily", odourThreshold: "n/a", viscosity: "Low-moderate", floater: "Persistent floater", detection: "No vapour tube at ambient — O₂/LEL on entry; microbial check if water present", name: "Fatty acid methyl esters (FAME / Biodiesel B100)", synonyms: ["FAME", "Biodiesel", "B100", "RME", "SME", "Methyl esters"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "C16–C18 methyl esters", boiling: "Non-volatile (>300 °C)", flash: ">120 °C (typ. >130 °C)", density: "≈0.87–0.89", solubility: "Insoluble",
     water: "floats", toxic: false, compatGroup: 34, compatSrc: "Table 1",
@@ -724,7 +774,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "prewash"], cleanNote: "Cold-flow/cloud point in cold weather — may need heating to strip. Prewash per P&A Manual.",
   },
   {
-    slug: "uco", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Brown", odour: "Cooked food / rancid", odourThreshold: "n/a", viscosity: "High (polymerised residues)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry (acrolein possible if overheated)", name: "Used cooking oil (UCO)", synonyms: ["UCO", "Waste cooking oil", "Used frying oil"],
+    slug: "uco", conductivity: "Very low (oily; water traces raise it)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Brown", odour: "Cooked food / rancid", odourThreshold: "n/a", viscosity: "High (polymerised residues)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry (acrolein possible if overheated)", name: "Used cooking oil (UCO)", synonyms: ["UCO", "Waste cooking oil", "Used frying oil"],
     un: "—", ibc: "Not in IBC Ch.17/18 (our edition) — confirm current Code; USCG Table 1 group 34", verifyIbc: true, category: "Oils & Fats",
     formula: "Mixed triglycerides + free fatty acids", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91–0.93", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -733,7 +783,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "heating", "prewash", "caustic"], cleanNote: "Frying-polymerised residues bake with hot-first washing: cold wash first, then heat + caustic.",
   },
   {
-    slug: "rapeseed-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow", odour: "Bland, slightly mustardy", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Rapeseed oil", synonyms: ["Rape seed oil", "Canola oil", "Colza oil"],
+    slug: "rapeseed-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow", odour: "Bland, slightly mustardy", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Rapeseed oil", synonyms: ["Rape seed oil", "Canola oil", "Colza oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:1/C18:2)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -742,7 +792,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first, then hot, then caustic if needed.",
   },
   {
-    slug: "linseed-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow", odour: "Painty, sharp drying-oil smell", odourThreshold: "Low (characteristic)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Linseed oil", synonyms: ["Flaxseed oil", "Flax oil"],
+    slug: "linseed-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow", odour: "Painty, sharp drying-oil smell", odourThreshold: "Low (characteristic)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Linseed oil", synonyms: ["Flaxseed oil", "Flax oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:3 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.93", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "drying", compatGroup: 34, compatSrc: "Table 1",
@@ -751,7 +801,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "DRYING: strictly cold wash first. Oil-soaked rags/waste can SELF-IGNITE — collect in closed metal bins.",
   },
   {
-    slug: "castor-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow, very viscous", odour: "Bland", odourThreshold: "n/a", viscosity: "Very high", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Castor oil", synonyms: ["Ricinus oil"],
+    slug: "castor-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow, very viscous", odour: "Bland", odourThreshold: "n/a", viscosity: "Very high", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Castor oil", synonyms: ["Ricinus oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (ricinoleic)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.96", solubility: "Insoluble (soluble in alcohol)",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -760,7 +810,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine. High viscosity — extend washing time.",
   },
   {
-    slug: "corn-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland, corn-like", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Corn oil (Maize oil)", synonyms: ["Maize oil"],
+    slug: "corn-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland, corn-like", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Corn oil (Maize oil)", synonyms: ["Maize oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (C18:2 rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "semi-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -769,7 +819,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "SEMI-DRYING: cold wash first.",
   },
   {
-    slug: "olive-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Green-gold", odour: "Fruity olive", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Olive oil", synonyms: ["Olea oil"],
+    slug: "olive-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Green-gold", odour: "Fruity olive", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Olive oil", synonyms: ["Olea oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (oleic rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -778,7 +828,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine.",
   },
   {
-    slug: "tall-oil-crude", tlv: "— (no OEL; rosin mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Dark brown-black", odour: "Strong pine/resin, smoky", odourThreshold: "Low (characteristic)", viscosity: "Very high", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry; rosin fume sampling if heated", name: "Tall oil, crude", synonyms: ["Tall oil", "Liquid rosin", "Pine oil (crude)"],
+    slug: "tall-oil-crude", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; rosin mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Dark brown-black", odour: "Strong pine/resin, smoky", odourThreshold: "Low (characteristic)", viscosity: "Very high", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry; rosin fume sampling if heated", name: "Tall oil, crude", synonyms: ["Tall oil", "Liquid rosin", "Pine oil (crude)"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Fatty + rosin acids", boiling: "Non-volatile", flash: ">150 °C (combustible)", density: "≈0.95–1.0", solubility: "Insoluble",
     water: "floats", toxic: false, compatGroup: 34, compatSrc: "Table 1 (tall-oil products: 34)",
@@ -787,7 +837,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat to strip; caustic wash dissolves rosin-acid film.",
   },
   {
-    slug: "fish-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Amber", odour: "Strong fishy (rancid when oxidised)", odourThreshold: "Low (characteristic)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Fish oil", synonyms: ["Menhaden oil", "Fish body oil"],
+    slug: "fish-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Amber", odour: "Strong fishy (rancid when oxidised)", odourThreshold: "Low (characteristic)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Fish oil", synonyms: ["Menhaden oil", "Fish body oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (EPA/DHA)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92–0.93", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "drying", compatGroup: 34, compatSrc: "Appendix I (Fish oil: 34)",
@@ -796,7 +846,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "DRYING: cold wash first. Deodorising wash often needed after fish oil.",
   },
   {
-    slug: "lard", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "White solid", odour: "Bland", odourThreshold: "n/a", viscosity: "High (solid at ambient)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Lard", synonyms: ["Pork fat", "Rendered pork fat"],
+    slug: "lard", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "White solid", odour: "Bland", odourThreshold: "n/a", viscosity: "High (solid at ambient)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Lard", synonyms: ["Pork fat", "Rendered pork fat"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (saturated rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.86 (molten)", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -805,7 +855,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat well above melting point to strip; caustic wash for fatty-acid film.",
   },
   {
-    slug: "palm-kernel-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "White to pale yellow", odour: "Sweet nutty", odourThreshold: "n/a", viscosity: "Moderate (solidifies ~24 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Palm kernel oil", synonyms: ["Palm kernel fat"],
+    slug: "palm-kernel-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "White to pale yellow", odour: "Sweet nutty", odourThreshold: "n/a", viscosity: "Moderate (solidifies ~24 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Palm kernel oil", synonyms: ["Palm kernel fat"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (lauric rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -814,7 +864,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine.",
   },
   {
-    slug: "groundnut-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Mild nutty", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Groundnut oil (Peanut oil)", synonyms: ["Peanut oil", "Arachis oil"],
+    slug: "groundnut-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Mild nutty", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Groundnut oil (Peanut oil)", synonyms: ["Peanut oil", "Arachis oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (oleic rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.91", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -823,7 +873,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "prewash", "caustic"], cleanNote: "Non-drying: hot wash is fine.",
   },
   {
-    slug: "safflower-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Safflower oil", synonyms: ["Carthamus oil"],
+    slug: "safflower-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow", odour: "Bland", odourThreshold: "n/a", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Safflower oil", synonyms: ["Carthamus oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (linoleic rich)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.92", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "drying", compatGroup: 34, compatSrc: "Table 1",
@@ -832,7 +882,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "caustic"], cleanNote: "DRYING (standard grade): cold wash first.",
   },
   {
-    slug: "tung-oil", tlv: "— (no OEL; mist only)", antidote: "No specific antidote (mildly toxic if swallowed)", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow", odour: "Pungent nutty", odourThreshold: "Low (characteristic)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Tung oil", synonyms: ["China wood oil"],
+    slug: "tung-oil", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote (mildly toxic if swallowed)", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow", odour: "Pungent nutty", odourThreshold: "Low (characteristic)", viscosity: "Moderate", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Tung oil", synonyms: ["China wood oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (eleostearic)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.94", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "drying", compatGroup: 34, compatSrc: "Table 1",
@@ -841,7 +891,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["cold-first", "prewash", "solvent"], cleanNote: "DRYING — fastest film former: cold wash immediately, solvent for cured film.",
   },
   {
-    slug: "shea-butter", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Ivory-white solid", odour: "Smoky nutty", odourThreshold: "n/a", viscosity: "High (solid ~35 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Shea butter", synonyms: ["Shea fat", "Karite butter"],
+    slug: "shea-butter", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Ivory-white solid", odour: "Smoky nutty", odourThreshold: "n/a", viscosity: "High (solid ~35 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Shea butter", synonyms: ["Shea fat", "Karite butter"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (stearic/oleic)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.86 (molten)", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -850,7 +900,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat well above melting point to strip.",
   },
   {
-    slug: "cocoa-butter", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow solid", odour: "Chocolate", odourThreshold: "n/a", viscosity: "High (solid ~35 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Cocoa butter", synonyms: ["Cacao butter", "Theobroma oil"],
+    slug: "cocoa-butter", conductivity: "Very low (<1 pS/m)", tlv: "— (no OEL; mist only)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Pale yellow solid", odour: "Chocolate", odourThreshold: "n/a", viscosity: "High (solid ~35 °C)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Cocoa butter", synonyms: ["Cacao butter", "Theobroma oil"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "Triglycerides (stearic/oleic/palmitic)", boiling: "Non-volatile", flash: ">200 °C (combustible)", density: "≈0.86 (molten)", solubility: "Insoluble",
     water: "floats", toxic: false, drying: "non-drying", compatGroup: 34, compatSrc: "Table 1",
@@ -859,7 +909,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["heating", "prewash", "caustic"], cleanNote: "Heat to strip; flavour-grade parcels need full caustic + rinse.",
   },
   {
-    slug: "dmf", tlv: "5 ppm TWA, skin (TLV)", antidote: "No specific antidote (liver: hospital; note alcohol intolerance)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.5 kPa", colour: "Colourless", odour: "Fishy amine", odourThreshold: "Low (~1 ppm)", viscosity: "Low (0.9 cP)", floater: "—", detection: "DMF / amine tube", name: "Dimethylformamide (DMF)", synonyms: ["DMF", "Formdimethylamide", "N,N-Dimethylformamide"],
+    slug: "dmf", conductivity: "Moderate (50–1000 pS/m)", tlv: "5 ppm TWA, skin (TLV)", antidote: "No specific antidote (liver: hospital; note alcohol intolerance)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.5 kPa", colour: "Colourless", odour: "Fishy amine", odourThreshold: "Low (~1 ppm)", viscosity: "Low (0.9 cP)", floater: "—", detection: "DMF / amine tube", name: "Dimethylformamide (DMF)", synonyms: ["DMF", "Formdimethylamide", "N,N-Dimethylformamide"],
     un: "2265", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Other",
     formula: "C₃H₇NO", boiling: "153 °C", flash: "58 °C (c.c.)", density: "0.944", solubility: "Miscible",
     water: "dissolves", toxic: true, compatGroup: 10, compatSrc: "Table 1",
@@ -868,7 +918,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "propionic-acid", tlv: "10 ppm TWA (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8 (subsidiary 3)", ems: "F-E, S-C", vapour: "0.4 kPa", colour: "Colourless", odour: "Rancid vinegar-body odour", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (1.1 cP)", floater: "—", detection: "Organic-acid tube", name: "Propionic acid", synonyms: ["Propanoic acid", "Methylacetic acid"],
+    slug: "propionic-acid", conductivity: "Moderate (50–1000 pS/m)", tlv: "10 ppm TWA (TLV)", antidote: "No antidote — irrigate copiously", imdg: "Class 8 (subsidiary 3)", ems: "F-E, S-C", vapour: "0.4 kPa", colour: "Colourless", odour: "Rancid vinegar-body odour", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (1.1 cP)", floater: "—", detection: "Organic-acid tube", name: "Propionic acid", synonyms: ["Propanoic acid", "Methylacetic acid"],
     un: "1848", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 3 · 2G", category: "Acids & Alkalis",
     formula: "C₃H₆O₂", boiling: "141.2 °C", flash: "54 °C (c.c.)", density: "0.993", solubility: "Miscible",
     water: "dissolves", toxic: true, compatGroup: 4, compatSrc: "Table 1",
@@ -877,7 +927,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"],
   },
   {
-    slug: "thf", tlv: "50 ppm TWA · STEL 100 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "19 kPa", colour: "Colourless", odour: "Sharp ether", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.5 cP)", floater: "—", detection: "THF tube or PID; peroxide test separately", name: "Tetrahydrofuran (THF)", synonyms: ["THF", "Oxolane", "Tetramethylene oxide"],
+    slug: "thf", conductivity: "Moderate (50–1000 pS/m)", tlv: "50 ppm TWA · STEL 100 (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "19 kPa", colour: "Colourless", odour: "Sharp ether", odourThreshold: "Low (~2 ppm)", viscosity: "Low (0.5 cP)", floater: "—", detection: "THF tube or PID; peroxide test separately", name: "Tetrahydrofuran (THF)", synonyms: ["THF", "Oxolane", "Tetramethylene oxide"],
     un: "2056", ibc: "IBC Ch.17 · Cat Z · S · Ship type 3 · 2G", category: "Ethers & Oxides",
     formula: "C₄H₈O", boiling: "66 °C", flash: "−14 °C (c.c.)", density: "0.889", solubility: "Miscible",
     water: "dissolves", toxic: true, compatGroup: 41, compatSrc: "Table 1",
@@ -886,7 +936,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Peroxide test before hot work anywhere near residues.",
   },
   {
-    slug: "epichlorohydrin", tlv: "0.5 ppm TWA, skin (TLV)", antidote: "No specific antidote — decontaminate, hospital", imdg: "Class 6.1 (subsidiary 3)", ems: "F-E, S-C (verify SDS)", vapour: "2.1 kPa", colour: "Colourless", odour: "Pungent garlic-chloroform", odourThreshold: "Low (~0.5 ppm)", viscosity: "Low (1.1 cP)", floater: "—", detection: "Epichlorohydrin tube", name: "Epichlorohydrin", synonyms: ["ECH", "1-Chloro-2,3-epoxypropane", "Chloromethyloxirane"],
+    slug: "epichlorohydrin", conductivity: "Low (1–50 pS/m)", tlv: "0.5 ppm TWA, skin (TLV)", antidote: "No specific antidote — decontaminate, hospital", imdg: "Class 6.1 (subsidiary 3)", ems: "F-E, S-C (verify SDS)", vapour: "2.1 kPa", colour: "Colourless", odour: "Pungent garlic-chloroform", odourThreshold: "Low (~0.5 ppm)", viscosity: "Low (1.1 cP)", floater: "—", detection: "Epichlorohydrin tube", name: "Epichlorohydrin", synonyms: ["ECH", "1-Chloro-2,3-epoxypropane", "Chloromethyloxirane"],
     un: "2023", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Other",
     formula: "C₃H₅ClO", boiling: "118 °C", flash: "32 °C (c.c.)", density: "1.18", solubility: "6.6 g/100 ml",
     water: "sinks", toxic: true, compatGroup: 17, compatSrc: "Table 1",
@@ -895,7 +945,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Sinker — strip fully; low-level gas readings on gas-freeing.",
   },
   {
-    slug: "pyridine", tlv: "1 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.1 kPa", colour: "Pale yellow", odour: "Foul fishy-nutty", odourThreshold: "Very low (~0.02 ppm)", viscosity: "Low (0.9 cP)", floater: "—", detection: "Pyridine / amine tube", name: "Pyridine", synonyms: ["Azabenzene", "Azine"],
+    slug: "pyridine", conductivity: "Moderate (50–1000 pS/m)", tlv: "1 ppm TWA (TLV)", antidote: "No specific antidote — fresh air, hospital", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.1 kPa", colour: "Pale yellow", odour: "Foul fishy-nutty", odourThreshold: "Very low (~0.02 ppm)", viscosity: "Low (0.9 cP)", floater: "—", detection: "Pyridine / amine tube", name: "Pyridine", synonyms: ["Azabenzene", "Azine"],
     un: "1282", ibc: CHECK17, verifyIbc: true, category: "Amines",
     formula: "C₅H₅N", boiling: "115.2 °C", flash: "17 °C (c.c.)", density: "0.982", solubility: "Miscible",
     water: "dissolves", toxic: true, compatGroup: 9, compatSrc: "Table 1",
@@ -904,7 +954,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Odour lingers — extended ventilation/steaming often needed.",
   },
   {
-    slug: "n-propanol", tlv: "100 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.0 kPa", colour: "Colourless", odour: "Alcoholic, mild", odourThreshold: "Moderate (~5 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Alcohol tube; LEL meter", name: "n-Propyl alcohol", synonyms: ["n-Propanol", "1-Propanol", "Propyl alcohol"],
+    slug: "n-propanol", conductivity: "High (conductive)", tlv: "100 ppm TWA (TLV)", antidote: "No specific antidote — fresh air", imdg: "Class 3", ems: "F-E, S-D", vapour: "2.0 kPa", colour: "Colourless", odour: "Alcoholic, mild", odourThreshold: "Moderate (~5 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Alcohol tube; LEL meter", name: "n-Propyl alcohol", synonyms: ["n-Propanol", "1-Propanol", "Propyl alcohol"],
     un: "1274", ibc: "IBC Ch.17 · Cat Y · P · Ship type 3 · 2G", category: "Alcohols & Glycols",
     formula: "C₃H₈O", boiling: "97 °C", flash: "22 °C (c.c.)", density: "0.804", solubility: "Miscible",
     water: "dissolves", toxic: false, compatGroup: 20, compatSrc: "Table 1",
@@ -913,7 +963,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "turpentine", tlv: "20 ppm TWA (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.5 kPa", colour: "Colourless", odour: "Pine resin", odourThreshold: "Low (~5 ppm)", viscosity: "Low (1.5 cP)", floater: "—", detection: "Turpentine / hydrocarbon tube; LEL meter", name: "Turpentine", synonyms: ["Gum turpentine", "Oil of turpentine", "Turps"],
+    slug: "turpentine", conductivity: "Very low (<1 pS/m)", tlv: "20 ppm TWA (TLV)", antidote: "No specific antidote — NO vomiting if ingested (aspiration)", imdg: "Class 3", ems: "F-E, S-D", vapour: "0.5 kPa", colour: "Colourless", odour: "Pine resin", odourThreshold: "Low (~5 ppm)", viscosity: "Low (1.5 cP)", floater: "—", detection: "Turpentine / hydrocarbon tube; LEL meter", name: "Turpentine", synonyms: ["Gum turpentine", "Oil of turpentine", "Turps"],
     un: "1299", ibc: "IBC Ch.17 · Cat X · P · Ship type 2 · 2G", category: "Fuels & Solvents",
     formula: "Pinenes mixture", boiling: "150–180 °C", flash: "35 °C (c.c.)", density: "≈0.86", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true, compatGroup: 30, compatSrc: "Table 1",
@@ -922,7 +972,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"],
   },
   {
-    slug: "octanol", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "0.01 kPa (very low)", colour: "Colourless", odour: "Waxy citrus-fatty", odourThreshold: "Low", viscosity: "Moderate (7 cP)", floater: "—", detection: "No vapour tube at ambient (alcohol tube if heated)", name: "Octanol (all isomers)", synonyms: ["1-Octanol", "Capryl alcohol", "Octyl alcohol"],
+    slug: "octanol", conductivity: "Low (1–50 pS/m)", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "0.01 kPa (very low)", colour: "Colourless", odour: "Waxy citrus-fatty", odourThreshold: "Low", viscosity: "Moderate (7 cP)", floater: "—", detection: "No vapour tube at ambient (alcohol tube if heated)", name: "Octanol (all isomers)", synonyms: ["1-Octanol", "Capryl alcohol", "Octyl alcohol"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Alcohols & Glycols",
     formula: "C₈H₁₈O", boiling: "195 °C", flash: "81 °C (c.c.)", density: "0.827", solubility: "Insoluble",
     water: "floats", toxic: false, compatGroup: 20, compatSrc: "Table 1",
@@ -931,7 +981,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "dpg", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "~0.01 kPa (very low)", colour: "Colourless", odour: "Odourless", odourThreshold: "None", viscosity: "High (100+ cP)", floater: "—", detection: "No vapour tube at ambient", name: "Dipropylene glycol", synonyms: ["DPG", "Oxydipropanol"],
+    slug: "dpg", conductivity: "Moderate (50–1000 pS/m)", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "—", vapour: "~0.01 kPa (very low)", colour: "Colourless", odour: "Odourless", odourThreshold: "None", viscosity: "High (100+ cP)", floater: "—", detection: "No vapour tube at ambient", name: "Dipropylene glycol", synonyms: ["DPG", "Oxydipropanol"],
     un: "—", ibc: "IBC Ch.17 · Cat Z · P · Ship type 3 · 2G", category: "Alcohols & Glycols",
     formula: "C₆H₁₄O₃", boiling: "232 °C", flash: "≈121 °C (combustible)", density: "1.02", solubility: "Miscible",
     water: "dissolves", toxic: false, compatGroup: 40, compatSrc: "Table 1",
@@ -940,7 +990,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "deg", tlv: "— (no established OEL)", antidote: "No specific antidote (harmful if swallowed in quantity)", imdg: "Not regulated, Ch.18 (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High (30 cP)", floater: "—", detection: "No vapour tube at ambient", name: "Diethylene glycol (DEG)", synonyms: ["DEG", "Diglycol", "2,2′-Oxydiethanol"],
+    slug: "deg", conductivity: "Moderate (50–1000 pS/m)", tlv: "— (no established OEL)", antidote: "No specific antidote (harmful if swallowed in quantity)", imdg: "Not regulated, Ch.18 (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High (30 cP)", floater: "—", detection: "No vapour tube at ambient", name: "Diethylene glycol (DEG)", synonyms: ["DEG", "Diglycol", "2,2′-Oxydiethanol"],
     un: "—", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₄H₁₀O₃", boiling: "245 °C", flash: ">120 °C (combustible)", density: "1.118", solubility: "Miscible",
     water: "dissolves", toxic: false, compatGroup: 40, compatSrc: "Table 1",
@@ -949,7 +999,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "teg", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated, Ch.18 (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High (50 cP)", floater: "—", detection: "No vapour tube at ambient", name: "Triethylene glycol (TEG)", synonyms: ["TEG", "Triglycol"],
+    slug: "teg", conductivity: "Moderate (50–1000 pS/m)", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated, Ch.18 (no UN)", ems: "—", vapour: "Negligible", colour: "Colourless, syrupy", odour: "Odourless", odourThreshold: "None", viscosity: "High (50 cP)", floater: "—", detection: "No vapour tube at ambient", name: "Triethylene glycol (TEG)", synonyms: ["TEG", "Triglycol"],
     un: "—", ibc: IBC18, category: "Alcohols & Glycols",
     formula: "C₆H₁₄O₄", boiling: "285 °C", flash: "≈165 °C (combustible)", density: "1.12", solubility: "Miscible",
     water: "dissolves", toxic: false, compatGroup: 40, compatSrc: "Table 1",
@@ -958,7 +1008,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot"],
   },
   {
-    slug: "oleic-acid", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow-brown", odour: "Fatty, mild", odourThreshold: "None", viscosity: "Moderate-high (40 cP)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Oleic acid", synonyms: ["cis-9-Octadecenoic acid", "Red oil (crude grade)"],
+    slug: "oleic-acid", conductivity: "Very low (<1 pS/m)", tlv: "— (no established OEL)", antidote: "No specific antidote", imdg: "Not regulated (no UN)", ems: "— (oil-spill response per SOPEP)", vapour: "Negligible", colour: "Yellow-brown", odour: "Fatty, mild", odourThreshold: "None", viscosity: "Moderate-high (40 cP)", floater: "Persistent floater", detection: "No vapour tube — O₂/LEL on entry", name: "Oleic acid", synonyms: ["cis-9-Octadecenoic acid", "Red oil (crude grade)"],
     un: "—", ibc: "IBC Ch.17 · Cat Y · P · Ship type 2 · 2G", category: "Oils & Fats",
     formula: "C₁₈H₃₄O₂", boiling: "≈360 °C (decomposes)", flash: ">180 °C (combustible)", density: "0.895", solubility: "Insoluble",
     water: "floats", toxic: false, compatGroup: 4, compatSrc: "Table 1",
@@ -967,7 +1017,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "caustic"],
   },
   {
-    slug: "pygas", tlv: "As benzene 0.5 ppm — strictest component applies", antidote: "No specific antidote — fresh air, hospital", imdg: "Bulk NLS (no UN — confirm)", ems: "F-E, S-D", vapour: "High (benzene-rich blend)", colour: "Pale yellow", odour: "Strong aromatic gasoline", odourThreshold: "Very low", viscosity: "Low", floater: "—", detection: "Benzene tube + PID; LEL meter", name: "Pyrolysis gasoline (containing benzene)", synonyms: ["Pygas", "Pyrolysis gasoline", "Dripolene"],
+    slug: "pygas", conductivity: "Very low (<1 pS/m)", tlv: "As benzene 0.5 ppm — strictest component applies", antidote: "No specific antidote — fresh air, hospital", imdg: "Bulk NLS (no UN — confirm)", ems: "F-E, S-D", vapour: "High (benzene-rich blend)", colour: "Pale yellow", odour: "Strong aromatic gasoline", odourThreshold: "Very low", viscosity: "Low", floater: "—", detection: "Benzene tube + PID; LEL meter", name: "Pyrolysis gasoline (containing benzene)", synonyms: ["Pygas", "Pyrolysis gasoline", "Dripolene"],
     un: "— (bulk NLS — confirm packaged UN with SDS)", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Aromatics",
     formula: "C5–C12 aromatics/olefins", boiling: "30–200 °C", flash: "<−20 °C (c.c.)", density: "≈0.80", solubility: "Insoluble",
     water: "floats", toxic: true, staticAccumulator: true, compatGroup: 32, compatSrc: "Table 1",
@@ -976,7 +1026,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "ventilate"], cleanNote: "Gum deposits may need solvent wash. Static-accumulator: controlled washing.",
   },
   {
-    slug: "acetic-anhydride", tlv: "1 ppm ceiling (verify current OEL)", antidote: "No antidote — irrigate, keep dry", imdg: "Class 8 (subsidiary 3)", ems: "F-E, S-C", vapour: "0.5 kPa", colour: "Colourless", odour: "Vinegar, choking", odourThreshold: "Very low", viscosity: "Low (0.9 cP)", floater: "—", detection: "Anhydride / acid tube", name: "Acetic anhydride", synonyms: ["Acetic oxide", "Ethanoyl ethanoate"],
+    slug: "acetic-anhydride", conductivity: "Low (1–50 pS/m)", tlv: "1 ppm ceiling (verify current OEL)", antidote: "No antidote — irrigate, keep dry", imdg: "Class 8 (subsidiary 3)", ems: "F-E, S-C", vapour: "0.5 kPa", colour: "Colourless", odour: "Vinegar, choking", odourThreshold: "Very low", viscosity: "Low (0.9 cP)", floater: "—", detection: "Anhydride / acid tube", name: "Acetic anhydride", synonyms: ["Acetic oxide", "Ethanoyl ethanoate"],
     un: "1715", ibc: CHECK17, verifyIbc: true, category: "Other",
     formula: "C₄H₆O₃", boiling: "140 °C", flash: "49 °C (c.c.)", density: "1.08", solubility: "Reacts → acetic acid (heat!)",
     water: "sinks", toxic: true, compatGroup: 11, compatSrc: "Table 1",
@@ -985,7 +1035,7 @@ export const CARGOES: CargoEntry[] = [
     cleaning: ["hot", "neutralize"], cleanNote: "Wash water becomes acetic acid — neutralise before discharge per P&A Manual.",
   },
   {
-    slug: "nitrobenzene", tlv: "1 ppm TWA, skin (TLV)", antidote: "Methylene blue — HOSPITAL ONLY (methaemoglobinaemia)", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.03 kPa (very low)", colour: "Pale yellow", odour: "Bitter almond", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Nitrobenzene tube", name: "Nitrobenzene", synonyms: ["Oil of mirbane", "Nitrobenzol"],
+    slug: "nitrobenzene", conductivity: "Moderate (50–1000 pS/m)", tlv: "1 ppm TWA, skin (TLV)", antidote: "Methylene blue — HOSPITAL ONLY (methaemoglobinaemia)", imdg: "Class 6.1", ems: "F-A, S-A", vapour: "0.03 kPa (very low)", colour: "Pale yellow", odour: "Bitter almond", odourThreshold: "Very low (~0.05 ppm)", viscosity: "Low (2 cP)", floater: "—", detection: "Nitrobenzene tube", name: "Nitrobenzene", synonyms: ["Oil of mirbane", "Nitrobenzol"],
     un: "1662", ibc: "IBC Ch.17 · Cat Y · S/P · Ship type 2 · 2G", category: "Aromatics",
     formula: "C₆H₅NO₂", boiling: "211 °C", flash: "88 °C (c.c.)", density: "1.20", solubility: "0.2 g/100 ml",
     water: "sinks", toxic: true, compatGroup: 42, compatSrc: "Table 1",
