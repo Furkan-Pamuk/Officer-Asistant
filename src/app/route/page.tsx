@@ -525,7 +525,7 @@ export default function RoutePage() {
           </div>
           <div className="order-7"><RoutePortInfo fromCode={from} toCode={to} /></div>
           <div className="order-8"><RouteLoadZone fromCode={from} toCode={to} departMs={depMs} arriveMs={arrMs} /></div>
-          <div className="order-9"><PortLogPanel /></div>
+          <div className="order-9"><PortLogPanel fromCode={from} toCode={to} /></div>
         </div>
 
         <div className="contents lg:grid lg:content-start lg:gap-3">

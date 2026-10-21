@@ -12,7 +12,7 @@ const POS_KEY = "oa-pos";
 
 // Automatic voyage legs: arriving in a port closes the open leg,
 // leaving opens the next numbered voyage (Voyage 1, 2, …).
-export default function PortLogPanel() {
+export default function PortLogPanel({ fromCode, toCode }: { fromCode?: string; toCode?: string }) {
   const [contractId, setContractId] = useState<string | null>(null);
   const voyages = useLiveQuery(
     () => (contractId ? db.voyages.where("contractId").equals(contractId).toArray() : Promise.resolve([] as Voyage[])),
@@ -53,8 +53,21 @@ export default function PortLogPanel() {
     setMsg(await detectStep(contractId, p.lat, p.lon));
   }
 
-  function locate() {
-    if (!("geolocation" in navigator)) { setMsg("Geolocation unavailable."); return; }
+  // Create story uses the route planner's two ports when provided (no
+  // re-typing); otherwise falls back to the manual two-port maker.
+  function createStory() {
+    const a = (fromCode || "").trim();
+    const b = (toCode || "").trim();
+    if (a && b && a !== b && PORTS.some((p) => p.code === a) && PORTS.some((p) => p.code === b)) {
+      setStoryVoy({ id: "manual", contractId: contractId!, no: 0, fromPort: "", fromCode: a, fromTime: "", toPort: "", toCode: b, toTime: "", status: "closed" });
+      return;
+    }
+    setMFrom(a || "NLRTM");
+    setMTo(b || "TRIST");
+    setMaker(true);
+  }
+
+  function locate() {    if (!("geolocation" in navigator)) { setMsg("Geolocation unavailable."); return; }
     setMsg("locating…");
     navigator.geolocation.getCurrentPosition(
       (p) => {
@@ -98,7 +111,7 @@ export default function PortLogPanel() {
         <div className="flex gap-2">
           <button onClick={locate} className="rounded-full bg-amber-400 px-4 py-2 text-sm font-black text-stone-950 dark:bg-red-600 dark:text-white">📍 GPS + detect</button>
           <button onClick={() => autoDetect(false)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">Detect now</button>
-          <button onClick={() => setMaker(true)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">✨ Create story</button>
+          <button onClick={createStory} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">✨ Create story</button>
         </div>
       </div>
       {maker && (
