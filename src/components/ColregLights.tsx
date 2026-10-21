@@ -26,8 +26,9 @@ function ShipSide({ c }: { c: LightConfig }) {
       <line x1="0" y1="112" x2="300" y2="112" stroke="#2AA198" strokeWidth="1.5" opacity="0.6" />
       {c.shapes.length > 0 && (
         <g>
-          <rect x="96" y="4" width={c.shapes.length * 22 + 12} height="26" rx="6" fill="#e2e8f0" />
-          {c.shapes.map((s, i) => <Shape key={i} k={s} x={114 + i * 22} y={17} />)}
+          <text x="240" y="13" fontSize="8" fontWeight="700" fill="#cbd5e1">day</text>
+          <rect x="266" y="4" width="28" height={c.shapes.length * 24 + 10} rx="6" fill="#e2e8f0" />
+          {c.shapes.map((s, i) => <Shape key={i} k={s} x={280} y={17 + i * 24} />)}
         </g>
       )}
       <rect x="25" y="96" width="250" height="16" rx="3" fill="#33506b" />
