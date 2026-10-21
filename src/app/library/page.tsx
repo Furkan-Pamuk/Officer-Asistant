@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import { LIBRARY_BOOKS } from "@/lib/data";
 import { KNOTS } from "@/lib/navigation-documents";
 import { KnotFigure } from "@/components/KnotDiagrams";
+import HraMap from "@/components/HraMap";
 
-type Tab = "pub" | "books" | "knots";
+type Tab = "pub" | "books" | "knots" | "hra";
 
 const DOC_TABS: { tab: string; label: string; desc: string }[] = [
   { tab: "orders", label: "📜 Orders", desc: "Master's standing orders + signature block." },
@@ -25,7 +26,7 @@ export default function Library() {
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tab");
-      if (t === "pub" || t === "books" || t === "knots") setTab(t);
+      if (t === "pub" || t === "books" || t === "knots" || t === "hra") setTab(t);
     } catch { /* ignore */ }
   }, []);
   function pick(t: Tab) {
@@ -47,6 +48,7 @@ export default function Library() {
         <button onClick={() => pick("pub")} className={btn("pub", "📚 Publications")}>📚 Publications ({LIBRARY_BOOKS.length})</button>
         <button onClick={() => pick("books")} className={btn("books", "📕 Books")}>📕 Books ({LIBRARY_BOOKS.length})</button>
         <button onClick={() => pick("knots")} className={btn("knots", "🪢 Knots")}>🪢 Knots ({KNOTS.length})</button>
+        <button onClick={() => pick("hra")} className={btn("hra", "🗺️ HRA Map")}>🗺️ HRA Map</button>
         {DOC_TABS.map((d) => (
           <button key={d.tab} onClick={() => goDoc(d.tab)} className="min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold opacity-70 hover:opacity-100">{d.label}</button>
         ))}
@@ -62,6 +64,52 @@ export default function Library() {
               <a href={b.link} target="_blank" rel="noreferrer" className="mt-2 inline-block rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white">Open official source</a>
             </div>
           ))}
+        </div>
+      ) : tab === "hra" ? (
+        <div className="grid gap-4">
+          <HraMap />
+          <div className="grid gap-2 md:grid-cols-3">
+            <div className="rounded-2xl border border-red-200 bg-red-50 p-4 dark:bg-black">
+              <h2 className="font-bold text-red-800 dark:text-red-300">🔴 Warlike Operations Area</h2>
+              <ul className="mt-1 list-disc pl-5 text-sm">
+                <li>Right to refuse sailing + repatriation at company cost + 2 months&apos; basic wage.</li>
+                <li>Must be informed at assignment (or immediately if known at sea); declining costs you nothing.</li>
+                <li>Bonus 100% of daily basic wage for the stay — minimum 5 days.</li>
+                <li>Double compensation for death/disability.</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:bg-black">
+              <h2 className="font-bold text-amber-800">🟠 High Risk Area</h2>
+              <ul className="mt-1 list-disc pl-5 text-sm">
+                <li>Same rights as WOA — except the bonus covers only the actual stay/transit duration.</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border bg-white p-4">
+              <h2 className="font-bold">🟡 Extended Risk Zone</h2>
+              <ul className="mt-1 list-disc pl-5 text-sm">
+                <li>100% basic-wage bonus only for the day the vessel is attacked.</li>
+                <li>Doubled compensation only if death/disability happens that day.</li>
+                <li>No right to refuse sailing in this zone.</li>
+              </ul>
+            </div>
+          </div>
+          <div className="rounded-2xl border bg-white p-4">
+            <h2 className="font-bold">📋 IBF area papers (reported Oct 2026 — verify current list)</h2>
+            <p className="mt-1 text-sm text-slate-600">Israel &amp; Lebanon coastline · Strait of Hormuz · Black Sea · Masamirit–Bab el-Mandeb · Jazirat at Ta&apos;ir–Bab el-Mandeb · Bab el-Mandeb &amp; Golfe de Tadjoura · Bab el-Mandeb–Aden Harbour · Gulf of Aden &amp; Approaches · Western Indian Ocean · Lagos approaches · West Africa chart incl. Gulf of Guinea · Luanda–Baía dos Tigres · Greenville–Sassandra. Designations must be annexed to your CBA and available on board.</p>
+          </div>
+          <div className="rounded-2xl border bg-white p-4">
+            <h2 className="font-bold">📻 Reporting &amp; BMP</h2>
+            <ul className="mt-1 list-disc pl-5 text-sm">
+              <li>Entering the VRA: send UKMTO initial report, then follow the Voluntary Reporting Scheme.</li>
+              <li>BMP Maritime Security: voyage risk assessment, ship hardening, citadel readiness, extra watches.</li>
+              <li>Captivity from piracy/hijacking keeps your employment protection — inside or outside designated areas.</li>
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a href="https://www.itfseafarers.org/en/resources/itf-warlike-and-high-risk-areas" target="_blank" rel="noreferrer" className="rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white">ITF benefits ↗</a>
+              <a href="https://imec.org.uk/the-international-bargaining-forum-ibf/ibf-risk-areas" target="_blank" rel="noreferrer" className="rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white">IBF area list ↗</a>
+              <a href="https://www.ukmto.org/" target="_blank" rel="noreferrer" className="rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white">UKMTO ↗</a>
+            </div>
+          </div>
         </div>
       ) : tab === "knots" ? (
         <div className="grid gap-3 md:grid-cols-2">
