@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LIBRARY_BOOKS } from "@/lib/data";
 import { KNOTS } from "@/lib/navigation-documents";
-import { KnotFigure } from "@/components/KnotDiagrams";
+import { KnotStepFigures } from "@/components/KnotDiagrams";
 import HraMap from "@/components/HraMap";
 
 type Tab = "pub" | "books" | "knots" | "hra";
@@ -115,22 +115,10 @@ export default function Library() {
         <div className="grid gap-3 md:grid-cols-2">
           {KNOTS.map((k) => (
             <div key={k.id} className="rounded-2xl border bg-white p-4">
-              <div className="flex items-start gap-3">
-                <span className="shrink-0 rounded-lg bg-white p-1 ring-1 ring-amber-200 dark:bg-neutral-900 print:ring-black"><KnotFigure id={k.id} /></span>
-                <div>
-                  <h2 className="font-semibold">{k.name}{k.tr ? <span className="ml-2 text-sm font-normal opacity-60">({k.tr})</span> : null}</h2>
-                  <p className="mt-1 text-sm text-slate-600">{k.uses}</p>
-                </div>
-              </div>
+              <h2 className="font-semibold">{k.name}{k.tr ? <span className="ml-2 text-sm font-normal opacity-60">({k.tr})</span> : null}</h2>
+              <p className="mt-1 text-sm text-slate-600">{k.uses}</p>
               {k.warning && <p className="mt-2 rounded-xl bg-red-50 px-3 py-2 text-sm font-bold text-red-700">⚠️ {k.warning}</p>}
-              <ol className="mt-2 grid gap-1.5">
-                {k.steps.map((s, i) => (
-                  <li key={i} className="flex gap-2 rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
-                    <span className="font-black">{i + 1}.</span>
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ol>
+              <KnotStepFigures id={k.id} steps={k.steps} />
             </div>
           ))}
         </div>
