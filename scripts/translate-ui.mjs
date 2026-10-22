@@ -69,6 +69,7 @@ if (process.argv.includes("--emit-only")) todo.length = 0;
 console.log(`cevrilecek: ${todo.length} (cacheli: ${Object.keys(cache).length})`);
 
 const STAGGER = Number(process.env.MT_STAGGER ?? 700);
+let idx = 0, done = 0, hata = 0, consec = 0, stop = false;
 async function isci(ms) {
   await new Promise((r) => setTimeout(r, ms));
   while (!stop) {
