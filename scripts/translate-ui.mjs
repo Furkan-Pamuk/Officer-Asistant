@@ -10,13 +10,15 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const locDir = path.join(here, "..", "src", "lib", "locales");
 const cacheFile = "C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\ui-cache.json";
 
-const TARGETS = [
+const ONLY = (process.argv.find((a) => a.startsWith("--only="))?.slice(7).split(",") ?? []).map((s) => s.trim()).filter(Boolean);
+const TARGETS_ALL = [
   { tl: "es", file: "ui-es.ts", exp: "UI_ES" },
   { tl: "zh-CN", file: "ui-zh.ts", exp: "UI_ZH" },
   { tl: "ru", file: "ui-ru.ts", exp: "UI_RU" },
   { tl: "tl", file: "ui-fil.ts", exp: "UI_FIL" },
   { tl: "id", file: "ui-id.ts", exp: "UI_ID" },
 ];
+const TARGETS = ONLY.length ? TARGETS_ALL.filter((t) => ONLY.includes(t.tl)) : TARGETS_ALL;
 
 function parseDict(file) {
   const t = fs.readFileSync(path.join(locDir, file), "utf8");
@@ -66,8 +68,7 @@ for (const { tl } of TARGETS) {
 if (process.argv.includes("--emit-only")) todo.length = 0;
 console.log(`cevrilecek: ${todo.length} (cacheli: ${Object.keys(cache).length})`);
 
-const PAR = 4;
-let idx = 0, done = 0, hata = 0, consec = 0, stop = false;
+const STAGGER = Number(process.env.MT_STAGGER ?? 700);
 async function isci(ms) {
   await new Promise((r) => setTimeout(r, ms));
   while (!stop) {
@@ -89,10 +90,10 @@ async function isci(ms) {
       fs.writeFileSync(cacheFile, JSON.stringify(cache), "utf8");
       console.log(`ilerleme: ${done}/${todo.length} (istek: ${calls}, hata: ${hata})`);
     }
-    await new Promise((r) => setTimeout(r, 700));
+    await new Promise((r) => setTimeout(r, STAGGER));
   }
 }
-if (todo.length) await Promise.all([0, 1, 2, 3].map((k) => isci(k * 600)));
+if (!process.argv.includes("--emit-only") && todo.length) await Promise.all([0, 1, 2, 3].map((k) => isci(k * 600)));
 fs.writeFileSync(cacheFile, JSON.stringify(cache), "utf8");
 
 const esc = (s) => s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
