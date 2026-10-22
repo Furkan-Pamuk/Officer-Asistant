@@ -89,3 +89,64 @@ export function mockResult(imo: string): VesselResult {
     fetchedAt: now,
   };
 }
+
+// ---- Open Waters AIS (free tier) ----
+
+export interface VesselCandidate {
+  mmsi: string;
+  name: string | null;
+  seen: string | null;
+}
+
+const AIS_NAV_STATUS: Record<number, string> = {
+  0: "Underway",
+  1: "At anchor",
+  2: "Not under command",
+  3: "Restricted manoeuvrability",
+  4: "Constrained by draught",
+  5: "Moored",
+  6: "Aground",
+  7: "Fishing",
+  8: "Sailing",
+};
+
+export function aisStatusText(n: number | null): string | null {
+  if (n == null || !isFinite(n)) return null;
+  return AIS_NAV_STATUS[n] ?? `Status ${n}`;
+}
+
+/** Normalize an Open Waters GeoJSON vessel feature (search or detail). */
+export function normalizeOpenWaters(mmsi: string, f: Record<string, any>): VesselResult {
+  const now = new Date().toISOString();
+  const p: Record<string, any> = f?.properties ?? {};
+  const coords: unknown = (f as { geometry?: { coordinates?: unknown } })?.geometry?.coordinates;
+  const lon = Array.isArray(coords) ? num(coords[0]) : null;
+  const lat = Array.isArray(coords) ? num(coords[1]) : null;
+  const part: Record<string, any> = p.particulars ?? {};
+  return {
+    profile: {
+      ...blankProfile(typeof p.imo === "number" ? String(p.imo) : ""),
+      mmsi,
+      name: typeof p.name === "string" ? p.name : null,
+      callSign: typeof p.callsign === "string" ? p.callsign : null,
+      flag: typeof p.flag === "string" ? p.flag : null,
+      type: typeof part.ship_type === "string" ? part.ship_type : null,
+    },
+    position: {
+      lat,
+      lon,
+      sog: num(p.sog),
+      cog: num(p.cog),
+      heading: num(p.heading),
+      status: aisStatusText(typeof p.nav_status === "number" ? p.nav_status : null),
+      destination: typeof p.destination === "string" ? p.destination : null,
+      eta: typeof p.eta === "string" ? p.eta : null,
+      timestamp: typeof p.seen === "string" ? p.seen : null,
+      source: "Open Waters AIS",
+    },
+    cached: false,
+    availability: "live",
+    provider: "openwaters",
+    fetchedAt: now,
+  };
+}

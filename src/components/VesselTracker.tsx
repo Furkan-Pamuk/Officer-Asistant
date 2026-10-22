@@ -12,7 +12,7 @@ const POS_KEY = "oa-pos";
 const AIS_KEY = "oa-ais-cache";
 
 interface Ais {
-  name: string; latitude: string; longitude: string; speed: string; course: string;
+  name: string; mmsi?: string; latitude: string; longitude: string; speed: string; course: string;
   destination: string; navigationalStatus: string; positionReceived: string; updateTime: string;
   at: string;
 }
@@ -29,6 +29,10 @@ export default function VesselTracker() {
   const [ais, setAis] = useState<Ais | null>(null);
   const [aisNote, setAisNote] = useState("");
   const [loading, setLoading] = useState(false);
+  const [cands, setCands] = useState<{ mmsi: string; name: string | null; seen: string | null }[]>([]);
+  const [enr, setEnr] = useState<(Ais & { eta?: string }) | null>(null);
+  const [enriching, setEnriching] = useState(false);
+  const [enrNote, setEnrNote] = useState("");
 
   useEffect(() => {
     try {
@@ -85,6 +89,69 @@ export default function VesselTracker() {
     setEditing(false);
   }
 
+  // Free enrichment (Open Waters AIS): GPS stays the position source; this
+  // only pulls the AIS voyage data (destination + ETA + status) and, on the
+  // first run, resolves the contract MMSI via name search.
+  async function enrich() {
+    if (!contract) return;
+    setEnriching(true); setEnrNote(""); setCands([]);
+    try {
+      if (contract.mmsi && /^\d{9}$/.test(contract.mmsi)) {
+        await pickCandidate(contract.mmsi, true);
+        return;
+      }
+      const name = (contract.shipName ?? "").trim();
+      if (name.length < 2) throw new Error(t("vt.enrichName"));
+      const r = await fetch(`/api/vessel/search?q=${encodeURIComponent(name)}`);
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error ?? "lookup failed");
+      if (!data.candidates?.length) throw new Error(t("vt.noMatch"));
+      if (data.candidates.length === 1) await pickCandidate(data.candidates[0].mmsi, true);
+      else setCands(data.candidates);
+    } catch (e) {
+      setEnrNote(e instanceof Error ? e.message : "lookup failed");
+    } finally { setEnriching(false); }
+  }
+
+  async function pickCandidate(mmsi: string, silent?: boolean) {
+    if (!silent) setEnriching(true);
+    setEnrNote("");
+    try {
+      const r = await fetch(`/api/vessel/location?mmsi=${mmsi}`);
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error ?? "lookup failed");
+      setEnr({ ...data, at: new Date().toISOString() });
+      setCands([]);
+      if (contract && contract.mmsi !== mmsi) {
+        await db.contracts.update(contract.id, { mmsi, updatedAt: new Date().toISOString() });
+      }
+    } catch (e) {
+      setEnrNote(e instanceof Error ? e.message : "lookup failed");
+    } finally { setEnriching(false); }
+  }
+
+  function parseEta(s: string): string {
+    const m = s.match(/(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})/);
+    if (!m) return "";
+    const now = new Date();
+    let y = now.getFullYear();
+    const dt = new Date(y, Number(m[1]) - 1, Number(m[2]));
+    if (dt.getTime() < now.getTime() - 30 * 86400000) y += 1;
+    return `${y}-${String(m[1]).padStart(2, "0")}-${String(m[2]).padStart(2, "0")}`;
+  }
+
+  async function applyVoy() {
+    if (!contract || !enr) return;
+    const statusMap: Record<string, string> = { "Underway": "underway", "At anchor": "at-anchor", "Moored": "in-port" };
+    await db.contracts.update(contract.id, {
+      destPort: enr.destination || contract.destPort,
+      eta: (enr as { eta?: string }).eta ? parseEta((enr as { eta?: string }).eta!) || contract.eta : contract.eta,
+      navStatus: (enr.navigationalStatus && statusMap[enr.navigationalStatus]) || contract.navStatus,
+      updatedAt: new Date().toISOString(),
+    });
+    setEnrNote(t("vt.applied"));
+  }
+
   return (
     <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -93,11 +160,36 @@ export default function VesselTracker() {
           <button onClick={liveAis} disabled={loading} className="rounded-full bg-emerald-500 px-3 py-1 font-black text-white disabled:opacity-50">
             {loading ? "…" : t("vt.ais")}
           </button>
+          <button onClick={enrich} disabled={enriching} className="rounded-full bg-sky-500 px-3 py-1 font-black text-white disabled:opacity-50">
+            {enriching ? "…" : t("vt.enrich")}
+          </button>
           <button onClick={locate} className="rounded-full bg-amber-400 px-3 py-1 font-black text-stone-950 dark:bg-red-600 dark:text-white">📍 GPS</button>
           <button onClick={() => setEditing(!editing)} className="rounded-full border border-white/30 px-3 py-1 font-bold">{t("vt.voyage")}</button>
         </div>
       </div>
       {aisNote && <p className="mt-1 text-xs font-bold text-red-300">{aisNote}</p>}
+      {enrNote && <p className="mt-1 text-xs font-bold text-sky-300">{enrNote}</p>}
+      {cands.length > 0 && (
+        <div className="mt-2 rounded-2xl bg-white/10 p-2 text-sm">
+          <p className="px-1 text-xs font-bold opacity-80">{t("vt.pickVessel")}</p>
+          {cands.map((c) => (
+            <button key={c.mmsi} onClick={() => pickCandidate(c.mmsi)} className="mt-1 block w-full rounded-xl px-2 py-1.5 text-left font-bold hover:bg-white/10">
+              {c.name ?? c.mmsi} <span className="font-medium opacity-60">· {c.mmsi}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      {enr && (
+        <div className="mt-2 rounded-2xl bg-white/10 p-3 text-sm">
+          <div className="font-black">{enr.name ?? "Vessel"} <span className="font-medium opacity-60">· {enr.mmsi}</span></div>
+          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-xs font-medium opacity-90">
+            <span>{t("vt.dstPh")}: {enr.destination || "—"}</span>
+            <span>ETA: {(enr as { eta?: string }).eta || "—"}</span>
+            <span>{enr.navigationalStatus || ""}</span>
+          </div>
+          <button onClick={applyVoy} className="mt-2 rounded-full bg-sky-500 px-3 py-1 text-xs font-black text-white">{t("vt.applyVoy")}</button>
+        </div>
+      )}
       {valid ? (
         <div className="relative mt-2">
           <ShipMap key={`${cla.toFixed(3)}:${clo.toFixed(3)}`} lat={cla} lon={clo} label={contract?.shipName ?? "Vessel"} />
@@ -127,7 +219,7 @@ export default function VesselTracker() {
           <button onClick={saveVoy} className="rounded-full bg-amber-400 px-3 py-1.5 font-black text-stone-950 md:col-span-4">{t("vt.saveVoy")}</button>
         </div>
       ) : null}
-      <p className="mt-1 text-[11px] opacity-60">{t("vt.src")}{ais?.updateTime || ais?.positionReceived ? t("vt.lastUpd").replace("{x}", ais!.updateTime || ais!.positionReceived) : ""}</p>
+      <p className="mt-1 text-[11px] opacity-60">{t("vt.src")}{ais?.updateTime || ais?.positionReceived ? t("vt.lastUpd").replace("{x}", ais!.updateTime || ais!.positionReceived) : ""} {t("vt.srcFree")}</p>
     </div>
   );
 }

@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
-import { lookupVessel, legacyShape } from "@/lib/providers";
+import { lookupVessel, vesselByMmsiFree, legacyShape } from "@/lib/providers";
 
 // Server-side proxy so provider keys never reach the browser.
-// GET /api/vessel/location?imo=9247431 (legacy tracker shape)
+// GET /api/vessel/location?imo=9247431 (paid legacy tracker shape)
+// GET /api/vessel/location?mmsi=636026627 (free Open Waters detail)
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
+  const mmsi = searchParams.get("mmsi") ?? "";
+  if (/^\d{9}$/.test(mmsi)) {
+    const r = await vesselByMmsiFree(mmsi);
+    if (!r.ok) {
+      const s = r.error.kind === "invalid" ? 400 : r.error.kind === "rate-limited" ? 429 : r.error.kind === "not-found" ? 404 : 502;
+      return NextResponse.json({ error: r.error.message }, { status: s });
+    }
+    return NextResponse.json(legacyShape(r.data));
+  }
   const imo = searchParams.get("imo") ?? "";
   const r = await lookupVessel(imo);
   if (!r.ok) {

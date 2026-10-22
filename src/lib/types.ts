@@ -77,6 +77,7 @@ export interface Contract {
   signOffDate: string;
   estimatedEndDate?: string;
   imo?: string;
+  mmsi?: string;
   flag?: string;
   depPort?: string;
   destPort?: string;

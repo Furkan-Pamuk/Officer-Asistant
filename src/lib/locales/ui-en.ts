@@ -1048,6 +1048,13 @@ export const UI_EN: Record<string, string> = {
   "vt.lastUpd": " Last update: {x}.",
   "vt.ais": "🔴 Live AIS (1 credit)",
   "vt.voyage": "✏️ Voyage",
+  "vt.enrich": "🔍 Enrich (free)",
+  "vt.enrichName": "Name this vessel in the contract first.",
+  "vt.noMatch": "No vessel found with that name in free AIS data.",
+  "vt.pickVessel": "Pick your vessel:",
+  "vt.applyVoy": "Apply to contract",
+  "vt.applied": "Voyage updated from AIS.",
+  "vt.srcFree": "Enrichment: Open Waters AIS (free tier).",
 
   "wc.noGeo": "geolocation unavailable",
   "wc.denied": "location denied",

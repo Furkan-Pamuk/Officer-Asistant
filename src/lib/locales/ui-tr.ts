@@ -1011,6 +1011,13 @@ export const UI_TR: Record<string, string> = {
   "vt.lastUpd": " Son güncelleme: {x}.",
   "vt.ais": "🔴 Canlı AIS (1 kredi)",
   "vt.voyage": "✏️ Sefer",
+  "vt.enrich": "🔍 Zenginleştir (bedava)",
+  "vt.enrichName": "Önce kontratta gemiye ad ver.",
+  "vt.noMatch": "Bu adla ücretsiz AIS verisinde gemi yok.",
+  "vt.pickVessel": "Gemini seç:",
+  "vt.applyVoy": "Kontrata işle",
+  "vt.applied": "Sefer AIS'ten güncellendi.",
+  "vt.srcFree": "Zenginleştirme: Open Waters AIS (ücretsiz katman).",
 
   "wc.noGeo": "konum servisi yok",
   "wc.denied": "konum reddedildi",
