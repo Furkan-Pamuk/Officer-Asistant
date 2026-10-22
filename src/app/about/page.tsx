@@ -3,8 +3,10 @@ import Link from "next/link";
 import { BRAND, FEATURES, MISSION, TAGLINE, TAGLINE_LONG, VALUES, VISION } from "@/lib/content";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 export default function AboutPage() {
+  useDocTitle("about.eyebrow");
   const { t } = useLocale();
   const o = useContentOverlay();
   const mission = (cov(o, "site", "mission").v as string | undefined) ?? MISSION;

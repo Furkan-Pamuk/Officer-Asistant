@@ -17,8 +17,10 @@ import QiblaCard from "@/components/QiblaCard";
 import { loadWidgetPrefs } from "@/lib/widgets";
 import { useActiveContract } from "@/hooks/useActiveContract";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 export default function Dashboard() {
+  useDocTitle("nav.dashboard");
   const { t } = useLocale();
   const { contract } = useActiveContract();
   const [prefs, setPrefs] = useState<Record<string, boolean>>({});

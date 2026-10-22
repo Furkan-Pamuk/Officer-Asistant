@@ -9,6 +9,7 @@ import { flagName } from "@/lib/flags";
 import { areaOf } from "@/lib/areas";
 import type { CheckCard } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 const CardRow = memo(function CardRow({ card, done, completedAt, onToggle }: {
@@ -24,6 +25,7 @@ const CardRow = memo(function CardRow({ card, done, completedAt, onToggle }: {
 });
 
 export default function DetailClient({ params }: { params: Promise<{ type: string }> }) {
+  useDocTitle("nav.inspections");
   const { t } = useLocale();
   const o = useContentOverlay();
   const { type } = use(params);

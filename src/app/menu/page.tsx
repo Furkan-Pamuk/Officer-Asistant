@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { MEALS, autoWeek, dayLabel, dishesForMeal, mondayOf, addWeek, CUISINES } from "@/lib/menu";
@@ -10,6 +11,7 @@ import RecipeBrowser from "@/components/RecipeBrowser";
 import type { Dish, MenuMeal, MenuSnap, WeekPlan } from "@/lib/types";
 
 export default function MenuPage() {
+  useDocTitle("menu.titleEmoji");
   const { t } = useLocale();
   const o = useContentOverlay();
   const cuisines = CUISINES.map((c) => withOv(c, cov(o, "cuisines", c.id)));

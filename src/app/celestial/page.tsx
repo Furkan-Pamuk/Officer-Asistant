@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { sunAzimuth, sunTimesUTC, amplitude, compassError, eqOfTime } from "@/lib/celestial";
 import { moonRADec, sunRADec, altAz, gmst, STARS } from "@/lib/almanac";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 function usePos() {
   const [pos, setPos] = useState<{ lat: number; lon: number } | null>(null);
@@ -21,6 +22,7 @@ function usePos() {
 // Celestial helpers — fully offline: live sun bearing/altitude,
 // sunrise/sunset UTC cross-check and amplitude compass error.
 export default function CelestialPage() {
+  useDocTitle("cel.title");
   const { t } = useLocale();
   const pos = usePos();
   const [now, setNow] = useState<Date | null>(null);
@@ -113,6 +115,7 @@ export default function CelestialPage() {
 }
 
 function AlmanacPage({ pos }: { pos: { lat: number; lon: number } }) {
+  useDocTitle("cel.title");
   const { t } = useLocale();
   const [day, setDay] = useState(() => {
     const d = new Date();

@@ -5,7 +5,7 @@ import { useLocale } from "@/lib/i18n";
 // Bodies stay inline (data-driven); only h2 titles go through i18n.
 const SECTIONS: { key: string; p: string }[] = [
   { key: "privacy.hLocal", p: "Shark stores your contracts, checklists, notes, requests, menus and settings on your own device (IndexedDB). Nothing is uploaded anywhere unless you deliberately connect Supabase cloud sync." },
-  { key: "privacy.hAds", p: "There are no advertising SDKs, no analytics beacons and no sale of personal data. The app works fully offline." },
+  { key: "privacy.hAds", p: "There are no advertising SDKs and no sale of personal data. The site counts anonymous, cookieless page views (Vercel Web Analytics) to see which pages help crews most — no cross-site tracking, no ad profiles. The app itself works fully offline." },
   { key: "privacy.hAccounts", p: "If you subscribe, payment is processed by Stripe in USD. We never see or store your card number — Stripe handles it under its own privacy policy." },
   { key: "privacy.hLocation", p: "Position is used only to show weather and your vessel map pin, and voice notes need the microphone. Both stay on your device; permission can be revoked any time in the browser." },
   { key: "privacy.hRights", p: "Export everything from Settings → Data, or wipe it by clearing the site's browser storage. Questions: support@officerassistant.app." },

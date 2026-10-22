@@ -9,6 +9,7 @@ import { LOAD_MARKS, zoneAt } from "@/lib/loadlines";
 import { CHOKEPOINTS } from "@/lib/route-data";
 import { formatDuration, haversineNm, isWater, mergeLegs, planRoute, planRouteWithStops, unwrapTrack, wrapLon, type RoutePlan, type TrackPoint } from "@/lib/route";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 const LS_KEY = "oa-route-v1";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -118,6 +119,7 @@ function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string 
 }
 
 export default function RoutePage() {
+  useDocTitle("route.title");
   const { t } = useLocale();
   const mapEl = useRef<HTMLDivElement>(null);
   const mapRef = useRef<{

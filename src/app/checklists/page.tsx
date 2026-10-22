@@ -9,6 +9,7 @@ import { ListCard, ArchivedTodoLists } from "@/components/TodoListCard";
 import { nearestPort } from "@/lib/portlog";
 import type { ChecklistGroup, Contract, JobChecklist, TodoInterval } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 type Tab = TodoInterval | ChecklistGroup;
@@ -70,6 +71,7 @@ function groupOf(l: JobChecklist): ChecklistGroup {
 }
 
 function ChecklistsInner() {
+  useDocTitle("nav.checklists");
   const { t } = useLocale();
   const o = useContentOverlay();
   const params = useSearchParams();
@@ -276,6 +278,7 @@ function ChecklistsInner() {
 }
 
 export default function ChecklistsPage() {
+  useDocTitle("nav.checklists");
   const { t } = useLocale();
   return (
     <Suspense fallback={<p>{t("chk.loading")}</p>}>

@@ -3,10 +3,12 @@ import Link from "next/link";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { CLEANING_METHODS, COMPAT_GROUPS, cargoTags, cleaningTitle, findCargo } from "@/lib/cargo-data";
 
 export default function CargoDetail({ params }: { params: Promise<{ slug: string }> }) {
+  useDocTitle("cargo.title");
   const { t } = useLocale();
   const o = useContentOverlay();
   const { slug } = use(params);

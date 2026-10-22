@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { getActiveContractId } from "@/lib/db";
 import NotesPanel from "@/components/NotesPanel";
 
 export default function NotesPage() {
+  useDocTitle("notes.title");
   const { t } = useLocale();
   const [ready, setReady] = useState(false);
   const [has, setHas] = useState(false);

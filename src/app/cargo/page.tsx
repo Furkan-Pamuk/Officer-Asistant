@@ -2,10 +2,12 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { CARGOES, CARGO_CATEGORIES, cargoTags, searchCargoes } from "@/lib/cargo-data";
 
 export default function CargoBooklet() {
+  useDocTitle("cargo.title");
   const { t } = useLocale();
   const o = useContentOverlay();
   const [q, setQ] = useState("");

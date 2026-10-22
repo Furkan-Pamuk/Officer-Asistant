@@ -2,17 +2,22 @@
 import { useEffect, useState } from "react";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { useLocale } from "@/lib/i18n";
+import FieldError from "@/components/FieldError";
+import { useDocTitle } from "@/lib/doctitle";
 import { SOCIAL } from "@/lib/social";
 
 const EMAIL = "support@officerassistant.app";
 
 export default function ContactPage() {
+  useDocTitle("contact.title");
   const [text, setText] = useState("");
   const [sent, setSent] = useState(false);
+  const [err, setErr] = useState(false);
   const { t } = useLocale();
 
   async function send() {
-    if (!text.trim()) return;
+    if (!text.trim()) { setErr(true); return; }
+    setErr(false);
     await db.messages.add({ id: uid("msg"), channel: "in-app", text: text.trim(), contractId: getActiveContractId() ?? undefined, createdAt: new Date().toISOString() });
     setText("");
     setSent(true);
@@ -56,7 +61,8 @@ export default function ContactPage() {
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
         <h2 className="font-bold">{t("contact.form")}</h2>
-        <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} placeholder={t("contact.msgPh")} className="mt-2 w-full rounded-xl border px-3 py-2 text-sm" />
+        <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} placeholder={t("contact.msgPh")} aria-invalid={err} className="mt-2 w-full rounded-xl border px-3 py-2 text-sm" />
+        <FieldError msg={err ? t("form.required") : null} />
         <button onClick={send} className="mt-2 rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("contact.send")}</button>
         {sent && <p className="mt-2 text-sm font-bold text-emerald-700">{t("contact.saved")}</p>}
       </div>

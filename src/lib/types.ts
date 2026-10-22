@@ -163,6 +163,7 @@ export interface Profile {
   displayName: string;
   rank: string;
   department: Department | "";
+  nationality: string; // self-declared, stays on device ("" = unset)
   photoDataUrl: string;
   updatedAt: string;
 }

@@ -29,6 +29,9 @@ export const UI_TR: Record<string, string> = {
   "nav.news": "Haberler",
   "nav.menuBtn": "Menü",
 
+  "nf.text": "Bu sayfa yüzüp gitti.",
+  "nf.home": "Ana sayfaya dön",
+
   "common.save": "Kaydet",
   "common.cancel": "Vazgeç",
   "common.close": "Kapat",
@@ -48,6 +51,8 @@ export const UI_TR: Record<string, string> = {
   "common.yes": "Evet",
   "common.no": "Hayır",
 
+  "form.required": "Bu alan zorunlu.",
+
   "home.eyebrow": "Shark • Av olma. Köpekbalığı ol.",
   "home.title": "Denizdeki tüm hayatın, tek uygulamada.",
   "home.subtitle": "Denizdeki tüm hayatın, tek uygulamada — denetimler, kontrol listeleri, seyir araçları, kariyer ve gemi yaşamı. Çevrimdışı öncelikli, USD fiyatlı.",
@@ -58,6 +63,7 @@ export const UI_TR: Record<string, string> = {
   "home.faq": "SSS",
   "home.contact": "İletişim",
   "home.sectionTitle": "Gemideki her şey, tek yerde.",
+  "home.tmTitle": "Tayfalar ne diyor",
   "home.sectionSub": "Doğrudan bölüme geç — panelin hep bir dokunuş uzakta.",
   "home.cardNav": "Seyir",
   "home.cardNavDesc": "Rotalar, jurnaller, gök seyri ve makine telgrafı.",
@@ -948,6 +954,7 @@ export const UI_TR: Record<string, string> = {
   "pe.upload": "Fotoğraf yükle",
   "pe.alt": "Profil",
   "pe.display": "Görünen ad",
+  "pe.nationality": "Uyruk",
   "pe.dept": "Departman: {x} (otomatik) • kaydetme aktif kontratı da günceller",
   "pe.saved": "✓ Kaydedildi",
   "pe.saveProfile": "Profili kaydet",

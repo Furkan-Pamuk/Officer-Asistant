@@ -3,8 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { PRICING } from "@/lib/billing";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 export default function Pricing() {
+  useDocTitle("pricing.title");
   const [loading, setLoading] = useState<string | null>(null);
   const { t } = useLocale();
 

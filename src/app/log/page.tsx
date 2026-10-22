@@ -7,12 +7,14 @@ import { INTERVALS, INT_KEY, RETENTIONS, RET_KEY, pruneLog, snapshotPosition } f
 import { useAutoLog } from "@/lib/autolog";
 import type { LogEntry } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 const POS_KEY = "oa-pos";
 
 // Hourly deck log: auto position + wind/sea/visibility from the same
 // sources as the tracker, manual compass/temperatures/variation.
 export default function LogPage() {
+  useDocTitle("nav.decklog");
   const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const rows = useLiveQuery(

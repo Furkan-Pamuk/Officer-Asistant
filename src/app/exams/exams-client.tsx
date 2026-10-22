@@ -19,6 +19,7 @@ import { DENEMELER_EN as E_UBM } from "@/lib/exam-data/en/uzakyol-bas-muhendis";
 import { DENEMELER_EN as E_UVM } from "@/lib/exam-data/en/uzakyol-vardiya-muhendisi";
 import type { HavuzDeneme } from "@/lib/exams";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 interface EnSoru { no: number; soru_en: string; siklar_en: string[] }
 interface EnDeneme { ders: string; deneme: number; sorular: EnSoru[] }
@@ -136,6 +137,7 @@ function loadCevaplar(): Cevaplar {
 }
 
 function ExamsContent() {
+  useDocTitle("exam.title");
   const params = useSearchParams();
   const { t } = useLocale();
   const [sel, setSel] = useState({ rank: "", ders: "", denemeNo: 0 });
@@ -305,6 +307,7 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
   setLang: (l: Lang) => void;
   enListe: EnDeneme[];
 }) {
+  useDocTitle("exam.title");
   const ans = useMemo(() => cevaplar[anahtar] ?? {}, [cevaplar, anahtar]);
   const { t } = useLocale();
   const [slug, ders] = anahtar.split("/");
@@ -456,5 +459,6 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
 }
 
 export default function ExamsInner() {
+  useDocTitle("exam.title");
   return <ExamsContent />;
 }

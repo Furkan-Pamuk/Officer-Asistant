@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import { departmentForRank } from "@/lib/types";
 import type { Profile } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import FieldError from "@/components/FieldError";
+import { NATIONALITIES } from "@/lib/nationalities";
 
 const RANKS = ["Master", "Chief Officer", "2nd Officer", "3rd Officer", "Deck Cadet", "Chief Engineer", "2nd Engineer", "3rd Engineer", "4th Engineer", "ETO", "Fitter", "Oiler", "Bosun", "AB", "Cook", "Engine Cadet", "Other"];
 
@@ -30,18 +32,22 @@ export default function ProfileEditor() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [name, setName] = useState("");
   const [rank, setRank] = useState("");
+  const [nationality, setNationality] = useState("");
   const [customRank, setCustomRank] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     db.profile.get("me").then((p) => {
-      if (p) { setProfile(p); setName(p.displayName); setRank(p.rank); }
+      if (p) { setProfile(p); setName(p.displayName); setRank(p.rank); setNationality(p.nationality ?? ""); }
     });
   }, []);
 
   async function save() {
+    if (!name.trim()) { setErr(true); return; }
+    setErr(false);
     const now = new Date().toISOString();
-    const p: Profile = { id: "me", displayName: name.trim(), rank, department: departmentForRank(rank), photoDataUrl: profile?.photoDataUrl ?? "", updatedAt: now };
+    const p: Profile = { id: "me", displayName: name.trim(), rank, nationality, department: departmentForRank(rank), photoDataUrl: profile?.photoDataUrl ?? "", updatedAt: now };
     await db.profile.put(p);
     setProfile(p);
     try {
@@ -56,7 +62,7 @@ export default function ProfileEditor() {
     if (!file) return;
     const dataUrl = await downscalePhoto(file);
     const now = new Date().toISOString();
-    const p: Profile = { id: "me", displayName: name, rank, department: departmentForRank(rank), photoDataUrl: dataUrl, updatedAt: now };
+    const p: Profile = { id: "me", displayName: name, rank, nationality, department: departmentForRank(rank), photoDataUrl: dataUrl, updatedAt: now };
     await db.profile.put(p);
     setProfile(p);
   }
@@ -73,7 +79,12 @@ export default function ProfileEditor() {
         </label>
       </div>
       <div className="mt-3 grid gap-2 text-sm md:grid-cols-2">
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder={t("pe.display")} className="rounded-xl border px-3 py-2" />
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder={t("pe.display")} aria-invalid={err} className="rounded-xl border px-3 py-2" />
+        <FieldError msg={err ? t("form.required") : null} />
+        <select value={nationality} onChange={(e) => setNationality(e.target.value)} className="rounded-xl border px-3 py-2" aria-label={t("pe.nationality")}>
+          <option value="">{t("pe.nationality")}</option>
+          {NATIONALITIES.map((n) => <option key={n} value={n}>{n}</option>)}
+        </select>
         <div className="grid gap-2">
           <select
             value={rank !== "" && !RANKS.includes(rank) ? "__custom" : rank}

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { TESTIMONIALS } from "@/lib/testimonials";
 
 interface MenuLink {
   href: string;
@@ -81,7 +82,7 @@ const MENU_CARDS: MenuCard[] = [
 ];
 
 export default function Home() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   return (
     <div className="grid gap-6">
       <section className="rounded-3xl border border-amber-200 bg-stone-900 p-8 text-amber-50 md:p-12 dark:border-red-900 dark:bg-black dark:text-red-200">
@@ -102,6 +103,17 @@ export default function Home() {
       <section>
         <h2 className="text-xl font-bold">{t("home.sectionTitle")}</h2>
         <p className="mt-1 text-sm font-medium opacity-70">{t("home.sectionSub")}</p>
+      </section>
+      <section>
+        <h2 className="text-xl font-bold">{t("home.tmTitle")}</h2>
+        <div className="mt-3 grid gap-4 md:grid-cols-3">
+          {TESTIMONIALS.map((tm) => (
+            <figure key={tm.name} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
+              <blockquote className="text-sm font-medium">“{tm.quote[locale] ?? tm.quote.en}”</blockquote>
+              <figcaption className="mt-2 text-xs font-bold opacity-70">{tm.flag} {tm.name} — {tm.rank}, {tm.country}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
       <section className="grid gap-4 md:grid-cols-3">
         {MENU_CARDS.map((m) => (

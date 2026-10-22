@@ -5,10 +5,12 @@ import ProfileEditor from "@/components/ProfileEditor";
 import CvBuilder from "@/components/CvBuilder";
 import SettingsPanels from "@/components/SettingsPanels";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 type Tab = "profile" | "cv" | "settings";
 
 function ProfileTabs() {
+  useDocTitle("profile.title");
   const params = useSearchParams();
   const router = useRouter();
   const { t } = useLocale();
@@ -45,6 +47,7 @@ function ProfileTabs() {
 }
 
 export default function ProfilePage() {
+  useDocTitle("profile.title");
   const { t } = useLocale();
   return (
     <Suspense fallback={<p>{t("profile.loading")}</p>}>

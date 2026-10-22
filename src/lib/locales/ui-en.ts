@@ -31,6 +31,9 @@ export const UI_EN: Record<string, string> = {
   "nav.news": "News",
   "nav.menuBtn": "Menu",
 
+  "nf.text": "This page swam away.",
+  "nf.home": "Back to home",
+
   "common.save": "Save",
   "common.cancel": "Cancel",
   "common.close": "Close",
@@ -50,6 +53,8 @@ export const UI_EN: Record<string, string> = {
   "common.yes": "Yes",
   "common.no": "No",
 
+  "form.required": "This field is required.",
+
   "home.eyebrow": "Shark • Don't be the prey. Be the shark.",
   "home.title": "Your whole life at sea, in one app.",
   "home.subtitle": "Your whole life at sea, in one app — inspections, checklists, navigation tools, career and daily life aboard. Offline-first, priced in USD.",
@@ -60,6 +65,7 @@ export const UI_EN: Record<string, string> = {
   "home.faq": "FAQ",
   "home.contact": "Contact",
   "home.sectionTitle": "Everything aboard, in one place.",
+  "home.tmTitle": "What crews say",
   "home.sectionSub": "Jump straight into any section — your dashboard stays one tap away above.",
   "home.cardNav": "Navigation",
   "home.cardNavDesc": "Routes, logs, celestial and bell book.",
@@ -985,6 +991,7 @@ export const UI_EN: Record<string, string> = {
   "pe.upload": "Upload photo",
   "pe.alt": "Profile",
   "pe.display": "Display name",
+  "pe.nationality": "Nationality",
   "pe.dept": "Department: {x} (automatic) • saving updates the active contract too",
   "pe.saved": "✓ Saved",
   "pe.saveProfile": "Save profile",

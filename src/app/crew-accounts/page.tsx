@@ -2,6 +2,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { RANKS } from "@/lib/types";
 import type { CrewRow } from "@/lib/types";
@@ -80,6 +81,7 @@ const CrewTableRow = memo(function CrewTableRow({ row, onChanged, onAddBelow }: 
 });
 
 export default function CrewAccountsPage() {
+  useDocTitle("crew.title");
   const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const [month, setMonth] = useState("");

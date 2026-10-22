@@ -8,6 +8,7 @@ import HraMap from "@/components/HraMap";
 import SarMap from "@/components/SarMap";
 import FirstAidGuide from "@/components/FirstAidGuide";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 type Tab = "pub" | "books" | "knots" | "hra" | "sar" | "aid";
@@ -24,6 +25,7 @@ const DOC_TABS: { tab: string; label: string; desc: string }[] = [
 ];
 
 export default function Library() {
+  useDocTitle("nav.library");
   const { t } = useLocale();
   const o = useContentOverlay();
   const router = useRouter();

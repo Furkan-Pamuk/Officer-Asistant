@@ -2,6 +2,7 @@
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useSearchParams } from "next/navigation";
 import { db, getActiveContractId, uid, exportJSON } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
@@ -10,6 +11,7 @@ import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import type { InventoryListId } from "@/lib/types";
 
 function InventoryInner() {
+  useDocTitle("inv.title");
   const { t } = useLocale();
   const o = useContentOverlay();
   const listsOv = INVENTORY_LISTS.map((l) => withOv(l, cov(o, "invLists", l.id)));
@@ -152,6 +154,7 @@ function InventoryInner() {
 }
 
 export default function InventoryPage() {
+  useDocTitle("inv.title");
   const { t } = useLocale();
   return (
     <Suspense fallback={<p>{t("inv.loading")}</p>}>

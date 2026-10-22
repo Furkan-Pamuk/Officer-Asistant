@@ -3,10 +3,12 @@ import Link from "next/link";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { findGas } from "@/lib/gas-data";
 
 export default function GasDetail({ params }: { params: Promise<{ slug: string }> }) {
+  useDocTitle("gas.title");
   const { t } = useLocale();
   const o = useContentOverlay();
   const { slug } = use(params);

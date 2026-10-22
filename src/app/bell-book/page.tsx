@@ -5,6 +5,7 @@ import { db, getActiveContractId, uid, exportJSON } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import type { BellArchive, BellSide } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 const ENGINE_AHEAD = ["Full Ahead", "Half Ahead", "Slow Ahead", "Dead Slow Ahead"];
 const ENGINE_ASTERN = ["Dead Slow Astern", "Slow Astern", "Half Astern", "Full Astern"];
@@ -92,6 +93,7 @@ function readFix(): Promise<{ lat: number; lon: number; fresh: boolean } | null>
 }
 
 export default function BellBookPage() {
+  useDocTitle("bell.title");
   const { t } = useLocale();
   const [contractId] = useState<string | null>(() => getActiveContractId());
   const entries = useLiveQuery(

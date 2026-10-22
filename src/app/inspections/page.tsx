@@ -2,8 +2,10 @@
 import Link from "next/link";
 import { INSPECTION_TYPES, SEED_CARDS } from "@/lib/data";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 export default function Inspections() {
+  useDocTitle("nav.inspections");
   const { t } = useLocale();
   return (
     <div className="grid gap-4">

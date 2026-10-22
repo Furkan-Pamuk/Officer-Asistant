@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import Link from "next/link";
 import { db, setActiveContractId, uid, exportJSON, getActiveContractId } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { getGibsStatus } from "@/lib/gibs";
 import ServiceBoard from "@/components/ServiceBoard";
+import FieldError from "@/components/FieldError";
 import DateField from "@/components/DateField";
 import { playShipHorn } from "@/lib/horn";
 import { RANKS, departmentForRank } from "@/lib/types";
@@ -76,6 +78,7 @@ function RunnerOverlay({ onDone }: { onDone: () => void }) {
 }
 
 export default function ContractsPage() {
+  useDocTitle("ctr.title");
   const { t } = useLocale();
   const contracts = useLiveQuery(() => db.contracts.orderBy("updatedAt").reverse().toArray(), []);
   const [form, setForm] = useState({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", imo: "", flag: "" });
@@ -85,6 +88,7 @@ export default function ContractsPage() {
   const [imoEdit, setImoEdit] = useState<Record<string, string>>({});
   const [flagEdit, setFlagEdit] = useState<Record<string, string>>({});
   const [estGuide, setEstGuide] = useState(false);
+  const [formErr, setFormErr] = useState<string | null>(null);
   const activeId = typeof window !== "undefined" ? getActiveContractId() : null;
 
   useEffect(() => {
@@ -98,11 +102,12 @@ export default function ContractsPage() {
     if (!rank) return;
     const now = new Date().toISOString();
     const p = await db.profile.get("me");
-    await db.profile.put({ id: "me", displayName: p?.displayName ?? "", rank, department: departmentForRank(rank), photoDataUrl: p?.photoDataUrl ?? "", updatedAt: now });
+    await db.profile.put({ id: "me", displayName: p?.displayName ?? "", rank, nationality: p?.nationality ?? "", department: departmentForRank(rank), photoDataUrl: p?.photoDataUrl ?? "", updatedAt: now });
   }
 
   async function create() {
-    if (!form.shipName.trim() || !form.signOnDate) { alert(t("ctr.needShip")); return; }
+    if (!form.shipName.trim() || !form.signOnDate) { setFormErr(t("ctr.needShip")); return; }
+    setFormErr(null);
     const now = new Date().toISOString();
     const id = uid("con");
     await db.contracts.add({ id, shipName: form.shipName.trim(), shipType: form.shipType, joinPort: form.joinPort, signOnDate: form.signOnDate, signOffDate: "", imo: form.imo || undefined, flag: form.flag || undefined, rank: form.rank, company: form.company, status: "active", createdAt: now, updatedAt: now });
@@ -113,8 +118,9 @@ export default function ContractsPage() {
   }
 
   async function addAsArchive() {
-    if (!form.shipName.trim() || !form.signOnDate) { alert(t("ctr.needShip")); return; }
-    if (!form.signOffDate) { alert(t("ctr.pickSignoff")); return; }
+    if (!form.shipName.trim() || !form.signOnDate) { setFormErr(t("ctr.needShip")); return; }
+    if (!form.signOffDate) { setFormErr(t("ctr.pickSignoff")); return; }
+    setFormErr(null);
     const now = new Date().toISOString();
     await db.contracts.add({ id: uid("con"), shipName: form.shipName.trim(), shipType: form.shipType, joinPort: form.joinPort, signOnDate: form.signOnDate, signOffDate: form.signOffDate, imo: form.imo || undefined, flag: form.flag || undefined, rank: form.rank, company: form.company, status: "archived", createdAt: now, updatedAt: now });
     setForm({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", imo: "", flag: "" });
@@ -200,6 +206,7 @@ export default function ContractsPage() {
         <datalist id="company-history">
           {Array.from(new Set((contracts ?? []).map((c) => c.company).filter(Boolean))).map((n) => <option key={n} value={n} />)}
         </datalist>
+        <FieldError msg={formErr} />
         <div className="mt-3 flex flex-wrap gap-2">
           <button onClick={create} className="rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("ctr.create")}</button>
           <button onClick={addAsArchive} className="rounded-full border border-amber-400 px-4 py-2 text-sm font-bold dark:border-red-800">{t("ctr.archiveAdd")}</button>

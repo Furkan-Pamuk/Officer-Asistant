@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { db, uid, exportJSON, getActiveContractId } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { parseCatalogueCSV, importCatalogue, learnFromHistory } from "@/lib/catalogue";
@@ -36,6 +37,7 @@ function normCat(c: string): RequestTab {
 }
 
 export default function RequestsPage() {
+  useDocTitle("req.title");
   const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const all = useLiveQuery(

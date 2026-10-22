@@ -10,6 +10,7 @@ import { CardinalGrid, LateralRow, OtherMarksRow, RhythmList } from "@/component
 import { BeaufortTable, CloudGallery, FrontSymbols, TwelfthsStrip } from "@/components/WeatherDiagrams";
 import { Sym } from "@/components/ChartSymbols";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 const SIG_KEY = "oa-navdoc-sig";
@@ -476,6 +477,7 @@ function Colreg() {
 type Tab = "orders" | "cards" | "lights" | "symbols" | "weather" | "signals" | "morse" | "colreg";
 
 function DocsInner() {
+  useDocTitle("doc.title");
   const router = useRouter();
   // Tab is read from the URL client-side (effect) so nothing suspends
   // during render — the page hydrates deterministically.
@@ -513,5 +515,6 @@ function DocsInner() {
 }
 
 export default function DocumentsPage() {
+  useDocTitle("doc.title");
   return <DocsInner />;
 }

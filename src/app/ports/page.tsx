@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { PORTS, searchPorts, STANDARD_CHANNELS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 // Port directory: searchable UN/LOCODE list. VHF working channels differ
 // per terminal and change often — enter them from ALRS/NP; they are saved
@@ -12,6 +13,7 @@ import { useLocale } from "@/lib/i18n";
 // in the note field. Load-line zones follow ILLC Annex II — verify against
 // the official chart; the quick hint below is a rough guide only.
 export default function PortsPage() {
+  useDocTitle("ports.title");
   const [q, setQ] = useState("");
   const { t } = useLocale();
   const [onlyPresets, setOnlyPresets] = useState(false);

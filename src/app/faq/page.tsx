@@ -3,8 +3,10 @@ import Link from "next/link";
 import FaqAccordion from "@/components/FaqAccordion";
 import { FAQ, TAGLINE } from "@/lib/content";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 export default function FaqPage() {
+  useDocTitle("faq.title");
   const { t } = useLocale();
   return (
     <div className="grid gap-5">
@@ -18,6 +20,20 @@ export default function FaqPage() {
       </div>
 
       <FaqAccordion />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }),
+        }}
+      />
 
       <div className="rounded-2xl border border-amber-200 bg-white p-5 text-center dark:border-red-950 dark:bg-neutral-950">
         <p className="text-sm font-medium opacity-80">{t("faq.stuck")}</p>

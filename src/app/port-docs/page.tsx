@@ -2,6 +2,7 @@
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useSearchParams } from "next/navigation";
 import { db, exportJSON } from "@/lib/db";
 import { useActiveContract } from "@/hooks/useActiveContract";
@@ -25,6 +26,7 @@ function modById(id: string | null, mods: PortDocModule[] = PORT_DOC_MODULES): P
 }
 
 function DocsInner() {
+  useDocTitle("pdoc.title");
   const { t } = useLocale();
   const o = useContentOverlay();
   const mods = PORT_DOC_MODULES.map((m) => withOv(m, cov(o, "portdocs", m.id)));
@@ -420,6 +422,7 @@ function DocsInner() {
 }
 
 export default function PortDocsPage() {
+  useDocTitle("pdoc.title");
   const { t } = useLocale();
   return (
     <Suspense fallback={<p>{t("pdoc.loading")}</p>}>

@@ -38,5 +38,6 @@ so the app works offline. Click-through source links are shown under each knot.
 ## CC BY-SA 3.0
 
 - `reef-3.jpg` — © Anup Sadi
+- `timber-howto-1.jpg`, `timber-final.jpg` — © Chris 73
 
 Source links: https://commons.wikimedia.org (see per-photo links in the app).

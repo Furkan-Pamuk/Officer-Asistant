@@ -3,10 +3,12 @@ import Link from "next/link";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { findBulk } from "@/lib/imsbc-data";
 
 export default function BulkDetail({ params }: { params: Promise<{ slug: string }> }) {
+  useDocTitle("bulk.title");
   const { t } = useLocale();
   const o = useContentOverlay();
   const { slug } = use(params);

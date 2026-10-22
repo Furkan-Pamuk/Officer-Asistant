@@ -7,6 +7,7 @@ import { NEWS, SECTIONS, type NewsPost, type NewsSection } from "@/lib/news";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import type { CrewPost } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useDocTitle } from "@/lib/doctitle";
 
 const LEGACY_KEY = "oa-crew-posts";
 const MIGRATED_KEY = "oa-crew-migrated";
@@ -41,6 +42,7 @@ function compressPhoto(file: File): Promise<string> {
 }
 
 export default function NewsPage() {
+  useDocTitle("news.title");
   const [sec, setSec] = useState<"all" | NewsSection>("all");
   const { t } = useLocale();
   const o = useContentOverlay();
