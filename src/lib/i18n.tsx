@@ -5,14 +5,14 @@ import { UI_TR } from "./locales/ui-tr";
 
 export type Locale = "en" | "tr" | "es" | "zh" | "ru" | "fil" | "id";
 
-export const LOCALES: { id: Locale; label: string }[] = [
-  { id: "en", label: "English" },
-  { id: "tr", label: "Türkçe" },
-  { id: "es", label: "Español" },
-  { id: "zh", label: "中文" },
-  { id: "ru", label: "Русский" },
-  { id: "fil", label: "Filipino" },
-  { id: "id", label: "Bahasa Indonesia" },
+export const LOCALES: { id: Locale; label: string; flag: string; code: string }[] = [
+  { id: "en", label: "English", flag: "🇬🇧", code: "EN" },
+  { id: "tr", label: "Türkçe", flag: "🇹🇷", code: "TR" },
+  { id: "es", label: "Español", flag: "🇪🇸", code: "ES" },
+  { id: "zh", label: "中文", flag: "🇨🇳", code: "中文" },
+  { id: "ru", label: "Русский", flag: "🇷🇺", code: "RU" },
+  { id: "fil", label: "Filipino", flag: "🇵🇭", code: "FIL" },
+  { id: "id", label: "Bahasa Indonesia", flag: "🇮🇩", code: "ID" },
 ];
 
 const KEY = "oa-locale";
