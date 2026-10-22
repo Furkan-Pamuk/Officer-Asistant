@@ -1,5 +1,8 @@
 "use client";
 import Link from "next/link";
+import { useRef } from "react";
+import SharkMascot, { type SharkMascotHandle } from "@/components/SharkMascot";
+import OrbitMenu from "@/components/OrbitMenu";
 import { useLocale } from "@/lib/i18n";
 import { TESTIMONIALS } from "@/lib/testimonials";
 
@@ -83,57 +86,44 @@ const MENU_CARDS: MenuCard[] = [
 
 export default function Home() {
   const { t, locale } = useLocale();
+  const mascotRef = useRef<SharkMascotHandle>(null);
   return (
-    <div className="grid gap-6">
-      <section className="rounded-3xl border border-amber-200 bg-stone-900 p-8 text-amber-50 md:p-12 dark:border-red-900 dark:bg-black dark:text-red-200">
-        <p className="text-sm font-semibold uppercase tracking-widest text-amber-300 dark:text-red-400">{t("home.eyebrow")}</p>
-        <h1 className="mt-2 max-w-2xl text-3xl font-bold text-white dark:text-red-100">{t("home.title")}</h1>
-        <p className="mt-3 max-w-2xl font-medium text-amber-100/90 dark:text-red-300/90">{t("home.subtitle")}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/contracts" className="rounded-full bg-amber-400 px-5 py-2.5 font-bold text-stone-950 dark:bg-red-600 dark:text-white">{t("home.ctaContract")}</Link>
-          <Link href="/dashboard" className="rounded-full border border-amber-200/50 px-5 py-2.5 font-semibold text-amber-50 dark:border-red-800 dark:text-red-200">{t("home.ctaDashboard")}</Link>
-          <Link href="/pricing" className="rounded-full border border-amber-200/50 px-5 py-2.5 font-semibold text-amber-50 dark:border-red-800 dark:text-red-200">{t("home.ctaPricing")}</Link>
+    <div className="shark-home grid gap-10 pb-6 sm:gap-14 sm:pt-2">
+      <section className="shark-hero shark-mascot-landing relative isolate overflow-hidden rounded-3xl border p-6 py-10 sm:p-8 sm:py-12 lg:p-10 lg:pt-14">
+        <p className="shark-eyebrow relative text-xs font-semibold uppercase leading-relaxed tracking-[0.2em]">{t("home.eyebrow")}</p>
+        <h1 className="relative mt-5 max-w-3xl text-4xl font-semibold leading-[1.12] tracking-tight text-balance sm:text-5xl lg:text-6xl">{t("home.title")}</h1>
+        <p className="shark-hero-copy relative mt-6 max-w-xl text-base leading-relaxed sm:text-lg">{t("home.subtitle")}</p>
+        <div className="relative mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Link href="/contracts" className="shark-cta shark-cta-primary inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold">{t("home.ctaContract")}</Link>
+          <Link href="/dashboard" className="shark-cta shark-cta-secondary inline-flex min-h-12 items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold">{t("home.ctaDashboard")}</Link>
+          <Link href="/pricing" className="shark-cta shark-cta-secondary inline-flex min-h-12 items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold">{t("home.ctaPricing")}</Link>
         </div>
-        <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold text-amber-200/90 dark:text-red-300/80">
-          <Link href="/about" className="underline underline-offset-4 hover:text-amber-50 dark:hover:text-red-100">{t("home.about")}</Link>
-          <Link href="/faq" className="underline underline-offset-4 hover:text-amber-50 dark:hover:text-red-100">{t("home.faq")}</Link>
-          <Link href="/contact" className="underline underline-offset-4 hover:text-amber-50 dark:hover:text-red-100">{t("home.contact")}</Link>
+        <div className="shark-hero-links relative mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <Link href="/about" className="py-1 underline decoration-current/30 underline-offset-4">{t("home.about")}</Link>
+          <Link href="/faq" className="py-1 underline decoration-current/30 underline-offset-4">{t("home.faq")}</Link>
+          <Link href="/contact" className="py-1 underline decoration-current/30 underline-offset-4">{t("home.contact")}</Link>
         </div>
+          <div className="shark-section-intro relative mt-10 border-b pb-6">
+            <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">{t("home.sectionTitle")}</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed opacity-70 sm:text-base">{t("home.sectionSub")}</p>
+          </div>
+        <OrbitMenu items={MENU_CARDS}
+          onHoverItem={point => mascotRef.current?.lookAt(point)}
+          onSelectItem={() => mascotRef.current?.select() ?? Promise.resolve()}>
+          <SharkMascot ref={mascotRef} />
+        </OrbitMenu>
       </section>
+
       <section>
-        <h2 className="text-xl font-bold">{t("home.sectionTitle")}</h2>
-        <p className="mt-1 text-sm font-medium opacity-70">{t("home.sectionSub")}</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-bold">{t("home.tmTitle")}</h2>
-        <div className="mt-3 grid gap-4 md:grid-cols-3">
+        <h2 className="text-2xl font-semibold sm:text-3xl">{t("home.tmTitle")}</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3 lg:gap-6">
           {TESTIMONIALS.map((tm) => (
-            <figure key={tm.name} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-              <blockquote className="text-sm font-medium">“{tm.quote[locale] ?? tm.quote.en}”</blockquote>
-              <figcaption className="mt-2 text-xs font-bold opacity-70">{tm.flag} {tm.name} — {tm.rank}, {tm.country}</figcaption>
+            <figure key={tm.name} className="shark-card rounded-2xl border p-6 sm:p-7">
+              <blockquote className="text-sm leading-7">“{tm.quote[locale] ?? tm.quote.en}”</blockquote>
+              <figcaption className="shark-quote-credit mt-6 border-t pt-4 text-xs font-medium leading-relaxed">{tm.flag} {tm.name} — {tm.rank}, {tm.country}</figcaption>
             </figure>
           ))}
         </div>
-      </section>
-      <section className="grid gap-4 md:grid-cols-3">
-        {MENU_CARDS.map((m) => (
-          <div key={m.titleKey} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-            <Link href={m.href} className="block hover:opacity-90">
-              <div className="text-xl">{m.icon}</div>
-              <div className="mt-1 font-bold text-stone-950 dark:text-red-100">{t(m.titleKey)}</div>
-              <div className="mt-1 text-sm font-medium text-stone-700 dark:text-red-300/80">{t(m.descKey)}</div>
-            </Link>
-            {m.links.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-1.5 border-t border-amber-100 pt-2 dark:border-red-950">
-                {m.links.map((l) => (
-                  <Link key={l.href} href={l.href} className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold hover:bg-amber-100 dark:bg-black dark:ring-1 dark:ring-red-950">
-                    {t(l.key)}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
       </section>
     </div>
   );

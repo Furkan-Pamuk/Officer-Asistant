@@ -120,31 +120,31 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-amber-200 bg-white/95 backdrop-blur print:hidden dark:border-red-950 dark:bg-black/95">
-      <div ref={barRef} className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-3">
-        <Link href="/" className="flex items-center gap-1.5 font-black tracking-wide text-stone-900 dark:text-red-400" aria-label="Shark home">
+    <header className="shark-navbar sticky top-0 z-40 border-b backdrop-blur-xl print:hidden">
+      <div ref={barRef} className="shark-navbar-inner mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-4">
+        <Link href="/" className="shark-brand mr-auto flex shrink-0 items-center gap-2.5 text-lg font-bold tracking-wide text-stone-900 dark:text-red-400" aria-label="Shark home">
           <SharkMark />
           Shark
         </Link>
         <button
           onClick={() => setMobileOpen((v) => !v)}
           aria-label={t("nav.menuBtn")}
-          className="ml-auto rounded-full border border-amber-200 px-3 py-1.5 text-lg font-black md:hidden dark:border-red-900"
+          className="shark-menu-toggle flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-amber-200 text-lg xl:hidden dark:border-red-900"
         >
           {mobileOpen ? "✕" : "☰"}
         </button>
-        <nav className="hidden flex-1 flex-wrap items-center gap-1 text-sm md:flex">
+        <nav className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-0.5 text-xs xl:flex">
           {ITEMS.map((item) =>
             item.subs ? (
               <div key={item.key} className="relative">
                 <button
                   onClick={() => setOpen(open === item.key ? null : item.key)}
-                  className={`rounded-full px-3 py-1.5 font-bold ${item.subs.some((s) => isLink(s) && isActive(s.href)) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
+                  className={`shark-nav-item rounded-full px-2.5 py-2.5 font-semibold ${item.subs.some((s) => isLink(s) && isActive(s.href)) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
                 >
                   {t(item.key)} {open === item.key ? "▴" : "▾"}
                 </button>
                 {open === item.key && (
-                  <div className="absolute left-0 top-full z-50 mt-1 max-h-[70vh] w-64 overflow-y-auto rounded-2xl border border-amber-200 bg-white p-1.5 shadow-xl dark:border-red-900 dark:bg-neutral-950">
+                  <div className="shark-nav-dropdown absolute left-0 top-full z-50 mt-3 max-h-[70vh] w-64 overflow-y-auto rounded-2xl border border-amber-200 bg-white p-2 shadow-xl dark:border-red-900 dark:bg-neutral-950">
                     {item.subs.map((s, i) =>
                       !isLink(s) ? (
                         <p key={`h-${i}`} className="px-3 pb-0.5 pt-2 text-[11px] font-black tracking-widest opacity-50">{s.header.toUpperCase()}</p>
@@ -175,7 +175,7 @@ export default function Navbar() {
               <Link
                 key={item.key}
                 href={item.href!}
-                className={`rounded-full px-3 py-1.5 font-bold ${isActive(item.href!) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
+                className={`shark-nav-item rounded-full px-2.5 py-2.5 font-semibold ${isActive(item.href!) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
               >
                 {t(item.key)}
               </Link>
@@ -185,15 +185,15 @@ export default function Navbar() {
         <LocaleSelect />
         <ThemeToggle />
         <NotificationCenter />
-        <Link href="/profile" title="Profile" className="flex items-center gap-2">
+        <Link href="/profile" title="Profile" className="shark-profile flex shrink-0 items-center gap-2 rounded-full p-1">
           {profile?.photoDataUrl
             ? <img src={profile.photoDataUrl} alt="Profile" className="h-8 w-8 rounded-full object-cover ring-2 ring-amber-300 dark:ring-red-800" />
             : <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-sm font-bold dark:bg-red-950">🧑‍✈️</span>}
-          {profile?.rank && <span className="hidden text-xs font-bold xl:block">{profile.rank}</span>}
+          {profile?.rank && <span className="hidden text-xs font-medium 2xl:block">{profile.rank}</span>}
         </Link>
       </div>
       {mobileOpen && (
-        <div className="grid max-h-[70vh] gap-1 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-3 md:hidden dark:border-red-950">
+        <div className="shark-mobile-menu grid max-h-[70vh] gap-3 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-5 xl:hidden dark:border-red-950">
           {ITEMS.map((item) =>
             item.subs ? (
               <div key={item.key}>
@@ -208,7 +208,7 @@ export default function Navbar() {
                         href={s.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="block rounded-xl px-5 py-2 text-sm font-medium opacity-80"
+                        className="block rounded-xl px-5 py-3 text-sm font-medium opacity-80"
                       >
                         {s.icon} {t(s.key)} ↗
                       </a>
@@ -216,7 +216,7 @@ export default function Navbar() {
                       <Link
                         key={s.href}
                         href={s.href}
-                        className={`block rounded-xl px-5 py-2 text-sm font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "opacity-80"}`}
+                        className={`block rounded-xl px-5 py-3 text-sm font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "opacity-80"}`}
                       >
                         {s.icon} {t(s.key)}
                       </Link>
@@ -225,7 +225,7 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <Link key={item.key} href={item.href!} className="block rounded-xl px-3 py-2 text-sm font-black">
+              <Link key={item.key} href={item.href!} className="block rounded-xl px-3 py-3 text-sm font-semibold">
                 {t(item.key)}
               </Link>
             )
