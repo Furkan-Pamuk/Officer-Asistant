@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { useLocale } from "@/lib/i18n";
+import { SOCIAL } from "@/lib/social";
 
 const EMAIL = "support@officerassistant.app";
 
@@ -36,16 +37,22 @@ export default function ContactPage() {
           <div className="font-bold">{t("contact.email")}</div>
           <div className="text-sm">{EMAIL}</div>
         </a>
-        <div className="rounded-2xl border border-dashed border-amber-300 bg-white/60 p-4 opacity-70 dark:border-red-950 dark:bg-neutral-950">
+        <a href={SOCIAL.instagram} target="_blank" rel="noreferrer" className="rounded-2xl border border-amber-200 bg-white p-4 hover:bg-amber-50 dark:border-red-950 dark:bg-neutral-950 dark:hover:bg-red-950/40">
           <div className="text-2xl">📸</div>
           <div className="font-bold">{t("contact.insta")}</div>
-          <div className="text-sm">{t("contact.soon")}</div>
-        </div>
-        <div className="rounded-2xl border border-dashed border-amber-300 bg-white/60 p-4 opacity-70 dark:border-red-950 dark:bg-neutral-950">
+          <div className="text-sm">@shark.application ↗</div>
+        </a>
+        <a href={SOCIAL.whatsapp} target="_blank" rel="noreferrer" className="rounded-2xl border border-amber-200 bg-white p-4 hover:bg-amber-50 dark:border-red-950 dark:bg-neutral-950 dark:hover:bg-red-950/40">
           <div className="text-2xl">💬</div>
           <div className="font-bold">{t("contact.wa")}</div>
-          <div className="text-sm">{t("contact.soon")}</div>
-        </div>
+          <div className="text-sm">Channel ↗</div>
+        </a>
+      </div>
+      <div className="flex flex-wrap gap-2 text-sm font-bold">
+        <a href={SOCIAL.facebook} target="_blank" rel="noreferrer" className="rounded-full border px-3 py-1.5 hover:bg-amber-50 dark:hover:bg-red-950/40">Facebook ↗</a>
+        <a href={SOCIAL.x} target="_blank" rel="noreferrer" className="rounded-full border px-3 py-1.5 hover:bg-amber-50 dark:hover:bg-red-950/40">X ↗</a>
+        <a href={SOCIAL.tiktok} target="_blank" rel="noreferrer" className="rounded-full border px-3 py-1.5 hover:bg-amber-50 dark:hover:bg-red-950/40">TikTok ↗</a>
+        <a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" className="rounded-full border px-3 py-1.5 hover:bg-amber-50 dark:hover:bg-red-950/40">LinkedIn ↗</a>
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
         <h2 className="font-bold">{t("contact.form")}</h2>
