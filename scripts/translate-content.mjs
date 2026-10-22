@@ -75,6 +75,7 @@ async function cevirTek(text) {
       calls++;
       const r = await fetch("https://translate.googleapis.com/translate_a/single?" + usp.toString(), {
         headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
+        signal: AbortSignal.timeout(30000),
       });
       if (!r.ok) throw new Error("HTTP " + r.status);
       const j = await r.json();
@@ -176,19 +177,22 @@ const todo = keys.filter((k) => cache[k] == null);
 console.log(`benzersiz segment: ${keys.length}, cacheli: ${keys.length - todo.length}, cevrilecek: ${todo.length}`);
 
 const PAR = 4;
-let idx = 0, done = 0, hata = 0;
+let idx = 0, done = 0, hata = 0, consec = 0, stop = false;
 async function isci(ms) {
   await new Promise((r) => setTimeout(r, ms));
-  while (true) {
+  while (!stop) {
     const i = idx++;
     if (i >= todo.length) return;
     const k = todo[i];
     try {
       cache[k] = await cevirTek(segs.get(k));
+      consec = 0;
     } catch (e) {
       hata++;
+      consec++;
       console.log(`HATA (${hata}): ${e.message}`);
       cache[k] = segs.get(k); // fallback: English
+      if (consec >= 15) { stop = true; console.log("ARD ARDA 15 HATA — duruluyor (cache kaydedildi)."); }
     }
     done++;
     if (done % 50 === 0 || done === todo.length) {
