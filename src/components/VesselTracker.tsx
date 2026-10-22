@@ -9,7 +9,6 @@ const ShipMap = dynamic(() => import("@/components/ShipMap"), { ssr: false });
 import SeaStateOverlay from "@/components/SeaStateOverlay";
 
 const POS_KEY = "oa-pos";
-const AIS_KEY = "oa-ais-cache";
 
 interface Ais {
   name: string; mmsi?: string; latitude: string; longitude: string; speed: string; course: string;
@@ -26,9 +25,6 @@ export default function VesselTracker() {
   const [lon, setLon] = useState("");
   const [editing, setEditing] = useState(false);
   const [voy, setVoy] = useState({ depPort: "", destPort: "", eta: "", navStatus: "" });
-  const [ais, setAis] = useState<Ais | null>(null);
-  const [aisNote, setAisNote] = useState("");
-  const [loading, setLoading] = useState(false);
   const [cands, setCands] = useState<{ mmsi: string; name: string | null; seen: string | null }[]>([]);
   const [enr, setEnr] = useState<(Ais & { eta?: string }) | null>(null);
   const [enriching, setEnriching] = useState(false);
@@ -41,8 +37,6 @@ export default function VesselTracker() {
         const { lat: la, lon: lo } = JSON.parse(raw);
         setLat(String(la)); setLon(String(lo));
       }
-      const cached = localStorage.getItem(AIS_KEY);
-      if (cached) setAis(JSON.parse(cached));
     } catch { /* ignore */ }
   }, []);
 
@@ -50,25 +44,7 @@ export default function VesselTracker() {
     if (contract) setVoy({ depPort: contract.depPort ?? "", destPort: contract.destPort ?? "", eta: contract.eta ?? "", navStatus: contract.navStatus ?? "" });
   }, [contract?.id]);
 
-  async function liveAis() {
-    const imo = contract?.imo?.replace(/\D/g, "");
-    if (!imo) { setAisNote(t("vt.needImo")); return; }
-    setLoading(true); setAisNote("");
-    try {
-      const r = await fetch(`/api/vessel/location?imo=${imo}`);
-      const data = await r.json();
-      if (!r.ok) throw new Error(data.error ?? "lookup failed");
-      const hit: Ais = { ...data, at: new Date().toISOString() };
-      localStorage.setItem(AIS_KEY, JSON.stringify(hit));
-      setAis(hit);
-    } catch (e) {
-      setAisNote(e instanceof Error ? e.message : "lookup failed");
-    } finally { setLoading(false); }
-  }
-
-  const ala = parseFloat(ais?.latitude ?? ""), alo = parseFloat(ais?.longitude ?? "");
-  const useAisPos = isFinite(ala) && isFinite(alo);
-  const cla = useAisPos ? ala : parseFloat(lat), clo = useAisPos ? alo : parseFloat(lon);
+  const cla = parseFloat(lat), clo = parseFloat(lon);
   const valid = isFinite(cla) && isFinite(clo) && Math.abs(cla) <= 90 && Math.abs(clo) <= 180;
 
   async function locate() {
@@ -162,13 +138,9 @@ export default function VesselTracker() {
           <button onClick={syncAll} disabled={enriching} className="rounded-full bg-sky-500 px-3 py-1 font-black text-white disabled:opacity-50">
             {enriching ? "…" : t("vt.sync")}
           </button>
-          <button onClick={liveAis} disabled={loading} className="rounded-full bg-emerald-500 px-3 py-1 font-black text-white disabled:opacity-50">
-            {loading ? "…" : t("vt.ais")}
-          </button>
           <button onClick={() => setEditing(!editing)} className="rounded-full border border-white/30 px-3 py-1 font-bold">{t("vt.voyage")}</button>
         </div>
       </div>
-      {aisNote && <p className="mt-1 text-xs font-bold text-red-300">{aisNote}</p>}
       {enrNote && <p className="mt-1 text-xs font-bold text-sky-300">{enrNote}</p>}
       {cands.length > 0 && (
         <div className="mt-2 rounded-2xl bg-white/10 p-2 text-sm">
@@ -194,7 +166,7 @@ export default function VesselTracker() {
       {valid ? (
         <div className="relative mt-2">
           <ShipMap key={`${cla.toFixed(3)}:${clo.toFixed(3)}`} lat={cla} lon={clo} label={contract?.shipName ?? "Vessel"} />
-          <SeaStateOverlay lat={cla} lon={clo} ais={ais} />
+          <SeaStateOverlay lat={cla} lon={clo} ais={enr} />
           <button onClick={() => { setLat(""); setLon(""); setTimeout(() => { try { const raw = localStorage.getItem(POS_KEY); if (raw) { const { lat: la, lon: lo } = JSON.parse(raw); setLat(String(la)); setLon(String(lo)); } } catch {} }, 50); }} title={t("vt.reload")} className="absolute right-2 top-2 z-10 rounded-full bg-white/90 px-2.5 py-1 text-xs font-black text-stone-900">↻</button>
         </div>
       ) : (
@@ -220,7 +192,7 @@ export default function VesselTracker() {
           <button onClick={saveVoy} className="rounded-full bg-amber-400 px-3 py-1.5 font-black text-stone-950 md:col-span-4">{t("vt.saveVoy")}</button>
         </div>
       ) : null}
-      <p className="mt-1 text-[11px] opacity-60">{t("vt.src")}{ais?.updateTime || ais?.positionReceived ? t("vt.lastUpd").replace("{x}", ais!.updateTime || ais!.positionReceived) : ""} {t("vt.srcFree")}</p>
+      <p className="mt-1 text-[11px] opacity-60">{t("vt.src")}{enr?.updateTime ? t("vt.lastUpd").replace("{x}", enr.updateTime) : ""} {t("vt.srcFree")}</p>
     </div>
   );
 }

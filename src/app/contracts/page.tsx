@@ -81,11 +81,10 @@ export default function ContractsPage() {
   useDocTitle("ctr.title");
   const { t } = useLocale();
   const contracts = useLiveQuery(() => db.contracts.orderBy("updatedAt").reverse().toArray(), []);
-  const [form, setForm] = useState({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", imo: "", flag: "" });
+  const [form, setForm] = useState({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", flag: "" });
   const [customRank, setCustomRank] = useState(false);
   const [endDates, setEndDates] = useState<Record<string, string>>({});
   const [runner, setRunner] = useState(0);
-  const [imoEdit, setImoEdit] = useState<Record<string, string>>({});
   const [flagEdit, setFlagEdit] = useState<Record<string, string>>({});
   const [estGuide, setEstGuide] = useState(false);
   const [formErr, setFormErr] = useState<string | null>(null);
@@ -110,11 +109,11 @@ export default function ContractsPage() {
     setFormErr(null);
     const now = new Date().toISOString();
     const id = uid("con");
-    await db.contracts.add({ id, shipName: form.shipName.trim(), shipType: form.shipType, joinPort: form.joinPort, signOnDate: form.signOnDate, signOffDate: "", imo: form.imo || undefined, flag: form.flag || undefined, rank: form.rank, company: form.company, status: "active", createdAt: now, updatedAt: now });
+    await db.contracts.add({ id, shipName: form.shipName.trim(), shipType: form.shipType, joinPort: form.joinPort, signOnDate: form.signOnDate, signOffDate: "", flag: form.flag || undefined, rank: form.rank, company: form.company, status: "active", createdAt: now, updatedAt: now });
     setActiveContractId(id);
     await syncProfileRank(form.rank);
     playShipHorn();
-    setForm({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", imo: "", flag: "" });
+    setForm({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", flag: "" });
   }
 
   async function addAsArchive() {
@@ -122,8 +121,8 @@ export default function ContractsPage() {
     if (!form.signOffDate) { setFormErr(t("ctr.pickSignoff")); return; }
     setFormErr(null);
     const now = new Date().toISOString();
-    await db.contracts.add({ id: uid("con"), shipName: form.shipName.trim(), shipType: form.shipType, joinPort: form.joinPort, signOnDate: form.signOnDate, signOffDate: form.signOffDate, imo: form.imo || undefined, flag: form.flag || undefined, rank: form.rank, company: form.company, status: "archived", createdAt: now, updatedAt: now });
-    setForm({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", imo: "", flag: "" });
+    await db.contracts.add({ id: uid("con"), shipName: form.shipName.trim(), shipType: form.shipType, joinPort: form.joinPort, signOnDate: form.signOnDate, signOffDate: form.signOffDate, flag: form.flag || undefined, rank: form.rank, company: form.company, status: "archived", createdAt: now, updatedAt: now });
+    setForm({ shipName: "", shipType: "Bulk carrier", joinPort: "", signOnDate: "", signOffDate: "", rank: "", company: "", flag: "" });
   }
 
   async function endContract(id: string) {
@@ -137,13 +136,6 @@ export default function ContractsPage() {
     await db.contracts.update(id, { status: "active", updatedAt: new Date().toISOString() });
     setActiveContractId(id);
     playShipHorn();
-  }
-
-  async function saveImo(id: string) {
-    const v = (imoEdit[id] ?? "").replace(/\D/g, "");
-    if (!v) { alert(t("ctr.needImo")); return; }
-    await db.contracts.update(id, { imo: v, updatedAt: new Date().toISOString() });
-    setImoEdit((m) => { const c = { ...m }; delete c[id]; return c; });
   }
 
   async function saveFlag(id: string) {
@@ -194,7 +186,6 @@ export default function ContractsPage() {
           )}
           <span className="self-center text-xs font-bold opacity-70">{t("ctr.deptAuto").replace("{d}", departmentForRank(form.rank) || "—")}</span>
           <input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder={t("ctr.companyPh")} list="company-history" autoComplete="off" className="rounded-xl border px-3 py-2" />
-          <input value={form.imo} onChange={(e) => setForm({ ...form, imo: e.target.value.replace(/\D/g, "") })} placeholder={t("ctr.imoPh")} inputMode="numeric" className="rounded-xl border px-3 py-2" />
           <select value={form.flag} onChange={(e) => setForm({ ...form, flag: e.target.value })} className="rounded-xl border px-3 py-2" title={t("ctr.flagTitle")}>
             <option value="">{t("ctr.flagPh")}</option>
             {FLAG_STATES.map((f) => <option key={f.code} value={f.code}>{f.name}</option>)}
@@ -242,7 +233,6 @@ export default function ContractsPage() {
             </div>
             <div className="mt-1 font-medium text-stone-600 dark:text-red-300/70">
               {t("ctr.rank")} {c.rank || "—"} • {t("ctr.company")} {c.company || "—"} • {t("ctr.joined")} {c.signOnDate} {t("ctr.at")} {c.joinPort || "—"}{c.signOffDate ? t("ctr.signedOffOn").replace("{d}", c.signOffDate) : ""}
-              {c.imo ? t("ctr.imoN").replace("{x}", c.imo) : ""}
               {c.flag ? t("ctr.flagN").replace("{x}", flagName(c.flag)) : ""}
               {(() => {
                 const g = getGibsStatus(c);
@@ -259,12 +249,6 @@ export default function ContractsPage() {
                   {FLAG_STATES.map((f) => <option key={f.code} value={f.code}>{f.name}</option>)}
                 </select>
                 <button onClick={() => saveFlag(c.id)} className="rounded-full border px-3 py-1 font-bold">{t("ctr.saveFlag")}</button>
-              </div>
-            )}
-            {!c.imo && (
-              <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs">
-                <input value={imoEdit[c.id] ?? ""} onChange={(e) => setImoEdit({ ...imoEdit, [c.id]: e.target.value.replace(/\D/g, "") })} placeholder={t("ctr.imoLivePh")} inputMode="numeric" className="w-44 rounded-xl border px-2 py-1" />
-                <button onClick={() => saveImo(c.id)} className="rounded-full border px-3 py-1 font-bold">{t("ctr.saveImo")}</button>
               </div>
             )}
           </div>
