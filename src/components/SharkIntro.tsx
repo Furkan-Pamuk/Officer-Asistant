@@ -126,7 +126,9 @@ export default function SharkIntro() {
       }
       return;
     }
-    if (!seen || forced) setStage("idle");
+    // TEMP preview mode: show on every visit (owner review). Restore the
+    // `if (!seen || forced)` gate to go back to once-only.
+    setStage("idle");
     return () => {
       clearAll();
       try {
