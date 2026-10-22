@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Shark concept 3 — compass shark">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E2A47"/>
+      <stop offset="1" stop-color="#081120"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg3)"/>
+  <!-- compass ring -->
+  <circle cx="256" cy="256" r="152" fill="none" stroke="#F4F7FA" stroke-width="3" opacity="0.25"/>
+  <circle cx="256" cy="256" r="132" fill="none" stroke="#F4F7FA" stroke-width="2" opacity="0.15"/>
+  <!-- cardinal points: N gold, others white -->
+  <g>
+    <path d="M256 84 L268 140 L256 128 L244 140 Z" fill="#C9A86A"/>
+    <path d="M256 428 L268 372 L256 384 L244 372 Z" fill="#F4F7FA" opacity="0.8"/>
+    <path d="M84 256 L140 244 L128 256 L140 268 Z" fill="#F4F7FA" opacity="0.8"/>
+    <path d="M428 256 L372 244 L384 256 L372 268 Z" fill="#F4F7FA" opacity="0.8"/>
+    <path d="M134 134 L172 164 L162 162 L164 172 Z" fill="#F4F7FA" opacity="0.4"/>
+    <path d="M378 134 L340 164 L350 162 L348 172 Z" fill="#F4F7FA" opacity="0.4"/>
+    <path d="M134 378 L172 348 L162 350 L164 340 Z" fill="#F4F7FA" opacity="0.4"/>
+    <path d="M378 378 L340 348 L350 350 L348 340 Z" fill="#F4F7FA" opacity="0.4"/>
+  </g>
+  <!-- shark silhouette -->
+  <g fill="#F4F7FA">
+    <path d="M104 272 Q168 238 252 246 L288 214 L298 246 Q344 248 392 224 Q376 252 358 264 Q376 276 392 306 Q348 286 300 286 L290 318 L276 286 Q192 296 116 288 Q106 280 104 272 Z"/>
+    <circle cx="212" cy="263" r="6" fill="#081120"/>
+    <path d="M240 268 Q260 272 282 270" stroke="#081120" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  </g>
+  <path d="M116 288 Q192 296 276 286" stroke="#22D3EE" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.9"/>
+</svg>

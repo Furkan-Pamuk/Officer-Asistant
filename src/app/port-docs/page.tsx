@@ -1,6 +1,7 @@
 "use client";
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n";
 import { useSearchParams } from "next/navigation";
 import { db, exportJSON } from "@/lib/db";
 import { useActiveContract } from "@/hooks/useActiveContract";
@@ -23,6 +24,7 @@ function modById(id: string | null): PortDocModule {
 }
 
 function DocsInner() {
+  const { t } = useLocale();
   const params = useSearchParams();
   const { contract } = useActiveContract();
   const [modId, setModId] = useState<string>("ship-data");
@@ -128,7 +130,7 @@ function DocsInner() {
     if (!contractId) return;
     const arr = await getPortDoc(contractId, "crew-arrival");
     if (!arr) {
-      alert("Arrival list is empty — fill it first.");
+      alert(t("pdoc.arrEmpty"));
       return;
     }
     let rows: Record<string, string>[] = [];
@@ -138,10 +140,10 @@ function DocsInner() {
       /* ignore */
     }
     if (!rows.length) {
-      alert("Arrival list is empty — fill it first.");
+      alert(t("pdoc.arrEmpty"));
       return;
     }
-    if (!confirm("Replace the departure list with the arrival list? Manual edits will be lost.")) return;
+    if (!confirm(t("pdoc.confirmReplace"))) return;
     const copy = rows.map((r) => ({ ...r }));
     await savePortDoc(contractId, "crew-departure", { fields: {}, rows: copy });
     if (mod.id === "crew-departure") setData({ fields: {}, rows: copy });
@@ -158,7 +160,7 @@ function DocsInner() {
     if (merged.changed) {
       update({ ...data, fields: merged.fields });
     } else {
-      alert("Nothing blank to fill — every field already has a value.");
+      alert(t("pdoc.noBlank"));
     }
   }
 
@@ -184,13 +186,13 @@ function DocsInner() {
     if (!data || !contractId) return;
     const crew = await crewRowsFor(contractId);
     if (!crew.length) {
-      alert("No crew in Crew Accounts yet — add them there first, or type rows manually.");
+      alert(t("pdoc.noCrew"));
       return;
     }
     const have = new Set(data.rows.map((r) => (r.name || "").toLowerCase()).filter(Boolean));
     const extra = crew.filter((c) => c.name && !have.has(c.name.toLowerCase()));
     if (!extra.length) {
-      alert("Crew already imported.");
+      alert(t("pdoc.crewDone"));
       return;
     }
     const snap = await db.crewRows.where("contractId").equals(contractId).toArray();
@@ -212,13 +214,13 @@ function DocsInner() {
     if (!data || !contractId) return;
     const legs = await voyageRowsFor(contractId);
     if (!legs.length) {
-      alert("No closed voyages in Port Log yet.");
+      alert(t("pdoc.noVoy"));
       return;
     }
     const have = new Set(data.rows.map((r) => `${r.port}__${r.arrDate}__${r.depDate}`));
     const extra = legs.filter((r) => !have.has(`${r.port}__${r.arrDate}__${r.depDate}`));
     if (!extra.length) {
-      alert("Voyages already imported.");
+      alert(t("pdoc.voyDone"));
       return;
     }
     update({ ...data, rows: [...data.rows, ...extra] });
@@ -251,9 +253,9 @@ function DocsInner() {
     } catch {
       try {
         await navigator.clipboard.writeText(text);
-        alert("Document copied — paste it anywhere.");
+        alert(t("pdoc.copied"));
       } catch {
-        alert("Sharing not available here.");
+        alert(t("common.noShare"));
       }
     }
   }
@@ -278,9 +280,9 @@ function DocsInner() {
   if (!contract) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">🛃 Port Documents</h1>
-        <p className="text-sm">Select a contract first — port papers are kept per vessel.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("pdoc.title")}</h1>
+        <p className="text-sm">{t("pdoc.needVessel")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -289,8 +291,8 @@ function DocsInner() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">🛃 Port Documents</h1>
-          <p className="text-sm font-medium opacity-70">Arrival & departure papers per vessel — saved automatically as you type.</p>
+          <h1 className="text-2xl font-bold">{t("pdoc.title")}</h1>
+          <p className="text-sm font-medium opacity-70">{t("pdoc.sub")}</p>
         </div>
         <div className="flex gap-2 print:hidden">
           <button onClick={csv} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">CSV</button>
@@ -302,10 +304,10 @@ function DocsInner() {
             }}
             className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black"
           >
-            Export
+            {t("common.export")}
           </button>
-          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 Share</button>
-          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ Print</button>
+          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
         </div>
       </div>
 
@@ -331,19 +333,19 @@ function DocsInner() {
       )}
 
       {!data ? (
-        <p className="text-sm opacity-70">Loading…</p>
+        <p className="text-sm opacity-70">{t("common.loading")}</p>
       ) : mod.kind === "form" ? (
         <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-bold">{mod.label} <span className="font-normal opacity-60">• {mod.hint}</span></h2>
             {mod.id !== "ship-data" && (
-              <button onClick={refillFromShip} title="Copy blank fields from Ship Data" className="rounded-full border px-3 py-1 text-xs font-bold print:hidden">⚡ Fill from Ship Data</button>
+              <button onClick={refillFromShip} title={t("pdoc.fillShipTitle")} className="rounded-full border px-3 py-1 text-xs font-bold print:hidden">{t("pdoc.fillShip")}</button>
             )}
           </div>
           {mod.id === "ship-data" ? (
-            <p className="mt-1 text-xs opacity-60">🚢 Master copy — values typed here auto-fill the other papers (blank fields only; your edits are never overwritten).</p>
+            <p className="mt-1 text-xs opacity-60">{t("pdoc.master")}</p>
           ) : (
-            <p className="mt-1 text-xs opacity-60">Blank fields auto-fill from 🚢 Ship Data when this paper opens.</p>
+            <p className="mt-1 text-xs opacity-60">{t("pdoc.autoHint")}</p>
           )}
           <div className="mt-3 grid gap-2 md:grid-cols-2">
             {(mod.fields ?? []).map((f) => (
@@ -364,15 +366,15 @@ function DocsInner() {
             <h2 className="font-bold">{mod.label} <span className="font-normal opacity-60">• {mod.hint} ({data.rows.length})</span></h2>
             <div className="flex gap-2 print:hidden">
               {mod.importCrew && (
-                <button onClick={importCrew} className="rounded-full border px-3 py-1 text-xs font-bold">👥 Import crew</button>
+                <button onClick={importCrew} className="rounded-full border px-3 py-1 text-xs font-bold">{t("pdoc.importCrew")}</button>
               )}
               {mod.id === "crew-departure" && (
-                <button onClick={syncFromArrival} className="rounded-full border px-3 py-1 text-xs font-bold">🔄 Sync from Arrival</button>
+                <button onClick={syncFromArrival} className="rounded-full border px-3 py-1 text-xs font-bold">{t("pdoc.syncArrival")}</button>
               )}
               {mod.importVoyages && (
-                <button onClick={importVoyages} className="rounded-full border px-3 py-1 text-xs font-bold">🗺️ Import voyages</button>
+                <button onClick={importVoyages} className="rounded-full border px-3 py-1 text-xs font-bold">{t("pdoc.importVoy")}</button>
               )}
-              <button onClick={addRow} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">+ Row</button>
+              <button onClick={addRow} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("pdoc.addRow")}</button>
             </div>
           </div>
           <div className="mt-2 overflow-x-auto">
@@ -398,12 +400,12 @@ function DocsInner() {
                       </td>
                     ))}
                     <td className="px-1 py-1 print:hidden">
-                      <button onClick={() => delRow(i)} title="Delete row" className="rounded-full border px-2 py-0.5 text-xs">✕</button>
+                      <button onClick={() => delRow(i)} title={t("pdoc.delRow")} className="rounded-full border px-2 py-0.5 text-xs">✕</button>
                     </td>
                   </tr>
                 ))}
                 {data.rows.length === 0 && (
-                  <tr><td className="p-3 text-sm opacity-70">Empty — import or add rows above.</td></tr>
+                  <tr><td className="p-3 text-sm opacity-70">{t("pdoc.emptyRows")}</td></tr>
                 )}
               </tbody>
             </table>
@@ -415,8 +417,9 @@ function DocsInner() {
 }
 
 export default function PortDocsPage() {
+  const { t } = useLocale();
   return (
-    <Suspense fallback={<p>Loading port documents…</p>}>
+    <Suspense fallback={<p>{t("pdoc.loading")}</p>}>
       <DocsInner />
     </Suspense>
   );

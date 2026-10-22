@@ -6,12 +6,14 @@ import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { INTERVALS, INT_KEY, RETENTIONS, RET_KEY, pruneLog, snapshotPosition } from "@/lib/logbook";
 import { useAutoLog } from "@/lib/autolog";
 import type { LogEntry } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 const POS_KEY = "oa-pos";
 
 // Hourly deck log: auto position + wind/sea/visibility from the same
 // sources as the tracker, manual compass/temperatures/variation.
 export default function LogPage() {
+  const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const rows = useLiveQuery(
     () => (contractId ? db.logEntries.where("contractId").equals(contractId).toArray() : Promise.resolve([] as LogEntry[])),
@@ -58,7 +60,7 @@ export default function LogPage() {
 
   async function logNow() {
     if (!contractId) return;
-    setStatus("logging…");
+    setStatus(t("log.logging"));
     const s = await snapshotPosition();
     const now = new Date();
     await db.logEntries.add({
@@ -67,7 +69,7 @@ export default function LogPage() {
       compass: f.compass, windKn: s.windKn, windDir: s.windDir, waveM: s.waveM, visKm: s.visKm,
       dryT: f.dryT || s.dryT, wetT: f.wetT || s.wetT, variation: f.variation || s.variation, note: f.note, auto: false,
     });
-    setStatus(`logged ${now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`);
+    setStatus(t("log.logged").replace("{x}", now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })));
   }
 
   // Phone compass (magnetometer): one-shot heading into the compass field.
@@ -78,11 +80,11 @@ export default function LogPage() {
       if (typeof DOE.requestPermission === "function") {
         const res = await DOE.requestPermission();
         if (res !== "granted") {
-          setStatus("compass permission denied");
+          setStatus(t("log.noCompass"));
           return;
         }
       }
-      setStatus("reading compass — hold the phone flat…");
+      setStatus(t("log.reading"));
       const h = await new Promise<number | null>((resolve) => {
         let done = false;
         const to = setTimeout(() => { if (!done) { done = true; window.removeEventListener("deviceorientation", onE); resolve(null); } }, 6000);
@@ -99,13 +101,13 @@ export default function LogPage() {
         window.addEventListener("deviceorientation", onE);
       });
       if (h === null) {
-        setStatus("no compass sensor (or need HTTPS/location)");
+        setStatus(t("log.noSensor"));
       } else {
         setF((p) => ({ ...p, compass: String(h) }));
-        setStatus(`compass ${h}° from phone`);
+        setStatus(t("log.fromPhone").replace("{x}", String(h)));
       }
     } catch {
-      setStatus("compass not available on this device");
+      setStatus(t("log.noDevice"));
     }
   }
 
@@ -114,9 +116,9 @@ export default function LogPage() {
   if (!contractId) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">Deck Log</h1>
-        <p className="text-sm">Select a contract first.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("nav.decklog")}</h1>
+        <p className="text-sm">{t("common.needContract")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -139,22 +141,22 @@ export default function LogPage() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">📓 Deck Log — hourly</h1>
-          <p className="text-sm opacity-70">Position, wind/sea/visibility, dry/wet bulb and variation auto-fill from GPS & open data in vessel timezone (typed values always win). Compass: type it or read the phone sensor. {status}</p>
+          <h1 className="text-2xl font-bold">{t("log.titleHourly")}</h1>
+          <p className="text-sm opacity-70">{t("log.sub").replace("{x}", status)}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <label className="flex items-center gap-1 text-xs font-bold">Keep
+          <label className="flex items-center gap-1 text-xs font-bold">{t("log.keep")}
             <select value={retention} onChange={(e) => { setRetention(e.target.value); try { localStorage.setItem(RET_KEY, e.target.value); } catch {} if (contractId) pruneLog(contractId, e.target.value); }} className="rounded-xl border px-2 py-1.5 text-sm">
               {RETENTIONS.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}
             </select>
           </label>
-          <label className="flex items-center gap-1 text-xs font-bold">Auto every
+          <label className="flex items-center gap-1 text-xs font-bold">{t("log.autoEvery")}
             <select value={interval} onChange={(e) => { setIntervalV(e.target.value); try { localStorage.setItem(INT_KEY, e.target.value); } catch {} }} className="rounded-xl border px-2 py-1.5 text-sm">
               {INTERVALS.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}
             </select>
           </label>
           <button onClick={() => setAuto(!auto)} className={`rounded-full px-4 py-2 text-sm font-bold ${auto ? "bg-emerald-600 text-white" : "border bg-white dark:bg-black"}`}>
-            {auto ? "● Auto ON" : "○ Auto"}
+            {auto ? t("log.autoOn") : t("log.auto")}
           </button>
           <button onClick={() => exportJSON("deck-log.json", rows)} className="rounded-full border bg-white px-3 py-2 text-sm font-bold dark:bg-black">JSON</button>
           <button onClick={csv} className="rounded-full border bg-white px-3 py-2 text-sm font-bold dark:bg-black">CSV</button>
@@ -163,26 +165,26 @@ export default function LogPage() {
 
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
         <div className="grid gap-2 text-sm md:grid-cols-4">
-          <input value={f.compass} onChange={(e) => setF({ ...f, compass: e.target.value })} placeholder="Compass course °" inputMode="decimal" className={inp} />
-          <input value={f.variation} onChange={(e) => setF({ ...f, variation: e.target.value })} placeholder="Variation E/W (from chart)" className={inp} />
-          <input value={f.dryT} onChange={(e) => setF({ ...f, dryT: e.target.value })} placeholder="Dry bulb °C" inputMode="decimal" className={inp} />
-          <input value={f.wetT} onChange={(e) => setF({ ...f, wetT: e.target.value })} placeholder="Wet bulb °C" inputMode="decimal" className={inp} />
+          <input value={f.compass} onChange={(e) => setF({ ...f, compass: e.target.value })} placeholder={t("log.coursePh")} inputMode="decimal" className={inp} />
+          <input value={f.variation} onChange={(e) => setF({ ...f, variation: e.target.value })} placeholder={t("log.varPh")} className={inp} />
+          <input value={f.dryT} onChange={(e) => setF({ ...f, dryT: e.target.value })} placeholder={t("log.dryPh")} inputMode="decimal" className={inp} />
+          <input value={f.wetT} onChange={(e) => setF({ ...f, wetT: e.target.value })} placeholder={t("log.wetPh")} inputMode="decimal" className={inp} />
         </div>
-        <input value={f.note} onChange={(e) => setF({ ...f, note: e.target.value })} placeholder="Note (optional)" className={`${inp} mt-2`} />
+        <input value={f.note} onChange={(e) => setF({ ...f, note: e.target.value })} placeholder={t("log.notePh")} className={`${inp} mt-2`} />
         <div className="mt-2 flex flex-wrap gap-2">
-          <button onClick={logNow} className="rounded-full bg-stone-900 px-5 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Log now</button>
-          <button onClick={phoneCompass} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🧭 Phone compass</button>
+          <button onClick={logNow} className="rounded-full bg-stone-900 px-5 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("log.logNow")}</button>
+          <button onClick={phoneCompass} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">{t("log.phone")}</button>
         </div>
-        <p className="mt-1 text-xs opacity-60">Allow location when asked — needed for lat/lon + timezone. Auto keeps logging on any screen while the app is open.</p>
+        <p className="mt-1 text-xs opacity-60">{t("log.locHint")}</p>
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-amber-200 dark:border-red-950">
         <table className="w-full min-w-[900px] border-collapse bg-white text-xs dark:bg-neutral-950">
           <thead>
             <tr className="bg-amber-100 text-left dark:bg-red-950">
-              <th className="p-2">Time</th><th className="p-2">Lat/Lon</th><th className="p-2">Compass</th>
-              <th className="p-2">Wind</th><th className="p-2">Sea m</th><th className="p-2">Vis km</th>
-              <th className="p-2">Dry/Wet</th><th className="p-2">Var</th><th className="p-2">Note</th><th className="p-2"></th>
+              <th className="p-2">{t("log.hTime")}</th><th className="p-2">{t("log.hLatLon")}</th><th className="p-2">{t("log.hCompass")}</th>
+              <th className="p-2">{t("log.hWind")}</th><th className="p-2">{t("log.hSea")}</th><th className="p-2">{t("log.hVis")}</th>
+              <th className="p-2">{t("log.hDryWet")}</th><th className="p-2">{t("log.hVar")}</th><th className="p-2">{t("log.hNote")}</th><th className="p-2"></th>
             </tr>
           </thead>
           <tbody>
@@ -200,7 +202,7 @@ export default function LogPage() {
                 <td className="p-2"><button onClick={() => db.logEntries.delete(r.id)} className="font-bold text-red-600">✕</button></td>
               </tr>
             ))}
-            {list.length === 0 && <tr><td className="p-3" colSpan={10}>No entries yet — fill the manual fields and Log now.</td></tr>}
+            {list.length === 0 && <tr><td className="p-3" colSpan={10}>{t("log.empty")}</td></tr>}
           </tbody>
         </table>
       </div>

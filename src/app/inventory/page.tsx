@@ -1,6 +1,7 @@
 "use client";
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n";
 import { useSearchParams } from "next/navigation";
 import { db, getActiveContractId, uid, exportJSON } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
@@ -8,6 +9,7 @@ import { INVENTORY_LISTS, seedInventoryForContract } from "@/lib/inventory";
 import type { InventoryListId } from "@/lib/types";
 
 function InventoryInner() {
+  const { t } = useLocale();
   const params = useSearchParams();
   const [tab, setTab] = useState<InventoryListId>("flag");
   const [contractId, setContractId] = useState<string | null>(null);
@@ -49,9 +51,9 @@ function InventoryInner() {
   if (!contractId) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">📦 Inventory Lists</h1>
-        <p className="text-sm">Select a contract first — inventories are kept per vessel.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("inv.title")}</h1>
+        <p className="text-sm">{t("inv.needVessel")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -65,10 +67,10 @@ function InventoryInner() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">📦 Inventory Lists</h1>
-          <p className="text-sm font-medium opacity-70">Count aboard, fill the quantities. Templates start at 0.</p>
+          <h1 className="text-2xl font-bold">{t("inv.title")}</h1>
+          <p className="text-sm font-medium opacity-70">{t("inv.sub")}</p>
         </div>
-        <button onClick={() => exportJSON(`inventory-${contractId}.json`, { items })} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">Export</button>
+        <button onClick={() => exportJSON(`inventory-${contractId}.json`, { items })} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">{t("common.export")}</button>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -90,7 +92,7 @@ function InventoryInner() {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="🔍 Search items…"
+            placeholder={t("inv.searchPh")}
             className="min-w-32 flex-1 rounded-xl border px-3 py-1.5 text-sm"
           />
           {q && (
@@ -99,9 +101,9 @@ function InventoryInner() {
         </div>
         <div className="mt-2 grid gap-1 text-sm">
           <div className="grid grid-cols-[1fr_84px_64px_40px] items-center gap-2 px-2 text-[11px] font-black uppercase tracking-wider opacity-60 md:grid-cols-[1fr_96px_110px_40px]">
-            <span>Item</span>
-            <span>Qty</span>
-            <span>{tab === "medicine" ? "Expiry" : tab === "publications" ? "Edition" : "Unit"}</span>
+            <span>{t("inv.hItem")}</span>
+            <span>{t("inv.hQty")}</span>
+            <span>{tab === "medicine" ? t("inv.hExpiry") : tab === "publications" ? t("inv.hEdition") : t("inv.hUnit")}</span>
             <span />
           </div>
           {rows.map((r) => (
@@ -124,22 +126,22 @@ function InventoryInner() {
                 <input
                   value={r.edition ?? ""}
                   onChange={(e) => db.inventory.update(r.id, { edition: e.target.value, updatedAt: new Date().toISOString() })}
-                  placeholder="2024 Ed."
+                  placeholder={t("inv.edPh")}
                   className="w-full rounded-lg border px-2 py-1 text-xs"
                 />
               ) : (
                 <span className="text-xs opacity-60">{r.unit}</span>
               )}
-              <button onClick={() => db.inventory.delete(r.id)} title="Delete row" className="rounded-full border px-2 py-0.5 text-xs">✕</button>
+              <button onClick={() => db.inventory.delete(r.id)} title={t("inv.delRow")} className="rounded-full border px-2 py-0.5 text-xs">✕</button>
             </div>
           ))}
           {rows.length === 0 && (
-            <p className="text-sm opacity-70">{q.trim() ? `No match for "${q.trim()}" — add it below.` : "Empty — add rows below."}</p>
+            <p className="text-sm opacity-70">{q.trim() ? t("inv.noMatch").replace("{q}", q.trim()) : t("inv.emptyAdd")}</p>
           )}
         </div>
         <div className="mt-3 flex gap-2">
-          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="New item…" className="min-w-32 flex-1 rounded-xl border px-3 py-1.5 text-sm" />
-          <button onClick={addCustom} className="rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Add</button>
+          <input value={name} onChange={(e) => setName(e.target.value)} placeholder={t("inv.newItemPh")} className="min-w-32 flex-1 rounded-xl border px-3 py-1.5 text-sm" />
+          <button onClick={addCustom} className="rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("common.add")}</button>
         </div>
       </div>
     </div>
@@ -147,8 +149,9 @@ function InventoryInner() {
 }
 
 export default function InventoryPage() {
+  const { t } = useLocale();
   return (
-    <Suspense fallback={<p>Loading inventory…</p>}>
+    <Suspense fallback={<p>{t("inv.loading")}</p>}>
       <InventoryInner />
     </Suspense>
   );

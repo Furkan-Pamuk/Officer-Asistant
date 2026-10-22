@@ -1,6 +1,7 @@
 "use client";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { RANKS } from "@/lib/types";
 import type { CrewRow } from "@/lib/types";
@@ -47,6 +48,7 @@ const CrewTableRow = memo(function CrewTableRow({ row, onChanged, onAddBelow }: 
   onChanged: () => void;
   onAddBelow: (order: number) => void;
 }) {
+  const { t } = useLocale();
   const cig = Math.round(row.cigCartons * row.cigUnit * 100) / 100;
   const cell = "rounded-lg border px-1 py-0.5 text-xs w-full min-w-0";
   const numCell = cell + " text-right";
@@ -54,23 +56,23 @@ const CrewTableRow = memo(function CrewTableRow({ row, onChanged, onAddBelow }: 
   return (
     <tr className="border-t border-amber-100 dark:border-red-950">
       <td className="p-1">
-        <Cell key={k("rank" + row.rank)} value={row.rank} onCommit={(v) => saveRow(row.id, { rank: v }).then(onChanged)} placeholder="Rank" list="crew-ranks" className={cell} />
+        <Cell key={k("rank" + row.rank)} value={row.rank} onCommit={(v) => saveRow(row.id, { rank: v }).then(onChanged)} placeholder={t("crew.rankPh")} list="crew-ranks" className={cell} />
       </td>
-      <td className="p-1"><Cell key={k("name" + row.name)} value={row.name} onCommit={(v) => saveRow(row.id, { name: v }).then(onChanged)} placeholder="e.g. Cook Mehmet" className={cell} /></td>
-      <td className="p-1"><Cell key={k("usd" + row.advUSD)} value={row.advUSD} onCommit={(v) => saveRow(row.id, { advUSD: num(v) }).then(onChanged)} placeholder="0" inputMode="decimal" className={numCell} /></td>
-      <td className="p-1"><Cell key={k("eur" + row.advEUR)} value={row.advEUR} onCommit={(v) => saveRow(row.id, { advEUR: num(v) }).then(onChanged)} placeholder="0" inputMode="decimal" className={numCell} /></td>
-      <td className="p-1"><Cell key={k("gbp" + row.advGBP)} value={row.advGBP} onCommit={(v) => saveRow(row.id, { advGBP: num(v) }).then(onChanged)} placeholder="0" inputMode="decimal" className={numCell} /></td>
+      <td className="p-1"><Cell key={k("name" + row.name)} value={row.name} onCommit={(v) => saveRow(row.id, { name: v }).then(onChanged)} placeholder={t("crew.namePh")} className={cell} /></td>
+      <td className="p-1"><Cell key={k("usd" + row.advUSD)} value={row.advUSD} onCommit={(v) => saveRow(row.id, { advUSD: num(v) }).then(onChanged)} placeholder={t("crew.zeroPh")} inputMode="decimal" className={numCell} /></td>
+      <td className="p-1"><Cell key={k("eur" + row.advEUR)} value={row.advEUR} onCommit={(v) => saveRow(row.id, { advEUR: num(v) }).then(onChanged)} placeholder={t("crew.zeroPh")} inputMode="decimal" className={numCell} /></td>
+      <td className="p-1"><Cell key={k("gbp" + row.advGBP)} value={row.advGBP} onCommit={(v) => saveRow(row.id, { advGBP: num(v) }).then(onChanged)} placeholder={t("crew.zeroPh")} inputMode="decimal" className={numCell} /></td>
       <td className="p-1">
         <div className="flex items-center gap-0.5">
-          <Cell key={k("cig" + row.cigCartons)} value={row.cigCartons} onCommit={(v) => saveRow(row.id, { cigCartons: num(v) }).then(onChanged)} placeholder="0" inputMode="decimal" className={numCell} />
-          <button onClick={() => saveRow(row.id, { cigCartons: Math.round((row.cigCartons + 1) * 100) / 100 }).then(onChanged)} title="+1 carton" className="shrink-0 rounded-full border px-1.5 py-0.5 text-[11px] font-black">🚬</button>
+          <Cell key={k("cig" + row.cigCartons)} value={row.cigCartons} onCommit={(v) => saveRow(row.id, { cigCartons: num(v) }).then(onChanged)} placeholder={t("crew.zeroPh")} inputMode="decimal" className={numCell} />
+          <button onClick={() => saveRow(row.id, { cigCartons: Math.round((row.cigCartons + 1) * 100) / 100 }).then(onChanged)} title={t("crew.cartonTitle")} className="shrink-0 rounded-full border px-1.5 py-0.5 text-[11px] font-black">🚬</button>
         </div>
       </td>
-      <td className="p-1"><Cell key={k("unit" + row.cigUnit)} value={row.cigUnit} onCommit={(v) => saveRow(row.id, { cigUnit: num(v) }).then(onChanged)} placeholder="0" inputMode="decimal" className={numCell} /></td>
+      <td className="p-1"><Cell key={k("unit" + row.cigUnit)} value={row.cigUnit} onCommit={(v) => saveRow(row.id, { cigUnit: num(v) }).then(onChanged)} placeholder={t("crew.zeroPh")} inputMode="decimal" className={numCell} /></td>
       <td className="p-1 text-right font-bold">€{cig.toFixed(2)}</td>
       <td className="whitespace-nowrap p-1 text-right font-black">€{cig.toFixed(2)}+${row.advUSD.toFixed(2)}</td>
       <td className="whitespace-nowrap p-1 print:hidden">
-        <button onClick={() => onAddBelow(row.order)} title="Add row below" className="rounded-full border px-1.5 py-0.5 text-[11px] font-bold">+row</button>{" "}
+        <button onClick={() => onAddBelow(row.order)} title={t("crew.addRowTitle")} className="rounded-full border px-1.5 py-0.5 text-[11px] font-bold">{t("crew.addRowAscii")}</button>{" "}
         <button onClick={() => db.crewRows.delete(row.id).then(onChanged)} className="font-bold text-red-600">✕</button>
       </td>
     </tr>
@@ -78,6 +80,7 @@ const CrewTableRow = memo(function CrewTableRow({ row, onChanged, onAddBelow }: 
 });
 
 export default function CrewAccountsPage() {
+  const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const [month, setMonth] = useState("");
   const [rows, setRows] = useState<CrewRow[]>([]);
@@ -116,7 +119,7 @@ export default function CrewAccountsPage() {
   async function addRow(afterOrder?: number) {
     if (!contractId || !month) return;
     const s = [...rows].sort((a, b) => a.order - b.order);
-    if (s.length >= MAX_ROWS) { alert(`Max ${MAX_ROWS} rows`); return; }
+    if (s.length >= MAX_ROWS) { alert(t("crew.maxRows").replace("{n}", String(MAX_ROWS))); return; }
     const order = afterOrder === undefined ? s.length : afterOrder + 1;
     for (const r of s.filter((x) => x.order >= order)) {
       await db.crewRows.update(r.id, { order: r.order + 1 });
@@ -142,8 +145,8 @@ export default function CrewAccountsPage() {
     } catch {
       try {
         await navigator.clipboard.writeText(text);
-        alert("Sheet copied — paste it anywhere.");
-      } catch { alert("Sharing not available here."); }
+        alert(t("crew.copied"));
+      } catch { alert(t("common.noShare")); }
     }
   }
 
@@ -163,9 +166,9 @@ export default function CrewAccountsPage() {
   if (!contractId) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">Crew accounts</h1>
-        <p className="text-sm">Select a contract first.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("crew.title")}</h1>
+        <p className="text-sm">{t("common.needContract")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -174,14 +177,14 @@ export default function CrewAccountsPage() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">Crew accounts — advance + cigarettes</h1>
-          <p className="text-sm font-medium opacity-70">Type freely — saved on blur/Enter. 🚬 = +1 carton.</p>
+          <h1 className="text-2xl font-bold">{t("crew.titleVessel")}</h1>
+          <p className="text-sm font-medium opacity-70">{t("crew.sub")}</p>
         </div>
         <div className="flex gap-2 print:hidden">
           <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="rounded-xl border px-2 py-1.5 text-sm font-bold" />
           <button onClick={exportCSV} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">CSV</button>
-          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 Share</button>
-          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ Print</button>
+          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
         </div>
       </div>
 
@@ -189,10 +192,10 @@ export default function CrewAccountsPage() {
         <table className="w-full border-collapse bg-white text-xs dark:bg-neutral-950">
           <thead>
             <tr className="bg-amber-100 text-left dark:bg-red-950">
-              <th className="p-1">Rank</th><th className="p-1">Name</th>
-              <th className="p-1">Adv $</th><th className="p-1">Adv €</th><th className="p-1">Adv £</th>
-              <th className="p-1">Cig</th><th className="p-1">Unit €</th>
-              <th className="p-1">Cig €</th><th className="p-1">Totals</th><th className="p-1 print:hidden"></th>
+              <th className="p-1">{t("crew.hRank")}</th><th className="p-1">{t("crew.hName")}</th>
+              <th className="p-1">{t("crew.hAdvD")}</th><th className="p-1">{t("crew.hAdvE")}</th><th className="p-1">{t("crew.hAdvP")}</th>
+              <th className="p-1">{t("crew.hCig")}</th><th className="p-1">{t("crew.hUnitE")}</th>
+              <th className="p-1">{t("crew.hCigE")}</th><th className="p-1">{t("crew.hTotals")}</th><th className="p-1 print:hidden"></th>
             </tr>
           </thead>
           <tbody>
@@ -200,7 +203,7 @@ export default function CrewAccountsPage() {
               <CrewTableRow key={r.id} row={r} onChanged={refresh} onAddBelow={(o) => addRow(o)} />
             ))}
             <tr className="border-t-2 border-stone-900 bg-amber-50 font-black dark:border-red-700 dark:bg-red-950/30">
-              <td className="p-1" colSpan={2}>TOTAL ({sorted.length})</td>
+              <td className="p-1" colSpan={2}>{t("crew.totalN").replace("{n}", String(sorted.length))}</td>
               <td className="p-1 text-right">${tUSD.toFixed(0)}</td>
               <td className="p-1 text-right">€{tEUR.toFixed(0)}</td>
               <td className="p-1 text-right">£{tGBP.toFixed(0)}</td>
@@ -208,13 +211,13 @@ export default function CrewAccountsPage() {
               <td className="p-1">—</td>
               <td className="p-1 text-right">€{tCigCost.toFixed(0)}</td>
               <td className="p-1 text-right">€{tCigCost.toFixed(0)}+${tUSD.toFixed(0)}</td>
-              <td className="p-1 print:hidden"><button onClick={() => addRow()} className="rounded-full border px-1.5 py-0.5 text-[11px] font-bold">+row</button></td>
+              <td className="p-1 print:hidden"><button onClick={() => addRow()} className="rounded-full border px-1.5 py-0.5 text-[11px] font-bold">{t("crew.addRowAscii")}</button></td>
             </tr>
           </tbody>
         </table>
         <datalist id="crew-ranks">{RANKS.map((r) => <option key={r} value={r} />)}</datalist>
       </div>
-      <p className="text-xs opacity-70">Cigarette unit in €. Totals stay per-currency (€ cigarettes + $ advance shown separately).</p>
+      <p className="text-xs opacity-70">{t("crew.cigHint")}</p>
     </div>
   );
 }

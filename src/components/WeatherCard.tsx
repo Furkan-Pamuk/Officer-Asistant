@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 const POS_KEY = "oa-pos";
 const WX_KEY = "oa-wx-cache";
@@ -19,6 +20,7 @@ function icon(code: number) {
 }
 
 export default function WeatherCard() {
+  const { t } = useLocale();
   const [wx, setWx] = useState<Wx | null>(null);
   const [note, setNote] = useState("");
   const [q, setQ] = useState("");
@@ -44,8 +46,8 @@ export default function WeatherCard() {
     } catch {
       try {
         const raw = localStorage.getItem(WX_KEY);
-        if (raw) { setWx(JSON.parse(raw)); setNote("cached/offline"); }
-        else setNote("offline — no data yet");
+        if (raw) { setWx(JSON.parse(raw)); setNote(t("wc.cached")); }
+        else setNote(t("wc.noData"));
       } catch { setNote("offline"); }
     }
   }
@@ -61,15 +63,15 @@ export default function WeatherCard() {
   }, []);
 
   function locate() {
-    if (!("geolocation" in navigator)) { setNote("geolocation unavailable"); return; }
-    setNote("locating…");
+    if (!("geolocation" in navigator)) { setNote(t("wc.noGeo")); return; }
+    setNote(t("plog.locating"));
     navigator.geolocation.getCurrentPosition(
       (p) => {
         localStorage.setItem(POS_KEY, JSON.stringify({ lat: p.coords.latitude, lon: p.coords.longitude }));
         setResults([]);
         load(p.coords.latitude, p.coords.longitude);
       },
-      () => setNote("location denied"),
+      () => setNote(t("wc.denied")),
       { timeout: 15000 }
     );
   }
@@ -88,8 +90,8 @@ export default function WeatherCard() {
         return an - bn;
       });
       setResults(list);
-      if (!list.length) setNote("no city found");
-    } catch { setNote("search offline"); }
+      if (!list.length) setNote(t("wc.noCity"));
+    } catch { setNote(t("wc.searchOff")); }
     finally { setSearching(false); }
   }
 
@@ -103,14 +105,14 @@ export default function WeatherCard() {
   return (
     <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="font-black">🌦️ Weather on position</h2>
+        <h2 className="font-black">{t("wc.onPos")}</h2>
         <div className="flex items-center gap-1.5">
-          <input value={q} onChange={(e) => onType(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") searchCity(); }} placeholder="Search city…" className="w-28 rounded-full border border-amber-300 bg-white px-2.5 py-1 text-[11px] font-bold text-stone-900 placeholder:text-stone-400 dark:border-white/30 dark:bg-white/10 dark:text-white dark:placeholder:text-white/50" />
+          <input value={q} onChange={(e) => onType(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") searchCity(); }} placeholder={t("wc.searchPh")} className="w-28 rounded-full border border-amber-300 bg-white px-2.5 py-1 text-[11px] font-bold text-stone-900 placeholder:text-stone-400 dark:border-white/30 dark:bg-white/10 dark:text-white dark:placeholder:text-white/50" />
           <button onClick={() => searchCity()} className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-bold">🔍</button>
-          <button onClick={locate} className="rounded-full bg-amber-400 px-2.5 py-1 text-[11px] font-black text-stone-950 dark:bg-red-600 dark:text-white">📍 My location</button>
+          <button onClick={locate} className="rounded-full bg-amber-400 px-2.5 py-1 text-[11px] font-black text-stone-950 dark:bg-red-600 dark:text-white">{t("wc.myLoc")}</button>
         </div>
       </div>
-      {searching && <p className="mt-1 text-xs opacity-70">Searching…</p>}
+      {searching && <p className="mt-1 text-xs opacity-70">{t("wc.searching")}</p>}
       {results.length > 0 && (
         <div className="mt-1 grid gap-1">
           {results.map((r, i) => (
@@ -128,10 +130,10 @@ export default function WeatherCard() {
             <div>💨 {Math.round(wx.wind)} kn</div>
             <div>🌧️ {wx.precip} mm</div>
           </div>
-          <div className="ml-auto text-right text-xs opacity-70">📍 {wx.place ?? `${wx.lat.toFixed(2)}, ${wx.lon.toFixed(2)}`}<br />{note || "live"}</div>
+          <div className="ml-auto text-right text-xs opacity-70">📍 {wx.place ?? `${wx.lat.toFixed(2)}, ${wx.lon.toFixed(2)}`}<br />{note || t("wc.live")}</div>
         </div>
       ) : (
-        <p className="mt-2 text-sm opacity-70">{note || "Tap location to load weather — then cached offline."}</p>
+        <p className="mt-2 text-sm opacity-70">{note || t("wc.tapLoad")}</p>
       )}
       {wx?.daily && wx.daily.length > 0 && (
         <div className="mt-2 flex gap-1.5 overflow-x-auto pb-1">

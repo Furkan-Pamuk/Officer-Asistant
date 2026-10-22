@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 interface Sun {
   sunrise: string;
@@ -23,6 +24,7 @@ function hm(iso: string) {
 }
 
 export default function SunMoonCard() {
+  const { t } = useLocale();
   const [sun, setSun] = useState<Sun | null>(null);
   const [phase, setPhase] = useState({ name: "Moon", emoji: "🌙", illum: 0 });
 
@@ -47,12 +49,12 @@ export default function SunMoonCard() {
 
   return (
     <div className="rounded-2xl border-2 border-amber-300 bg-stone-900 p-2.5 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
-      <h2 className="text-sm font-black">☀️ Sun & Moon</h2>
+      <h2 className="text-sm font-black">{t("sm.title")}</h2>
       {sun ? (
         <div className="mt-1 flex items-center gap-2">
           <div className="text-xs font-bold">
-            <div>🌅 Sunrise {hm(sun.sunrise)}</div>
-            <div>🌇 Sunset {hm(sun.sunset)}</div>
+            <div>{t("sm.rise").replace("{x}", hm(sun.sunrise))}</div>
+            <div>{t("sm.set").replace("{x}", hm(sun.sunset))}</div>
           </div>
           <div className="ml-auto text-center">
             <div className="text-2xl">{phase.emoji}</div>
@@ -63,7 +65,7 @@ export default function SunMoonCard() {
         <div className="mt-1 text-center">
           <div className="text-2xl">{phase.emoji}</div>
           <div className="text-[11px] font-bold">{phase.name} • {phase.illum}%</div>
-          <p className="mt-1 text-[11px] opacity-70">Set position for sunrise & sunset.</p>
+          <p className="mt-1 text-[11px] opacity-70">{t("sm.setPos")}</p>
         </div>
       )}
     </div>

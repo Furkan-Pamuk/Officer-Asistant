@@ -18,6 +18,7 @@ import { DENEMELER_EN as E_UIZ } from "@/lib/exam-data/en/uzakyol-i-zabiti";
 import { DENEMELER_EN as E_UBM } from "@/lib/exam-data/en/uzakyol-bas-muhendis";
 import { DENEMELER_EN as E_UVM } from "@/lib/exam-data/en/uzakyol-vardiya-muhendisi";
 import type { HavuzDeneme } from "@/lib/exams";
+import { useLocale } from "@/lib/i18n";
 
 interface EnSoru { no: number; soru_en: string; siklar_en: string[] }
 interface EnDeneme { ders: string; deneme: number; sorular: EnSoru[] }
@@ -50,6 +51,23 @@ const LS_KEY = "oa-exam-v1";
 
 type Lang = "tr" | "en";
 const LANG_KEY = "oa-exam-lang";
+
+// i18n keys for rank/pool display names (app locale governs the chrome;
+// the TR/EN content toggle below only affects questions/options).
+const RANK_KEY: Record<string, string> = {
+  "makine-zabiti": "exam.rankEng",
+  "uzakyol-bas-muhendis": "exam.rankCE",
+  "uzakyol-i-zabiti": "exam.rankCO",
+  "uzakyol-vardiya-muhendisi": "exam.rankWE",
+  "uzakyol-vardiya-zabiti": "exam.rankWO",
+  "vardiya-zabiti": "exam.rankW",
+  "stcw-temel": "exam.rankBasic",
+};
+const POOL_KEY: Record<string, string> = {
+  "uzakyol-vardiya-zabiti": "exam.poolDeck",
+  "makine-zabiti": "exam.poolEng",
+  "stcw-temel": "exam.poolBasic",
+};
 
 // Display names only — slugs, URLs and answer keys always stay Turkish.
 const RANK_EN: Record<string, string> = {
@@ -119,6 +137,7 @@ function loadCevaplar(): Cevaplar {
 
 function ExamsContent() {
   const params = useSearchParams();
+  const { t } = useLocale();
   const [sel, setSel] = useState({ rank: "", ders: "", denemeNo: 0 });
   const { rank, ders, denemeNo } = sel;
   const meta = EXAM_RANKS.find((r) => r.slug === rank) ?? null;
@@ -168,17 +187,20 @@ function ExamsContent() {
     // Identical source pools merged: one Deck + one Engine pool + STCW.
     const pools = ["uzakyol-vardiya-zabiti", "makine-zabiti", "stcw-temel"];
     const rankBySlug = (s: string) => EXAM_RANKS.find((r) => r.slug === s);
-    const poolAd = (slug: string, ad: string) =>
-      lang === "en" ? (POOL_EN[slug] ?? RANK_EN[slug] ?? ad) : (POOL_TR[slug] ?? ad);
+    const poolAd = (slug: string, ad: string) => {
+      const key = POOL_KEY[slug] ?? RANK_KEY[slug];
+      if (key) return t(key);
+      return lang === "en" ? (POOL_EN[slug] ?? RANK_EN[slug] ?? ad) : (POOL_TR[slug] ?? ad);
+    };
     const dersLine = (r: (typeof EXAM_RANKS)[number]) =>
       r.dersler.map((d) => `${lang === "en" ? (DERS_EN[d.ad] ?? d.ad) : d.ad} (${d.soru})`).join(" • ");
     return (
       <div className="grid gap-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h1 className="text-2xl font-bold">🎓 Exam Prep</h1>
+            <h1 className="text-2xl font-bold">{t("exam.title")}</h1>
             <p className="text-sm font-medium opacity-70">
-              GASM + STCW question bank: {EXAM_TOPLAM_SORU} questions, {EXAM_TOPLAM_DENEME} practice tests. Works offline; your answers stay on this device.
+              {t("exam.sub").replace("{n}", String(EXAM_TOPLAM_SORU)).replace("{m}", String(EXAM_TOPLAM_DENEME))}
             </p>
           </div>
           <LangToggle lang={lang} setLang={setLang} />
@@ -195,7 +217,7 @@ function ExamsContent() {
               >
                 <div className="font-bold">{poolAd(r.slug, r.ad)}</div>
                 <div className="mt-1 text-xs opacity-70">
-                  {r.deneme} tests • {r.soru} questions
+                  {t("exam.cardLine").replace("{n}", String(r.deneme)).replace("{m}", String(r.soru))}
                 </div>
                 <div className="mt-2 text-xs font-bold opacity-70">
                   {dersLine(r)}
@@ -211,8 +233,8 @@ function ExamsContent() {
   if (!yuklendi || !denemeler) {
     return (
       <div className="grid gap-4">
-        <p className="text-sm opacity-70">Loading… (rank={rank || "-"} yuklendi={yuklendi ? "1" : "0"}{hata ? ` hata: ${hata}` : ""})</p>
-        <Link href="/exams" className="text-sm font-bold underline">← All banks</Link>
+        <p className="text-sm opacity-70">{t("exam.loading")} (rank={rank || "-"} yuklendi={yuklendi ? "1" : "0"}{hata ? ` hata: ${hata}` : ""})</p>
+        <Link href="/exams" className="text-sm font-bold underline">{t("exam.allBanks")}</Link>
       </div>
     );
   }
@@ -224,18 +246,18 @@ function ExamsContent() {
     return (
       <div className="grid gap-4">
         <div>
-          <Link href="/exams" className="text-sm font-bold underline">← All banks</Link>
+          <Link href="/exams" className="text-sm font-bold underline">{t("exam.allBanks")}</Link>
           <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
-            <h1 className="text-2xl font-bold">{lang === "en" ? (POOL_EN[meta.slug] ?? RANK_EN[meta.slug] ?? meta.ad) : (POOL_TR[meta.slug] ?? meta.ad)}</h1>
+            <h1 className="text-2xl font-bold">{POOL_KEY[meta.slug] ? t(POOL_KEY[meta.slug]) : meta.ad}</h1>
             <LangToggle lang={lang} setLang={setLang} />
           </div>
-          <p className="text-sm font-medium opacity-70">{meta.deneme} tests • {meta.soru} questions{lang === "en" ? " • machine-translated EN" : ""}</p>
+          <p className="text-sm font-medium opacity-70">{t("exam.countLine").replace("{n}", String(meta.deneme)).replace("{m}", String(meta.soru))}{lang === "en" ? ` • ${t("exam.mtNote")}` : ""}</p>
         </div>
         {dersAdlari.map((d) => {
           const ds = denemeler.filter((x) => x.ders === d).sort((a, b) => a.deneme - b.deneme);
           return (
             <div key={d} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-              <h2 className="font-bold">{lang === "en" ? (DERS_EN[d] ?? d) : d} <span className="text-xs font-medium opacity-60">({ds.reduce((a, x) => a + x.sorular.length, 0)} questions)</span></h2>
+              <h2 className="font-bold">{lang === "en" ? (DERS_EN[d] ?? d) : d} <span className="text-xs font-medium opacity-60">{t("exam.qCount").replace("{n}", String(ds.reduce((a, x) => a + x.sorular.length, 0)))}</span></h2>
               <div className="mt-2 flex flex-wrap gap-2">
                 {ds.map((x) => {
                   const key = `${meta.slug}/${d}/${x.deneme}`;
@@ -246,9 +268,9 @@ function ExamsContent() {
                       key={x.deneme}
                       href={`/exams?rank=${meta.slug}&ders=${encodeURIComponent(d)}&deneme=${x.deneme}`}
                       className={`rounded-full border px-3 py-1.5 text-sm font-bold ${cozulen > 0 ? "border-green-600 bg-green-50 dark:bg-green-950" : "bg-white dark:bg-black"}`}
-                      title={cozulen > 0 ? `${cozulen}/${x.sorular.length} solved` : `${x.sorular.length} questions`}
+                      title={cozulen > 0 ? t("exam.solvedTitle").replace("{s}", String(cozulen)).replace("{t}", String(x.sorular.length)) : `${x.sorular.length} questions`}
                     >
-                      Test {x.deneme}{cozulen > 0 ? ` (${cozulen}/${x.sorular.length})` : ""}
+                      {t("exam.testN").replace("{n}", String(x.deneme))}{cozulen > 0 ? ` (${cozulen}/${x.sorular.length})` : ""}
                     </Link>
                   );
                 })}
@@ -265,8 +287,8 @@ function ExamsContent() {
   if (!aktif) {
     return (
       <div className="grid gap-4">
-        <p className="text-sm opacity-70">Test not found.</p>
-        <Link href={`/exams?rank=${meta.slug}`} className="text-sm font-bold underline">← {meta.ad}</Link>
+        <p className="text-sm opacity-70">{t("exam.notFound")}</p>
+        <Link href={`/exams?rank=${meta.slug}`} className="text-sm font-bold underline">← {POOL_KEY[meta.slug] ? t(POOL_KEY[meta.slug]) : meta.ad}</Link>
       </div>
     );
   }
@@ -284,9 +306,14 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
   enListe: EnDeneme[];
 }) {
   const ans = useMemo(() => cevaplar[anahtar] ?? {}, [cevaplar, anahtar]);
+  const { t } = useLocale();
   const [slug, ders] = anahtar.split("/");
   const kardes = deneme.deneme;
-  const rankAd = lang === "en" ? (POOL_EN[slug] ?? RANK_EN[slug] ?? metaAd) : (POOL_TR[slug] ?? metaAd);
+  const rankAd = (() => {
+    const key = POOL_KEY[slug] ?? RANK_KEY[slug];
+    if (key) return t(key);
+    return lang === "en" ? (POOL_EN[slug] ?? RANK_EN[slug] ?? metaAd) : (POOL_TR[slug] ?? metaAd);
+  })();
   const dersAd = lang === "en" ? (DERS_EN[deneme.ders] ?? deneme.ders) : deneme.ders;
   const enDeneme = useMemo(
     () => enListe.find((d) => d.ders === deneme.ders && d.deneme === deneme.deneme) ?? null,
@@ -324,7 +351,7 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
     kaydet(anahtar, { ...ans, [no]: i });
   }
   function temizle() {
-    if (!confirm("Clear your answers in this test?")) return;
+    if (!confirm(t("exam.clearConfirm"))) return;
     kaydet(anahtar, {});
   }
 
@@ -333,11 +360,11 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
       <div>
         <Link href={`/exams?rank=${slug}`} className="text-sm font-bold underline">← {rankAd}</Link>
         <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
-          <h1 className="text-2xl font-bold">{dersAd} — Test {deneme.deneme}</h1>
+          <h1 className="text-2xl font-bold">{dersAd} — {t("exam.testN").replace("{n}", String(deneme.deneme))}</h1>
           <LangToggle lang={lang} setLang={setLang} />
         </div>
         <p className="text-sm font-medium opacity-70">
-          <a href={deneme.kaynak_url} target="_blank" rel="noreferrer" className="underline">Source</a> • {deneme.sorular.length} questions
+          <a href={deneme.kaynak_url} target="_blank" rel="noreferrer" className="underline">{t("exam.source")}</a> {t("exam.srcQ").replace("{n}", String(deneme.sorular.length))}
         </p>
       </div>
 
@@ -345,10 +372,10 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
         <div className="flex flex-wrap items-center gap-2 text-sm font-bold">
           <span className="text-green-700">✓ {dogru}</span>
           <span className="text-red-600">✗ {yanlis}</span>
-          <span className="opacity-60">Blank {bos}</span>
-          {anahtarsiz > 0 && <span className="text-amber-600">No key {anahtarsiz}</span>}
+          <span className="opacity-60">{t("exam.blank").replace("{n}", String(bos))}</span>
+          {anahtarsiz > 0 && <span className="text-amber-600">{t("exam.nokey").replace("{n}", String(anahtarsiz))}</span>}
           <span className="ml-auto">%{yuzde}</span>
-          <button onClick={temizle} className="rounded-full border px-3 py-1 text-xs">Clear</button>
+          <button onClick={temizle} className="rounded-full border px-3 py-1 text-xs">{t("exam.clear")}</button>
         </div>
         <div className="mt-2 h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-neutral-800">
           <div className="h-full bg-green-600" style={{ width: `${deneme.sorular.length ? Math.round(((dogru + yanlis + anahtarsiz) / deneme.sorular.length) * 100) : 0}%` }} />
@@ -370,21 +397,21 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
         {deneme.sorular.map((s) => {
           const secim = ans[s.no];
           const biliniyor = s.cevap != null;
-          const t = goster(s);
+          const disp = goster(s);
           return (
             <div key={s.no} id={`soru-${s.no}`} className="scroll-mt-32 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
               <div className="flex items-start gap-2">
                 <span className="rounded-full bg-stone-900 px-2 py-0.5 text-xs font-black text-amber-50 dark:bg-red-700 dark:text-white">{s.no}</span>
-                <p className="flex-1 text-sm font-medium">{t.soru}</p>
+                <p className="flex-1 text-sm font-medium">{disp.soru}</p>
                 {secim != null && (biliniyor ? (secim === s.cevap ? <span className="text-green-700">✓</span> : <span className="text-red-600">✗</span>) : <span className="text-amber-600">?</span>)}
               </div>
               {s.gorsel.length > 0 && (
                 <p className="mt-2 rounded-xl bg-amber-50 px-3 py-2 text-xs dark:bg-black">
-                  🖼️ Question image not in the offline pack: {s.gorsel.join(", ")}
+                  {t("exam.imgMissing").replace("{f}", s.gorsel.join(", "))}
                 </p>
               )}
               <div className="mt-2 grid gap-1.5">
-                {t.siklar.map((sik, i) => {
+                {disp.siklar.map((sik, i) => {
                   const n = i + 1;
                   let cls = "border bg-white dark:bg-black";
                   if (secim != null && biliniyor) {
@@ -407,7 +434,7 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
                 })}
               </div>
               {secim != null && !biliniyor && (
-                <p className="mt-2 text-xs font-bold text-amber-600">No official answer key for this question — excluded from scoring, never made up.</p>
+                <p className="mt-2 text-xs font-bold text-amber-600">{t("exam.noKey")}</p>
               )}
             </div>
           );
@@ -417,11 +444,11 @@ function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enList
       <div className="flex flex-wrap gap-2">
         {kardes > 1 && (
           <Link href={`/exams?rank=${slug}&ders=${encodeURIComponent(ders)}&deneme=${kardes - 1}`} className="rounded-full border px-4 py-2 text-sm font-bold">
-            ← Test {kardes - 1}
+            {t("exam.prev").replace("{n}", String(kardes - 1))}
           </Link>
         )}
         <Link href={`/exams?rank=${slug}&ders=${encodeURIComponent(ders)}&deneme=${kardes + 1}`} className="rounded-full border px-4 py-2 text-sm font-bold">
-          Test {kardes + 1} →
+          {t("exam.next").replace("{n}", String(kardes + 1))}
         </Link>
       </div>
     </div>

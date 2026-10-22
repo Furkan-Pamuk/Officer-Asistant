@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 import { BULKS, searchBulks } from "@/lib/imsbc-data";
 
 const GROUPS = ["All", "A", "B", "C"] as const;
@@ -11,6 +12,7 @@ const GROUP_TONE: Record<string, string> = {
 };
 
 export default function BulkBooklet() {
+  const { t } = useLocale();
   const [q, setQ] = useState("");
   const [g, setG] = useState<string>("All");
   const results = useMemo(() => {
@@ -21,18 +23,18 @@ export default function BulkBooklet() {
   return (
     <div className="grid gap-4">
       <div>
-        <h1 className="text-2xl font-bold">🧱 Solid Bulk Booklet (IMSBC)</h1>
+        <h1 className="text-2xl font-bold">{t("bulk.title")}</h1>
         <p className="text-sm text-slate-600">
-          Search by cargo name, schedule or UN number. {BULKS.length} common solid bulk cargoes.
-          Groups verified against IMSBC schedules — guidance is paraphrased; the Code and shipper certificates govern.
+          {t("bulk.sub1")} {t("bulk.sub2").replace("{n}", String(BULKS.length))}
+          {t("bulk.sub3")}
         </p>
       </div>
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Type cargo name, schedule or UN no. — e.g. coal, nickel, 1408…"
+        placeholder={t("bulk.searchPh")}
         className="w-full rounded-2xl border bg-white px-4 py-2.5 text-sm outline-none focus:border-slate-500"
-        aria-label="Search solid bulk cargoes"
+        aria-label={t("bulk.searchAria")}
       />
       <div className="flex flex-wrap gap-1.5">
         {GROUPS.map((c) => (
@@ -41,11 +43,11 @@ export default function BulkBooklet() {
             onClick={() => setG(c)}
             className={`rounded-full px-3 py-1 text-xs font-bold ${g === c ? "bg-slate-900 text-white" : "border bg-white text-slate-600"}`}
           >
-            {c === "All" ? "All groups" : `Group ${c}`}
+            {c === "All" ? t("bulk.allGroups") : t("bulk.groupN").replace("{g}", c)}
           </button>
         ))}
       </div>
-      <p className="text-xs text-slate-500">{results.length} cargo{results.length === 1 ? "" : "es"}</p>
+      <p className="text-xs text-slate-500">{t("bulk.count").replace("{n}", String(results.length))}</p>
       <div className="grid gap-2 md:grid-cols-2">
         {results.map((b) => (
           <Link key={b.slug} href={`/bulks/${b.slug}`} className="rounded-2xl border bg-white p-3 hover:border-slate-500">
@@ -62,7 +64,7 @@ export default function BulkBooklet() {
         ))}
       </div>
       {results.length === 0 && (
-        <p className="text-sm text-slate-500">No cargo found. Check spelling, or confirm the Bulk Cargo Shipping Name in IMSBC Appendix 1.</p>
+        <p className="text-sm text-slate-500">{t("bulk.noMatch")}</p>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { db, getActiveContractId, uid, exportJSON } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import type { BellArchive, BellSide } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 const ENGINE_AHEAD = ["Full Ahead", "Half Ahead", "Slow Ahead", "Dead Slow Ahead"];
 const ENGINE_ASTERN = ["Dead Slow Astern", "Slow Astern", "Half Astern", "Full Astern"];
@@ -91,6 +92,7 @@ function readFix(): Promise<{ lat: number; lon: number; fresh: boolean } | null>
 }
 
 export default function BellBookPage() {
+  const { t } = useLocale();
   const [contractId] = useState<string | null>(() => getActiveContractId());
   const entries = useLiveQuery(
     () => (contractId ? db.bellLog.where("contractId").equals(contractId).toArray() : Promise.resolve([])),
@@ -147,7 +149,7 @@ export default function BellBookPage() {
 
   async function saveSnapshot() {
     if (!contractId || log.length === 0) return;
-    const title = saveTitle.trim() || `Bell log ${fmt(new Date().toISOString()).slice(0, 16)}`;
+    const title = saveTitle.trim() || t("bell.snapshot").replace("{x}", fmt(new Date().toISOString()).slice(0, 16));
     await db.bellArchive.add({
       id: uid("bellarc"),
       contractId,
@@ -157,7 +159,7 @@ export default function BellBookPage() {
       entries: log.map((e) => ({ ...e })),
     });
     setSaveTitle("");
-    if (window.confirm("Snapshot saved to archive. Clear the live log to start fresh?")) {
+    if (window.confirm(t("bell.confirmClear"))) {
       await db.bellLog.where("contractId").equals(contractId).delete();
     }
   }
@@ -172,16 +174,16 @@ export default function BellBookPage() {
     } catch {
       try {
         await navigator.clipboard.writeText(archiveText(a));
-        alert("Archive copied — paste it anywhere.");
+        alert(t("bell.copied"));
       } catch {
-        alert("Sharing not available here.");
+        alert(t("common.noShare"));
       }
     }
   }
 
   async function restoreArchive(a: BellArchive) {
     if (!contractId) return;
-    if (!window.confirm(`Replace the current live log with "${a.title}" (${a.count} entries)?`)) return;
+    if (!window.confirm(t("bell.confirmRestore").replace("{t}", a.title).replace("{n}", String(a.count)))) return;
     await db.bellLog.where("contractId").equals(contractId).delete();
     await db.bellLog.bulkAdd(a.entries.map((e) => ({ ...e })));
   }
@@ -197,9 +199,9 @@ export default function BellBookPage() {
     } catch {
       try {
         await navigator.clipboard.writeText(text);
-        alert("Bell log copied — paste it anywhere.");
+        alert(t("bell.copiedLive"));
       } catch {
-        alert("Sharing not available here.");
+        alert(t("common.noShare"));
       }
     }
   }
@@ -207,9 +209,9 @@ export default function BellBookPage() {
   if (!contractId) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">🔔 Bell Book</h1>
-        <p className="text-sm">Select a contract first — bell orders are kept per vessel.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("bell.title")}</h1>
+        <p className="text-sm">{t("bell.needVessel")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -247,9 +249,9 @@ export default function BellBookPage() {
       <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
         <h2 className="text-center font-black tracking-wide">{title}</h2>
         <div className="mt-2 grid grid-cols-[1fr_auto_1fr] gap-2 text-center text-xs font-black opacity-80">
-          <span>◀ PORT</span>
+          <span>{t("bell.port")}</span>
           <span />
-          <span>STBD ▶</span>
+          <span>{t("bell.stbd")}</span>
         </div>
         <div className="mt-1 grid grid-cols-[1fr_auto_1fr] items-stretch gap-2">
           <div className="grid gap-2">
@@ -257,7 +259,7 @@ export default function BellBookPage() {
               <button key={`p-${c}`} onClick={() => record("thruster", `${tag} Port ${c}`)} aria-label={`${tag} Port ${c}`} className={`${port}${(tag === "Bow" ? lastBow : lastStern) === `Port ${c}` ? " ring-4 ring-white/80" : ""}`}>{c}</button>
             ))}
           </div>
-          <button onClick={() => record("thruster", `${tag} Stop`)} className={`${stop} self-center px-5${(tag === "Bow" ? lastBow : lastStern) === "Stop" ? " ring-4 ring-red-500" : ""}`}>■ STOP</button>
+          <button onClick={() => record("thruster", `${tag} Stop`)} className={`${stop} self-center px-5${(tag === "Bow" ? lastBow : lastStern) === "Stop" ? " ring-4 ring-red-500" : ""}`}>{t("bell.stop")}</button>
           <div className="grid gap-2">
             {THRUSTER_STEPS.map((c) => (
               <button key={`s-${c}`} onClick={() => record("thruster", `${tag} Starboard ${c}`)} aria-label={`${tag} Starboard ${c}`} className={`${stbd}${(tag === "Bow" ? lastBow : lastStern) === `Starboard ${c}` ? " ring-4 ring-white/80" : ""}`}>{c}</button>
@@ -272,37 +274,37 @@ export default function BellBookPage() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">🔔 Bell Book</h1>
-          <p className="text-sm font-medium opacity-70">Tap an order — it is logged below with date and time.</p>
+          <h1 className="text-2xl font-bold">{t("bell.title")}</h1>
+          <p className="text-sm font-medium opacity-70">{t("bell.tapOrder")}</p>
         </div>
         <div className="flex gap-2 print:hidden">
           <button
             onClick={() => exportJSON(`bell-book-${contractId}.json`, { entries: log })}
             className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black"
           >
-            Export
+            {t("common.export")}
           </button>
-          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 Share</button>
-          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ Print</button>
+          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
         </div>
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
-        <StatusBox label="🚢 ENGINE" value={lastEngine} sub={log.find((e) => e.side === "engine") ? fmt(log.find((e) => e.side === "engine")!.at) : undefined} />
-        <StatusBox label="🌀 BOW" value={lastBow} sub={lastBowEntry ? fmt(lastBowEntry.at) : undefined} />
-        <StatusBox label="🌀 STERN" value={lastStern} sub={lastSternEntry ? fmt(lastSternEntry.at) : undefined} />
-        <StatusBox label="🧭 LAST EVENT" value={lastEvent?.command} sub={lastEvent ? fmt(lastEvent.at) : undefined} />
+        <StatusBox label={t("bell.engine")} value={lastEngine} sub={log.find((e) => e.side === "engine") ? fmt(log.find((e) => e.side === "engine")!.at) : undefined} />
+        <StatusBox label={t("bell.bow")} value={lastBow} sub={lastBowEntry ? fmt(lastBowEntry.at) : undefined} />
+        <StatusBox label={t("bell.stern")} value={lastStern} sub={lastSternEntry ? fmt(lastSternEntry.at) : undefined} />
+        <StatusBox label={t("bell.last")} value={lastEvent?.command} sub={lastEvent ? fmt(lastEvent.at) : undefined} />
       </div>
 
       <div className="grid gap-4 print:hidden md:grid-cols-2 xl:grid-cols-3">
         <div className="grid content-start gap-4">
           <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
-            <h2 className="text-center font-black tracking-wide">🚢 MAIN ENGINE</h2>
+            <h2 className="text-center font-black tracking-wide">{t("bell.mainEngine")}</h2>
             <div className="mx-auto mt-3 grid w-full max-w-[240px] gap-2">
               {ENGINE_AHEAD.map((c) => (
                 <button key={c} onClick={() => record("engine", c)} className={`${ahead}${lastEngine === c ? " ring-4 ring-white/80" : ""}`}>{c.toUpperCase()}</button>
               ))}
-              <button onClick={() => record("engine", "Stop")} className={`${stop}${lastEngine === "Stop" ? " ring-4 ring-red-500" : ""}`}>■ STOP</button>
+              <button onClick={() => record("engine", "Stop")} className={`${stop}${lastEngine === "Stop" ? " ring-4 ring-red-500" : ""}`}>{t("bell.stop")}</button>
               {ENGINE_ASTERN.map((c) => (
                 <button key={c} onClick={() => record("engine", c)} className={`${astern}${lastEngine === c ? " ring-4 ring-white/80" : ""}`}>{c.toUpperCase()}</button>
               ))}
@@ -311,16 +313,16 @@ export default function BellBookPage() {
         </div>
 
         <div className="grid content-start gap-4">
-          <ThrusterPanel title="🌀 BOW THRUSTER" tag="Bow" />
-          <ThrusterPanel title="🌀 STERN THRUSTER" tag="Stern" />
+          <ThrusterPanel title={t("bell.bowThruster")} tag="Bow" />
+          <ThrusterPanel title={t("bell.sternThruster")} tag="Stern" />
         </div>
 
         <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 md:col-span-2 xl:col-span-1 dark:border-red-800 dark:bg-black dark:text-red-200">
-          <h2 className="text-center font-black tracking-wide">🧭 EVENTS LOGBOOK</h2>
-          <p className="mt-1 text-center text-xs font-medium opacity-70">Tap = timestamp + GPS position (DMS).</p>
+          <h2 className="text-center font-black tracking-wide">{t("bell.events")}</h2>
+          <p className="mt-1 text-center text-xs font-medium opacity-70">{t("bell.tapGps")}</p>
           {EVENT_GROUPS.map((g) => (
             <details key={g.title} className="mt-2 rounded-xl border border-white/20" open={g.title === "Manoeuvring"}>
-              <summary className="cursor-pointer px-2 py-1.5 text-xs font-black tracking-widest opacity-80">{g.title.toUpperCase()}</summary>
+              <summary className="cursor-pointer px-2 py-1.5 text-xs font-black tracking-widest opacity-80">{(g.title === "Manoeuvring" ? t("bell.gManoeuvring") : g.title === "Anchor" ? t("bell.gAnchor") : g.title === "Pilot & Tugs" ? t("bell.gPilot") : t("bell.gBerth")).toUpperCase()}</summary>
               <div className="grid gap-1.5 px-2 pb-2">
                 {g.items.map((it) => (
                   <button
@@ -338,12 +340,12 @@ export default function BellBookPage() {
       </div>
 
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-        <h2 className="font-bold">📋 Bell log {log.length > 0 && <span className="opacity-60">({log.length})</span>}</h2>
+        <h2 className="font-bold">{t("bell.logN").replace("{n}", String(log.length))}</h2>
         <div className="mt-2 flex flex-wrap gap-2 print:hidden">
           <input
             value={saveTitle}
             onChange={(e) => setSaveTitle(e.target.value)}
-            placeholder="Archive title (e.g. Arrival Rotterdam)"
+            placeholder={t("bell.archPh")}
             className="min-w-52 flex-1 rounded-xl border px-3 py-1.5 text-sm"
           />
           <button
@@ -351,22 +353,22 @@ export default function BellBookPage() {
             disabled={log.length === 0}
             className="rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 disabled:opacity-40 dark:bg-red-700 dark:text-white"
           >
-            💾 Save snapshot
+            {t("bell.saveSnap")}
           </button>
         </div>
         {log.length === 0 ? (
-          <p className="mt-2 text-sm opacity-70">No orders yet — tap a telegraph button above.</p>
+          <p className="mt-2 text-sm opacity-70">{t("bell.noOrders")}</p>
         ) : (
           <ul className="mt-2 grid max-h-[55vh] gap-1 overflow-y-auto pr-1 text-sm">
             {log.map((e) => (
               <li key={e.id} className="flex flex-wrap items-center gap-2 rounded-lg bg-amber-50 px-2 py-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">
                 <span className="rounded-full bg-stone-900 px-2 py-0.5 font-mono text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">{fmt(e.at)}</span>
-                <span className="rounded-full border px-2 py-0.5 text-xs font-bold">{e.side === "engine" ? "🚢 Engine" : e.side === "event" ? "🧭 Event" : "🌀 Thruster"}</span>
+                <span className="rounded-full border px-2 py-0.5 text-xs font-bold">{e.side === "engine" ? t("bell.bEngine") : e.side === "event" ? t("bell.bEvent") : t("bell.bThruster")}</span>
                 <span className="flex-1 font-bold">{e.command}</span>
-                <button onClick={() => db.bellLog.delete(e.id)} title="Delete entry" className="rounded-full border px-2 py-0.5 text-xs print:hidden">✕</button>
+                <button onClick={() => db.bellLog.delete(e.id)} title={t("bell.delEntry")} className="rounded-full border px-2 py-0.5 text-xs print:hidden">✕</button>
                 {e.side === "event" && (
                   <span className="w-full font-mono text-[11px] opacity-70">
-                    📍 {e.lat != null && e.lon != null ? `${dms(e.lat, e.lon)}${e.fix === "cached" ? " (last known)" : ""}` : "no fix"}
+                    📍 {e.lat != null && e.lon != null ? `${dms(e.lat, e.lon)}${e.fix === "cached" ? ` ${t("bell.lastKnown")}` : ""}` : t("bell.noFix")}
                   </span>
                 )}
               </li>
@@ -376,9 +378,9 @@ export default function BellBookPage() {
       </div>
 
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-        <h2 className="font-bold">🗄️ Log archive {(archives?.length ?? 0) > 0 && <span className="opacity-60">({archives!.length})</span>}</h2>
+        <h2 className="font-bold">{t("bell.archiveN").replace("{n}", String(archives?.length ?? 0))}</h2>
         {(archives?.length ?? 0) === 0 ? (
-          <p className="mt-1 text-sm opacity-70">No saved snapshots yet — save the live log above to archive it per voyage or manoeuvre.</p>
+          <p className="mt-1 text-sm opacity-70">{t("bell.noSnap")}</p>
         ) : (
           <div className="mt-2 grid gap-2">
             {[...archives!].sort((a, b) => b.savedAt.localeCompare(a.savedAt)).map((a) => {
@@ -388,7 +390,7 @@ export default function BellBookPage() {
                   <button onClick={() => setOpenArchive(isOpen ? null : a.id)} className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm">
                     <span className="flex-1">
                       <span className="block font-black">{a.title}</span>
-                      <span className="block font-mono text-[11px] opacity-60">{fmt(a.savedAt)} • {a.count} entries</span>
+                      <span className="block font-mono text-[11px] opacity-60">{t("bell.archMeta").replace("{d}", fmt(a.savedAt)).replace("{n}", String(a.count))}</span>
                     </span>
                     <span className="font-black">{isOpen ? "▴" : "▾"}</span>
                   </button>
@@ -398,16 +400,16 @@ export default function BellBookPage() {
                         {[...a.entries].sort((x, y) => b_cmp(x.at, y.at)).map((e) => (
                           <li key={e.id} className="flex flex-wrap items-center gap-2 rounded-lg bg-amber-50 px-2 py-1.5 dark:bg-black">
                             <span className="rounded-full bg-stone-900 px-2 py-0.5 font-mono text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">{fmt(e.at)}</span>
-                            <span className="rounded-full border px-2 py-0.5 text-xs font-bold">{e.side === "engine" ? "🚢 Engine" : e.side === "event" ? "🧭 Event" : "🌀 Thruster"}</span>
+                            <span className="rounded-full border px-2 py-0.5 text-xs font-bold">{e.side === "engine" ? t("bell.bEngine") : e.side === "event" ? t("bell.bEvent") : t("bell.bThruster")}</span>
                             <span className="flex-1 font-bold">{e.command}</span>
                           </li>
                         ))}
                       </ul>
                       <div className="mt-2 flex flex-wrap gap-2 print:hidden">
-                        <button onClick={() => exportJSON(`bell-archive-${a.id}.json`, { title: a.title, savedAt: a.savedAt, entries: a.entries })} className="rounded-full border px-3 py-1 text-xs font-bold">Export</button>
-                        <button onClick={() => shareArchive(a)} className="rounded-full border px-3 py-1 text-xs font-bold">📤 Share</button>
-                        <button onClick={() => restoreArchive(a)} className="rounded-full border px-3 py-1 text-xs font-bold">↩ Restore to live log</button>
-                        <button onClick={() => { if (window.confirm(`Delete archive "${a.title}"?`)) db.bellArchive.delete(a.id); }} className="rounded-full border border-red-400 px-3 py-1 text-xs font-bold text-red-700">Delete</button>
+                        <button onClick={() => exportJSON(`bell-archive-${a.id}.json`, { title: a.title, savedAt: a.savedAt, entries: a.entries })} className="rounded-full border px-3 py-1 text-xs font-bold">{t("common.export")}</button>
+                        <button onClick={() => shareArchive(a)} className="rounded-full border px-3 py-1 text-xs font-bold">📤 {t("common.share")}</button>
+                        <button onClick={() => restoreArchive(a)} className="rounded-full border px-3 py-1 text-xs font-bold">{t("bell.restore")}</button>
+                        <button onClick={() => { if (window.confirm(t("bell.delArch").replace("{t}", a.title))) db.bellArchive.delete(a.id); }} className="rounded-full border border-red-400 px-3 py-1 text-xs font-bold text-red-700">{t("common.delete")}</button>
                       </div>
                     </div>
                   )}

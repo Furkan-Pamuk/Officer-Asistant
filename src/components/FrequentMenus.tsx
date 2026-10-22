@@ -1,17 +1,19 @@
 "use client";
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-
-const LABELS: Record<string, string> = {
-  "/dashboard": "🏠 Dashboard", "/inspections": "🧭 Inspections",
-  "/checklists": "✅ Checklists", "/notes": "📝 Notes", "/requests": "📦 Requests",
-  "/menu": "🍽️ Menu", "/contracts": "📄 Contracts", "/library": "📚 Library",
-  "/news": "📰 News", "/contact": "✉️ Contact", "/profile?tab=settings": "⚙️ Settings",
-  "/pricing": "💳 Pricing", "/crew-accounts": "💰 Crew Accounts",
-};
+import { useLocale } from "@/lib/i18n";
 
 function Inner() {
+  const { t } = useLocale();
+  const LABELS: Record<string, string> = {
+    "/dashboard": t("fm.dash"), "/inspections": t("fm.insp"),
+    "/checklists": t("fm.chk"), "/notes": t("dashboard.notes"), "/requests": t("fm.req"),
+    "/menu": t("fm.menu"), "/contracts": t("fm.contracts"), "/library": t("fm.library"),
+    "/news": t("fm.news"), "/contact": t("fm.contact"), "/profile?tab=settings": t("profile.tabSettings"),
+    "/pricing": t("fm.pricing"), "/crew-accounts": t("fm.crew"),
+  };
   const path = usePathname();
   const [top, setTop] = useState<string[]>([]);
 
@@ -31,7 +33,7 @@ function Inner() {
   if (top.length === 0) return null;
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-3 dark:border-red-950 dark:bg-neutral-950">
-      <div className="text-xs font-black uppercase tracking-widest opacity-60">⚡ Frequent</div>
+      <div className="text-xs font-black uppercase tracking-widest opacity-60">{t("fm.frequent")}</div>
       <div className="mt-1.5 flex flex-wrap gap-1.5">
         {top.filter((p) => LABELS[p]).map((p) => (
           <Link key={p} href={p} className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-bold dark:bg-red-950 dark:text-red-200">

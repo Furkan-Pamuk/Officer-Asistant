@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 export default function ThemeToggle() {
+  const { t } = useLocale();
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       className="rounded-full border border-slate-300 bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-900 dark:border-red-900 dark:bg-red-950 dark:text-red-200"
-      aria-label="Toggle night mode"
+      aria-label={t("theme.toggle")}
     >
-      {dark ? "🔴 Night" : "☀️ Day"}
+      {dark ? t("theme.night") : t("theme.day")}
     </button>
   );
 }

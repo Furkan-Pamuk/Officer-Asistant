@@ -9,6 +9,7 @@ import { FlagFigure, MorseCode } from "@/components/SignalFlags";
 import { CardinalGrid, LateralRow, OtherMarksRow, RhythmList } from "@/components/BuoyDiagrams";
 import { BeaufortTable, CloudGallery, FrontSymbols, TwelfthsStrip } from "@/components/WeatherDiagrams";
 import { Sym } from "@/components/ChartSymbols";
+import { useLocale } from "@/lib/i18n";
 
 const SIG_KEY = "oa-navdoc-sig";
 const TICK_KEY = "oa-navdoc-ticks";
@@ -29,14 +30,14 @@ function loadTicks(): Record<string, boolean> {
   } catch { return {}; }
 }
 
-async function shareText(title: string, text: string) {
+async function shareText(title: string, text: string, t: (key: string) => string) {
   try {
     if (navigator.share) {
       await navigator.share({ title, text });
       return;
     }
     await navigator.clipboard.writeText(text);
-    alert("Copied — paste anywhere to share.");
+    alert(t("doc.copied"));
   } catch { /* user cancelled or clipboard blocked */ }
 }
 
@@ -51,6 +52,7 @@ function buildOrdersText(): string {
 
 function Orders() {
   const [sig, setSig] = useState<Sig>({ vessel: "", master: "", date: "" });
+  const { t } = useLocale();
   useEffect(() => { setSig(loadSig()); }, []);
   function save(next: Sig) {
     setSig(next);
@@ -61,19 +63,19 @@ function Orders() {
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("Master Standing Orders", buildOrdersText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("Master Standing Orders", buildOrdersText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 text-sm dark:border-red-950 dark:bg-neutral-950 print:border-black">
-        <h2 className="font-black">✍️ Master's signature block</h2>
-        <p className="mt-1 opacity-70">Shown on print. Standing orders take effect only when signed by the Master.</p>
+        <h2 className="font-black">{t("doc.signBlock")}</h2>
+        <p className="mt-1 opacity-70">{t("doc.signHint")}</p>
         <div className="mt-2 grid gap-2 sm:grid-cols-3 print:hidden">
-          <input value={sig.vessel} onChange={(e) => save({ ...sig, vessel: e.target.value })} placeholder="M/V …" className={inp} />
-          <input value={sig.master} onChange={(e) => save({ ...sig, master: e.target.value })} placeholder="Master's name" className={inp} />
+          <input value={sig.vessel} onChange={(e) => save({ ...sig, vessel: e.target.value })} placeholder={t("doc.vesselPh")} className={inp} />
+          <input value={sig.master} onChange={(e) => save({ ...sig, master: e.target.value })} placeholder={t("doc.masterPh")} className={inp} />
           <input type="date" value={sig.date} onChange={(e) => save({ ...sig, date: e.target.value })} className={inp} />
         </div>
         <div className="mt-3 hidden border-t border-amber-200 pt-2 font-bold print:block dark:border-red-950">
-          M/V {sig.vessel || "…………"} — Master: {sig.master || "…………"} — Date: {sig.date || "…………"}
+          {t("doc.printHead").replace("{v}", sig.vessel || "…………").replace("{m}", sig.master || "…………").replace("{d}", sig.date || "…………")}
         </div>
       </div>
       {MASTER_STANDING_ORDERS.map((g, gi) => (
@@ -89,7 +91,7 @@ function Orders() {
           </ol>
         </div>
       ))}
-      <p className="text-xs opacity-60 print:block">Generic good-seamanship orders per ICS Bridge Procedures Guide — adapt to vessel SMS and sign on board. Always follow the official SMS.</p>
+      <p className="text-xs opacity-60 print:block">{t("doc.smsHint")}</p>
     </div>
   );
 }
@@ -103,6 +105,7 @@ function buildCardText(c: EmergencyCard): string {
 function Cards() {
   const [ticks, setTicks] = useState<Record<string, boolean>>({});
   const [open, setOpen] = useState<string | null>("fire");
+  const { t } = useLocale();
   useEffect(() => { setTicks(loadTicks()); }, []);
   function toggle(key: string) {
     const next = { ...ticks, [key]: !ticks[key] };
@@ -119,8 +122,8 @@ function Cards() {
   return (
     <div className="grid gap-3">
       <div className="flex flex-wrap items-center gap-2 print:hidden">
-        <p className="flex-1 text-sm opacity-70">Tick steps during drills — ticks are saved on this device.</p>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <p className="flex-1 text-sm opacity-70">{t("doc.tickHint")}</p>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       {EMERGENCY_CARDS.map((c) => {
         const done = c.steps.filter((_, i) => ticks[`${c.id}:${i}`]).length;
@@ -154,12 +157,12 @@ function Cards() {
                 </ol>
                 <div className="mt-3 grid gap-1 text-sm">
                   <div className="rounded-xl bg-white px-3 py-2 ring-1 ring-amber-200 dark:bg-black dark:ring-red-950 print:ring-0">
-                    <strong>After: </strong>{c.after.join(" • ")}
+                    <strong>{t("doc.after")}</strong>{c.after.join(" • ")}
                   </div>
                   <div className="px-1 text-xs font-bold opacity-60">📖 {c.reference}</div>
                 </div>
-                <button onClick={() => resetCard(c.id)} className="mt-2 rounded-full border px-3 py-1 text-xs font-bold print:hidden">↺ Reset ticks</button>
-                <button onClick={() => shareText(`Emergency Card — ${c.title}`, buildCardText(c))} className="ml-2 mt-2 rounded-full border bg-white px-3 py-1 text-xs font-bold dark:bg-black print:hidden">📤 Share card</button>
+                <button onClick={() => resetCard(c.id)} className="mt-2 rounded-full border px-3 py-1 text-xs font-bold print:hidden">{t("doc.resetTicks")}</button>
+                <button onClick={() => shareText(`Emergency Card — ${c.title}`, buildCardText(c), t)} className="ml-2 mt-2 rounded-full border bg-white px-3 py-1 text-xs font-bold dark:bg-black print:hidden">{t("doc.shareCard")}</button>
               </div>
             )}
           </div>
@@ -176,11 +179,12 @@ function buildLightsText(): string {
 }
 
 function LightsBuoys() {
+  const { t } = useLocale();
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("Lights & Buoys — working notes", buildLightsText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("Lights & Buoys — working notes", buildLightsText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       {LIGHTS_BUOYS.map((s, i) => (
         <div key={s.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
@@ -196,7 +200,7 @@ function LightsBuoys() {
           {i === 3 && <RhythmList />}
         </div>
       ))}
-      <p className="text-xs opacity-60">Study/reference notes per IALA Maritime Buoyage System + Admiralty List of Lights conventions — always confirm with the current chart and List of Lights.</p>
+      <p className="text-xs opacity-60">{t("doc.buoyHint")}</p>
     </div>
   );
 }
@@ -208,11 +212,12 @@ function buildSymbolsText(): string {
 }
 
 function ChartSymbols() {
+  const { t } = useLocale();
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("Chart symbols — paper & ECDIS", buildSymbolsText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("Chart symbols — paper & ECDIS", buildSymbolsText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       {CHART_SYMBOLS.map((g, i) => (
         <div key={g.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
@@ -227,7 +232,7 @@ function ChartSymbols() {
           </div>
         </div>
       ))}
-      <p className="text-xs opacity-60">Schematic drawings per INT1 (paper) + S-52 (ECDIS) conventions — always confirm with the current chart and List of Lights.</p>
+      <p className="text-xs opacity-60">{t("doc.symHint")}</p>
     </div>
   );
 }
@@ -239,18 +244,19 @@ function buildWeatherText(): string {
 }
 
 function WeatherSea() {
+  const { t } = useLocale();
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("Weather & Sea — working notes", buildWeatherText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("Weather & Sea — working notes", buildWeatherText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-        <h2 className="font-black">☁️ 1. Cloud types — read the sky</h2>
+        <h2 className="font-black">{t("doc.wxCloud")}</h2>
         <CloudGallery />
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-        <h2 className="font-black">🌪️ 2. Beaufort scale — wind & shipboard action</h2>
+        <h2 className="font-black">{t("doc.wxBft")}</h2>
         <BeaufortTable />
       </div>
       {WEATHER_NOTES.map((s, i) => (
@@ -265,7 +271,7 @@ function WeatherSea() {
           {i === 1 && <TwelfthsStrip />}
         </div>
       ))}
-      <p className="text-xs opacity-60">Working notes per WMO cloud atlas + standard seamanship practice — always use official forecasts (NAVTEX, SafetyNET, MSI) for decisions.</p>
+      <p className="text-xs opacity-60">{t("doc.wxHint")}</p>
     </div>
   );
 }
@@ -278,11 +284,12 @@ function buildSignalsText(): string {
 }
 
 function Signals() {
+  const { t } = useLocale();
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("Phonetic alphabet + signal flags", buildSignalsText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("Phonetic alphabet + signal flags", buildSignalsText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       <div className="grid gap-2 sm:grid-cols-2">
         {PHONETIC.map((p) => (
@@ -298,7 +305,7 @@ function Signals() {
         ))}
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-        <h2 className="font-black">🔢 Numeral pennants</h2>
+        <h2 className="font-black">{t("doc.numPenn")}</h2>
         <div className="mt-2 flex flex-wrap gap-3">
           {PHONETIC_NUMERALS.map((n) => (
             <div key={n.digit} className="grid justify-items-center gap-1 text-xs font-bold">
@@ -309,10 +316,10 @@ function Signals() {
           ))}
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-3 text-xs font-bold">
-          <span className="grid justify-items-center gap-1"><FlagFigure code="ANS" size={64} />Answer</span>
-          <span className="grid justify-items-center gap-1"><FlagFigure code="REP1" size={64} />1st sub</span>
-          <span className="grid justify-items-center gap-1"><FlagFigure code="REP2" size={64} />2nd sub</span>
-          <span className="grid justify-items-center gap-1"><FlagFigure code="REP3" size={64} />3rd sub</span>
+          <span className="grid justify-items-center gap-1"><FlagFigure code="ANS" size={64} />{t("doc.ansPenn")}</span>
+          <span className="grid justify-items-center gap-1"><FlagFigure code="REP1" size={64} />{t("doc.sub1")}</span>
+          <span className="grid justify-items-center gap-1"><FlagFigure code="REP2" size={64} />{t("doc.sub2")}</span>
+          <span className="grid justify-items-center gap-1"><FlagFigure code="REP3" size={64} />{t("doc.sub3")}</span>
         </div>
       </div>
       {SIGNAL_NOTES.map((s) => (
@@ -325,7 +332,7 @@ function Signals() {
           </ul>
         </div>
       ))}
-      <p className="text-xs opacity-60">Flag designs per ICS blazons; single-flag meanings per the International Code of Signals — confirm hoists with the ICS book on board.</p>
+      <p className="text-xs opacity-60">{t("doc.flagHint")}</p>
     </div>
   );
 }
@@ -339,14 +346,15 @@ function buildMorseText(): string {
 }
 
 function Morse() {
+  const { t } = useLocale();
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("Morse code", buildMorseText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("Morse code", buildMorseText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-        <h2 className="font-black">🔤 Letters</h2>
+        <h2 className="font-black">{t("doc.letters")}</h2>
         <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {MORSE_LETTERS.map((m) => (
             <div key={m.ch} className="flex items-center gap-3 rounded-xl bg-amber-50/60 px-3 py-2 dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
@@ -357,7 +365,7 @@ function Morse() {
         </div>
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-        <h2 className="font-black">🔢 Numerals</h2>
+        <h2 className="font-black">{t("doc.numerals")}</h2>
         <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {PHONETIC_NUMERALS.map((n) => (
             <div key={n.digit} className="flex items-center gap-3 rounded-xl bg-amber-50/60 px-3 py-2 dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
@@ -368,7 +376,7 @@ function Morse() {
         </div>
       </div>
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-        <h2 className="font-black">📻 Procedure signs</h2>
+        <h2 className="font-black">{t("doc.procSigns")}</h2>
         <div className="mt-2 grid gap-2">
           {MORSE_PROSIGNS.map((p) => (
             <div key={p.sign} className="flex flex-wrap items-center gap-3 rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
@@ -389,7 +397,7 @@ function Morse() {
           </ul>
         </div>
       ))}
-      <p className="text-xs opacity-60">ITU Morse reference — practice lamp and whistle timing before you need it for real.</p>
+      <p className="text-xs opacity-60">{t("doc.morseHint")}</p>
     </div>
   );
 }
@@ -406,23 +414,24 @@ type ColregTab = "rules" | "lights" | "sounds";
 
 function Colreg() {
   const [sec, setSec] = useState<ColregTab>("rules");
+  const { t } = useLocale();
   const sbtn = (t: ColregTab, label: string) =>
     `rounded-full px-3 py-1.5 text-sm font-bold ${sec === t ? "bg-slate-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border opacity-70 hover:opacity-100"}`;
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
-        <button onClick={() => shareText("COLREG complete reference", buildColregText())} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 Share</button>
-        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
+        <button onClick={() => shareText("COLREG complete reference", buildColregText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+        <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950 print:hidden">
-        <button onClick={() => setSec("rules")} className={sbtn("rules", `📖 Rules (${COLREG_RULES.length})`)}>📖 Rules ({COLREG_RULES.length})</button>
-        <button onClick={() => setSec("lights")} className={sbtn("lights", `💡 Lights (${LIGHT_CONFIGS.length})`)}>💡 Lights ({LIGHT_CONFIGS.length})</button>
-        <button onClick={() => setSec("sounds")} className={sbtn("sounds", "📯 Sounds")}>📯 Sounds</button>
+        <button onClick={() => setSec("rules")} className={sbtn("rules", `📖 Rules (${COLREG_RULES.length})`)}>{t("doc.rulesN").replace("{n}", String(COLREG_RULES.length))}</button>
+        <button onClick={() => setSec("lights")} className={sbtn("lights", `💡 Lights (${LIGHT_CONFIGS.length})`)}>{t("doc.lightsN").replace("{n}", String(LIGHT_CONFIGS.length))}</button>
+        <button onClick={() => setSec("sounds")} className={sbtn("sounds", "📯 Sounds")}>{t("doc.sounds")}</button>
       </div>
       {sec === "rules" ? (
         COLREG_RULES.map((r) => (
           <div key={r.n} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
-            <h2 className="font-black">Rule {r.n} — {r.t}</h2>
+            <h2 className="font-black">{t("doc.ruleN").replace("{n}", String(r.n)).replace("{t}", r.t)}</h2>
             <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
               {r.pts.map((p, j) => (
                 <li key={j} className="rounded-xl bg-amber-50/60 px-3 py-2 dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">• {p}</li>
@@ -435,7 +444,7 @@ function Colreg() {
       ) : (
         <SoundSignals />
       )}
-      <p className="text-xs opacity-60">Study summaries — the official COLREG text (IMO) always governs. Keep a current copy on the bridge.</p>
+      <p className="text-xs opacity-60">{t("doc.colregHint")}</p>
     </div>
   );
 }
@@ -447,6 +456,7 @@ function DocsInner() {
   // Tab is read from the URL client-side (effect) so nothing suspends
   // during render — the page hydrates deterministically.
   const [tab, setTabState] = useState<Tab>("orders");
+  const { t } = useLocale();
   useEffect(() => {
     try {
       const t = new URLSearchParams(window.location.search).get("tab");
@@ -460,18 +470,18 @@ function DocsInner() {
   return (
     <div className="grid gap-4">
       <div className="print:hidden">
-        <h1 className="text-2xl font-bold">📑 Navigation Documents</h1>
-        <p className="text-sm opacity-70">Master Standing Orders + Emergency Check Cards. Share or print for the bridge folder.</p>
+        <h1 className="text-2xl font-bold">{t("doc.title")}</h1>
+        <p className="text-sm opacity-70">{t("doc.sub")}</p>
       </div>
       <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950 print:hidden">
-        <button onClick={() => setTab("orders")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "orders" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>📜 Orders</button>
-        <button onClick={() => setTab("cards")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "cards" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>🆘 Cards ({EMERGENCY_CARDS.length})</button>
-        <button onClick={() => setTab("lights")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "lights" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>💡 Buoys</button>
-        <button onClick={() => setTab("symbols")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "symbols" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>🧭 Symbols</button>
-        <button onClick={() => setTab("weather")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "weather" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>⛅ Weather</button>
-        <button onClick={() => setTab("signals")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "signals" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>🚩 Signals</button>
-        <button onClick={() => setTab("morse")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "morse" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>📻 Morse</button>
-        <button onClick={() => setTab("colreg")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "colreg" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>⚖️ COLREG</button>
+        <button onClick={() => setTab("orders")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "orders" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabOrders")}</button>
+        <button onClick={() => setTab("cards")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "cards" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabCards").replace("{n}", String(EMERGENCY_CARDS.length))}</button>
+        <button onClick={() => setTab("lights")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "lights" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabBuoys")}</button>
+        <button onClick={() => setTab("symbols")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "symbols" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabSymbols")}</button>
+        <button onClick={() => setTab("weather")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "weather" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabWeather")}</button>
+        <button onClick={() => setTab("signals")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "signals" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabSignals")}</button>
+        <button onClick={() => setTab("morse")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "morse" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabMorse")}</button>
+        <button onClick={() => setTab("colreg")} className={`min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === "colreg" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("doc.tabColreg")}</button>
       </div>
       {tab === "orders" ? <Orders /> : tab === "cards" ? <Cards /> : tab === "lights" ? <LightsBuoys /> : tab === "symbols" ? <ChartSymbols /> : tab === "signals" ? <Signals /> : tab === "morse" ? <Morse /> : tab === "colreg" ? <Colreg /> : <WeatherSea />}
     </div>

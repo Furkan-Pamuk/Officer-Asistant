@@ -6,6 +6,7 @@ import { getGibsStatus, getSignOffStatus, formatDate } from "@/lib/gibs";
 import { NEWS } from "@/lib/news";
 import { loadAlarms, saveAlarms, nextFire, type AlestaAlarm } from "@/lib/alesta";
 import { WEEKDAYS, loadReminders, saveReminders, type CheckReminders } from "@/lib/checkReminders";
+import { useLocale } from "@/lib/i18n";
 
 interface Item {
   id: string;
@@ -19,12 +20,13 @@ interface Item {
 const SEEN_KEY = "oa-news-seen";
 
 function CheckRow({ label, on, onToggle, children }: { label: string; on: boolean; onToggle: () => void; children: React.ReactNode }) {
+  const { t } = useLocale();
   return (
     <div className="rounded-lg px-1.5 py-1">
       <div className="flex items-center gap-2">
         <button
           onClick={onToggle}
-          aria-label={`${label} checks on/off`}
+          aria-label={t("notif.checksAria").replace("{x}", label)}
           className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${on ? "bg-emerald-500" : "bg-stone-300 dark:bg-neutral-700"}`}
         >
           <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${on ? "left-[18px]" : "left-0.5"}`} />
@@ -38,6 +40,7 @@ function CheckRow({ label, on, onToggle, children }: { label: string; on: boolea
 
 export default function NotificationCenter() {
   const [open, setOpen] = useState(false);
+  const { t } = useLocale();
   const [items, setItems] = useState<Item[]>([]);
   const [alarms, setAlarms] = useState<AlestaAlarm[]>([]);
   const [showAlarms, setShowAlarms] = useState(false);
@@ -129,7 +132,7 @@ export default function NotificationCenter() {
 
   return (
     <div className="relative" ref={boxRef}>
-      <button onClick={() => setOpen(!open)} title="Notifications" aria-label="Notifications" className="relative flex h-8 w-8 items-center justify-center rounded-full border border-amber-300 text-lg dark:border-red-900">
+      <button onClick={() => setOpen(!open)} title={t("notif.title")} aria-label={t("notif.title")} className="relative flex h-8 w-8 items-center justify-center rounded-full border border-amber-300 text-lg dark:border-red-900">
         🔔
         {items.length > 0 && (
           <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-black text-white">
@@ -139,21 +142,21 @@ export default function NotificationCenter() {
       </button>
       {open && (
         <div className="absolute right-0 top-full z-50 mt-2 max-h-96 w-80 overflow-y-auto rounded-2xl border border-amber-200 bg-white p-2 shadow-xl dark:border-red-900 dark:bg-neutral-950">
-          <div className="px-2 py-1 text-xs font-black uppercase tracking-widest opacity-60">Notifications ({items.length})</div>
+          <div className="px-2 py-1 text-xs font-black uppercase tracking-widest opacity-60">{t("notif.titleN").replace("{n}", String(items.length))}</div>
           <button onClick={() => setShowChecks(!showChecks)} className="mb-1 flex w-full items-center justify-between rounded-xl bg-amber-100 px-2.5 py-2 text-sm font-black dark:bg-red-950">
-            <span>📋 Check reminders</span>
+            <span>{t("notif.reminders")}</span>
             <span>{showChecks ? "▴" : "▾"}</span>
           </button>
           {showChecks && checks && (
             <div className="mb-1 grid gap-1 rounded-xl border border-dashed border-amber-300 p-1.5 text-sm dark:border-red-900">
               <CheckRow
-                label="Daily" on={checks.daily.on}
+                label={t("notif.daily")} on={checks.daily.on}
                 onToggle={() => setChecksAndSave({ ...checks, daily: { ...checks.daily, on: !checks.daily.on } })}
               >
                 <input type="time" value={checks.daily.time} onChange={(e) => setChecksAndSave({ ...checks, daily: { ...checks.daily, time: e.target.value } })} className="w-full rounded-lg border px-1.5 py-0.5 text-xs" />
               </CheckRow>
               <CheckRow
-                label="Weekly" on={checks.weekly.on}
+                label={t("notif.weekly")} on={checks.weekly.on}
                 onToggle={() => setChecksAndSave({ ...checks, weekly: { ...checks.weekly, on: !checks.weekly.on } })}
               >
                 <select value={checks.weekly.weekday} onChange={(e) => setChecksAndSave({ ...checks, weekly: { ...checks.weekly, weekday: Number(e.target.value) } })} className="rounded-lg border px-1 py-0.5 text-xs">
@@ -162,18 +165,18 @@ export default function NotificationCenter() {
                 <input type="time" value={checks.weekly.time} onChange={(e) => setChecksAndSave({ ...checks, weekly: { ...checks.weekly, time: e.target.value } })} className="rounded-lg border px-1.5 py-0.5 text-xs" />
               </CheckRow>
               <CheckRow
-                label="Monthly" on={checks.monthly.on}
+                label={t("notif.monthly")} on={checks.monthly.on}
                 onToggle={() => setChecksAndSave({ ...checks, monthly: { ...checks.monthly, on: !checks.monthly.on } })}
               >
-                <span className="text-xs opacity-60">day</span>
+                <span className="text-xs opacity-60">{t("notif.day")}</span>
                 <input type="number" min={1} max={28} value={checks.monthly.day} onChange={(e) => setChecksAndSave({ ...checks, monthly: { ...checks.monthly, day: Math.min(28, Math.max(1, Number(e.target.value) || 1)) } })} className="w-14 rounded-lg border px-1.5 py-0.5 text-xs" />
                 <input type="time" value={checks.monthly.time} onChange={(e) => setChecksAndSave({ ...checks, monthly: { ...checks.monthly, time: e.target.value } })} className="rounded-lg border px-1.5 py-0.5 text-xs" />
               </CheckRow>
-              <p className="px-1.5 text-[11px] opacity-60">Device time • fires while the app is open.</p>
+              <p className="px-1.5 text-[11px] opacity-60">{t("notif.devTime")}</p>
             </div>
           )}
           <button onClick={() => setShowAlarms(!showAlarms)} className="mb-1 flex w-full items-center justify-between rounded-xl bg-amber-100 px-2.5 py-2 text-sm font-black dark:bg-red-950">
-            <span>⏰ Alesta alarms</span>
+            <span>{t("notif.alesta")}</span>
             <span>{showAlarms ? "▴" : "▾"}</span>
           </button>
           {showAlarms && (
@@ -194,14 +197,14 @@ export default function NotificationCenter() {
                       <span className="flex-1 font-bold">{a.label}</span>
                       <input type="time" value={a.time} onChange={(e) => updateAlarm(a.id, { time: e.target.value })} className="w-24 rounded-lg border px-1.5 py-0.5 text-xs" />
                     </div>
-                    {a.on && <div className="pl-11 text-[11px] opacity-60">rings {when}</div>}
+                    {a.on && <div className="pl-11 text-[11px] opacity-60">{t("notif.rings").replace("{w}", when)}</div>}
                   </div>
                 );
               })}
-              <p className="px-1.5 text-[11px] opacity-60">Time only — rings within 24h while the app is open.</p>
+              <p className="px-1.5 text-[11px] opacity-60">{t("notif.timeOnly")}</p>
             </div>
           )}
-          {items.length === 0 && <p className="px-2 py-3 text-sm opacity-70">All clear — no alerts right now.</p>}
+          {items.length === 0 && <p className="px-2 py-3 text-sm opacity-70">{t("notif.clear")}</p>}
           {items.map((i) => (
             <Link key={i.id} href={i.href} onClick={() => { if (i.id.startsWith("news-")) markNewsSeen(); setOpen(false); }} className={`mb-1 flex gap-2 rounded-xl px-2.5 py-2 hover:bg-amber-50 dark:hover:bg-red-950/50 ${i.hot ? "ring-1 ring-red-400" : ""}`}>
               <span className="text-xl">{i.icon}</span>

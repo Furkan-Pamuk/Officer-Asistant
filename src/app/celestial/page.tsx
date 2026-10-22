@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { sunAzimuth, sunTimesUTC, amplitude, compassError, eqOfTime } from "@/lib/celestial";
 import { moonRADec, sunRADec, altAz, gmst, STARS } from "@/lib/almanac";
+import { useLocale } from "@/lib/i18n";
 
 function usePos() {
   const [pos, setPos] = useState<{ lat: number; lon: number } | null>(null);
@@ -20,6 +21,7 @@ function usePos() {
 // Celestial helpers — fully offline: live sun bearing/altitude,
 // sunrise/sunset UTC cross-check and amplitude compass error.
 export default function CelestialPage() {
+  const { t } = useLocale();
   const pos = usePos();
   const [now, setNow] = useState<Date | null>(null);
   const [mode, setMode] = useState<"rising" | "setting">("rising");
@@ -34,8 +36,8 @@ export default function CelestialPage() {
   if (!pos) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">☀️ Celestial</h1>
-        <p className="text-sm">Set a position first (tracker GPS or weather search) — all sights are computed for it.</p>
+        <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
+        <p className="text-sm">{t("cel.needPos")}</p>
       </div>
     );
   }
@@ -56,43 +58,43 @@ export default function CelestialPage() {
   return (
     <div className="grid gap-4">
       <div>
-        <h1 className="text-2xl font-bold">☀️ Celestial</h1>
-        <p className="text-sm opacity-70">Computed offline for {pos.lat.toFixed(2)}, {pos.lon.toFixed(2)}. Cross-check against the Almanac.</p>
+        <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
+        <p className="text-sm opacity-70">{t("cel.computed").replace("{a}", pos.lat.toFixed(2)).replace("{o}", pos.lon.toFixed(2))}</p>
       </div>
       <div className="grid gap-3 md:grid-cols-3">
         <div className={box}>
-          <h2 className="font-black">Live sun</h2>
+          <h2 className="font-black">{t("cel.sun")}</h2>
           <div className="mt-1 text-3xl font-black">{sun ? `${sun.azimuth}°` : "…"}</div>
-          <div className="text-sm">Altitude {sun ? `${sun.altitude}°` : "…"}</div>
-          <div className="mt-1 text-xs opacity-60">True bearing, clockwise from N.</div>
+          <div className="text-sm">{t("cel.alt").replace("{x}", sun ? String(sun.altitude) : "…")}</div>
+          <div className="mt-1 text-xs opacity-60">{t("cel.bearingHint")}</div>
         </div>
         <div className={box}>
-          <h2 className="font-black">Sunrise / sunset (UTC)</h2>
-          <div className="mt-1 text-sm">🌅 Rise <strong>{times.sunriseUTC}</strong></div>
-          <div className="text-sm">🌇 Set <strong>{times.sunsetUTC}</strong></div>
-          <div className="text-sm">☀️ Meridian passage <strong>{times.solarNoonUTC}</strong></div>
+          <h2 className="font-black">{t("cel.riseSet")}</h2>
+          <div className="mt-1 text-sm">{t("cel.rise").replace("{x}", times.sunriseUTC)}</div>
+          <div className="text-sm">{t("cel.set").replace("{x}", times.sunsetUTC)}</div>
+          <div className="text-sm">{t("cel.mer").replace("{x}", times.solarNoonUTC)}</div>
         </div>
         <div className={box}>
-          <h2 className="font-black">Amplitude compass error</h2>
+          <h2 className="font-black">{t("cel.amplitude")}</h2>
           <div className="mt-1 flex gap-2 text-sm">
-            <button onClick={() => setMode("rising")} className={`rounded-full px-3 py-1 font-bold ${mode === "rising" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border"}`}>Rising</button>
-            <button onClick={() => setMode("setting")} className={`rounded-full px-3 py-1 font-bold ${mode === "setting" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border"}`}>Setting</button>
+            <button onClick={() => setMode("rising")} className={`rounded-full px-3 py-1 font-bold ${mode === "rising" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border"}`}>{t("cel.rising")}</button>
+            <button onClick={() => setMode("setting")} className={`rounded-full px-3 py-1 font-bold ${mode === "setting" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border"}`}>{t("cel.setting")}</button>
           </div>
-          <div className="mt-1 text-sm">Computed: <strong>{amp}°</strong></div>
-          <input value={observed} onChange={(e) => setObserved(e.target.value)} placeholder="Observed amplitude °" inputMode="decimal" className="mt-1 w-full rounded-xl border px-2 py-1 text-sm" />
-          {err !== null && <div className="mt-1 text-sm">Error: <strong>{err > 0 ? `${err}°W` : err < 0 ? `${-err}°E` : "0°"}</strong></div>}
+          <div className="mt-1 text-sm">{t("cel.compAmp").replace("{x}", String(amp))}</div>
+          <input value={observed} onChange={(e) => setObserved(e.target.value)} placeholder={t("cel.obsPh")} inputMode="decimal" className="mt-1 w-full rounded-xl border px-2 py-1 text-sm" />
+          {err !== null && <div className="mt-1 text-sm">{t("cel.err").replace("{x}", err > 0 ? `${err}°W` : err < 0 ? `${-err}°E` : "0°")}</div>}
         </div>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
         <div className={box}>
-          <h2 className="font-black">🌙 Live moon</h2>
+          <h2 className="font-black">{t("cel.moon")}</h2>
           <div className="mt-1 text-3xl font-black">{moon ? `${moon.azimuth}°` : "…"}</div>
-          <div className="text-sm">Altitude {moon ? `${moon.altitude}°` : "…"}</div>
-          <div className="mt-1 text-xs opacity-60">GHA {moonRD ? `${Math.round(((gmst(now!) - moonRD.ra + 360) % 360) * 10) / 10}°` : "—"} • Dec {moonRD ? `${moonRD.dec.toFixed(1)}°` : "—"}</div>
+          <div className="text-sm">{t("cel.alt").replace("{x}", moon ? String(moon.altitude) : "…")}</div>
+          <div className="mt-1 text-xs opacity-60">{t("cel.gha").replace("{a}", moonRD ? String(Math.round(((gmst(now!) - moonRD.ra + 360) % 360) * 10) / 10) : "—").replace("{d}", moonRD ? moonRD.dec.toFixed(1) : "—")}</div>
         </div>
         <div className={box}>
-          <h2 className="font-black">✨ Stars now (J2000)</h2>
+          <h2 className="font-black">{t("cel.stars")}</h2>
           <ul className="mt-1 grid max-h-56 gap-1 overflow-y-auto text-sm">
             {starRows.map((s) => (
               <li key={s.name} className={`flex justify-between rounded-lg px-2 py-1 ${s.altitude > 0 ? "bg-amber-50 font-bold dark:bg-black dark:ring-1 dark:ring-red-950" : "opacity-50"}`}>
@@ -101,7 +103,7 @@ export default function CelestialPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-1 text-xs opacity-60">● above horizon. J2000 coords — fine for compass checks.</p>
+          <p className="mt-1 text-xs opacity-60">{t("cel.above")}</p>
         </div>
       </div>
 
@@ -111,6 +113,7 @@ export default function CelestialPage() {
 }
 
 function AlmanacPage({ pos }: { pos: { lat: number; lon: number } }) {
+  const { t } = useLocale();
   const [day, setDay] = useState(() => {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -136,16 +139,16 @@ function AlmanacPage({ pos }: { pos: { lat: number; lon: number } }) {
   return (
     <div className={box}>
       <div className="flex flex-wrap items-center gap-2">
-        <h2 className="font-black">📖 Nautical Almanac daily page (computed)</h2>
+        <h2 className="font-black">{t("cel.almanac")}</h2>
         <input type="date" value={day} onChange={(e) => setDay(e.target.value)} className="ml-auto rounded-xl border px-2 py-1 text-sm" />
       </div>
-      <p className="text-xs opacity-60">GHA Aries 0h: {Math.round(g0 * 10) / 10}° • Eqn of time: {eot} min. Quick-look values — verify sights against the official Almanac.</p>
+      <p className="text-xs opacity-60">{t("cel.aries").replace("{a}", String(Math.round(g0 * 10) / 10)).replace("{e}", String(eot))}</p>
       <div className="mt-2 overflow-x-auto">
         <table className="w-full min-w-[560px] border-collapse text-sm">
           <thead>
             <tr className="bg-amber-100 text-left dark:bg-red-950">
-              <th className="p-1.5">UT</th><th className="p-1.5">Sun GHA</th><th className="p-1.5">Sun Dec</th>
-              <th className="p-1.5">Moon GHA</th><th className="p-1.5">Moon Dec</th>
+              <th className="p-1.5">UT</th><th className="p-1.5">{t("cel.sunGha")}</th><th className="p-1.5">{t("cel.sunDec")}</th>
+              <th className="p-1.5">{t("cel.moonGha")}</th><th className="p-1.5">{t("cel.moonDec")}</th>
             </tr>
           </thead>
           <tbody>

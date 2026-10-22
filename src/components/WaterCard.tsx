@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { db } from "@/lib/db";
+import { useLocale } from "@/lib/i18n";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 
 function dayKey(d: Date) {
@@ -10,6 +11,7 @@ function dayKey(d: Date) {
 const CONFETTI = ["#2AA198", "#7FD1C0", "#0E1E33", "#F4F7FA", "#33475C"];
 
 export default function WaterCard({ latestKg }: { latestKg: number | null }) {
+  const { t } = useLocale();
   const [today, setToday] = useState("");
   const rows = useLiveQuery(() => db.water.toArray(), []);
   const [burst, setBurst] = useState(0);
@@ -66,9 +68,9 @@ export default function WaterCard({ latestKg }: { latestKg: number | null }) {
       <div className="flex items-center gap-3 pt-1">
         <div className={`oa-drop shrink-0 py-1 text-5xl leading-none ${done ? "oa-drop-happy" : ""}`} aria-hidden>💧</div>
         <div className="flex-1">
-          <h2 className="font-bold">Drink {targetL} litres of water today</h2>
+          <h2 className="font-bold">{t("wt.drink").replace("{x}", targetL)}</h2>
           <p className="text-xs font-medium opacity-70">
-            {latestKg ? `Based on your last weight (${latestKg} kg × 35 ml)` : "Log your weight for a personal target"} • {(drunk / 1000).toFixed(2).replace(".", ",")} L so far
+            {latestKg ? `${t("wt.based")} (${latestKg} kg × 35 ml)` : t("wt.logw")} • {t("wt.sofar").replace("{x}", (drunk / 1000).toFixed(2).replace(".", ","))}
           </p>
           <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-amber-100 dark:bg-red-950">
             <div className="h-full rounded-full bg-[#2AA198] transition-all dark:bg-red-500" style={{ width: `${pct}%` }} />
@@ -76,9 +78,9 @@ export default function WaterCard({ latestKg }: { latestKg: number | null }) {
         </div>
       </div>
       <div className="mt-3 flex gap-2 text-sm">
-        <button onClick={drink} className="rounded-full bg-amber-400 px-4 py-1.5 font-bold text-stone-950 dark:bg-red-700 dark:text-white">🥛 I drank my water (fill bar)</button>
-        <button onClick={reset} className="rounded-full border px-3 py-1.5 text-xs font-bold">Reset day</button>
-        {done && <span className="self-center text-sm font-bold text-amber-700">Goal reached! 🎉</span>}
+        <button onClick={drink} className="rounded-full bg-amber-400 px-4 py-1.5 font-bold text-stone-950 dark:bg-red-700 dark:text-white">{t("wt.drank")}</button>
+        <button onClick={reset} className="rounded-full border px-3 py-1.5 text-xs font-bold">{t("wt.reset")}</button>
+        {done && <span className="self-center text-sm font-bold text-amber-700">{t("wt.goal")}</span>}
       </div>
     </div>
   );

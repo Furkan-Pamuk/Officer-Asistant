@@ -1,60 +1,60 @@
+"use client";
 import Link from "next/link";
+import { use } from "react";
 import { notFound } from "next/navigation";
-import { CARGOES, COMPAT_GROUPS, cargoTags, cleaningTitle, findCargo } from "@/lib/cargo-data";
+import { useLocale } from "@/lib/i18n";
+import { COMPAT_GROUPS, cargoTags, cleaningTitle, findCargo } from "@/lib/cargo-data";
 
-export function generateStaticParams() {
-  return CARGOES.map((c) => ({ slug: c.slug }));
-}
-
-export default async function CargoDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default function CargoDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { t } = useLocale();
+  const { slug } = use(params);
   const c = findCargo(slug);
   if (!c) notFound();
 
   const rows: [string, string][] = [
-    ["Cargo name", c.name],
-    ["UN number", c.un],
-    ["IBC / MARPOL status", c.ibc],
-    ["USCG compatibility group", `Group ${c.compatGroup} — ${COMPAT_GROUPS[c.compatGroup] ?? "?"} (${c.compatSrc}, 46 CFR 150)`],
-    ["Chemical formula", c.formula],
-    ["Boiling point", c.boiling],
-    ["Flash point", c.flash],
-    ["Density (water = 1)", c.density],
-    ["Solubility in water", c.solubility],
-    ["Spill behaviour", c.water === "floats" ? `Floats (floater)${c.floater !== "—" ? " — PERSISTENT FLOATER, stays floating (verify MEPC list)" : ""}` : c.water === "sinks" ? "Sinks (sinker — high density)" : c.water === "dissolves" ? "Dissolves / dilutes" : "Partly soluble"],
-    ["Toxic", c.toxic ? "YES — see health notes" : "Not classified toxic (still handle per SDS)"],
-    ["Exposure limit (TWA)", c.tlv],
-    ["IMDG class", c.imdg],
-    ["EmS (fire / spillage)", c.ems],
-    ["Vapour pressure (20 °C)", c.vapour],
-    ["Colour", c.colour],
-    ["Odour", c.odour],
-    ["Odour threshold", c.odourThreshold],
-    ["Viscosity", c.viscosity],
-    ["Electric conductivity", `${c.conductivity}${c.staticAccumulator ? " — static-accumulator territory (<50 pS/m): bonding, flow control, no splash filling" : ""}`],
-    ...(c.staticAccumulator ? [["Static accumulator", "YES — bonding, flow-rate control, no splash filling"] as [string, string]] : []),
-    ...(c.drying ? [["Drying-oil class", c.drying === "non-drying" ? "Non-drying oil" : c.drying === "semi-drying" ? "SEMI-DRYING — cold wash first" : "DRYING — cold wash first"] as [string, string]] : []),
+    [t("cargo.rowName"), c.name],
+    [t("cargo.rowUn"), c.un],
+    [t("cargo.rowIbc"), c.ibc],
+    [t("cargo.rowCompat"), `Group ${c.compatGroup} — ${COMPAT_GROUPS[c.compatGroup] ?? "?"} (${c.compatSrc}, 46 CFR 150)`],
+    [t("cargo.rowFormula"), c.formula],
+    [t("cargo.rowBoil"), c.boiling],
+    [t("cargo.rowFlash"), c.flash],
+    [t("cargo.rowDensity"), c.density],
+    [t("cargo.rowSol"), c.solubility],
+    [t("cargo.rowSpill"), c.water === "floats" ? `Floats (floater)${c.floater !== "—" ? " — PERSISTENT FLOATER, stays floating (verify MEPC list)" : ""}` : c.water === "sinks" ? "Sinks (sinker — high density)" : c.water === "dissolves" ? "Dissolves / dilutes" : "Partly soluble"],
+    [t("cargo.rowToxic"), c.toxic ? "YES — see health notes" : "Not classified toxic (still handle per SDS)"],
+    [t("cargo.rowTwa"), c.tlv],
+    [t("cargo.rowImdg"), c.imdg],
+    [t("cargo.rowEms"), c.ems],
+    [t("cargo.rowVp"), c.vapour],
+    [t("cargo.rowColour"), c.colour],
+    [t("cargo.rowOdour"), c.odour],
+    [t("cargo.rowOt"), c.odourThreshold],
+    [t("cargo.rowVisc"), c.viscosity],
+    [t("cargo.rowCond"), `${c.conductivity}${c.staticAccumulator ? " — static-accumulator territory (<50 pS/m): bonding, flow control, no splash filling" : ""}`],
+    ...(c.staticAccumulator ? [[t("cargo.rowStatic"), "YES — bonding, flow-rate control, no splash filling"] as [string, string]] : []),
+    ...(c.drying ? [[t("cargo.rowDry"), c.drying === "non-drying" ? "Non-drying oil" : c.drying === "semi-drying" ? "SEMI-DRYING — cold wash first" : "DRYING — cold wash first"] as [string, string]] : []),
   ];
 
   return (
     <div className="grid gap-4">
-      <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">← Back to booklet</Link>
+      <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">{t("cargo.back")}</Link>
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">{c.name}</h1>
-        {cargoTags(c).map((t) => (
-          <span key={t.label} title={t.label} className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
-            t.tone === "red" ? "bg-red-100 text-red-700" :
-            t.tone === "amber" ? "bg-amber-100 text-amber-800" :
-            t.tone === "yellow" ? "bg-yellow-100 text-yellow-800" :
-            t.tone === "teal" ? "bg-teal-100 text-teal-800" : "bg-slate-200 text-slate-700"}`}>
-            {t.icon} {t.label}
+        {cargoTags(c).map((tag) => (
+          <span key={tag.label} title={tag.label} className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+            tag.tone === "red" ? "bg-red-100 text-red-700" :
+            tag.tone === "amber" ? "bg-amber-100 text-amber-800" :
+            tag.tone === "yellow" ? "bg-yellow-100 text-yellow-800" :
+            tag.tone === "teal" ? "bg-teal-100 text-teal-800" : "bg-slate-200 text-slate-700"}`}>
+            {tag.icon} {tag.label}
           </span>
         ))}
       </div>
-      <p className="text-sm text-slate-500">Also known as: {c.synonyms.join(" · ")}</p>
+      <p className="text-sm text-slate-500">{t("cargo.aka").replace("{x}", c.synonyms.join(" · "))}</p>
       {c.verifyIbc && (
         <p className="rounded-2xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-          ⚠ IBC category letters for this product were not letter-verified from our tables — confirm them in the current IBC Code edition before use.
+          {t("cargo.unverified")}
         </p>
       )}
       <div className="overflow-hidden rounded-2xl border bg-white">
@@ -70,31 +70,31 @@ export default async function CargoDetail({ params }: { params: Promise<{ slug: 
         </table>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">🏥 Health hazards & first aid</h2>
+        <h2 className="font-bold">{t("cargo.health")}</h2>
         <p className="mt-1 text-sm">{c.health}</p>
-        <p className="mt-2 text-sm"><span className="font-bold">Antidote: </span>{c.antidote}</p>
-        <p className="mt-2 text-xs text-slate-500">First aid per the SDS / MFAG. Antidotes are hospital-administered — never delay evacuation and medical advice.</p>
+        <p className="mt-2 text-sm"><span className="font-bold">{t("cargo.antidote")}</span>{c.antidote}</p>
+        <p className="mt-2 text-xs text-slate-500">{t("cargo.mfag")}</p>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">🧪 Gas detection</h2>
+        <h2 className="font-bold">{t("cargo.gasdet")}</h2>
         <p className="mt-1 text-sm">{c.detection}</p>
-        <p className="mt-2 text-xs text-slate-500">Confirm tube range and calibration before entry. LEL + O₂ + toxics + benzene check as applicable; follow the enclosed-space procedure.</p>
+        <p className="mt-2 text-xs text-slate-500">{t("cargo.gasdetHint")}</p>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">🚧 Compatibility / segregation</h2>
-        <p className="mt-1 text-sm">Keep away from: {c.segregation}</p>
-        <p className="mt-2 text-xs text-slate-500">Stowage check: take both cargoes&apos; groups from Table 1 above, intersect them in Figure 1 (Compatibility Chart), then check Appendix I exceptions. Group 0 (unassigned) cargoes are handled as incompatible with everything until the Coast Guard assigns a group (§150.140).</p>
+        <h2 className="font-bold">{t("cargo.segreg")}</h2>
+        <p className="mt-1 text-sm">{t("cargo.keepAway").replace("{x}", c.segregation)}</p>
+        <p className="mt-2 text-xs text-slate-500">{t("cargo.groupNote")}</p>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">🧽 Tank cleaning</h2>
+        <h2 className="font-bold">{t("cargo.cleaning")}</h2>
         <ul className="mt-1 list-disc pl-5 text-sm">
           {c.cleaning.map((k) => <li key={k}>{cleaningTitle(k)}</li>)}
         </ul>
         {c.cleanNote && <p className="mt-2 text-sm font-semibold text-slate-700">⚠ {c.cleanNote}</p>}
-        <Link href="/cargo/cleaning" className="mt-2 inline-block text-sm font-bold text-slate-700 underline">Open full cleaning guide →</Link>
+        <Link href="/cargo/cleaning" className="mt-2 inline-block text-sm font-bold text-slate-700 underline">{t("cargo.openGuide")}</Link>
       </div>
       {c.notes && <p className="text-sm text-slate-600">{c.notes}</p>}
-      <p className="text-xs text-slate-400">Indicative reference only — SDS, IBC/IGC Code and the ship&apos;s P&A Manual govern.</p>
+      <p className="text-xs text-slate-400">{t("cargo.refOnly")}</p>
     </div>
   );
 }

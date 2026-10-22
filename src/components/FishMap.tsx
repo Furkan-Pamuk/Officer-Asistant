@@ -31,11 +31,13 @@ export const FISH_ZONES: FishZone[] = [
 
 import { useMemo } from "react";
 import { LAND_RINGS } from "@/lib/world-land";
+import { useLocale } from "@/lib/i18n";
 
 const W = 720;
 const H = 360;
 
 export default function FishMap() {
+  const { t } = useLocale();
   const land = useMemo(() => {
     let d = "";
     for (const ring of LAND_RINGS) {
@@ -49,7 +51,7 @@ export default function FishMap() {
 
   return (
     <div className="grid gap-3">
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full rounded-2xl bg-[#0E1E33] ring-1 ring-amber-200 dark:ring-red-950" role="img" aria-label="World fishing grounds map">
+      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full rounded-2xl bg-[#0E1E33] ring-1 ring-amber-200 dark:ring-red-950" role="img" aria-label={t("fish.aria")}>
         <rect x="0" y="0" width={W} height={H} fill="#0E1E33" />
         {FISH_ZONES.map((z) => (
           <ellipse key={z.n} cx={X(z.lon)} cy={Y(z.lat)} rx={(z.rx / 360) * W} ry={(z.ry / 180) * H} fill="#2AA198" opacity="0.45" />
@@ -70,7 +72,7 @@ export default function FishMap() {
           </li>
         ))}
       </ol>
-      <p className="text-[11px] opacity-60">Schematic — grounds move with seasons and currents; quotas and reserves differ per country. Check local rules before fishing.</p>
+      <p className="text-[11px] opacity-60">{t("fish.note")}</p>
     </div>
   );
 }

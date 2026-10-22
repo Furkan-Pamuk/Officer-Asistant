@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { db, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
+import { useLocale } from "@/lib/i18n";
 
 export default function MedsBlock() {
+  const { t } = useLocale();
   const meds = useLiveQuery(() => db.meds.toArray(), []);
   const [med, setMed] = useState("");
   const [qty, setQty] = useState("");
@@ -19,13 +21,13 @@ export default function MedsBlock() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
       <div className="flex items-center justify-between">
-        <h2 className="font-bold">💊 Medicines to take aboard</h2>
-        <span className="text-xs font-bold">{packedCount}/{(meds ?? []).length} packed</span>
+        <h2 className="font-bold">{t("td.meds")}</h2>
+        <span className="text-xs font-bold">{t("td.packed").replace("{p}", String(packedCount)).replace("{t}", String((meds ?? []).length))}</span>
       </div>
       <div className="mt-2 flex gap-2 text-sm">
-        <input value={med} onChange={(e) => setMed(e.target.value)} placeholder="e.g. Ibuprofen 400mg" className="flex-1 rounded-xl border px-3 py-1.5" />
-        <input value={qty} onChange={(e) => setQty(e.target.value)} placeholder="Qty" className="w-16 rounded-xl border px-2 py-1.5" />
-        <button onClick={addMed} className="rounded-full bg-stone-900 px-3 py-1.5 font-bold text-amber-50 dark:bg-red-700 dark:text-white">Add</button>
+        <input value={med} onChange={(e) => setMed(e.target.value)} placeholder={t("meds.egPh")} className="flex-1 rounded-xl border px-3 py-1.5" />
+        <input value={qty} onChange={(e) => setQty(e.target.value)} placeholder={t("inv.hQty")} className="w-16 rounded-xl border px-2 py-1.5" />
+        <button onClick={addMed} className="rounded-full bg-stone-900 px-3 py-1.5 font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("common.add")}</button>
       </div>
       <ul className="mt-2 grid gap-1 text-sm">
         {(meds ?? []).map((m) => (
@@ -36,7 +38,7 @@ export default function MedsBlock() {
             <button onClick={() => db.meds.delete(m.id)} className="text-xs font-bold text-red-600">✕</button>
           </li>
         ))}
-        {(meds ?? []).length === 0 && <li className="text-xs">No medicines yet — your personal packing list.</li>}
+        {(meds ?? []).length === 0 && <li className="text-xs">{t("meds.empty")}</li>}
       </ul>
     </div>
   );

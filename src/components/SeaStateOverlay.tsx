@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 export interface AisInfo {
   name: string;
@@ -72,6 +73,7 @@ function compass(deg: number) {
 // Full-height left rail on the map: AIS vessel block on top,
 // live sea/weather block below (true-mode wind rose included).
 export default function SeaStateOverlay({ lat, lon, ais }: { lat: number; lon: number; ais: AisInfo | null }) {
+  const { t } = useLocale();
   const [sea, setSea] = useState<Sea | null>(null);
 
   useEffect(() => {
@@ -106,7 +108,7 @@ export default function SeaStateOverlay({ lat, lon, ais }: { lat: number; lon: n
   return (
     <>
       <div className="absolute left-2 top-2 z-10 w-40 rounded-2xl bg-black/70 p-2 text-white backdrop-blur">
-        <div className="text-[10px] font-black uppercase tracking-widest opacity-60">Sea & sky</div>
+        <div className="text-[10px] font-black uppercase tracking-widest opacity-60">{t("ss.title")}</div>
       {sea ? (
         <div className="mt-1">
           <div className="flex items-center gap-1.5">
@@ -130,7 +132,7 @@ export default function SeaStateOverlay({ lat, lon, ais }: { lat: number; lon: n
           </div>
         </div>
       ) : (
-        <div className="mt-1 text-[11px] opacity-70">Loading sea data…</div>
+        <div className="mt-1 text-[11px] opacity-70">{t("ss.loading")}</div>
       )}
     </div>
     {ais && (

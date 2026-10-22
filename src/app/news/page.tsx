@@ -5,6 +5,7 @@ import { db, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { NEWS, SECTIONS, type NewsPost, type NewsSection } from "@/lib/news";
 import type { CrewPost } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 const LEGACY_KEY = "oa-crew-posts";
 const MIGRATED_KEY = "oa-crew-migrated";
@@ -40,6 +41,7 @@ function compressPhoto(file: File): Promise<string> {
 
 export default function NewsPage() {
   const [sec, setSec] = useState<"all" | NewsSection>("all");
+  const { t } = useLocale();
   const crew = useLiveQuery(() => db.crewPosts.toArray(), []);
   const [form, setForm] = useState({ author: "", title: "", port: "", body: "" });
   const [photo, setPhoto] = useState<string | null>(null);
@@ -56,7 +58,7 @@ export default function NewsPage() {
           .filter((p) => p && typeof p.id === "string" && typeof p.title === "string")
           .map((p) => ({
             id: String(p.id).startsWith("crew-") ? String(p.id) : `crew-${Date.now()}-${String(p.id)}`,
-            author: typeof p.author === "string" && p.author ? p.author : "Anonymous",
+            author: typeof p.author === "string" && p.author ? p.author : t("news.anon"),
             title: String(p.title),
             text: Array.isArray(p.body) ? p.body.join("\n\n") : "",
             port: typeof p.port === "string" ? p.port : undefined,
@@ -76,19 +78,19 @@ export default function NewsPage() {
     try {
       setPhoto(await compressPhoto(file));
     } catch {
-      setMsg("Photo could not be read.");
+      setMsg(t("news.photoFail"));
     }
   }
 
   async function submit() {
     const title = form.title.trim();
     const body = form.body.trim();
-    if (!title && !photo) { setMsg("Add a photo or a title + story."); return; }
+    if (!title && !photo) { setMsg(t("news.needContent")); return; }
     const now = new Date();
     await db.crewPosts.add({
       id: uid("crew"),
-      author: form.author.trim() || "Anonymous",
-      title: title || "📷 Photo",
+      author: form.author.trim() || t("news.anon"),
+      title: title || t("news.photoTitle"),
       text: body,
       port: form.port.trim() || undefined,
       photo,
@@ -99,11 +101,11 @@ export default function NewsPage() {
     setForm({ author: "", title: "", port: "", body: "" });
     setPhoto(null);
     if (fileRef.current) fileRef.current.value = "";
-    setMsg("Posted to Sizden Gelenler.");
+    setMsg(t("news.posted"));
   }
 
   async function remove(id: string) {
-    if (!window.confirm("Delete this story from this device?")) return;
+    if (!window.confirm(t("news.confirmDel"))) return;
     await db.crewPosts.delete(id);
   }
 
@@ -147,9 +149,9 @@ export default function NewsPage() {
             {n.body[0] !== "📷" && <div className="mt-1 text-sm opacity-70">{n.body[0].slice(0, big ? 160 : 140)}…</div>}
           </Link>
           <div className="mt-2 flex items-center gap-2 text-xs font-bold">
-            <span className="flex-1 opacity-70">👤 {n.author ?? "Anonymous"}</span>
+            <span className="flex-1 opacity-70">👤 {n.author ?? t("news.anon")}</span>
             {mine.has(n.id) && (
-              <button onClick={() => remove(n.id)} className="rounded-full border px-3 py-1 opacity-70">Delete</button>
+              <button onClick={() => remove(n.id)} className="rounded-full border px-3 py-1 opacity-70">{t("common.delete")}</button>
             )}
           </div>
         </div>
@@ -160,11 +162,11 @@ export default function NewsPage() {
   return (
     <div className="grid gap-4">
       <div>
-        <h1 className="text-2xl font-bold">NEWS & Blog 📰</h1>
-        <p className="text-sm font-medium opacity-70">Maritime news, crew stories, blogs and port-city guides.</p>
+        <h1 className="text-2xl font-bold">{t("news.title")}</h1>
+        <p className="text-sm font-medium opacity-70">{t("news.sub")}</p>
       </div>
       <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
-        <button onClick={() => setSec("all")} className={`min-w-20 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${sec === "all" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>All ({all.length})</button>
+        <button onClick={() => setSec("all")} className={`min-w-20 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${sec === "all" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("news.allN").replace("{n}", String(all.length))}</button>
         {SECTIONS.map((s) => (
           <button key={s.id} onClick={() => setSec(s.id)} title={s.blurb} className={`min-w-20 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${sec === s.id ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{s.label} ({count(s.id)})</button>
         ))}
@@ -172,25 +174,25 @@ export default function NewsPage() {
 
       {(sec === "all" || sec === "crew") && (
         <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-          <h2 className="font-black">💬 Sizden Gelenler — post with a photo</h2>
+          <h2 className="font-black">{t("news.postTitle")}</h2>
           <div className="mt-2 grid gap-2 sm:grid-cols-2">
-            <input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} placeholder="Your name / nickname" className={inp} />
-            <input value={form.port} onChange={(e) => setForm({ ...form, port: e.target.value })} placeholder="Port (optional)" className={inp} />
+            <input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} placeholder={t("news.namePh")} className={inp} />
+            <input value={form.port} onChange={(e) => setForm({ ...form, port: e.target.value })} placeholder={t("news.portPh")} className={inp} />
           </div>
-          <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Title" className={`${inp} mt-2`} />
-          <textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} rows={2} placeholder="Story (optional if photo attached)…" className={`${inp} mt-2`} />
+          <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder={t("news.titlePh")} className={`${inp} mt-2`} />
+          <textarea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} rows={2} placeholder={t("news.storyPh")} className={`${inp} mt-2`} />
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <label className="cursor-pointer rounded-full border px-4 py-2 text-sm font-bold">
-              📷 {photo ? "Change photo" : "Add photo"}
+              📷 {photo ? t("news.changePhoto") : t("news.addPhoto")}
               <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => onPhoto(e.target.files?.[0])} />
             </label>
             {photo && (
               <>
-                <img src={photo} alt="preview" className="h-12 w-12 rounded-xl object-cover ring-1 ring-amber-200" />
-                <button onClick={() => { setPhoto(null); if (fileRef.current) fileRef.current.value = ""; }} className="text-xs font-bold opacity-60">Remove</button>
+                <img src={photo} alt={t("news.previewAlt")} className="h-12 w-12 rounded-xl object-cover ring-1 ring-amber-200" />
+                <button onClick={() => { setPhoto(null); if (fileRef.current) fileRef.current.value = ""; }} className="text-xs font-bold opacity-60">{t("news.remove")}</button>
               </>
             )}
-            <button onClick={submit} className="rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Post story</button>
+            <button onClick={submit} className="rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("news.post")}</button>
             {msg && <span className="text-xs font-bold opacity-70">{msg}</span>}
           </div>
         </div>
@@ -205,7 +207,7 @@ export default function NewsPage() {
               <span className="opacity-60">{featured.date}</span>
             </div>
             <div className="mt-2 text-2xl font-black">{featured.title}</div>
-            {featured.visual === "fishmap" && <div className="mt-1 text-xs font-black opacity-70">🗺️ Interactive fishing map inside</div>}
+            {featured.visual === "fishmap" && <div className="mt-1 text-xs font-black opacity-70">{t("news.fishmap")}</div>}
             <div className="mt-1 text-sm opacity-80">{featured.body[0].slice(0, 160)}…</div>
             {(featured.author || featured.port) && (
               <div className="mt-2 text-xs font-bold opacity-70">{featured.author ?? ""}{featured.author && featured.port ? " • " : ""}{featured.port ?? ""}</div>
@@ -225,7 +227,7 @@ export default function NewsPage() {
                   <span className="opacity-60">{n.date}</span>
                 </div>
                 <div className="mt-1 text-lg font-black">{n.title}</div>
-                {n.visual === "fishmap" && <div className="mt-1 text-xs font-black opacity-70">🗺️ Interactive fishing map inside</div>}
+                {n.visual === "fishmap" && <div className="mt-1 text-xs font-black opacity-70">{t("news.fishmap")}</div>}
                 <div className="text-sm opacity-70">{n.body[0].slice(0, 140)}…</div>
                 {(n.author || n.port) && (
                   <div className="mt-1 text-xs font-bold opacity-60">{n.author ?? ""}{n.author && n.port ? " • " : ""}{n.port ?? ""}</div>
@@ -235,7 +237,7 @@ export default function NewsPage() {
           )
         ))}
       </div>
-      {shown.length === 0 && <p className="text-sm opacity-60">Nothing here yet.</p>}
+      {shown.length === 0 && <p className="text-sm opacity-60">{t("news.empty")}</p>}
     </div>
   );
 }

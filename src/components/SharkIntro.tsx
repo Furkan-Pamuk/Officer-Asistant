@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 const SEEN_KEY = "shark-intro-seen";
 
@@ -19,6 +20,7 @@ const SWIM_S = 6.2; // seconds for the full crossing
 
 export default function SharkIntro() {
   const [stage, setStage] = useState<Stage | null>(null);
+  const { t } = useLocale();
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const timers = useRef<number[]>([]);
   const rafRef = useRef<number>(0);
@@ -139,7 +141,7 @@ export default function SharkIntro() {
   if (stage === null) return null;
 
   return (
-    <div ref={overlayRef} className="shark-intro" role="dialog" aria-label="Shark intro">
+    <div ref={overlayRef} className="shark-intro" role="dialog" aria-label={t("intro.aria")}>
       <style>{`
         .shark-intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: #020608; will-change: transform; }
         .shark-footage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -177,15 +179,15 @@ export default function SharkIntro() {
           </svg>
           <div>
             <p className="text-4xl font-black tracking-[0.2em] text-white">SHARK</p>
-            <p className="mt-2 text-sm font-semibold tracking-widest text-[#2AA198]">DON&apos;T BE THE PREY. BE THE SHARK.</p>
+            <p className="mt-2 text-sm font-semibold tracking-widest text-[#2AA198]">{t("intro.tagline")}</p>
           </div>
           <button
             onClick={dive}
             className="shark-dive-btn rounded-full bg-[#2AA198] px-10 py-4 text-lg font-black tracking-widest text-[#081120]"
           >
-            🦈 START THE HUNT
+            {t("intro.start")}
           </button>
-          <p className="text-xs font-medium text-[#8B98A5]">sound on recommended</p>
+          <p className="text-xs font-medium text-[#8B98A5]">{t("intro.sound")}</p>
         </div>
       )}
     </div>

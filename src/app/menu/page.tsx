@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { MEALS, autoWeek, dayLabel, dishesForMeal, mondayOf, addWeek, CUISINES } from "@/lib/menu";
@@ -8,6 +9,7 @@ import RecipeBrowser from "@/components/RecipeBrowser";
 import type { Dish, MenuMeal, MenuSnap, WeekPlan } from "@/lib/types";
 
 export default function MenuPage() {
+  const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const [week, setWeek] = useState("");
   const [cuisine, setCuisine] = useState("turkish");
@@ -30,14 +32,14 @@ export default function MenuPage() {
   if (!contractId) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">Weekly menu</h1>
-        <p className="text-sm">Select a contract first — menus are kept per vessel.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("menu.title")}</h1>
+        <p className="text-sm">{t("menu.needVessel")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
 
-  if (!week) return <p>Loading menu…</p>;
+  if (!week) return <p>{t("menu.loading")}</p>;
 
   const plan: WeekPlan | undefined = (plans ?? []).find((p) => p.id === `${contractId}__${week}`);
   const extra = customDishes ?? [];
@@ -54,7 +56,7 @@ export default function MenuPage() {
   }
 
   async function autoGenerate() {
-    if (plan && Object.keys(slots).length > 0 && !confirm("Overwrite this week's menu?")) return;
+    if (plan && Object.keys(slots).length > 0 && !confirm(t("menu.confirmOverwrite"))) return;
     await savePlan(autoWeek(extra, cuisine));
   }
 
@@ -78,27 +80,27 @@ export default function MenuPage() {
     } catch {
       try {
         await navigator.clipboard.writeText(text);
-        alert("Menu copied — paste it anywhere.");
-      } catch { alert("Sharing not available here."); }
+        alert(t("menu.copied"));
+      } catch { alert(t("common.noShare")); }
     }
   }
 
   async function copyWeek(fromId: string) {
     const src = (plans ?? []).find((p) => p.id === fromId);
     if (!src) return;
-    if (Object.keys(slots).length > 0 && !confirm("Overwrite this week's menu with the archived one?")) return;
+    if (Object.keys(slots).length > 0 && !confirm(t("menu.confirmArchive"))) return;
     await savePlan(src.slots);
   }
 
   async function saveSnap() {
-    if (!contractId || Object.keys(slots).length === 0) { alert("Fill this week first."); return; }
-    const name = prompt("Name this menu (e.g. Ramadan week, Indian crew week):");
+    if (!contractId || Object.keys(slots).length === 0) { alert(t("menu.fillFirst")); return; }
+    const name = prompt(t("menu.namePrompt"));
     if (!name?.trim()) return;
     await db.menuSnaps.add({ id: uid("ms"), contractId, name: name.trim(), slots: { ...slots }, createdAt: new Date().toISOString() });
   }
 
   async function loadSnap(s: MenuSnap) {
-    if (Object.keys(slots).length > 0 && !confirm(`Overwrite this week with "${s.name}"?`)) return;
+    if (Object.keys(slots).length > 0 && !confirm(t("menu.confirmNamed").replace("{n}", s.name))) return;
     await savePlan({ ...s.slots });
   }
 
@@ -117,12 +119,12 @@ export default function MenuPage() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">Weekly menu 🍽️</h1>
-          <p className="text-sm font-medium text-stone-600 dark:text-red-300/70">3 meals × 7 days. Kcal ≈ estimates. Pick from the dropdown or type your own.</p>
+          <h1 className="text-2xl font-bold">{t("menu.titleEmoji")}</h1>
+          <p className="text-sm font-medium text-stone-600 dark:text-red-300/70">{t("menu.sub")}</p>
         </div>
         <div className="flex gap-1 rounded-full border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
-          <button onClick={() => setTab("menu")} className={`rounded-full px-4 py-1.5 text-sm font-bold ${tab === "menu" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>🗓️ Menu</button>
-          <button onClick={() => setTab("recipes")} className={`rounded-full px-4 py-1.5 text-sm font-bold ${tab === "recipes" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>📖 Recipes</button>
+          <button onClick={() => setTab("menu")} className={`rounded-full px-4 py-1.5 text-sm font-bold ${tab === "menu" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("menu.tabMenu")}</button>
+          <button onClick={() => setTab("recipes")} className={`rounded-full px-4 py-1.5 text-sm font-bold ${tab === "recipes" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("menu.tabRecipes")}</button>
         </div>
       </div>
       <div className={tab === "recipes" ? "grid gap-4" : "hidden"}>
@@ -135,12 +137,12 @@ export default function MenuPage() {
               <button key={c.id} onClick={() => setCuisine(c.id)} className={`rounded-full px-3 py-1.5 text-sm font-bold ${cuisine === c.id ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border bg-white dark:bg-black"}`}>{c.label}</button>
             ))}
           </div>
-          <button onClick={() => setWeek(addWeek(week, -1))} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">← Prev</button>
-          <span className="rounded-full bg-stone-900 px-3 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Week of {week}</span>
-          <button onClick={() => setWeek(addWeek(week, 1))} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">Next →</button>
-          <button onClick={autoGenerate} className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-bold text-white">✨ Auto-generate</button>
-          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 Share</button>
-          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ Print</button>
+          <button onClick={() => setWeek(addWeek(week, -1))} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">{t("menu.prev")}</button>
+          <span className="rounded-full bg-stone-900 px-3 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("menu.weekOf").replace("{d}", week)}</span>
+          <button onClick={() => setWeek(addWeek(week, 1))} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">{t("menu.next")}</button>
+          <button onClick={autoGenerate} className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-bold text-white">{t("menu.auto")}</button>
+          <button onClick={share} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
+          <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
         </div>
 
       <div className="grid gap-3">
@@ -150,7 +152,7 @@ export default function MenuPage() {
             <div key={day} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
               <div className="flex items-center justify-between">
                 <h2 className="font-bold">{dayLabel(week, day)}</h2>
-                <span className="text-xs font-bold" id={`kcal-${day}`}>{MEALS.reduce((a, m) => a + (slots[`${day}-${m.id}`]?.kcal ?? 0), 0)} kcal</span>
+                <span className="text-xs font-bold" id={`kcal-${day}`}>{t("menu.kcalN").replace("{n}", String(MEALS.reduce((a, m) => a + (slots[`${day}-${m.id}`]?.kcal ?? 0), 0)))}</span>
               </div>
               <div className="mt-2 grid gap-2 md:grid-cols-3">
                 {MEALS.map((m) => {
@@ -163,20 +165,20 @@ export default function MenuPage() {
                       <div className="text-xs font-bold">{m.label} <span className="font-normal opacity-60">({m.hint})</span></div>
                       {editing === key ? (
                         <div className="mt-1 grid gap-1">
-                          <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Dish…" className="w-full min-w-0 rounded-lg border px-2 py-1 text-sm" />
-                          <input value={kcal} onChange={(e) => setKcal(e.target.value)} placeholder="kcal" inputMode="numeric" className="w-full min-w-0 rounded-lg border px-2 py-1 text-sm" />
+                          <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t("menu.dishPh")} className="w-full min-w-0 rounded-lg border px-2 py-1 text-sm" />
+                          <input value={kcal} onChange={(e) => setKcal(e.target.value)} placeholder={t("menu.kcalPh")} inputMode="numeric" className="w-full min-w-0 rounded-lg border px-2 py-1 text-sm" />
                           <select value={text} onChange={(e) => { const d = all.find((x) => x.name === e.target.value); if (d) { setText(d.name); setKcal(String(d.kcal)); } }} className="w-full min-w-0 rounded-lg border px-2 py-1 text-sm">
-                            <option value="">Dropdown ({all.length})…</option>
-                            {all.map((d) => <option key={d.id} value={d.name}>{d.name} (~{d.kcal})</option>)}
+                            <option value="">{t("menu.dropdownN").replace("{n}", String(all.length))}</option>
+                            {all.map((d) => <option key={d.id} value={d.name}>{d.name} ({t("menu.kcalAbout").replace("{k}", String(d.kcal))})</option>)}
                           </select>
                           <div className="flex gap-1">
-                            <button onClick={() => { if (text.trim()) setSlot(key, text.trim(), parseInt(kcal) || 0); setEditing(null); }} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50">Save</button>
-                            <button onClick={() => setEditing(null)} className="rounded-full border px-3 py-1 text-xs">Cancel</button>
+                            <button onClick={() => { if (text.trim()) setSlot(key, text.trim(), parseInt(kcal) || 0); setEditing(null); }} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50">{t("common.save")}</button>
+                            <button onClick={() => setEditing(null)} className="rounded-full border px-3 py-1 text-xs">{t("common.cancel")}</button>
                           </div>
                         </div>
                       ) : (
                         <button onClick={() => { setEditing(key); setText(cur?.text ?? ""); setKcal(cur ? String(cur.kcal) : ""); }} className="mt-1 w-full rounded-lg bg-white/70 px-2 py-1.5 text-left text-sm break-words dark:bg-neutral-900">
-                          {cur ? <><strong className="break-words">{cur.text}</strong> <span className="whitespace-nowrap text-xs opacity-60">~{cur.kcal} kcal</span></> : <span className="opacity-50">+ Add {m.label.toLowerCase()}</span>}
+                          {cur ? <><strong className="break-words">{cur.text}</strong> <span className="whitespace-nowrap text-xs opacity-60">{t("menu.kcalAbout").replace("{k}", String(cur.kcal))}</span></> : <span className="opacity-50">{t("menu.addMeal").replace("{m}", m.label.toLowerCase())}</span>}
                         </button>
                       )}
                     </div>
@@ -190,19 +192,19 @@ export default function MenuPage() {
 
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-bold">🗂️ Menu archive — reuse a past week</h2>
-          <button onClick={saveSnap} className="rounded-full border px-3 py-1 text-xs font-bold">💾 Save this week</button>
+          <h2 className="font-bold">{t("menu.archive")}</h2>
+          <button onClick={saveSnap} className="rounded-full border px-3 py-1 text-xs font-bold">{t("menu.saveWeek")}</button>
         </div>
         {pastWeeks.length === 0 ? (
-          <p className="mt-1 text-sm opacity-70">No saved weeks yet — fill one above and it will appear here.</p>
+          <p className="mt-1 text-sm opacity-70">{t("menu.noArchive")}</p>
         ) : (
           <div className="mt-2 grid gap-1 text-sm">
             {pastWeeks.map((p) => {
               const filled = Object.values(p.slots).filter((s) => s.text).length;
               return (
                 <div key={p.id} className="flex items-center gap-2 rounded-xl bg-amber-50 px-2 py-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">
-                  <span className="flex-1 font-bold">Week of {p.weekStart} <span className="font-normal opacity-60">({filled}/21 filled)</span></span>
-                  <button onClick={() => copyWeek(p.id)} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">Copy to this week</button>
+                  <span className="flex-1 font-bold">{t("menu.archN").replace("{d}", p.weekStart).replace("{f}", String(filled))}</span>
+                  <button onClick={() => copyWeek(p.id)} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("menu.copyWeek")}</button>
                 </div>
               );
             })}
@@ -210,13 +212,13 @@ export default function MenuPage() {
         )}
         {(snaps ?? []).length > 0 && (
           <div className="mt-2 grid gap-1 text-sm">
-            <div className="text-xs font-black uppercase tracking-widest opacity-60">Named menus</div>
+            <div className="text-xs font-black uppercase tracking-widest opacity-60">{t("menu.named")}</div>
             {(snaps ?? []).slice().reverse().map((s) => {
               const filled = Object.values(s.slots).filter((x) => x.text).length;
               return (
                 <div key={s.id} className="flex items-center gap-2 rounded-xl bg-violet-50 px-2 py-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">
-                  <span className="flex-1 font-bold">💾 {s.name} <span className="font-normal opacity-60">({filled} dishes • {s.createdAt.slice(0, 10)})</span></span>
-                  <button onClick={() => loadSnap(s)} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">Load</button>
+                  <span className="flex-1 font-bold">{t("menu.namedN").replace("{n}", s.name).replace("{f}", String(filled)).replace("{d}", s.createdAt.slice(0, 10))}</span>
+                  <button onClick={() => loadSnap(s)} className="rounded-full bg-stone-900 px-3 py-1 text-xs font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("menu.load")}</button>
                   <button onClick={() => db.menuSnaps.delete(s.id)} className="text-xs font-bold text-red-600">✕</button>
                 </div>
               );
@@ -226,18 +228,18 @@ export default function MenuPage() {
       </div>
 
       <div className="rounded-2xl border border-dashed border-amber-400 bg-amber-50/50 p-4 text-sm dark:border-red-900 dark:bg-red-950/10">
-        <h2 className="font-bold">Add your own dish</h2>
+        <h2 className="font-bold">{t("menu.addOwn")}</h2>
         <div className="mt-2 flex flex-wrap gap-2">
-          <input value={newDish} onChange={(e) => setNewDish(e.target.value)} placeholder="e.g. Hünkar beğendi" className="flex-1 min-w-40 rounded-xl border px-3 py-1.5" />
-          <input value={newKcal} onChange={(e) => setNewKcal(e.target.value)} placeholder="kcal ≈" inputMode="numeric" className="w-24 rounded-xl border px-3 py-1.5" />
+          <input value={newDish} onChange={(e) => setNewDish(e.target.value)} placeholder={t("menu.ownPh")} className="flex-1 min-w-40 rounded-xl border px-3 py-1.5" />
+          <input value={newKcal} onChange={(e) => setNewKcal(e.target.value)} placeholder={t("menu.ownKcalPh")} inputMode="numeric" className="w-24 rounded-xl border px-3 py-1.5" />
           <select value={newMeal} onChange={(e) => setNewMeal(e.target.value as MenuMeal)} className="rounded-xl border px-3 py-1.5">
             <option value="breakfast">Kahvaltı</option><option value="lunch">Öğle</option><option value="dinner">Akşam</option>
           </select>
-          <button onClick={addCustomDish} className="rounded-full bg-stone-900 px-4 py-1.5 font-bold text-amber-50 dark:bg-red-700 dark:text-white">Add dish</button>
+          <button onClick={addCustomDish} className="rounded-full bg-stone-900 px-4 py-1.5 font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("menu.addDish")}</button>
         </div>
         <div className="mt-2 flex flex-wrap gap-1 text-xs">
           {extra.map((d) => (
-            <span key={d.id} className="rounded-full border px-2 py-0.5">{d.name} (~{d.kcal}) <button onClick={() => db.dishes.delete(d.id)} className="font-bold text-red-600">✕</button></span>
+            <span key={d.id} className="rounded-full border px-2 py-0.5">{d.name} ({t("menu.kcalAbout").replace("{k}", String(d.kcal))}) <button onClick={() => db.dishes.delete(d.id)} className="font-bold text-red-600">✕</button></span>
           ))}
         </div>
       </div>

@@ -4,12 +4,14 @@ import { db, uid } from "@/lib/db";
 import { CERTS, CERT_CATS, LANGS, LEVELS, CV_TEMPLATES, MOTIVATION_DRAFT } from "@/lib/certs";
 import { contractDays, fmtService } from "@/components/ServiceBoard";
 import type { Contract, CvData, CvLang, CvRef, Profile } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 function blankCv(): CvData {
   return { id: "me", template: "classic", contact: { email: "", phone: "", nationality: "", dob: "" }, certs: {}, motivation: MOTIVATION_DRAFT, refs: [], langs: [], updatedAt: "" };
 }
 
 export default function CvBuilder() {
+  const { t } = useLocale();
   const [cv, setCv] = useState<CvData>(blankCv());
   const [profile, setProfile] = useState<Profile | null>(null);
   const [contracts, setContracts] = useState<Contract[]>([]);
@@ -61,7 +63,7 @@ export default function CvBuilder() {
     setLangQ("");
   }
 
-  if (!loaded) return <p>Loading CV…</p>;
+  if (!loaded) return <p>{t("cv.loading")}</p>;
 
   const box = "rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:hidden";
   const inp = "rounded-xl border px-2 py-1.5 text-sm w-full";
@@ -70,12 +72,12 @@ export default function CvBuilder() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2 print:hidden">
         <div>
-          <h1 className="text-2xl font-bold">📄 CV Builder</h1>
-          <p className="text-sm opacity-70">Photo + rank from profile, service from contracts, certificates by switch. Print or share below.</p>
+          <h1 className="text-2xl font-bold">{t("profile.tabCv")}</h1>
+          <p className="text-sm opacity-70">{t("cv.hint")}</p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ Print</button>
-          <button onClick={async () => { try { await navigator.clipboard.writeText(window.location.href); alert("Link copied."); } catch {} }} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🔗 Copy link</button>
+          <button onClick={async () => { try { await navigator.clipboard.writeText(window.location.href); alert(t("cv.copied")); } catch {} }} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">{t("cv.copyLink")}</button>
         </div>
       </div>
 
@@ -94,18 +96,18 @@ export default function CvBuilder() {
       <div className={box}>
         <h2 className="font-black">2 • Contact</h2>
         <div className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
-          <input value={cv.contact.email} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, email: e.target.value } })} placeholder="Email" className={inp} />
-          <input value={cv.contact.phone} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, phone: e.target.value } })} placeholder="Phone" className={inp} />
-          <input value={cv.contact.nationality} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, nationality: e.target.value } })} placeholder="Nationality" className={inp} />
-          <input value={cv.contact.dob} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, dob: e.target.value } })} placeholder="Date of birth" className={inp} />
+          <input value={cv.contact.email} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, email: e.target.value } })} placeholder={t("contact.email")} className={inp} />
+          <input value={cv.contact.phone} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, phone: e.target.value } })} placeholder={t("cv.phone")} className={inp} />
+          <input value={cv.contact.nationality} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, nationality: e.target.value } })} placeholder={t("cv.nat")} className={inp} />
+          <input value={cv.contact.dob} onChange={(e) => persist({ ...cv, contact: { ...cv.contact, dob: e.target.value } })} placeholder={t("cv.dob")} className={inp} />
         </div>
-        <p className="mt-1 text-xs opacity-60">Photo + rank come from your profile, sea service from Contracts.</p>
+        <p className="mt-1 text-xs opacity-60">{t("cv.photoHint")}</p>
       </div>
 
       <div className={box}>
         <div className="flex items-center gap-2">
           <h2 className="font-black">3 • Certificates ({selCerts.length} selected)</h2>
-          <input value={certQ} onChange={(e) => setCertQ(e.target.value)} placeholder="Search…" className="ml-auto w-40 rounded-xl border px-2 py-1 text-xs" />
+          <input value={certQ} onChange={(e) => setCertQ(e.target.value)} placeholder={t("cv.search")} className="ml-auto w-40 rounded-xl border px-2 py-1 text-xs" />
         </div>
         {CERT_CATS.map((cat) => {
           const items = filteredCerts.filter((c) => c.cat === cat);
@@ -122,7 +124,7 @@ export default function CvBuilder() {
                         <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow ${sel?.on ? "left-[18px]" : "left-0.5"}`} />
                       </button>
                       <span className="flex-1 font-medium">{c.name}</span>
-                      {sel?.on && <input type="month" value={sel.expiry} onChange={(e) => certExpiry(c.id, e.target.value)} title="Expiry (optional)" className="rounded-lg border px-1.5 py-0.5 text-xs" />}
+                      {sel?.on && <input type="month" value={sel.expiry} onChange={(e) => certExpiry(c.id, e.target.value)} title={t("cv.expiry")} className="rounded-lg border px-1.5 py-0.5 text-xs" />}
                     </div>
                   );
                 })}
@@ -135,19 +137,19 @@ export default function CvBuilder() {
       <div className={box}>
         <h2 className="font-black">4 • Motivation letter</h2>
         <textarea value={cv.motivation} onChange={(e) => persist({ ...cv, motivation: e.target.value })} rows={8} className="mt-2 w-full rounded-xl border px-3 py-2 font-serif text-sm leading-relaxed" />
-        <button onClick={() => persist({ ...cv, motivation: MOTIVATION_DRAFT.replace("[RANK]", profile?.rank ?? "Officer").replace("[NAME]", profile?.displayName ?? "") })} className="mt-1 rounded-full border px-3 py-1 text-xs font-bold">↺ Restore auto draft</button>
+        <button onClick={() => persist({ ...cv, motivation: MOTIVATION_DRAFT.replace("[RANK]", profile?.rank ?? "Officer").replace("[NAME]", profile?.displayName ?? "") })} className="mt-1 rounded-full border px-3 py-1 text-xs font-bold">{t("cv.restore")}</button>
       </div>
 
       <div className={box}>
         <h2 className="font-black">5 • References ({cv.refs.length})</h2>
         <div className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
-          <input value={ref.name} onChange={(e) => setRef({ ...ref, name: e.target.value })} placeholder="Name *" className={inp} />
-          <input value={ref.position} onChange={(e) => setRef({ ...ref, position: e.target.value })} placeholder="Position" className={inp} />
-          <input value={ref.workplace} onChange={(e) => setRef({ ...ref, workplace: e.target.value })} placeholder="Workplace / vessel" className={inp} />
+          <input value={ref.name} onChange={(e) => setRef({ ...ref, name: e.target.value })} placeholder={t("cv.nameReq")} className={inp} />
+          <input value={ref.position} onChange={(e) => setRef({ ...ref, position: e.target.value })} placeholder={t("cv.position")} className={inp} />
+          <input value={ref.workplace} onChange={(e) => setRef({ ...ref, workplace: e.target.value })} placeholder={t("cv.workplace")} className={inp} />
           <input value={ref.email} onChange={(e) => setRef({ ...ref, email: e.target.value })} placeholder="Email" className={inp} />
-          <input value={ref.phone} onChange={(e) => setRef({ ...ref, phone: e.target.value })} placeholder="Phone" className={inp} />
+          <input value={ref.phone} onChange={(e) => setRef({ ...ref, phone: e.target.value })} placeholder={t("cv.phone")} className={inp} />
         </div>
-        <button onClick={addRef} className="mt-2 rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Add reference</button>
+        <button onClick={addRef} className="mt-2 rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("cv.addRef")}</button>
         <ul className="mt-2 grid gap-1 text-sm">
           {cv.refs.map((r: CvRef) => (
             <li key={r.id} className="flex flex-wrap items-center gap-2 rounded-xl bg-amber-50/60 px-2 py-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">
@@ -162,7 +164,7 @@ export default function CvBuilder() {
       <div className={box}>
         <h2 className="font-black">6 • Languages</h2>
         <div className="mt-2 flex flex-wrap gap-2 text-sm">
-          <input value={langQ} onChange={(e) => setLangQ(e.target.value)} placeholder="Search language…" className="min-w-40 flex-1 rounded-xl border px-3 py-1.5" />
+          <input value={langQ} onChange={(e) => setLangQ(e.target.value)} placeholder={t("cv.searchLang")} className="min-w-40 flex-1 rounded-xl border px-3 py-1.5" />
           <select value={langLevel} onChange={(e) => setLangLevel(e.target.value)} className="rounded-xl border px-2 py-1.5">
             {LEVELS.map((l) => <option key={l}>{l}</option>)}
           </select>
@@ -193,19 +195,20 @@ function CvPreview({ cv, profile, service, selCerts }: {
   service: { c: Contract; days: number }[];
   selCerts: { id: string; name: string; expiry: string }[];
 }) {
+  const { t } = useLocale();
   const name = profile?.displayName || "Your Name";
   const rank = profile?.rank || "Officer";
   const totalDays = service.reduce((a, s) => a + s.days, 0);
-  const t = cv.template;
+  const tpl = cv.template;
 
   const headCls =
-    t === "maritime" ? "bg-[#1b2a4a] text-[#faf5e9]"
-    : t === "minimal" ? "bg-white text-stone-900 border-b-2 border-stone-900"
-    : t === "compact" ? "bg-stone-800 text-amber-50"
+    tpl === "maritime" ? "bg-[#1b2a4a] text-[#faf5e9]"
+    : tpl === "minimal" ? "bg-white text-stone-900 border-b-2 border-stone-900"
+    : tpl === "compact" ? "bg-stone-800 text-amber-50"
     : "bg-[#1b2a4a] text-[#faf5e9]";
 
   const secTitle = (s: string) => (
-    <h3 className={`mt-4 border-b font-black uppercase tracking-widest ${t === "minimal" ? "border-stone-300 text-xs" : "text-sm"} ${t === "modern" ? "border-[#8b5a2b] text-[#8b5a2b]" : "border-amber-300"}`}>{s}</h3>
+    <h3 className={`mt-4 border-b font-black uppercase tracking-widest ${tpl === "minimal" ? "border-stone-300 text-xs" : "text-sm"} ${tpl === "modern" ? "border-[#8b5a2b] text-[#8b5a2b]" : "border-amber-300"}`}>{s}</h3>
   );
 
   const body = (
@@ -218,7 +221,7 @@ function CvPreview({ cv, profile, service, selCerts }: {
           <div className="mt-1 text-xs opacity-70">{[cv.contact.email, cv.contact.phone, cv.contact.nationality].filter(Boolean).join(" • ")}</div>
         </div>
       </div>
-      <div className={`p-5 text-sm ${t === "modern" ? "grid gap-4 md:grid-cols-[1fr_220px]" : ""}`}>
+      <div className={`p-5 text-sm ${tpl === "modern" ? "grid gap-4 md:grid-cols-[1fr_220px]" : ""}`}>
         <div>
           {secTitle("Sea service")}
           <ul className="mt-1 grid gap-1">
@@ -244,10 +247,10 @@ function CvPreview({ cv, profile, service, selCerts }: {
             {cv.refs.length === 0 && <li className="opacity-60">References available on request.</li>}
           </ul>
         </div>
-        {t === "modern" && (
+        {tpl === "modern" && (
           <aside className="rounded-xl bg-[#8b5a2b]/10 p-3 text-xs">
             <div className="font-black uppercase">Snapshot</div>
-            <div className="mt-1">Rank: {rank}</div>
+            <div className="mt-1">{t("ctr.rank")} {rank}</div>
             <div>Sea time: {fmtService(totalDays)}</div>
             <div>Certs: {selCerts.length}</div>
             <div>Vessels: {service.length}</div>
@@ -263,8 +266,8 @@ function CvPreview({ cv, profile, service, selCerts }: {
 
   return (
     <div>
-      <h2 className="mb-2 font-black print:hidden">👁️ Preview — {CV_TEMPLATES.find((x) => x.id === t)?.name}</h2>
-      <div className={`overflow-hidden rounded-2xl border bg-white text-stone-900 shadow ${t === "compact" ? "text-[13px] leading-snug" : ""}`}>{body}</div>
+      <h2 className="mb-2 font-black print:hidden">{t("cv.preview").replace("{x}", CV_TEMPLATES.find((x) => x.id === tpl)?.name ?? "")}</h2>
+      <div className={`overflow-hidden rounded-2xl border bg-white text-stone-900 shadow ${tpl === "compact" ? "text-[13px] leading-snug" : ""}`}>{body}</div>
     </div>
   );
 }

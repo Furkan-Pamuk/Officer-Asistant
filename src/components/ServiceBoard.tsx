@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { db } from "@/lib/db";
+import { useLocale } from "@/lib/i18n";
 import type { Contract } from "@/lib/types";
 
 function parseDate(s: string): Date | null {
@@ -27,6 +28,7 @@ export function contractDays(c: Contract, today = new Date()): number | null {
 }
 
 export default function ServiceBoard({ contracts, activeId, highlightEst, onEstSaved }: { contracts: Contract[]; activeId: string | null; highlightEst?: boolean; onEstSaved?: () => void }) {
+  const { t } = useLocale();
   const [today, setToday] = useState<Date | null>(null);
   useEffect(() => { setToday(new Date()); }, []);
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function ServiceBoard({ contracts, activeId, highlightEst, onEstS
       document.getElementById("est-signoff")?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [highlightEst]);
-  if (!today) return <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-5 text-amber-50">Loading service record…</div>;
+  if (!today) return <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-5 text-amber-50">{t("sb.loading")}</div>;
   const byRank = new Map<string, number>();
   let total = 0;
   for (const c of contracts) {
@@ -57,20 +59,20 @@ export default function ServiceBoard({ contracts, activeId, highlightEst, onEstS
     <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-5 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
       <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
         <div>
-          <div className="text-xs font-bold uppercase tracking-widest opacity-70">Total sea service</div>
+          <div className="text-xs font-bold uppercase tracking-widest opacity-70">{t("sb.total")}</div>
           <div className="text-3xl font-bold">{fmtService(total)} <span className="text-sm font-medium opacity-70">({total} days)</span></div>
         </div>
         {active && activeDays !== null && (
           <div>
-            <div className="text-xs font-bold uppercase tracking-widest opacity-70">{active.shipName} — day count</div>
-            <div className="text-3xl font-bold">Day {activeDays}</div>
+            <div className="text-xs font-bold uppercase tracking-widest opacity-70">{t("sb.ship").replace("{s}", active.shipName)}</div>
+            <div className="text-3xl font-bold">{t("ac.day").replace("{n}", String(activeDays))}</div>
           </div>
         )}
         {active && (
           <div id="est-signoff" className={`flex items-center gap-2 text-sm ${highlightEst ? "animate-pulse rounded-2xl bg-amber-400/30 p-2 ring-2 ring-amber-400 dark:bg-red-950/40 dark:ring-red-500" : ""}`}>
-            <label className="font-bold">Est. sign-off:</label>
+            <label className="font-bold">{t("sb.est")}</label>
             <input type="date" value={active.estimatedEndDate ?? ""} onChange={(e) => setEst(active.id, e.target.value)} className="rounded-xl border border-amber-300 bg-white px-2 py-1 font-bold text-stone-900 dark:border-amber-300 dark:bg-white dark:text-stone-900" />
-            {left !== null && <span className={`rounded-full px-3 py-1 font-bold ${left <= 14 ? "bg-red-600 text-white" : "bg-amber-400 text-stone-950"}`}>{left < 0 ? `${-left} days over` : `${left} days left`}</span>}
+            {left !== null && <span className={`rounded-full px-3 py-1 font-bold ${left <= 14 ? "bg-red-600 text-white" : "bg-amber-400 text-stone-950"}`}>{left < 0 ? t("sb.over").replace("{n}", String(-left)) : t("sb.left").replace("{n}", String(left))}</span>}
           </div>
         )}
       </div>
@@ -80,7 +82,7 @@ export default function ServiceBoard({ contracts, activeId, highlightEst, onEstS
             {rank || "Unknown"}: {fmtService(days)}
           </span>
         ))}
-        {byRank.size === 0 && <span className="opacity-70">Add contracts below to build your service record.</span>}
+        {byRank.size === 0 && <span className="opacity-70">{t("sb.addBelow")}</span>}
       </div>
     </div>
   );

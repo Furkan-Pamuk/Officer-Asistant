@@ -4,6 +4,7 @@ import { db, uid, getActiveContractId } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import DateField from "@/components/DateField";
 import type { Note } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 function blobToDataUrl(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -20,6 +21,7 @@ function fmtRemind(iso: string) {
 }
 
 export default function NotesPanel({ contractScoped = true }: { contractScoped?: boolean }) {
+  const { t } = useLocale();
   const [contractId, setContractId] = useState<string | null>(null);
   const notes = useLiveQuery(() => {
     if (contractScoped) {
@@ -90,14 +92,14 @@ export default function NotesPanel({ contractScoped = true }: { contractScoped?:
       rec.start();
       setRecording(true);
     } catch {
-      alert("Microphone not available or permission denied.");
+      alert(t("np.micDeny"));
     }
   }
 
   async function add() {
     if (!body.trim() && !audioUrl) return;
     const cid = contractScoped ? getActiveContractId() : null;
-    if (contractScoped && !cid) { alert("Select a contract first"); return; }
+    if (contractScoped && !cid) { alert(t("insp.needContract")); return; }
     await db.notes.add({
       id: uid("n"), title: voiceName.trim() || body.slice(0, 30) || "Voice note", body, tag: "general",
       audioDataUrl: audioUrl || undefined,
@@ -123,27 +125,27 @@ export default function NotesPanel({ contractScoped = true }: { contractScoped?:
   return (
     <div className="flex h-full flex-col gap-2">
       <div className="rounded-2xl border border-amber-200 bg-white p-4 grid gap-2 dark:border-red-950 dark:bg-neutral-950">
-        <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={2} placeholder="Write note… Enter = save, Shift+Enter = new line" onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); add(); } }} className="rounded-xl border px-3 py-2 font-serif text-[15px] leading-relaxed" />
+        <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={2} placeholder={t("np.writePh")} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); add(); } }} className="rounded-xl border px-3 py-2 font-serif text-[15px] leading-relaxed" />
         {audioUrl && (
           <div className="grid gap-1">
             <audio controls src={audioUrl} className="w-full" />
-            <input value={voiceName} onChange={(e) => setVoiceName(e.target.value)} placeholder="Name this recording (optional)" className="rounded-xl border px-3 py-1.5 text-sm" />
+            <input value={voiceName} onChange={(e) => setVoiceName(e.target.value)} placeholder={t("np.recName")} className="rounded-xl border px-3 py-1.5 text-sm" />
           </div>
         )}
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <button onClick={toggleRecord} className={`rounded-full px-4 py-2 font-bold text-white ${recording ? "animate-pulse bg-red-600" : "bg-stone-900 dark:bg-red-700"}`}>
-            {recording ? "⏹ Stop recording" : "🎤 Voice note"}
+            {recording ? t("np.stop") : t("np.voice")}
           </button>
-          <DateField mode="datetime" value={remind} onChange={setRemind} placeholder="Set reminder" className="rounded-xl border px-2 py-1.5 text-xs" />
-          <button onClick={add} className="rounded-full border px-4 py-2 font-bold">Save note</button>
+          <DateField mode="datetime" value={remind} onChange={setRemind} placeholder={t("np.setRem")} className="rounded-xl border px-2 py-1.5 text-xs" />
+          <button onClick={add} className="rounded-full border px-4 py-2 font-bold">{t("np.saveNote")}</button>
         </div>
       </div>
       <div className="oa-cork flex-1 rounded-2xl p-5">
-        <div className="mb-1 text-center text-xs font-black uppercase tracking-widest text-amber-50/70">📌 Pinboard — tap to open all ({list.length})</div>
+        <div className="mb-1 text-center text-xs font-black uppercase tracking-widest text-amber-50/70">{t("np.pinboard").replace("{n}", String(list.length))}</div>
         {list.length === 0 ? (
-          <p className="rounded-xl bg-white/90 p-4 text-center text-sm font-medium">No notes pinned yet.</p>
+          <p className="rounded-xl bg-white/90 p-4 text-center text-sm font-medium">{t("np.noPin")}</p>
         ) : (
-          <div onClick={() => setGallery(true)} onKeyDown={(e) => { if (e.key === "Enter") setGallery(true); }} role="button" tabIndex={0} className="relative block h-44 w-full cursor-pointer overflow-hidden text-left" title="Open all notes">
+          <div onClick={() => setGallery(true)} onKeyDown={(e) => { if (e.key === "Enter") setGallery(true); }} role="button" tabIndex={0} className="relative block h-44 w-full cursor-pointer overflow-hidden text-left" title={t("np.openAll")}>
             {list.slice(0, 20).map((n, i, arr) => {
               const stepPct = arr.length <= 1 ? 0 : 78 / (arr.length - 1);
               const rot = ((i % 7) - 3) * 5;
@@ -158,7 +160,7 @@ export default function NotesPanel({ contractScoped = true }: { contractScoped?:
                   <span className="mt-0.5 flex items-center justify-between">
                     <button
                       onClick={(e) => { e.stopPropagation(); setGallery(true); setOpenId(n.id); setBellFor(n.id); setBellAt(""); }}
-                      title="Set reminder"
+                      title={t("np.setRem")}
                       className={`rounded-full border px-2 py-0.5 text-[11px] font-bold ${n.remindAt && !n.reminded ? "bg-amber-400" : ""}`}
                     >
                       🔔{n.remindAt && !n.reminded ? " " + fmtRemind(n.remindAt) : ""}
@@ -176,8 +178,8 @@ export default function NotesPanel({ contractScoped = true }: { contractScoped?:
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => { setGallery(false); setOpenId(null); }}>
           <div className="flex max-h-[85vh] w-full max-w-4xl flex-col rounded-2xl border-4 border-amber-300 bg-white p-4 shadow-2xl dark:border-red-900 dark:bg-neutral-950" onClick={(e) => e.stopPropagation()}>
             <div className="mb-2 flex items-center justify-between">
-              <h3 className="font-black">📌 All notes ({list.length})</h3>
-              <button onClick={() => { setGallery(false); setOpenId(null); }} className="rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Pin back 📌</button>
+              <h3 className="font-black">{t("np.allNotes").replace("{n}", String(list.length))}</h3>
+              <button onClick={() => { setGallery(false); setOpenId(null); }} className="rounded-full bg-stone-900 px-4 py-1.5 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("np.pinBack")}</button>
             </div>
             <div className="grid grid-cols-2 gap-2 overflow-y-auto pr-1 sm:grid-cols-3 lg:grid-cols-5">
               {list.map((n) => (
@@ -192,7 +194,7 @@ export default function NotesPanel({ contractScoped = true }: { contractScoped?:
                       {n.audioDataUrl && <audio controls src={n.audioDataUrl} className="mt-1 w-full" />}
                       {n.transcript && (
                         <div className="mt-1">
-                          <button onClick={() => setShowTr(showTr === n.id ? null : n.id)} className="rounded-full border px-2 py-0.5 text-[11px] font-bold">📝 Transcript {showTr === n.id ? "▴" : "▾"}</button>
+                          <button onClick={() => setShowTr(showTr === n.id ? null : n.id)} className="rounded-full border px-2 py-0.5 text-[11px] font-bold">{t("np.transcript").replace("{x}", showTr === n.id ? "▴" : "▾")}</button>
                           {showTr === n.id && <p className="mt-1 rounded-lg bg-amber-50 p-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">{n.transcript}</p>}
                         </div>
                       )}
@@ -202,8 +204,8 @@ export default function NotesPanel({ contractScoped = true }: { contractScoped?:
                       </div>
                       {bellFor === n.id ? (
                         <div className="mt-1 flex gap-1">
-          <DateField mode="datetime" value={bellAt} onChange={setBellAt} placeholder="Set reminder" className="min-w-0 flex-1 rounded-lg border px-1 py-0.5" />
-                          <button onClick={() => setReminder(n)} className="rounded-full bg-stone-900 px-2 py-0.5 font-bold text-amber-50">Set</button>
+          <DateField mode="datetime" value={bellAt} onChange={setBellAt} placeholder={t("np.setRem")} className="min-w-0 flex-1 rounded-lg border px-1 py-0.5" />
+                          <button onClick={() => setReminder(n)} className="rounded-full bg-stone-900 px-2 py-0.5 font-bold text-amber-50">{t("np.set")}</button>
                         </div>
                       ) : (
                         <div className="mt-1 flex gap-1">

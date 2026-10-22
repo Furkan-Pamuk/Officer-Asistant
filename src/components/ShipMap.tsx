@@ -2,8 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useLocale } from "@/lib/i18n";
 
 export default function ShipMap({ lat, lon, label }: { lat: number; lon: number; label: string }) {
+  const { t } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const seamarkRef = useRef<L.TileLayer | null>(null);
@@ -58,10 +60,10 @@ export default function ShipMap({ lat, lon, label }: { lat: number; lon: number;
       <div ref={ref} className="h-64 w-full rounded-2xl border border-white/20" />
       <button
         onClick={() => setSeamarks((v) => !v)}
-        title="Toggle seamarks (buoys/beacons via OpenSeaMap)"
+        title={t("route.seamarksTitle")}
         className={`absolute right-3 top-3 z-30 rounded-full border px-3 py-1.5 text-xs font-black shadow ${seamarks ? "border-teal-700 bg-teal-600 text-white" : "bg-white/95 dark:bg-black/90"}`}
       >
-        ⚓ Seamarks {seamarks ? "on" : "off"}
+        {t("route.seamarks").replace("{x}", seamarks ? t("route.on") : t("route.off"))}
       </button>
     </div>
   );

@@ -8,6 +8,7 @@ import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { LOAD_MARKS, zoneAt } from "@/lib/loadlines";
 import { CHOKEPOINTS } from "@/lib/route-data";
 import { formatDuration, haversineNm, isWater, mergeLegs, planRoute, planRouteWithStops, unwrapTrack, wrapLon, type RoutePlan, type TrackPoint } from "@/lib/route";
+import { useLocale } from "@/lib/i18n";
 
 const LS_KEY = "oa-route-v1";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -31,6 +32,7 @@ interface CustomStop {
 }
 
 function RouteLoadZone({ fromCode, toCode, departMs, arriveMs }: { fromCode: string; toCode: string; departMs: number; arriveMs: number }) {
+  const { t } = useLocale();
   const legs: { port: Port; ms: number }[] = [];
   const fp = PORTS.find((p) => p.code === fromCode);
   const tp = PORTS.find((p) => p.code === toCode);
@@ -45,7 +47,7 @@ function RouteLoadZone({ fromCode, toCode, departMs, arriveMs }: { fromCode: str
   const dateOf = (ms: number) => new Date(ms).toISOString().slice(0, 10);
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-      <h2 className="font-bold">🔍 Which zone is my port in?</h2>
+      <h2 className="font-bold">{t("route.zoneTitle")}</h2>
       <div className="mt-2 grid gap-2 sm:grid-cols-2">
         {legs.map(({ port, ms }) => {
           const hit = zoneAt(port.lat, port.lon, monthOf(ms));
@@ -56,22 +58,23 @@ function RouteLoadZone({ fromCode, toCode, departMs, arriveMs }: { fromCode: str
               {hit && mark ? (
                 <>
                   <p className="mt-0.5 text-xl font-black">{hit.mark} <span className="text-sm font-bold opacity-70">{hit.zone.name}</span></p>
-                  {hit.zone.smallOnly && <p className="text-xs font-bold opacity-70">For vessels {hit.zone.smallOnly}.</p>}
-                  {hit.zone.note && <p className="text-xs opacity-70">Note: {hit.zone.note}.</p>}
+                  {hit.zone.smallOnly && <p className="text-xs font-bold opacity-70">{t("route.vessels").replace("{x}", hit.zone.smallOnly)}</p>}
+                  {hit.zone.note && <p className="text-xs opacity-70">{t("route.note").replace("{x}", hit.zone.note)}</p>}
                 </>
               ) : (
-                <p className="mt-0.5 opacity-70">Outside simplified zones — check the ILLC chart.</p>
+                <p className="mt-0.5 opacity-70">{t("route.outside")}</p>
               )}
             </div>
           );
         })}
       </div>
-      <p className="mt-2 text-[11px] opacity-60">From uses departure date, To uses ETA date (departure date until the route computes). Simplified ILLC guide — the official chart governs.</p>
+      <p className="mt-2 text-[11px] opacity-60">{t("route.zoneHint")}</p>
     </div>
   );
 }
 
 function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string }) {
+  const { t } = useLocale();
   const codes = [fromCode, toCode].filter(Boolean);
   const saved = useLiveQuery(
     () => (codes.length > 0 ? db.portVhf.where("portCode").anyOf(codes).toArray() : Promise.resolve([])),
@@ -86,16 +89,16 @@ function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string 
     const s = byCode.get(port.code);
     const d = VHF_DEFAULTS[port.code] ?? {};
     return [
-      { label: "VTS", value: s?.vts || d.vts || "—" },
-      { label: "Pilot", value: s?.pilot || d.pilot || "—" },
-      { label: "Harbour", value: s?.harbour || d.harbour || "—" },
-      { label: "Port ctl", value: s?.portControl || d.portControl || "—" },
+      { label: t("route.vts"), value: s?.vts || d.vts || "—" },
+      { label: t("route.pilot"), value: s?.pilot || d.pilot || "—" },
+      { label: t("route.harbour"), value: s?.harbour || d.harbour || "—" },
+      { label: t("route.portctl"), value: s?.portControl || d.portControl || "—" },
     ];
   };
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
       <div className="flex items-center justify-between gap-2">
-        <h2 className="font-bold">⚓ Port Info — VHF</h2>
+        <h2 className="font-bold">{t("route.portinfo")}</h2>
       </div>
       <div className="mt-2 grid gap-3 sm:grid-cols-2">
         {ports.map((p) => (
@@ -109,12 +112,13 @@ function RoutePortInfo({ fromCode, toCode }: { fromCode: string; toCode: string 
           </div>
         ))}
       </div>
-      <p className="mt-2 text-[11px] opacity-60">Presets are a starting point — verify with ALRS Vol 6. Edit values in Port Info.</p>
+      <p className="mt-2 text-[11px] opacity-60">{t("route.presetHint")}</p>
     </div>
   );
 }
 
 export default function RoutePage() {
+  const { t } = useLocale();
   const mapEl = useRef<HTMLDivElement>(null);
   const mapRef = useRef<{
     map: import("leaflet").Map;
@@ -254,7 +258,7 @@ export default function RoutePage() {
   function insertCustomAt(lat: number, lon: number, trackIdx?: number) {
     lon = wrapLon(lon);
     if (!isWater(lat, lon)) {
-      flashNotice("That point is on land — pick a water point for a stop.");
+      flashNotice(t("route.onLandStop"));
       return;
     }
     const p = planRef.current;
@@ -285,7 +289,7 @@ export default function RoutePage() {
   function convertWaypoint(trackIdx: number, wayId: string, lat: number, lon: number) {
     lon = wrapLon(lon);
     if (!isWater(lat, lon)) {
-      flashNotice("That point is on land — drag the stop back to water.");
+      flashNotice(t("route.onLandDrag"));
       return;
     }
     const pts = planRef.current?.points ?? [];
@@ -460,7 +464,7 @@ export default function RoutePage() {
           draggable: true,
           icon: L.divIcon({
             className: "",
-            html: `<div title="Stop ${n} — drag to move" style="width:26px;height:26px;border-radius:50%;background:#b45309;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid ${water ? "#fff" : "#dc2626"};box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;">${n}</div>`,
+            html: `<div title="${t("route.stopDrag").replace("{n}", String(n))}" style="width:26px;height:26px;border-radius:50%;background:#b45309;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid ${water ? "#fff" : "#dc2626"};box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;">${n}</div>`,
             iconSize: [26, 26],
             iconAnchor: [13, 13],
           }),
@@ -470,7 +474,7 @@ export default function RoutePage() {
           setCustoms((prev) => prev.map((x) => (x.id === cid ? { ...x, lat: ll.lat, lon: ll.lng } : x)));
         });
         dot.bindPopup(
-          `<div style="font-size:13px"><b>Stop ${n}</b> ${water ? "" : "<br/><span style='color:#dc2626;font-weight:700'>On land — drag to water</span>"}<br/>${pt.lat.toFixed(2)}, ${pt.lon.toFixed(2)}<br/><button data-rm="${cid}" style="margin-top:6px;padding:4px 10px;border-radius:8px;border:1px solid #dc2626;color:#dc2626;font-weight:700;background:#fff;cursor:pointer;">Remove stop</button></div>`
+          `<div style="font-size:13px"><b>${t("route.stop").replace("{n}", String(n))}</b> ${water ? "" : `<br/><span style='color:#dc2626;font-weight:700'>${t("route.onLand")}</span>`}<br/>${pt.lat.toFixed(2)}, ${pt.lon.toFixed(2)}<br/><button data-rm="${cid}" style="margin-top:6px;padding:4px 10px;border-radius:8px;border:1px solid #dc2626;color:#dc2626;font-weight:700;background:#fff;cursor:pointer;">${t("route.removeStop")}</button></div>`
         );
         dot.addTo(ref.stopLayer);
       } else {
@@ -480,7 +484,7 @@ export default function RoutePage() {
           draggable: true,
           icon: L.divIcon({
             className: "",
-            html: `<div title="Stop ${n} (${pt.label}) — drag to move" style="width:26px;height:26px;border-radius:50%;background:#2AA198;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;">${n}</div>`,
+            html: `<div title="${t("route.stopLabel").replace("{n}", String(n)).replace("{label}", pt.label)}" style="width:26px;height:26px;border-radius:50%;background:#2AA198;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;">${n}</div>`,
             iconSize: [26, 26],
             iconAnchor: [13, 13],
           }),
@@ -490,7 +494,7 @@ export default function RoutePage() {
           convertWaypointRef.current(idx, wayId, ll.lat, ll.lng);
         });
         dot.bindPopup(
-          `<div style="font-size:13px"><b>Stop ${n} — ${pt.label}</b><br/><button data-avoid="${wayId}" style="margin-top:6px;padding:4px 10px;border-radius:8px;border:1px solid #dc2626;color:#dc2626;font-weight:700;background:#fff;cursor:pointer;">Remove stop</button></div>`
+          `<div style="font-size:13px"><b>${t("route.stopTitle").replace("{n}", String(n)).replace("{label}", pt.label)}</b><br/><button data-avoid="${wayId}" style="margin-top:6px;padding:4px 10px;border-radius:8px;border:1px solid #dc2626;color:#dc2626;font-weight:700;background:#fff;cursor:pointer;">${t("route.removeStop")}</button></div>`
         );
         dot.addTo(ref.stopLayer);
       }
@@ -505,9 +509,9 @@ export default function RoutePage() {
   return (
     <div className="grid gap-4">
       <div>
-        <h1 className="text-2xl font-bold">📍 Route Planner</h1>
+        <h1 className="text-2xl font-bold">{t("route.title")}</h1>
         <p className="text-sm font-medium opacity-70">
-          Pick two ports on the map or from the lists. Distance follows sea lanes (straits/canals included, simplified network) — for planning only, not navigation.
+          {t("route.sub")}
         </p>
       </div>
 
@@ -517,16 +521,16 @@ export default function RoutePage() {
           <div ref={mapEl} className="z-0 h-[420px] w-full overflow-hidden rounded-2xl border border-amber-200 dark:border-red-950" />
           {!mapReady && (
             <div className="absolute inset-0 flex items-center justify-center rounded-2xl bg-neutral-100 text-sm font-bold opacity-80 dark:bg-neutral-900">
-              Loading map…
+              {t("route.loadingMap")}
             </div>
           )}
           {mapReady && (
             <button
               onClick={() => setSeamarks((v) => !v)}
-              title="Toggle seamarks (buoys/beacons via OpenSeaMap)"
+              title={t("route.seamarksTitle")}
               className={`absolute right-3 top-3 z-30 rounded-full border px-3 py-1.5 text-xs font-black shadow ${seamarks ? "border-teal-700 bg-teal-600 text-white" : "border-amber-200 bg-white/95 dark:border-red-950 dark:bg-black/90"}`}
             >
-              ⚓ Seamarks {seamarks ? "on" : "off"}
+              {t("route.seamarks").replace("{x}", seamarks ? t("route.on") : t("route.off"))}
             </button>
           )}
           </div>
@@ -537,7 +541,7 @@ export default function RoutePage() {
 
         <div className="contents lg:grid lg:content-start lg:gap-3">
           <div className="order-2 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:order-1">
-            <label className="text-xs font-bold opacity-60">From</label>
+            <label className="text-xs font-bold opacity-60">{t("route.from")}</label>
             <select value={from} onChange={(e) => handleFrom(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
               {PORTS.map((p) => (
                 <option key={p.code} value={p.code}>{p.name} ({p.country})</option>
@@ -547,67 +551,67 @@ export default function RoutePage() {
               <button
                 onClick={handleSwap}
                 className="rounded-full border px-3 py-1 text-xs font-bold"
-                title="Swap"
+                title={t("route.swapTitle")}
               >
-                ⇅ Swap
+                {t("route.swap")}
               </button>
               <button
                 onClick={() => setStoryOpen(true)}
                 disabled={!plan}
                 className="rounded-full bg-amber-400 px-3 py-1 text-xs font-black text-stone-950 disabled:opacity-40 dark:bg-red-600 dark:text-white"
-                title="Story for these two ports"
+                title={t("route.storyFor")}
               >
-                📸 Story
+                {t("route.story")}
               </button>
             </div>
-            <label className="mt-2 block text-xs font-bold opacity-60">To</label>
+            <label className="mt-2 block text-xs font-bold opacity-60">{t("route.to")}</label>
             <select value={to} onChange={(e) => handleTo(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
-              <option value="">Select…</option>
+              <option value="">{t("route.select")}</option>
               {PORTS.map((p) => (
                 <option key={p.code} value={p.code}>{p.name} ({p.country})</option>
               ))}
             </select>
-            <p className="mt-2 text-xs opacity-60">Tip: click a port on the map — first click sets From, second sets To.</p>
+            <p className="mt-2 text-xs opacity-60">{t("route.tip")}</p>
           </div>
 
           <div className="order-3 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:order-2">
             <div className="flex items-center justify-between">
-              <h2 className="font-bold">✏️ Edit route</h2>
+              <h2 className="font-bold">{t("route.editRoute")}</h2>
               <button
                 onClick={() => setEditMode((v) => !v)}
                 disabled={!plan}
                 className={`rounded-full px-3 py-1 text-xs font-bold ${editMode ? "bg-amber-600 text-white" : "border"} disabled:opacity-40`}
               >
-                {editMode ? "Done" : "Edit"}
+                {editMode ? t("route.done") : t("common.edit")}
               </button>
             </div>
             {editMode && (
               <div className="mt-2 text-xs">
-                <p className="opacity-60">Drag any numbered stop to move it (orange = yours, teal = auto) • click the route line or the map to add a stop • each stop&apos;s popup removes it.</p>
+                <p className="opacity-60">{t("route.editHint")}</p>
                 {notice && <p className="mt-2 rounded-xl bg-red-50 px-3 py-2 font-bold text-red-700 dark:bg-red-950">{notice}</p>}
                 {customs.length > 0 && (
                   <ul className="mt-2 grid gap-1">
                     {customs.map((c, i) => (
                       <li key={c.id} className="flex items-center justify-between gap-2 rounded-xl bg-amber-50 px-3 py-1.5 dark:bg-black">
-                        <span><b>Stop {i + 1}</b> · {c.lat.toFixed(2)}, {c.lon.toFixed(2)}{isWater(c.lat, c.lon) ? "" : " · on land!"}</span>
+                        <span><b>{t("route.stop").replace("{n}", String(i + 1))}</b> · {c.lat.toFixed(2)}, {c.lon.toFixed(2)}{isWater(c.lat, c.lon) ? "" : t("route.onLandShort")}</span>
                         <button
                           onClick={() => setCustoms((prev) => prev.filter((x) => x.id !== c.id))}
                           className="shrink-0 rounded-full border border-red-400 px-2 py-0.5 font-bold text-red-700"
                         >
-                          Remove
+                          {t("route.remove")}
                         </button>
                       </li>
                     ))}
                   </ul>
                 )}
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="font-bold">{customs.length} custom stop{customs.length === 1 ? "" : "s"} • {avoid.length} avoided</span>
+                  <span className="font-bold">{t("route.customSummary").replace("{a}", String(customs.length)).replace("{b}", String(avoid.length))}</span>
                   {(customs.length > 0 || avoid.length > 0) && (
                     <button
                       onClick={() => { setCustoms([]); setAvoid([]); }}
                       className="rounded-full border border-red-400 px-3 py-1 font-bold text-red-700"
                     >
-                      Reset route
+                      {t("route.reset")}
                     </button>
                   )}
                 </div>
@@ -618,7 +622,7 @@ export default function RoutePage() {
                         key={a}
                         onClick={() => setAvoid((prev) => prev.filter((x) => x !== a))}
                         className="rounded-full bg-red-50 px-2 py-0.5 font-bold text-red-700 dark:bg-red-950"
-                        title="Click to allow again"
+                        title={t("route.allowAgain")}
                       >
                         ⊘ {a} ×
                       </button>
@@ -630,8 +634,8 @@ export default function RoutePage() {
           </div>
 
           <div className="order-6 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:order-3">
-            <h2 className="font-bold">Straits &amp; Canals</h2>
-            <p className="text-xs opacity-60">Switch off a passage you cannot use (no permit, closed, sanctions) — the router will go around or report no route.</p>
+            <h2 className="font-bold">{t("route.straits")}</h2>
+            <p className="text-xs opacity-60">{t("route.straitsHint")}</p>
             <div className="mt-2 grid gap-1.5">
               {CHOKEPOINTS.map((c) => {
                 const off = closed.includes(c.id);
@@ -654,14 +658,14 @@ export default function RoutePage() {
           <div className="order-4 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:order-4">
             {plan ? (
               <>
-                <div className="text-xs font-bold opacity-60">TOTAL DISTANCE</div>
+                <div className="text-xs font-bold opacity-60">{t("route.total")}</div>
                 <div className="text-3xl font-black">{Math.round(plan.totalNm).toLocaleString("en-US")} <span className="text-base">nm</span></div>
-                <div className="mt-1 text-xs opacity-70">{fromPort?.name} → {toPort?.name} • {displayLegs.length} legs</div>
+                <div className="mt-1 text-xs opacity-70">{t("route.summary").replace("{from}", fromPort?.name ?? "").replace("{to}", toPort?.name ?? "").replace("{n}", String(displayLegs.length))}</div>
                 <button
                   onClick={() => setStoryOpen(true)}
                   className="mt-2 rounded-full bg-amber-400 px-4 py-1.5 text-sm font-black text-stone-950 dark:bg-red-600 dark:text-white"
                 >
-                  📸 Story
+                  {t("route.story")}
                 </button>
                 {plan.via.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1">
@@ -674,27 +678,27 @@ export default function RoutePage() {
             ) : (
               <p className="text-sm opacity-70">
                 {from && to && from !== to
-                  ? "No route with the current stops/straits — remove an avoided stop or switch a passage back on."
-                  : "Select two different ports for a route."}
+                  ? t("route.noRoute")
+                  : t("route.pickTwo")}
               </p>
             )}
           </div>
 
           <div className="order-5 rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 lg:order-5">
-            <h2 className="font-bold">⏱️ ETA Calculator</h2>
+            <h2 className="font-bold">{t("route.eta")}</h2>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div>
-                <label className="text-xs font-bold opacity-60">Speed (kn)</label>
+                <label className="text-xs font-bold opacity-60">{t("route.speed")}</label>
                 <input value={speed} onChange={(e) => setSpeed(e.target.value)} inputMode="decimal" className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
               </div>
               <div>
-                <label className="text-xs font-bold opacity-60">Departure</label>
+                <label className="text-xs font-bold opacity-60">{t("route.departure")}</label>
                 <input type="datetime-local" value={depart} onChange={(e) => setDepart(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
               </div>
             </div>
             <div className="mt-2 text-sm">
-              <div>Duration: <b>{plan && kn > 0 ? formatDuration(hours) : "—"}</b></div>
-              <div>Arrival (ETA): <b>{plan && kn > 0 && isFinite(arrMs) ? fmtDate(arrMs) : "—"}</b></div>
+              <div>{t("route.duration")} <b>{plan && kn > 0 ? formatDuration(hours) : "—"}</b></div>
+              <div>{t("route.arrival")} <b>{plan && kn > 0 && isFinite(arrMs) ? fmtDate(arrMs) : "—"}</b></div>
             </div>
           </div>
         </div>
@@ -702,7 +706,7 @@ export default function RoutePage() {
 
       {plan && (
         <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-          <h2 className="font-bold">Legs ({displayLegs.length})</h2>
+          <h2 className="font-bold">{t("route.legs").replace("{n}", String(displayLegs.length))}</h2>
           <ul className="mt-2 grid max-h-72 gap-1 overflow-y-auto text-sm">
             {displayLegs.map((l, i) => (
               <li key={i} className="flex items-baseline justify-between gap-2 rounded-lg bg-amber-50 px-2 py-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">
@@ -711,7 +715,7 @@ export default function RoutePage() {
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-xs opacity-60">Simplified sea-lane network — not a substitute for real voyage planning; verify against charts and current publications. Straight consecutive legs are grouped here; the map draws the full track through every waypoint.</p>
+          <p className="mt-2 text-xs opacity-60">{t("route.networkNote")}</p>
         </div>
       )}
       {storyOpen && plan && fromPort && toPort && (

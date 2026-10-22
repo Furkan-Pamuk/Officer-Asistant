@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 interface Quote { label: string; value: string; sub: string }
 
@@ -38,6 +39,7 @@ async function fetchQuotes(): Promise<{ quotes: Quote[]; cached: boolean; at: st
 }
 
 export default function MarketBoard() {
+  const { t } = useLocale();
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [meta, setMeta] = useState("");
 
@@ -65,17 +67,17 @@ export default function MarketBoard() {
         if (!alive) return;
         setQuotes(r.quotes);
         setMeta(`${r.cached ? "cached " : ""}${vesselStamp(r.at)}`);
-      } catch { if (alive) setMeta("offline — no data yet"); }
+      } catch { if (alive) setMeta(t("mk.offline")); }
     }
     load();
-    const t = setInterval(load, 10 * 60 * 1000);
-    return () => { alive = false; clearInterval(t); };
+    const timer = setInterval(load, 10 * 60 * 1000);
+    return () => { alive = false; clearInterval(timer); };
   }, []);
 
   return (
     <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
       <div className="flex items-center justify-between">
-        <h2 className="font-black tracking-wide">◉ MARKETS</h2>
+        <h2 className="font-black tracking-wide">{t("mk.title")}</h2>
         <span className="text-xs text-white/60 dark:text-red-300/60">{meta}</span>
       </div>
       <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -86,7 +88,7 @@ export default function MarketBoard() {
             <div className="text-[11px] text-white/40 dark:text-red-300/40">{q.sub}</div>
           </div>
         ))}
-        {quotes.length === 0 && <p className="text-sm opacity-70">Connect once to load rates — then cached offline.</p>}
+        {quotes.length === 0 && <p className="text-sm opacity-70">{t("mk.connect")}</p>}
       </div>
     </div>
   );

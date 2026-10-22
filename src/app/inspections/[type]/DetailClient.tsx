@@ -8,19 +8,22 @@ import CheckCardItem from "@/components/CheckCardItem";
 import { flagName } from "@/lib/flags";
 import { areaOf } from "@/lib/areas";
 import type { CheckCard } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 const CardRow = memo(function CardRow({ card, done, completedAt, onToggle }: {
   card: CheckCard; done: boolean; completedAt?: string; onToggle: (id: string) => void;
 }) {
+  const { t } = useLocale();
   return (
     <div>
       <CheckCardItem card={card} done={done} onToggle={() => onToggle(card.id)} />
-      {done && completedAt && <p className="mt-1 text-xs font-medium text-emerald-700 dark:text-red-300">Completed: {new Date(completedAt).toLocaleString()} • archived under this contract</p>}
+      {done && completedAt && <p className="mt-1 text-xs font-medium text-emerald-700 dark:text-red-300">{t("insp.doneOn").replace("{d}", new Date(completedAt).toLocaleString())}</p>}
     </div>
   );
 });
 
 export default function DetailClient({ params }: { params: Promise<{ type: string }> }) {
+  const { t } = useLocale();
   const { type } = use(params);
   const info = INSPECTION_TYPES.find((t) => t.id === type);
   const [dept, setDept] = useState<"all" | "bridge" | "deck" | "engine" | "safety">("all");
@@ -59,7 +62,7 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
       return !!vesselFlag && (c.flags?.includes(vesselFlag) ?? false);
     });
 
-  if (!info) return <p>Unknown inspection type.</p>;
+  if (!info) return <p>{t("insp.unknown")}</p>;
 
   // Optimistic ticks: instant UI, Dexie write in background, live query confirms.
   const [pending, setPending] = useState<Record<string, boolean>>({});
@@ -82,7 +85,7 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
   async function clearAll() {
     const doneCards = cards.filter((c) => isDone(c.id));
     if (!doneCards.length) return;
-    if (!confirm(`Clear ${doneCards.length} completed card${doneCards.length > 1 ? "s" : ""} in this inspection?`)) return;
+    if (!confirm(t("insp.confirmClear").replace("{n}", String(doneCards.length)))) return;
     const marks: Record<string, boolean> = {};
     doneCards.forEach((c) => { marks[c.id] = false; });
     setPending((p) => ({ ...p, ...marks }));
@@ -90,7 +93,7 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
   }
 
   const toggle = useCallback(async (cardId: string) => {
-    if (!contractId) { alert("Select a contract first"); return; }
+    if (!contractId) { alert(t("common.needContract")); return; }
     const id = progressId(contractId, cardId);
     const next = !(cardId in pending ? pending[cardId] : doneMap.has(cardId));
     setPending((p) => ({ ...p, [cardId]: next }));
@@ -112,8 +115,8 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
     return (
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{info.name}</h1>
-        <p className="text-sm">Select a contract first — each vessel keeps its own dated check-card history.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <p className="text-sm">{t("insp.needVessel")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -123,27 +126,27 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
       <div>
         <h1 className="text-2xl font-bold">{info.name}</h1>
         <p className="text-sm font-medium text-stone-600 dark:text-red-300/70">{info.description}</p>
-        <p className="mt-1 text-sm">Progress (this contract): <strong>{doneCount}/{cards.length}</strong> ({cards.length ? Math.round((doneCount / cards.length) * 100) : 0}%)</p>
+        <p className="mt-1 text-sm">{t("insp.progress").replace("{d}", String(doneCount)).replace("{t}", String(cards.length)).replace("{p}", String(cards.length ? Math.round((doneCount / cards.length) * 100) : 0))}</p>
         {isFlagPage && (
           vesselFlag ? (
             <p className="mt-1 rounded-xl bg-amber-100 px-3 py-1.5 text-sm font-bold dark:bg-red-950">
-              ⚑ Vessel flag: {flagName(vesselFlag)}{flagCards.length > 0 ? ` — ${flagCards.length} ${flagName(vesselFlag)}-specific cards below` : " — no flag-specific cards yet, showing general set"}
+              {flagCards.length > 0 ? t("insp.flagN").replace("{f}", flagName(vesselFlag)).replace("{n}", String(flagCards.length)).replace("{f2}", flagName(vesselFlag)) : t("insp.flagN").replace("{f}", flagName(vesselFlag)).replace("{n}", "0").replace("{f2}", flagName(vesselFlag)) + t("insp.noFlagCards")}
             </p>
           ) : (
-            <p className="mt-1 text-sm font-bold opacity-70">⚑ No flag set on this contract — <Link href="/contracts" className="underline">set it in Contracts</Link> to unlock flag-specific cards.</p>
+            <p className="mt-1 text-sm font-bold opacity-70">{t("insp.noFlag")} <Link href="/contracts" className="underline">{t("insp.setFlagLink")}</Link>{t("insp.unlockTail")}</p>
           )
         )}
       </div>
       <div className="flex flex-wrap items-center gap-2 text-sm">
         <div className="flex gap-1 rounded-full border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
           {(["all", "bridge", "deck", "engine", "safety"] as const).map((d) => (
-            <button key={d} onClick={() => setDept(d)} className={`rounded-full px-3 py-1.5 font-bold capitalize ${dept === d ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-60 hover:opacity-100"}`}>{d === "deck" ? "Cargo · Deck" : d === "bridge" ? "Bridge" : d === "safety" ? "Safety" : d}</button>
+            <button key={d} onClick={() => setDept(d)} className={`rounded-full px-3 py-1.5 font-bold capitalize ${dept === d ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-60 hover:opacity-100"}`}>{d === "deck" ? t("insp.deptDeck") : d === "bridge" ? t("insp.deptBridge") : d === "safety" ? t("insp.deptSafety") : d === "all" ? t("insp.deptAll") : t("insp.deptEngineLow")}</button>
           ))}
         </div>
         <div className="flex gap-1 rounded-full border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
           {(["all", "done", "todo"] as const).map((s) => (
             <button key={s} onClick={() => setShow(s)} className={`rounded-full px-3 py-1.5 font-bold ${show === s ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-60 hover:opacity-100"}`}>
-              {s === "all" ? "All" : s === "done" ? "✓ Done" : "○ To do"}
+              {s === "all" ? t("common.all") : s === "done" ? t("insp.done") : t("insp.todo")}
             </button>
           ))}
         </div>
@@ -151,19 +154,19 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
           <div className="flex gap-1 rounded-full border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
             {(["all", "general", "flag"] as const).map((s) => (
               <button key={s} onClick={() => setFlagScope(s)} className={`rounded-full px-3 py-1.5 font-bold ${flagScope === s ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-60 hover:opacity-100"}`}>
-                {s === "all" ? "All cards" : s === "general" ? "General" : `⚑ ${flagName(vesselFlag)}`}
+                {s === "all" ? t("insp.scopeAll") : s === "general" ? t("insp.general") : t("insp.flagScope").replace("{f}", flagName(vesselFlag))}
               </button>
             ))}
           </div>
         )}
-        <button onClick={() => exportJSON(`${type}-${contractId}-progress.json`, progress)} className="rounded-full border bg-white px-3 py-1.5 dark:bg-black">Export history</button>
-        <button onClick={clearAll} className="rounded-full border border-red-300 bg-white px-3 py-1.5 font-bold text-red-600 dark:border-red-900 dark:bg-black">Clear all</button>
+        <button onClick={() => exportJSON(`${type}-${contractId}-progress.json`, progress)} className="rounded-full border bg-white px-3 py-1.5 dark:bg-black">{t("insp.exportHist")}</button>
+        <button onClick={clearAll} className="rounded-full border border-red-300 bg-white px-3 py-1.5 font-bold text-red-600 dark:border-red-900 dark:bg-black">{t("insp.clearAll")}</button>
       </div>
       <div className="grid gap-3">
         {visible.map((c) => (
           <CardRow key={c.id} card={c} done={isDone(c.id)} completedAt={doneMap.get(c.id)} onToggle={toggle} />
         ))}
-        {visible.length === 0 && <p className="text-sm">No cards match this filter.</p>}
+        {visible.length === 0 && <p className="text-sm">{t("insp.noMatch")}</p>}
       </div>
     </div>
   );

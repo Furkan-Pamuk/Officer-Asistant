@@ -8,6 +8,7 @@ import { useTodoData, matchesRank } from "@/hooks/useTodoData";
 import { ListCard, ArchivedTodoLists } from "@/components/TodoListCard";
 import { nearestPort } from "@/lib/portlog";
 import type { ChecklistGroup, Contract, JobChecklist, TodoInterval } from "@/lib/types";
+import { useLocale } from "@/lib/i18n";
 
 type Tab = TodoInterval | ChecklistGroup;
 
@@ -68,7 +69,18 @@ function groupOf(l: JobChecklist): ChecklistGroup {
 }
 
 function ChecklistsInner() {
+  const { t } = useLocale();
   const params = useSearchParams();
+  const tabLabel = (id: Tab): string =>
+    id === "daily" ? t("chk.daily")
+    : id === "weekly" ? t("chk.weekly")
+    : id === "monthly" ? t("chk.monthly")
+    : id === "once" ? t("chk.prejoin")
+    : id === "bridge" ? t("chk.bridge")
+    : id === "cargo" ? t("chk.cargo")
+    : id === "engine" ? t("chk.engine")
+    : id === "deck" ? t("chk.deck")
+    : t("chk.safety");
   const [tab, setTab] = useState<Tab>("daily");
   const [contractId, setContractId] = useState<string | null>(null);
   const { lists, tasks, doneSet, lockedRank } = useTodoData();
@@ -103,8 +115,8 @@ function ChecklistsInner() {
     if (!title.trim() || !contractId) return;
     const now = new Date().toISOString();
     const arr = items.split("\n").map((s) => s.trim()).filter(Boolean);
-    const list = arr.length ? arr : ["New item"];
-    await db.checklists.add({ id: uid("chk"), title: title.trim(), description: "Custom checklist", department: tab === "engine" ? "engine" : "both", group, items: list, done: list.map(() => false), custom: true, updatedAt: now, contractId });
+    const list = arr.length ? arr : [t("chk.newItem")];
+    await db.checklists.add({ id: uid("chk"), title: title.trim(), description: t("chk.customDesc"), department: tab === "engine" ? "engine" : "both", group, items: list, done: list.map(() => false), custom: true, updatedAt: now, contractId });
     setTitle(""); setItems("");
   }
 
@@ -117,9 +129,9 @@ function ChecklistsInner() {
   if (!contractId) {
     return (
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">Checklists</h1>
-        <p className="text-sm">Select a contract first — checklists are kept per vessel.</p>
-        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">Go to contracts</Link>
+        <h1 className="text-2xl font-bold">{t("nav.checklists")}</h1>
+        <p className="text-sm">{t("chk.needVessel")}</p>
+        <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
     );
   }
@@ -132,19 +144,19 @@ function ChecklistsInner() {
     <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">Checklists — this vessel</h1>
+          <h1 className="text-2xl font-bold">{t("chk.titleVessel")}</h1>
           <p className="text-sm font-medium opacity-70">
-            Daily / Weekly / Monthly / Pre-joining routines plus Bridge, Cargo, Engine and Deck job checklists.
-            {lockedRank ? ` Showing: ${lockedRank}.` : ""}
+            {t("chk.sub")}
+            {lockedRank ? t("chk.showing").replace("{r}", lockedRank) : ""}
           </p>
         </div>
-        <button onClick={() => jobLists && exportJSON(`checklists-${contractId}.json`, { job: jobLists, lists, tasks })} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">Export</button>
+        <button onClick={() => jobLists && exportJSON(`checklists-${contractId}.json`, { job: jobLists, lists, tasks })} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">{t("common.export")}</button>
       </div>
 
       <div className="flex flex-wrap gap-2">
         {TABS.map((t) => (
           <button key={t.id} onClick={() => setTab(t.id)} className={`rounded-full px-3 py-1.5 text-sm font-bold ${tab === t.id ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "bg-white border dark:bg-black"}`}>
-            {t.id === "once" ? "Pre-joining" : t.label}
+            {tabLabel(t.id)}
           </button>
         ))}
       </div>
@@ -155,23 +167,23 @@ function ChecklistsInner() {
             <ListCard key={l.id} list={l} tasks={tasks.filter((t) => t.listId === l.id && matchesRank(t.ranks, eff))} doneSet={doneSet} />
           ))}
           {todoLists.filter((l) => l.interval === tab).length === 0 && (
-            <p className="text-sm opacity-70">No lists here — they are created automatically per interval.</p>
+            <p className="text-sm opacity-70">{t("chk.noLists")}</p>
           )}
           <ArchivedTodoLists lists={archived.filter((l) => l.interval === tab)} tasks={tasks} />
         </div>
       ) : (
         <div className="grid gap-4">
           <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
-            <h2 className="font-bold">Create your own ({GROUPS.find((g) => g.id === tab)?.label})</h2>
+            <h2 className="font-bold">{t("chk.createOwn").replace("{g}", tabLabel(tab))}</h2>
             <div className="mt-2 grid gap-2">
-              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title e.g. Pre-arrival messages — Houston" className="rounded-xl border px-3 py-2 text-sm" />
-              <textarea value={items} onChange={(e) => setItems(e.target.value)} placeholder={"One item per line\nSend 48h notice\n..."} rows={3} className="rounded-xl border px-3 py-2 text-sm" />
+              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("chk.titlePh")} className="rounded-xl border px-3 py-2 text-sm" />
+              <textarea value={items} onChange={(e) => setItems(e.target.value)} placeholder={t("chk.itemsPh")} rows={3} className="rounded-xl border px-3 py-2 text-sm" />
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-bold opacity-60">Group:</span>
+                <span className="text-xs font-bold opacity-60">{t("chk.group")}</span>
                 {GROUPS.map((g) => (
-                  <button key={g.id} onClick={() => setGroup(g.id)} className={`rounded-full px-2.5 py-1 text-xs font-bold ${group === g.id ? "bg-stone-900 text-amber-50" : "border bg-white dark:bg-black"}`}>{g.label}</button>
+                  <button key={g.id} onClick={() => setGroup(g.id)} className={`rounded-full px-2.5 py-1 text-xs font-bold ${group === g.id ? "bg-stone-900 text-amber-50" : "border bg-white dark:bg-black"}`}>{tabLabel(g.id)}</button>
                 ))}
-                <button onClick={addCustom} className="ml-auto w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">Add checklist</button>
+                <button onClick={addCustom} className="ml-auto w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("chk.addList")}</button>
               </div>
             </div>
           </div>
@@ -181,7 +193,7 @@ function ChecklistsInner() {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder={`Filter ${GROUPS.find((g) => g.id === tab)?.label} checklists…`}
+                placeholder={t("chk.filter").replace("{g}", tabLabel(tab))}
                 className="w-full rounded-xl border px-3 py-2 text-sm"
               />
             </div>
@@ -199,7 +211,7 @@ function ChecklistsInner() {
               return (<>
                 <div className="rounded-2xl border border-amber-200 bg-white dark:border-red-950 dark:bg-neutral-950">
                   <button onClick={() => setNavOpen(!navOpen)} className="flex w-full items-center justify-between px-3 py-2 text-sm font-bold">
-                    <span>☰ {GROUPS.find((g) => g.id === tab)?.label} lists ({lists.length})</span>
+                    <span>{t("chk.listsN").replace("{g}", tabLabel(tab)).replace("{n}", String(lists.length))}</span>
                     <span>{navOpen ? "▾" : "▸"}</span>
                   </button>
                   {navOpen && (
@@ -219,7 +231,7 @@ function ChecklistsInner() {
                           </li>
                         );
                       })}
-                      {lists.length === 0 && <li className="px-2 py-3 text-sm opacity-70">No checklists match.</li>}
+                      {lists.length === 0 && <li className="px-2 py-3 text-sm opacity-70">{t("chk.noMatch")}</li>}
                     </ul>
                   )}
                 </div>
@@ -228,11 +240,11 @@ function ChecklistsInner() {
                     <input value={sel.title} onChange={(e) => db.checklists.update(sel.id, { title: e.target.value })} className="w-full rounded-lg border px-2 py-1 font-bold" />
                     <div className="mt-1.5 flex flex-wrap items-center gap-1.5 rounded-xl bg-amber-50 px-2 py-1.5 text-xs dark:bg-black dark:ring-1 dark:ring-red-950">
                       <span className="font-black">🚢 {contract?.shipName || "—"}</span>
-                      <input value={port} onChange={(e) => db.checklists.update(sel.id, { port: e.target.value })} placeholder="Port" title="Port (auto-filled, editable)" className="w-28 rounded-lg border px-1.5 py-0.5" />
-                      <input type="date" value={date} onChange={(e) => db.checklists.update(sel.id, { logDate: e.target.value })} title="Date (auto-filled, editable)" className="rounded-lg border px-1.5 py-0.5" />
-                      <input type="time" value={time} onChange={(e) => db.checklists.update(sel.id, { logTime: e.target.value })} title="Time (auto-filled, editable)" className="rounded-lg border px-1.5 py-0.5" />
+                      <input value={port} onChange={(e) => db.checklists.update(sel.id, { port: e.target.value })} placeholder={t("chk.portPh")} title={t("chk.portTitle")} className="w-28 rounded-lg border px-1.5 py-0.5" />
+                      <input type="date" value={date} onChange={(e) => db.checklists.update(sel.id, { logDate: e.target.value })} title={t("chk.dateTitle")} className="rounded-lg border px-1.5 py-0.5" />
+                      <input type="time" value={time} onChange={(e) => db.checklists.update(sel.id, { logTime: e.target.value })} title={t("chk.timeTitle")} className="rounded-lg border px-1.5 py-0.5" />
                     </div>
-                    <p className="mt-1 text-xs opacity-70">{sel.description} • {selDone}/{sel.items.length} done {sel.custom ? "• custom" : "• template"}</p>
+                    <p className="mt-1 text-xs opacity-70">{sel.description} {t("chk.doneN").replace("{d}", String(selDone)).replace("{t}", String(sel.items.length))} {sel.custom ? t("chk.custom") : t("chk.template")}</p>
                     <ul className="mt-2 grid gap-1 text-sm">
                       {sel.items.map((it, i) => (
                         <li key={i}>
@@ -245,12 +257,12 @@ function ChecklistsInner() {
                     </ul>
                     {sel.custom && (
                       <div className="mt-2 flex gap-2 text-xs font-bold">
-                        <button onClick={() => { db.checklists.delete(sel.id); setSelId(null); }} className="rounded-full border border-red-300 px-3 py-1 text-red-600">Delete</button>
+                        <button onClick={() => { db.checklists.delete(sel.id); setSelId(null); }} className="rounded-full border border-red-300 px-3 py-1 text-red-600">{t("common.delete")}</button>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm opacity-70">Select a checklist from the list.</p>
+                  <p className="text-sm opacity-70">{t("chk.pick")}</p>
                 )}
               </>);
             })()}
@@ -262,8 +274,9 @@ function ChecklistsInner() {
 }
 
 export default function ChecklistsPage() {
+  const { t } = useLocale();
   return (
-    <Suspense fallback={<p>Loading checklists…</p>}>
+    <Suspense fallback={<p>{t("chk.loading")}</p>}>
       <ChecklistsInner />
     </Suspense>
   );

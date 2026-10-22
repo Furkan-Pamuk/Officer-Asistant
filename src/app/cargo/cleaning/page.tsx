@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n";
 import { CLEANING_METHODS } from "@/lib/cargo-data";
 
 const STAGES = [
@@ -35,15 +37,16 @@ const SEGREGATION = [
 ];
 
 export default function CargoCleaning() {
+  const { t } = useLocale();
   return (
     <div className="grid gap-4">
-      <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">← Back to booklet</Link>
+      <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">{t("cargo.back")}</Link>
       <div>
-        <h1 className="text-2xl font-bold">🧽 Tank Cleaning Methods</h1>
-        <p className="text-sm text-slate-600">Practical summary for chemical-tanker tank cleaning. The ship&apos;s Procedures & Arrangements (P&A) Manual and the next cargo&apos;s requirements always govern.</p>
+        <h1 className="text-2xl font-bold">{t("cargo.cleanTitle")}</h1>
+        <p className="text-sm text-slate-600">{t("cargo.cleanSub")}</p>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">Cleaning stages (every cargo)</h2>
+        <h2 className="font-bold">{t("cargo.stages")}</h2>
         <ul className="mt-2 grid gap-2">
           {STAGES.map(([t, b]) => (
             <li key={t} className="text-sm"><span className="font-bold">{t}:</span> {b}</li>
@@ -51,7 +54,7 @@ export default function CargoCleaning() {
         </ul>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">Method library</h2>
+        <h2 className="font-bold">{t("cargo.cleanMethods")}</h2>
         <ul className="mt-2 grid gap-2">
           {CLEANING_METHODS.map((m) => (
             <li key={m.key} className="text-sm"><span className="font-bold">{m.title}:</span> {m.body}</li>
@@ -59,13 +62,13 @@ export default function CargoCleaning() {
         </ul>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">MARPOL prewash — when it is mandatory</h2>
+        <h2 className="font-bold">{t("cargo.prewash")}</h2>
         <ul className="mt-2 grid gap-1.5">
           {PREWASH.map((p) => <li key={p} className="list-disc pl-5 text-sm">{p}</li>)}
         </ul>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">Special cargoes</h2>
+        <h2 className="font-bold">{t("cargo.special")}</h2>
         <ul className="mt-2 grid gap-2">
           {SPECIAL.map(([t, b]) => (
             <li key={t} className="text-sm"><span className="font-bold">{t}:</span> {b}</li>
@@ -73,14 +76,14 @@ export default function CargoCleaning() {
         </ul>
       </div>
       <div className="rounded-2xl border bg-white p-4">
-        <h2 className="font-bold">Compatibility & segregation rules</h2>
+        <h2 className="font-bold">{t("cargo.segRules")}</h2>
         <ul className="mt-2 grid gap-1.5">
           {SEGREGATION.map((s) => <li key={s} className="list-disc pl-5 text-sm">{s}</li>)}
         </ul>
       </div>
       <div className="rounded-2xl border border-red-200 bg-red-50 p-4">
-        <h2 className="font-bold text-red-800">Safety — non-negotiable</h2>
-        <p className="mt-1 text-sm text-red-900">Enclosed-space entry permit for every tank entry. Breathing apparatus where vapours are toxic (aromatics, amines, nitriles, chlorinated solvents). Static precautions during washing with flammable residues. PPE per SDS. When in doubt — stop and ask the chief officer.</p>
+        <h2 className="font-bold text-red-800">{t("cargo.safety")}</h2>
+        <p className="mt-1 text-sm text-red-900">{t("cargo.safetyBody")}</p>
       </div>
     </div>
   );

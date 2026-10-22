@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 const KEY = "oa-whiteboard";
 const MODE_KEY = "oa-whiteboard-mode";
@@ -20,6 +21,7 @@ const QUOTES: { text: string; by: string }[] = [
 ];
 
 export default function Whiteboard() {
+  const { t } = useLocale();
   const [text, setText] = useState("");
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
@@ -62,13 +64,13 @@ export default function Whiteboard() {
   return (
     <div className="rounded-2xl border-8 border-amber-300 bg-white p-4 shadow-lg dark:border-red-950">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="font-black">Whiteboard</h2>
+        <h2 className="font-black">{t("wb.title")}</h2>
         <div className="flex gap-2">
           <button onClick={toggleAuto} className={`rounded-full px-3 py-1 text-xs font-bold ${auto ? "bg-amber-400 text-stone-950 dark:bg-red-600 dark:text-white" : "border"}`}>
-            {auto ? "✨ Auto Motivate: ON" : "✨ Auto Motivate"}
+            {auto ? t("wb.autoOn") : t("wb.auto")}
           </button>
           <button onClick={() => { if (editing) save(); else { setDraft(text); setEditing(true); } }} className="rounded-full border px-3 py-1 text-xs font-bold">
-            {editing ? "Pin it 📌" : "✏️ Write"}
+            {editing ? t("wb.pin") : t("wb.write")}
           </button>
         </div>
       </div>
@@ -78,10 +80,10 @@ export default function Whiteboard() {
           <p className="mt-1 text-right text-sm font-bold opacity-70">— {q.by}</p>
         </div>
       ) : editing ? (
-        <textarea value={draft} onChange={(e) => setDraft(e.target.value)} rows={4} placeholder="Motivation quote, career goal, anything…" className="mt-2 w-full rounded-xl border-2 border-dashed border-amber-300 px-3 py-2 font-serif text-lg italic" />
+        <textarea value={draft} onChange={(e) => setDraft(e.target.value)} rows={4} placeholder={t("wb.ph")} className="mt-2 w-full rounded-xl border-2 border-dashed border-amber-300 px-3 py-2 font-serif text-lg italic" />
       ) : (
         <p className="mt-2 min-h-16 whitespace-pre-wrap font-serif text-xl italic leading-relaxed text-stone-900 dark:text-red-200">
-          {text || "Tap ✏️ Write — or ✨ Auto Motivate for famous quotes."}
+          {text || t("wb.hint")}
         </p>
       )}
     </div>

@@ -16,8 +16,10 @@ import SunMoonCard from "@/components/SunMoonCard";
 import QiblaCard from "@/components/QiblaCard";
 import { loadWidgetPrefs } from "@/lib/widgets";
 import { useActiveContract } from "@/hooks/useActiveContract";
+import { useLocale } from "@/lib/i18n";
 
 export default function Dashboard() {
+  const { t } = useLocale();
   const { contract } = useActiveContract();
   const [prefs, setPrefs] = useState<Record<string, boolean>>({});
 
@@ -53,8 +55,8 @@ export default function Dashboard() {
         {on("health") && <div className="lg:col-span-2"><HealthSection /></div>}
         {on("notes") && (
           <div className={on("health") ? "flex flex-col lg:col-span-3" : "lg:col-span-5"}>
-            <h2 className="mb-2 text-lg font-black">📝 Notes</h2>
-            <div className="min-h-0 flex-1">{contract ? <NotesPanel /> : <p className="text-sm">Select a contract for the notes board.</p>}</div>
+            <h2 className="mb-2 text-lg font-black">{t("dashboard.notes")}</h2>
+            <div className="min-h-0 flex-1">{contract ? <NotesPanel /> : <p className="text-sm">{t("dashboard.noContract")}</p>}</div>
           </div>
         )}
       </div>

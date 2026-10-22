@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
 interface Prayers {
   Imsak: string;
@@ -20,6 +21,7 @@ function qibla(lat: number, lon: number) {
 }
 
 export default function QiblaCard() {
+  const { t } = useLocale();
   const [data, setData] = useState<{ bearing: number; prayers: Prayers } | null>(null);
   const [note, setNote] = useState("");
 
@@ -28,7 +30,7 @@ export default function QiblaCard() {
     async function load() {
       try {
         const raw = localStorage.getItem("oa-pos");
-        if (!raw) { setNote("Set position first (tracker GPS)."); return; }
+        if (!raw) { setNote(t("qb.setPos")); return; }
         const { lat, lon } = JSON.parse(raw);
         if (!isFinite(lat) || !isFinite(lon)) return;
         const now = new Date();
@@ -36,8 +38,8 @@ export default function QiblaCard() {
         // method=13 → Diyanet (Türkiye)
         const r = await fetch(`https://api.aladhan.com/v1/timings/${stamp}?latitude=${lat}&longitude=${lon}&method=13`).then((x) => { if (!x.ok) throw 0; return x.json(); });
         if (!alive) return;
-        const t = r.data.timings;
-        const order: [string, string][] = [["Imsak", t.Imsak], ["Güneş", t.Sunrise], ["Öğle", t.Dhuhr], ["İkindi", t.Asr], ["Akşam", t.Maghrib], ["Yatsı", t.Isha]];
+        const timings = r.data.timings;
+        const order: [string, string][] = [["Imsak", timings.Imsak], ["Güneş", timings.Sunrise], ["Öğle", timings.Dhuhr], ["İkindi", timings.Asr], ["Akşam", timings.Maghrib], ["Yatsı", timings.Isha]];
         const hmNow = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
         const upcoming = order.find(([n, v]) => v.slice(0, 5) >= hmNow && n !== "Güneş") ?? order[0];
         const [uh, um] = upcoming[1].slice(0, 5).split(":").map(Number);
@@ -46,12 +48,12 @@ export default function QiblaCard() {
         setData({
           bearing: Math.round(qibla(lat, lon)),
           prayers: {
-            Imsak: t.Imsak.slice(0, 5), Maghrib: t.Maghrib.slice(0, 5),
+            Imsak: timings.Imsak.slice(0, 5), Maghrib: timings.Maghrib.slice(0, 5),
             nextName: upcoming[0], nextIn: `${Math.floor(mins / 60)}h ${mins % 60}m`,
           },
         });
       } catch {
-        if (alive) setNote("offline — prayer times need connection once");
+        if (alive) setNote(t("qb.offline"));
       }
     }
     load();
@@ -59,7 +61,7 @@ export default function QiblaCard() {
 
   return (
     <div className="rounded-2xl border-2 border-amber-300 bg-stone-900 p-2.5 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
-      <h2 className="text-sm font-black">🕌 Qibla & Prayer</h2>
+      <h2 className="text-sm font-black">{t("qb.title")}</h2>
       {data ? (
         <div className="mt-1 flex items-center gap-2">
           <svg width="44" height="44" viewBox="0 0 64 64" style={{ transform: `rotate(${data.bearing}deg)` }}>
@@ -74,7 +76,7 @@ export default function QiblaCard() {
           </div>
         </div>
       ) : (
-        <p className="mt-1 text-xs opacity-70">{note || "Loading…"}</p>
+        <p className="mt-1 text-xs opacity-70">{note || t("common.loading")}</p>
       )}
     </div>
   );

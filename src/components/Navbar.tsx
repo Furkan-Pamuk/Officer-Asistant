@@ -3,77 +3,80 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import LocaleSelect from "./LocaleSelect";
 import NotificationCenter from "./NotificationCenter";
 import SharkMark from "./SharkMark";
 import { useProfile } from "@/hooks/useProfile";
+import { useLocale } from "@/lib/i18n";
 
-type SubEntry = { href: string; label: string; external?: boolean } | { header: string };
+type SubEntry = { href: string; key: string; icon: string; external?: boolean } | { header: string };
 interface Item {
-  label: string;
+  key: string;
   href?: string;
   subs?: SubEntry[];
 }
 
-function isLink(s: SubEntry): s is { href: string; label: string; external?: boolean } {
+function isLink(s: SubEntry): s is { href: string; key: string; icon: string; external?: boolean } {
   return "href" in s;
 }
 
 const ITEMS: Item[] = [
-  { label: "Dashboard", href: "/dashboard" },
+  { key: "nav.dashboard", href: "/dashboard" },
   {
-    label: "Navigation",
+    key: "nav.navigation",
     subs: [
-      { href: "/route", label: "📍 Route Planner" },
-      { href: "/log", label: "📓 Deck Log" },
-      { href: "/bell-book", label: "🔔 Bell Book" },
-      { href: "/celestial", label: "☀️ Celestial" },
+      { href: "/route", key: "nav.route", icon: "📍" },
+      { href: "/log", key: "nav.decklog", icon: "📓" },
+      { href: "/bell-book", key: "nav.bellbook", icon: "🔔" },
+      { href: "/celestial", key: "nav.celestial", icon: "☀️" },
     ],
   },
   {
-    label: "Safety",
+    key: "nav.safety",
     subs: [
-      { href: "/inspections", label: "🧭 Inspections" },
-      { href: "/checklists", label: "✅ Checklists" },
-      { href: "/library", label: "📚 Library" },
+      { href: "/inspections", key: "nav.inspections", icon: "🧭" },
+      { href: "/checklists", key: "nav.checklists", icon: "✅" },
+      { href: "/library", key: "nav.library", icon: "📚" },
     ],
   },
   {
-    label: "My Ship",
+    key: "nav.myship",
     subs: [
-      { href: "/contracts", label: "📄 Contracts" },
-      { href: "/requests", label: "📦 Store Requests" },
-      { href: "/inventory", label: "📦 Inventory Lists" },
-      { href: "/port-docs", label: "🛃 Port Documents" },
-      { href: "/crew-accounts", label: "💰 Crew Accounts" },
+      { href: "/contracts", key: "nav.contracts", icon: "📄" },
+      { href: "/requests", key: "nav.requests", icon: "📦" },
+      { href: "/inventory", key: "nav.inventory", icon: "📦" },
+      { href: "/port-docs", key: "nav.portdocs", icon: "🛃" },
+      { href: "/crew-accounts", key: "nav.crewaccounts", icon: "💰" },
     ],
   },
   {
-    label: "Cargo",
+    key: "nav.cargo",
     subs: [
-      { href: "/cargo", label: "🧪 Chemical / Oil" },
-      { href: "/bulks", label: "🧱 Solid Bulk (IMSBC)" },
-      { href: "/gas", label: "🧊 Gas (LPG / LNG)" },
+      { href: "/cargo", key: "nav.chemical", icon: "🧪" },
+      { href: "/bulks", key: "nav.bulk", icon: "🧱" },
+      { href: "/gas", key: "nav.gas", icon: "🧊" },
     ],
   },
   {
-    label: "Life",
+    key: "nav.life",
     subs: [
-      { href: "/menu", label: "🍽️ Weekly Menu" },
-      { href: "/notes", label: "📝 Notes" },
+      { href: "/menu", key: "nav.menu", icon: "🍽️" },
+      { href: "/notes", key: "nav.notes", icon: "📝" },
     ],
   },
   {
-    label: "Career",
+    key: "nav.career",
     subs: [
-      { href: "/exams", label: "🎓 Exams" },
-      { href: "/profile?tab=cv", label: "📄 CV Builder" },
+      { href: "/exams", key: "nav.exams", icon: "🎓" },
+      { href: "/profile?tab=cv", key: "nav.cv", icon: "📄" },
     ],
   },
-  { href: "/news", label: "News" },
+  { key: "nav.news", href: "/news" },
 ];
 
 export default function Navbar() {
   const path = usePathname();
+  const { t } = useLocale();
   const profile = useProfile();
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -125,7 +128,7 @@ export default function Navbar() {
         </Link>
         <button
           onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Menu"
+          aria-label={t("nav.menuBtn")}
           className="ml-auto rounded-full border border-amber-200 px-3 py-1.5 text-lg font-black md:hidden dark:border-red-900"
         >
           {mobileOpen ? "✕" : "☰"}
@@ -133,14 +136,14 @@ export default function Navbar() {
         <nav className="hidden flex-1 flex-wrap items-center gap-1 text-sm md:flex">
           {ITEMS.map((item) =>
             item.subs ? (
-              <div key={item.label} className="relative">
+              <div key={item.key} className="relative">
                 <button
-                  onClick={() => setOpen(open === item.label ? null : item.label)}
+                  onClick={() => setOpen(open === item.key ? null : item.key)}
                   className={`rounded-full px-3 py-1.5 font-bold ${item.subs.some((s) => isLink(s) && isActive(s.href)) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
                 >
-                  {item.label} {open === item.label ? "▴" : "▾"}
+                  {t(item.key)} {open === item.key ? "▴" : "▾"}
                 </button>
-                {open === item.label && (
+                {open === item.key && (
                   <div className="absolute left-0 top-full z-50 mt-1 max-h-[70vh] w-64 overflow-y-auto rounded-2xl border border-amber-200 bg-white p-1.5 shadow-xl dark:border-red-900 dark:bg-neutral-950">
                     {item.subs.map((s, i) =>
                       !isLink(s) ? (
@@ -153,7 +156,7 @@ export default function Navbar() {
                           rel="noreferrer"
                           className="block rounded-xl px-3 py-2 font-medium hover:bg-amber-50 dark:hover:bg-red-950/50"
                         >
-                          {s.label} ↗
+                          {s.icon} {t(s.key)} ↗
                         </a>
                       ) : (
                         <Link
@@ -161,7 +164,7 @@ export default function Navbar() {
                           href={s.href}
                           className={`block rounded-xl px-3 py-2 font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "hover:bg-amber-50 dark:hover:bg-red-950/50"}`}
                         >
-                          {s.label}
+                          {s.icon} {t(s.key)}
                         </Link>
                       )
                     )}
@@ -170,15 +173,16 @@ export default function Navbar() {
               </div>
             ) : (
               <Link
-                key={item.label}
+                key={item.key}
                 href={item.href!}
                 className={`rounded-full px-3 py-1.5 font-bold ${isActive(item.href!) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             )
           )}
         </nav>
+        <LocaleSelect />
         <ThemeToggle />
         <NotificationCenter />
         <Link href="/profile" title="Profile" className="flex items-center gap-2">
@@ -192,8 +196,8 @@ export default function Navbar() {
         <div className="grid max-h-[70vh] gap-1 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-3 md:hidden dark:border-red-950">
           {ITEMS.map((item) =>
             item.subs ? (
-              <div key={item.label}>
-                <p className="px-3 pb-0.5 pt-1 text-[11px] font-black tracking-widest opacity-50">{item.label.toUpperCase()}</p>
+              <div key={item.key}>
+                <p className="px-3 pb-0.5 pt-1 text-[11px] font-black tracking-widest opacity-50">{t(item.key).toUpperCase()}</p>
                 <div className="grid gap-0.5">
                   {item.subs.map((s, i) =>
                     !isLink(s) ? (
@@ -206,7 +210,7 @@ export default function Navbar() {
                         rel="noreferrer"
                         className="block rounded-xl px-5 py-2 text-sm font-medium opacity-80"
                       >
-                        {s.label} ↗
+                        {s.icon} {t(s.key)} ↗
                       </a>
                     ) : (
                       <Link
@@ -214,15 +218,15 @@ export default function Navbar() {
                         href={s.href}
                         className={`block rounded-xl px-5 py-2 text-sm font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "opacity-80"}`}
                       >
-                        {s.label}
+                        {s.icon} {t(s.key)}
                       </Link>
                     )
                   )}
                 </div>
               </div>
             ) : (
-              <Link key={item.label} href={item.href!} className="block rounded-xl px-3 py-2 text-sm font-black">
-                {item.label}
+              <Link key={item.key} href={item.href!} className="block rounded-xl px-3 py-2 text-sm font-black">
+                {t(item.key)}
               </Link>
             )
           )}
