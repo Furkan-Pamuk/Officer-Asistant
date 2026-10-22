@@ -1012,6 +1012,7 @@ export const UI_TR: Record<string, string> = {
   "vt.ais": "🔴 Canlı AIS (1 kredi)",
   "vt.voyage": "✏️ Sefer",
   "vt.enrich": "🔍 Zenginleştir (bedava)",
+  "vt.sync": "⟳ Eşitle (GPS + AIS)",
   "vt.enrichName": "Önce kontratta gemiye ad ver.",
   "vt.noMatch": "Bu adla ücretsiz AIS verisinde gemi yok.",
   "vt.pickVessel": "Gemini seç:",

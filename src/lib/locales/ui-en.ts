@@ -1049,6 +1049,7 @@ export const UI_EN: Record<string, string> = {
   "vt.ais": "🔴 Live AIS (1 credit)",
   "vt.voyage": "✏️ Voyage",
   "vt.enrich": "🔍 Enrich (free)",
+  "vt.sync": "⟳ Sync (GPS + AIS)",
   "vt.enrichName": "Name this vessel in the contract first.",
   "vt.noMatch": "No vessel found with that name in free AIS data.",
   "vt.pickVessel": "Pick your vessel:",

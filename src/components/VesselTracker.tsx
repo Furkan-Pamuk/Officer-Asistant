@@ -72,35 +72,31 @@ export default function VesselTracker() {
   const valid = isFinite(cla) && isFinite(clo) && Math.abs(cla) <= 90 && Math.abs(clo) <= 180;
 
   async function locate() {
-    if (!("geolocation" in navigator)) return;
-    navigator.geolocation.getCurrentPosition(
-      (p) => {
-        localStorage.setItem(POS_KEY, JSON.stringify({ lat: p.coords.latitude, lon: p.coords.longitude }));
-        setLat(String(p.coords.latitude)); setLon(String(p.coords.longitude));
-      },
-      () => {},
-      { timeout: 15000 }
-    );
+    if (!("geolocation" in navigator)) return false;
+    return new Promise<boolean>((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (p) => {
+          localStorage.setItem(POS_KEY, JSON.stringify({ lat: p.coords.latitude, lon: p.coords.longitude }));
+          setLat(String(p.coords.latitude)); setLon(String(p.coords.longitude));
+          resolve(true);
+        },
+        () => resolve(false),
+        { timeout: 15000 }
+      );
+    });
   }
 
-  async function saveVoy() {
-    if (!contract) return;
-    await db.contracts.update(contract.id, { ...voy, updatedAt: new Date().toISOString() });
-    setEditing(false);
-  }
-
-  // Free enrichment (Open Waters AIS): GPS stays the position source; this
-  // only pulls the AIS voyage data (destination + ETA + status) and, on the
-  // first run, resolves the contract MMSI via name search.
-  async function enrich() {
-    if (!contract) return;
-    setEnriching(true); setEnrNote(""); setCands([]);
+  // One-button sync: phone GPS for position + free AIS voyage data.
+  // Contract is only touched via explicit Apply (AIS data can be stale).
+  async function syncAll() {
+    setEnriching(true); setEnrNote(""); setCands([]); setEnr(null);
+    await locate();
     try {
-      if (contract.mmsi && /^\d{9}$/.test(contract.mmsi)) {
+      if (contract?.mmsi && /^\d{9}$/.test(contract.mmsi)) {
         await pickCandidate(contract.mmsi, true);
         return;
       }
-      const name = (contract.shipName ?? "").trim();
+      const name = (contract?.shipName ?? "").trim();
       if (name.length < 2) throw new Error(t("vt.enrichName"));
       const r = await fetch(`/api/vessel/search?q=${encodeURIComponent(name)}`);
       const data = await r.json();
@@ -111,6 +107,12 @@ export default function VesselTracker() {
     } catch (e) {
       setEnrNote(e instanceof Error ? e.message : "lookup failed");
     } finally { setEnriching(false); }
+  }
+
+  async function saveVoy() {
+    if (!contract) return;
+    await db.contracts.update(contract.id, { ...voy, updatedAt: new Date().toISOString() });
+    setEditing(false);
   }
 
   async function pickCandidate(mmsi: string, silent?: boolean) {
@@ -157,13 +159,12 @@ export default function VesselTracker() {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-black">🛰️ {contract ? contract.shipName : "Vessel"} {t("vt.livePos")}</h2>
         <div className="flex gap-2 text-xs">
+          <button onClick={syncAll} disabled={enriching} className="rounded-full bg-sky-500 px-3 py-1 font-black text-white disabled:opacity-50">
+            {enriching ? "…" : t("vt.sync")}
+          </button>
           <button onClick={liveAis} disabled={loading} className="rounded-full bg-emerald-500 px-3 py-1 font-black text-white disabled:opacity-50">
             {loading ? "…" : t("vt.ais")}
           </button>
-          <button onClick={enrich} disabled={enriching} className="rounded-full bg-sky-500 px-3 py-1 font-black text-white disabled:opacity-50">
-            {enriching ? "…" : t("vt.enrich")}
-          </button>
-          <button onClick={locate} className="rounded-full bg-amber-400 px-3 py-1 font-black text-stone-950 dark:bg-red-600 dark:text-white">📍 GPS</button>
           <button onClick={() => setEditing(!editing)} className="rounded-full border border-white/30 px-3 py-1 font-bold">{t("vt.voyage")}</button>
         </div>
       </div>
