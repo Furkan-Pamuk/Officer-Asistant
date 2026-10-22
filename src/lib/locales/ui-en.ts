@@ -638,6 +638,11 @@ export const UI_EN: Record<string, string> = {
   "menu.ownKcalPh": "kcal ≈",
   "menu.addDish": "Add dish",
 
+  "recipe.search": "Search recipes…",
+  "recipe.ing": "Ingredients (serves {x})",
+  "recipe.method": "Method",
+  "recipe.noMatch": "No recipes match.",
+
   "notes.title": "Notes",
   "notes.needVessel": "Select a contract first — notes are kept per vessel.",
   "notes.titleVessel": "Notes — this contract",

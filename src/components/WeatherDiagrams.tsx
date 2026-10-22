@@ -1,6 +1,7 @@
 "use client";
 
 import { BEAUFORT, CLOUDS } from "@/lib/navigation-documents";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 // Stylised cloud sketches (offline SVG). Educational, not to scale.
 
@@ -37,9 +38,11 @@ export function CloudFigure({ id }: { id: string }) {
 }
 
 export function CloudGallery() {
+  const o = useContentOverlay();
+  const list = CLOUDS.map((c) => withOv(c, cov(o, "clouds", c.id)));
   return (
     <div className="mt-3 grid gap-2 sm:grid-cols-2">
-      {CLOUDS.map((c) => (
+      {list.map((c) => (
         <div key={c.id} className="flex items-center gap-3 rounded-xl bg-white p-2 ring-1 ring-amber-200 dark:bg-black dark:ring-red-950 print:ring-0">
           <CloudFigure id={c.id} />
           <div className="text-xs leading-snug">
@@ -85,6 +88,8 @@ export function FrontSymbols() {
 }
 
 export function BeaufortTable() {
+  const o = useContentOverlay();
+  const rows = BEAUFORT.map((b) => withOv(b, cov(o, "beaufort", b.f)));
   return (
     <div className="mt-3 overflow-x-auto rounded-xl bg-white ring-1 ring-amber-200 dark:bg-black dark:ring-red-950 print:ring-0">
       <table className="w-full min-w-[560px] text-xs">
@@ -98,7 +103,7 @@ export function BeaufortTable() {
           </tr>
         </thead>
         <tbody>
-          {BEAUFORT.map((b) => (
+          {rows.map((b) => (
             <tr key={b.f} className={`border-t border-amber-200 dark:border-red-950 ${b.f >= 8 ? "bg-red-50 font-bold dark:bg-red-950/40" : ""}`}>
               <td className="px-2 py-1 font-black">{b.f}</td>
               <td className="px-2 py-1 font-bold">{b.name}</td>

@@ -10,6 +10,7 @@ import { CardinalGrid, LateralRow, OtherMarksRow, RhythmList } from "@/component
 import { BeaufortTable, CloudGallery, FrontSymbols, TwelfthsStrip } from "@/components/WeatherDiagrams";
 import { Sym } from "@/components/ChartSymbols";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 const SIG_KEY = "oa-navdoc-sig";
 const TICK_KEY = "oa-navdoc-ticks";
@@ -53,6 +54,7 @@ function buildOrdersText(): string {
 function Orders() {
   const [sig, setSig] = useState<Sig>({ vessel: "", master: "", date: "" });
   const { t } = useLocale();
+  const o = useContentOverlay();
   useEffect(() => { setSig(loadSig()); }, []);
   function save(next: Sig) {
     setSig(next);
@@ -78,8 +80,10 @@ function Orders() {
           {t("doc.printHead").replace("{v}", sig.vessel || "…………").replace("{m}", sig.master || "…………").replace("{d}", sig.date || "…………")}
         </div>
       </div>
-      {MASTER_STANDING_ORDERS.map((g, gi) => (
-        <div key={g.group} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black">
+      {MASTER_STANDING_ORDERS.map((g0, gi) => {
+        const g = withOv(g0, cov(o, "orders", g0.group));
+        return (
+        <div key={g0.group} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black">
           <h2 className="font-black">{gi + 1}. {g.group}</h2>
           <ol className="mt-2 grid gap-2 text-sm leading-relaxed">
             {g.orders.map((o, i) => (
@@ -90,7 +94,8 @@ function Orders() {
             ))}
           </ol>
         </div>
-      ))}
+        );
+      })}
       <p className="text-xs opacity-60 print:block">{t("doc.smsHint")}</p>
     </div>
   );
@@ -106,6 +111,8 @@ function Cards() {
   const [ticks, setTicks] = useState<Record<string, boolean>>({});
   const [open, setOpen] = useState<string | null>("fire");
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const cards = EMERGENCY_CARDS.map((c) => withOv(c, cov(o, "emcards", c.id)));
   useEffect(() => { setTicks(loadTicks()); }, []);
   function toggle(key: string) {
     const next = { ...ticks, [key]: !ticks[key] };
@@ -114,7 +121,7 @@ function Cards() {
   }
   function resetCard(id: string) {
     const next = { ...ticks };
-    EMERGENCY_CARDS.find((c) => c.id === id)?.steps.forEach((_, i) => delete next[`${id}:${i}`]);
+    cards.find((c) => c.id === id)?.steps.forEach((_, i) => delete next[`${id}:${i}`]);
     setTicks(next);
     try { localStorage.setItem(TICK_KEY, JSON.stringify(next)); } catch { /* ignore */ }
   }
@@ -125,7 +132,7 @@ function Cards() {
         <p className="flex-1 text-sm opacity-70">{t("doc.tickHint")}</p>
         <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
-      {EMERGENCY_CARDS.map((c) => {
+      {cards.map((c) => {
         const done = c.steps.filter((_, i) => ticks[`${c.id}:${i}`]).length;
         const isOpen = open === c.id;
         return (
@@ -180,14 +187,16 @@ function buildLightsText(): string {
 
 function LightsBuoys() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const secs = LIGHTS_BUOYS.map((s) => ({ key: s.heading, s: withOv(s, cov(o, "docsec", s.heading)) }));
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
         <button onClick={() => shareText("Lights & Buoys — working notes", buildLightsText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
         <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
-      {LIGHTS_BUOYS.map((s, i) => (
-        <div key={s.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
+      {secs.map(({ key, s }, i) => (
+        <div key={key} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
           <h2 className="font-black">{s.icon} {i + 1}. {s.heading}</h2>
           <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
             {s.points.map((p, j) => (
@@ -213,14 +222,19 @@ function buildSymbolsText(): string {
 
 function ChartSymbols() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const groups = CHART_SYMBOLS.map((g) => ({
+    key: g.heading,
+    g: { ...withOv(g, cov(o, "charthead", g.heading)), symbols: g.symbols.map((s) => withOv(s, cov(o, "chartsym", s.id))) },
+  }));
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
         <button onClick={() => shareText("Chart symbols — paper & ECDIS", buildSymbolsText(), t)} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
         <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
-      {CHART_SYMBOLS.map((g, i) => (
-        <div key={g.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
+      {groups.map(({ key, g }, i) => (
+        <div key={key} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
           <h2 className="font-black">{g.icon} {i + 1}. {g.heading}</h2>
           <div className="mt-2 grid gap-2 sm:grid-cols-2">
             {g.symbols.map((s) => (
@@ -245,6 +259,8 @@ function buildWeatherText(): string {
 
 function WeatherSea() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const secs = WEATHER_NOTES.map((s) => ({ key: s.heading, s: withOv(s, cov(o, "docsec", s.heading)) }));
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
@@ -259,8 +275,8 @@ function WeatherSea() {
         <h2 className="font-black">{t("doc.wxBft")}</h2>
         <BeaufortTable />
       </div>
-      {WEATHER_NOTES.map((s, i) => (
-        <div key={s.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
+      {secs.map(({ key, s }, i) => (
+        <div key={key} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
           <h2 className="font-black">{s.icon} {i + 3}. {s.heading}</h2>
           <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
             {s.points.map((p, j) => (
@@ -285,6 +301,9 @@ function buildSignalsText(): string {
 
 function Signals() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const rows = PHONETIC.map((p) => withOv(p, cov(o, "phonetic", p.letter)));
+  const notes = SIGNAL_NOTES.map((s) => ({ key: s.heading, s: withOv(s, cov(o, "docsec", s.heading)) }));
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
@@ -292,7 +311,7 @@ function Signals() {
         <button onClick={() => window.print()} className="rounded-full border bg-white px-4 py-2 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
       </div>
       <div className="grid gap-2 sm:grid-cols-2">
-        {PHONETIC.map((p) => (
+        {rows.map((p) => (
           <div key={p.letter} className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-white p-3 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
             <span className="shrink-0 rounded-lg bg-white p-1 ring-1 ring-amber-200 dark:bg-neutral-900 dark:ring-red-950 print:ring-black"><FlagFigure code={p.letter} /></span>
             <div className="text-sm leading-snug">
@@ -322,8 +341,8 @@ function Signals() {
           <span className="grid justify-items-center gap-1"><FlagFigure code="REP3" size={64} />{t("doc.sub3")}</span>
         </div>
       </div>
-      {SIGNAL_NOTES.map((s) => (
-        <div key={s.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
+      {notes.map(({ key, s }) => (
+        <div key={key} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
           <h2 className="font-black">{s.icon} {s.heading}</h2>
           <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
             {s.points.map((p, j) => (
@@ -347,6 +366,9 @@ function buildMorseText(): string {
 
 function Morse() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const prosigns = MORSE_PROSIGNS.map((p) => withOv(p, cov(o, "prosigns", p.sign)));
+  const notes = MORSE_NOTES.map((s) => ({ key: s.heading, s: withOv(s, cov(o, "docsec", s.heading)) }));
   return (
     <div className="grid gap-4">
       <div className="flex gap-2 print:hidden">
@@ -378,7 +400,7 @@ function Morse() {
       <div className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
         <h2 className="font-black">{t("doc.procSigns")}</h2>
         <div className="mt-2 grid gap-2">
-          {MORSE_PROSIGNS.map((p) => (
+          {prosigns.map((p) => (
             <div key={p.sign} className="flex flex-wrap items-center gap-3 rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black dark:ring-1 dark:ring-red-950 print:bg-transparent print:ring-0">
               <strong className="min-w-28">{p.sign}</strong>
               <MorseCode code={p.code} />
@@ -387,8 +409,8 @@ function Morse() {
           ))}
         </div>
       </div>
-      {MORSE_NOTES.map((s) => (
-        <div key={s.heading} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
+      {notes.map(({ key, s }) => (
+        <div key={key} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
           <h2 className="font-black">{s.icon} {s.heading}</h2>
           <ul className="mt-2 grid gap-2 text-sm leading-relaxed">
             {s.points.map((p, j) => (
@@ -415,6 +437,8 @@ type ColregTab = "rules" | "lights" | "sounds";
 function Colreg() {
   const [sec, setSec] = useState<ColregTab>("rules");
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const ovRules = COLREG_RULES.map((r) => withOv(r, cov(o, "rules", r.n)));
   const sbtn = (t: ColregTab, label: string) =>
     `rounded-full px-3 py-1.5 text-sm font-bold ${sec === t ? "bg-slate-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border opacity-70 hover:opacity-100"}`;
   return (
@@ -429,7 +453,7 @@ function Colreg() {
         <button onClick={() => setSec("sounds")} className={sbtn("sounds", "📯 Sounds")}>{t("doc.sounds")}</button>
       </div>
       {sec === "rules" ? (
-        COLREG_RULES.map((r) => (
+        ovRules.map((r) => (
           <div key={r.n} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950 print:border-black print:break-inside-avoid">
             <h2 className="font-black">{t("doc.ruleN").replace("{n}", String(r.n)).replace("{t}", r.t)}</h2>
             <ul className="mt-2 grid gap-2 text-sm leading-relaxed">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { NEWS, SECTIONS, type NewsPost } from "@/lib/news";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import FishMap from "@/components/FishMap";
 import { useLocale } from "@/lib/i18n";
 
@@ -61,8 +62,10 @@ async function sharePost(post: NewsPost, photo: string | null | undefined, t: (k
 export default function NewsPostClient({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useLocale();
+  const o = useContentOverlay();
   const crew = useLiveQuery(() => db.crewPosts.where("id").equals(id).toArray(), [id]);
-  const seed = NEWS.find((n) => n.id === id);
+  const seedRaw = NEWS.find((n) => n.id === id);
+  const seed = seedRaw ? withOv(seedRaw, cov(o, "news", seedRaw.id)) : undefined;
   const mine = crew?.[0];
   const post: NewsPost | undefined =
     seed ?? (mine ? {
@@ -72,7 +75,8 @@ export default function NewsPostClient({ params }: { params: Promise<{ id: strin
     } : undefined) ?? (typeof window === "undefined" ? undefined : legacyPost(id, t));
   const photo = mine?.photo ?? null;
   if (!post) return <p>{t("news.notFound")}<Link href="/news" className="underline">{t("news.backNews")}</Link></p>;
-  const section = SECTIONS.find((s) => s.id === post.section)?.label ?? post.section;
+  const secRec = SECTIONS.find((s) => s.id === post.section);
+  const section = secRec ? withOv(secRec, cov(o, "sections", secRec.id)).label : post.section;
   return (
     <div className="grid max-w-2xl gap-3">
       <Link href="/news" className="w-fit text-sm font-bold underline">{t("news.backArrow")}</Link>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { BULKS, searchBulks } from "@/lib/imsbc-data";
 
 const GROUPS = ["All", "A", "B", "C"] as const;
@@ -13,12 +14,14 @@ const GROUP_TONE: Record<string, string> = {
 
 export default function BulkBooklet() {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const [q, setQ] = useState("");
   const [g, setG] = useState<string>("All");
   const results = useMemo(() => {
     const found = searchBulks(q);
     return g === "All" ? found : found.filter((b) => b.group === g || (g === "A" && b.group === "A and B") || (g === "B" && b.group === "A and B"));
   }, [q, g]);
+  const ovResults = results.map((b) => withOv(b, cov(o, "bulk", b.slug)));
 
   return (
     <div className="grid gap-4">
@@ -49,7 +52,7 @@ export default function BulkBooklet() {
       </div>
       <p className="text-xs text-slate-500">{t("bulk.count").replace("{n}", String(results.length))}</p>
       <div className="grid gap-2 md:grid-cols-2">
-        {results.map((b) => (
+        {ovResults.map((b) => (
           <Link key={b.slug} href={`/bulks/${b.slug}`} className="rounded-2xl border bg-white p-3 hover:border-slate-500">
             <div className="flex items-center justify-between gap-2">
               <h2 className="font-semibold">{b.name}</h2>

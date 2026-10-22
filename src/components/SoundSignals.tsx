@@ -1,4 +1,7 @@
+"use client";
+
 import { MANEUVER_SIGNALS, FOG_PATTERNS, DISTRESS_SIGNALS, type BlastKind } from "@/lib/colreg";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 function Blast({ k, x }: { k: BlastKind; x: number }) {
   if (k === "P") return (<g><rect x={x} y="14" width="14" height="18" rx="2" fill="#0f172a" /><text x={x + 7} y="27" textAnchor="middle" fontSize="9" fontWeight="900" fill="#fff">—</text></g>);
@@ -33,30 +36,40 @@ function FogRow({ v, seq, note }: { v: string; seq: BlastKind[]; note: string })
 }
 
 export default function SoundSignals() {
+  const o = useContentOverlay();
   return (
     <div className="grid gap-4">
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-black">📯 Manoeuvring &amp; warning signals (in sight of one another)</h2>
         <ul className="mt-2 grid gap-1.5">
-          {MANEUVER_SIGNALS.map((m) => (
-            <li key={m.s} className="flex items-center gap-3 rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black">
+          {MANEUVER_SIGNALS.map((m0) => {
+            const m = withOv(m0, cov(o, "maneuver", m0.s));
+            return (
+            <li key={m0.s} className="flex items-center gap-3 rounded-xl bg-amber-50/60 px-3 py-2 text-sm dark:bg-black">
               <span className="min-w-20 shrink-0 rounded-lg bg-slate-900 px-2 py-1 text-center font-black tracking-widest text-white">{m.s}</span>
               <span>{m.m}</span>
             </li>
-          ))}
+            );
+          })}
         </ul>
         <p className="mt-2 text-xs text-slate-500">· short ≈1 s · — prolonged 4–6 s. The doubt signal may add ≥5 rapid flashes by light (Rule 34/36).</p>
       </div>
       <h2 className="font-black">🌫️ Fog signals — one pattern per ≤2 minutes (Rule 35)</h2>
       <div className="grid gap-2 md:grid-cols-2">
-        {FOG_PATTERNS.map((f) => <FogRow key={f.v} v={f.v} seq={f.seq} note={f.note} />)}
+        {FOG_PATTERNS.map((f0) => {
+          const f = withOv(f0, cov(o, "fog", f0.v));
+          return <FogRow key={f0.v} v={f.v} seq={f.seq} note={f.note} />;
+        })}
       </div>
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-black">🆘 Distress signals (Annex IV) — recognise &amp; respond</h2>
         <ul className="mt-2 grid gap-1.5 sm:grid-cols-2">
-          {DISTRESS_SIGNALS.map((d) => (
-            <li key={d} className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-900">• {d}</li>
-          ))}
+          {DISTRESS_SIGNALS.map((d, i) => {
+            const v = (cov(o, "distress", i).value as string | undefined) ?? d;
+            return (
+            <li key={d} className="rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-900">• {v}</li>
+            );
+          })}
         </ul>
         <p className="mt-2 text-xs text-slate-500">Acknowledge, relay to RCC/coast station, log everything, proceed to assist as able — the duty to assist is a legal obligation (Rule 37).</p>
       </div>

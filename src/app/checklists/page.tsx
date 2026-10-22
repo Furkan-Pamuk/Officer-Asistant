@@ -9,6 +9,7 @@ import { ListCard, ArchivedTodoLists } from "@/components/TodoListCard";
 import { nearestPort } from "@/lib/portlog";
 import type { ChecklistGroup, Contract, JobChecklist, TodoInterval } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 type Tab = TodoInterval | ChecklistGroup;
 
@@ -70,6 +71,7 @@ function groupOf(l: JobChecklist): ChecklistGroup {
 
 function ChecklistsInner() {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const params = useSearchParams();
   const tabLabel = (id: Tab): string =>
     id === "daily" ? t("chk.daily")
@@ -199,7 +201,7 @@ function ChecklistsInner() {
             </div>
             {(() => {
               const q = query.trim().toLowerCase();
-              const lists = (jobLists ?? []).filter((l) => groupOf(l) === tab).filter((l) => {
+              const lists = (jobLists ?? []).filter((l) => groupOf(l) === tab).map((l) => (l.custom ? l : withOv(l, cov(o, "job", l.id)))).filter((l) => {
                 if (!q) return true;
                 return l.title.toLowerCase().includes(q) || l.description.toLowerCase().includes(q) || l.items.some((it) => it.toLowerCase().includes(q));
               });

@@ -9,6 +9,7 @@ import { flagName } from "@/lib/flags";
 import { areaOf } from "@/lib/areas";
 import type { CheckCard } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 const CardRow = memo(function CardRow({ card, done, completedAt, onToggle }: {
   card: CheckCard; done: boolean; completedAt?: string; onToggle: (id: string) => void;
@@ -24,8 +25,10 @@ const CardRow = memo(function CardRow({ card, done, completedAt, onToggle }: {
 
 export default function DetailClient({ params }: { params: Promise<{ type: string }> }) {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const { type } = use(params);
-  const info = INSPECTION_TYPES.find((t) => t.id === type);
+  const infoBase = INSPECTION_TYPES.find((t) => t.id === type);
+  const info = infoBase ? withOv(infoBase, cov(o, "inspTypes", infoBase.id)) : undefined;
   const [dept, setDept] = useState<"all" | "bridge" | "deck" | "engine" | "safety">("all");
   const [show, setShow] = useState<"all" | "done" | "todo">("all");
   const [contractId, setContractId] = useState<string | null>(null);
@@ -45,7 +48,8 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
 
   const doneMap = useMemo(() => new Map((progress ?? []).map((p) => [p.cardId, p.completedAt])), [progress]);
   const isFlagPage = type === "flag";
-  const flagCards = isFlagPage && vesselFlag ? SEED_CARDS.filter((c) => c.inspection === "flag" && c.flags?.includes(vesselFlag)) : [];
+  const allCards = SEED_CARDS.map((c) => withOv(c, cov(o, "cards", c.id)));
+  const flagCards = isFlagPage && vesselFlag ? allCards.filter((c) => c.inspection === "flag" && c.flags?.includes(vesselFlag)) : [];
   // Workplace areas: bridge (navigation/comms) vs cargo-deck vs engine.
   const inArea = (c: (typeof SEED_CARDS)[number]) => {
     if (dept === "all") return true;
@@ -53,7 +57,7 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
     if (dept === "engine") return area === "engine" || c.department === "both";
     return area === dept;
   };
-  const cards = SEED_CARDS.filter((c) => c.inspection === type)
+  const cards = allCards.filter((c) => c.inspection === type)
     .filter(inArea)
     .filter((c) => {
       if (!isFlagPage || flagScope === "all") return true;

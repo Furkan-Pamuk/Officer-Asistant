@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import { FAQ } from "@/lib/content";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 export default function FaqAccordion() {
+  const o = useContentOverlay();
+  const items = FAQ.map((f) => withOv(f, cov(o, "site", `faq:${f.q}`)));
   const [open, setOpen] = useState<number | null>(0);
   return (
     <div className="grid gap-1.5">
-      {FAQ.map((f, i) => (
+      {items.map((f, i) => (
         <div key={i} className="overflow-hidden rounded-2xl border border-amber-200 bg-white dark:border-red-950 dark:bg-neutral-950">
           <button
             onClick={() => setOpen(open === i ? null : i)}

@@ -8,6 +8,7 @@ import HraMap from "@/components/HraMap";
 import SarMap from "@/components/SarMap";
 import FirstAidGuide from "@/components/FirstAidGuide";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 type Tab = "pub" | "books" | "knots" | "hra" | "sar" | "aid";
 
@@ -24,6 +25,7 @@ const DOC_TABS: { tab: string; label: string; desc: string }[] = [
 
 export default function Library() {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const router = useRouter();
   const docLabel = (tab: string): string =>
     tab === "orders" ? t("lib.orders")
@@ -49,6 +51,8 @@ export default function Library() {
   function goDoc(tab: string) {
     router.push(tab === "orders" ? "/documents" : `/documents?tab=${tab}`);
   }
+  const books = LIBRARY_BOOKS.map((b) => withOv(b, cov(o, "books", b.id)));
+  const knots = KNOTS.map((k) => withOv(k, cov(o, "knots", k.id)));
   const btn = (t: Tab, label: string) =>
     `min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === t ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`;
   return (
@@ -70,7 +74,7 @@ export default function Library() {
       </div>
       {tab === "pub" ? (
         <div className="grid gap-3 md:grid-cols-2">
-          {LIBRARY_BOOKS.map((b) => (
+          {books.map((b) => (
             <div key={b.id} className="rounded-2xl border bg-white p-4">
               <div className="text-xs font-bold text-sky-700">{b.abbr}</div>
               <h2 className="font-semibold">{b.title}</h2>
@@ -132,7 +136,7 @@ export default function Library() {
         <FirstAidGuide />
       ) : tab === "knots" ? (
         <div className="grid gap-3 md:grid-cols-2">
-          {KNOTS.map((k) => (
+          {knots.map((k) => (
             <div key={k.id} className="rounded-2xl border bg-white p-4">
               <h2 className="font-semibold">{k.name}{k.tr ? <span className="ml-2 text-sm font-normal opacity-60">({k.tr})</span> : null}</h2>
               <p className="mt-1 text-sm text-slate-600">{k.uses}</p>
@@ -143,7 +147,7 @@ export default function Library() {
         </div>
       ) : (
         <div className="grid gap-2 sm:grid-cols-2">
-          {LIBRARY_BOOKS.map((b) => (
+          {books.map((b) => (
             <div key={b.id} className="flex items-center gap-3 rounded-2xl border bg-white p-3">
               <div className="flex-1">
                 <span className="text-xs font-bold text-sky-700">{b.abbr}</span>

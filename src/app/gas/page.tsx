@@ -2,12 +2,15 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { GASES, searchGases } from "@/lib/gas-data";
 
 export default function GasBooklet() {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const [q, setQ] = useState("");
   const results = useMemo(() => searchGases(q), [q]);
+  const ovResults = results.map((g) => withOv(g, cov(o, "gas", g.slug)));
 
   return (
     <div className="grid gap-4">
@@ -27,7 +30,7 @@ export default function GasBooklet() {
       />
       <p className="text-xs text-slate-500">{t("gas.count").replace("{n}", String(results.length))}</p>
       <div className="grid gap-2 md:grid-cols-2">
-        {results.map((gas) => (
+        {ovResults.map((gas) => (
           <Link key={gas.slug} href={`/gas/${gas.slug}`} className="rounded-2xl border bg-white p-3 hover:border-slate-500">
             <div className="flex items-center justify-between gap-2">
               <h2 className="font-semibold">{gas.name}</h2>

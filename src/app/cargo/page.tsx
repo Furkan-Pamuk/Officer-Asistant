@@ -2,16 +2,26 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { CARGOES, CARGO_CATEGORIES, cargoTags, searchCargoes } from "@/lib/cargo-data";
 
 export default function CargoBooklet() {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("All");
   const results = useMemo(() => {
     const found = searchCargoes(q);
     return cat === "All" ? found : found.filter((c) => c.category === cat);
   }, [q, cat]);
+  const ovResults = results.map((c) => withOv(c, cov(o, "cargo", c.slug)));
+  const pick = (p: unknown, fb: string): string => {
+    if (typeof p === "string") return p;
+    const r = (p ?? {}) as Record<string, unknown>;
+    const v = r.value ?? r.name ?? r.title ?? fb;
+    return typeof v === "string" && v ? v : fb;
+  };
+  const catLabel = (c: string, i: number) => pick(cov(o, "cargoCats", i), c);
 
   return (
     <div className="grid gap-4">
@@ -30,19 +40,25 @@ export default function CargoBooklet() {
         aria-label={t("cargo.searchAria")}
       />
       <div className="flex flex-wrap gap-1.5">
-        {["All", ...CARGO_CATEGORIES].map((c) => (
+        <button
+          onClick={() => setCat("All")}
+          className={`rounded-full px-3 py-1 text-xs font-bold ${cat === "All" ? "bg-slate-900 text-white" : "border bg-white text-slate-600"}`}
+        >
+          {t("common.all")}
+        </button>
+        {CARGO_CATEGORIES.map((c, i) => (
           <button
             key={c}
             onClick={() => setCat(c)}
             className={`rounded-full px-3 py-1 text-xs font-bold ${cat === c ? "bg-slate-900 text-white" : "border bg-white text-slate-600"}`}
           >
-            {c === "All" ? t("common.all") : c}
+            {catLabel(c, i)}
           </button>
         ))}
       </div>
       <p className="text-xs text-slate-500">{t("cargo.count").replace("{n}", String(results.length))}</p>
       <div className="grid gap-2 md:grid-cols-2">
-        {results.map((c) => (
+        {ovResults.map((c) => (
           <Link key={c.slug} href={`/cargo/${c.slug}`} className="rounded-2xl border bg-white p-3 hover:border-slate-500">
             <div className="flex items-center justify-between gap-2">
               <h2 className="font-semibold">{c.name}</h2>

@@ -1,4 +1,6 @@
+"use client";
 import { FIRST_AID } from "@/lib/sar-data";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 function Pic({ children, label }: { children: React.ReactNode; label: string }) {
   return (
@@ -66,9 +68,11 @@ const PICS: Record<string, React.ReactNode> = {
 };
 
 export default function FirstAidGuide() {
+  const o = useContentOverlay();
+  const sections = FIRST_AID.map((s) => withOv(s, cov(o, "firstaid", s.id)));
   return (
     <div className="grid gap-3">
-      {FIRST_AID.map((s) => (
+      {sections.map((s) => (
         <div key={s.id} className="rounded-2xl border bg-white p-4">
           <h2 className="font-bold">{s.title}</h2>
           {PICS[s.id] && <div className="mt-2 max-w-52">{PICS[s.id]}</div>}

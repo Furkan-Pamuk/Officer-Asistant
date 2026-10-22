@@ -3,6 +3,7 @@ import { useState } from "react";
 import { db, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { periodKeyFor, logId, useTodoLib, loadLib } from "@/lib/todos";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { RANKS } from "@/lib/types";
 import type { TodoList, TodoTask } from "@/lib/types";
 import MedsBlock from "@/components/MedsBlock";
@@ -38,6 +39,10 @@ function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
 
 export function ListCard({ list, tasks, doneSet }: { list: TodoList; tasks: TodoTask[]; doneSet: Set<string> }) {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const listDisp = list.custom ? list : withOv(list, cov(o, "todolists", list.name));
+  const taskTitle = (task: TodoTask) =>
+    task.custom ? task.title : ((cov(o, "todos", task.title).title as string | undefined) ?? task.title);
   const { lib, update } = useTodoLib();
   const [title, setTitle] = useState("");
   const [ranks, setRanks] = useState<string[]>([]);
@@ -145,7 +150,7 @@ export function ListCard({ list, tasks, doneSet }: { list: TodoList; tasks: Todo
           </>
         ) : (
           <>
-            <strong className="text-base">{list.name}</strong>
+            <strong className="text-base">{listDisp.name}</strong>
             <button onClick={() => { setNameDraft(list.name); setEditName(true); }} className="text-xs opacity-60" title={t("td.rename")}>✏️</button>
           </>
         )}
@@ -177,7 +182,7 @@ export function ListCard({ list, tasks, doneSet }: { list: TodoList; tasks: Todo
                 <div className="flex items-start gap-2 rounded-lg bg-amber-50 px-2 py-1.5 dark:bg-black dark:ring-1 dark:ring-red-950">
                   <label className="flex flex-1 items-start gap-2">
                     <input type="checkbox" checked={done} onChange={() => toggle(task)} className="mt-1 h-4 w-4" />
-                    <span className={`flex-1 ${done ? "line-through opacity-60" : "font-medium"}`}>{task.title}</span>
+                    <span className={`flex-1 ${done ? "line-through opacity-60" : "font-medium"}`}>{taskTitle(task)}</span>
                   </label>
                   {(task.ranks?.length ?? 0) > 0 && <span className="self-center text-[11px] opacity-60">{rankLabel(task.ranks)}</span>}
                   <span className="self-center" title={t("td.onoff")}><Switch on={task.active !== false} onToggle={() => toggleActive(task)} label={`Toggle ${task.title}`} /></span>
@@ -197,7 +202,7 @@ export function ListCard({ list, tasks, doneSet }: { list: TodoList; tasks: Todo
             {hiddenTasks.map((task) => (
               <div key={task.id} className="flex items-center gap-2 rounded-lg px-2 py-1 opacity-70">
                 <Switch on={false} onToggle={() => toggleActive(task)} label={`Re-enable ${task.title}`} />
-                <span className="flex-1">{task.title}</span>
+                <span className="flex-1">{taskTitle(task)}</span>
                 <button onClick={() => removeTask(task)} className="rounded-full border px-2 py-0.5 text-xs">{t("route.remove")}</button>
               </div>
             ))}
@@ -242,7 +247,7 @@ export function ListCard({ list, tasks, doneSet }: { list: TodoList; tasks: Todo
             return (
               <div key={`${list.interval}-${p.title}`} className="flex items-center gap-2 rounded-xl bg-white/70 px-2 py-1 dark:bg-black">
                 <Switch on={on} onToggle={() => setTpl(p, !on)} label={p.title} />
-                <span className={`flex-1 ${on ? "font-medium" : "opacity-70"}`}>{p.title} <span className="text-xs opacity-60">({rankLabel(p.ranks)})</span></span>
+                <span className={`flex-1 ${on ? "font-medium" : "opacity-70"}`}>{((cov(o, "todos", p.title).title as string | undefined) ?? p.title)} <span className="text-xs opacity-60">({rankLabel(p.ranks)})</span></span>
               </div>
             );
           })}
@@ -257,6 +262,7 @@ export function ListCard({ list, tasks, doneSet }: { list: TodoList; tasks: Todo
 
 export function ArchivedTodoLists({ lists, tasks }: { lists: TodoList[]; tasks: TodoTask[] }) {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const [open, setOpen] = useState(false);
   if (!lists.length) return null;
   return (
@@ -269,7 +275,7 @@ export function ArchivedTodoLists({ lists, tasks }: { lists: TodoList[]; tasks: 
             return (
               <div key={l.id} className="rounded-xl bg-white/70 p-2 dark:bg-black">
                 <div className="flex items-center gap-2">
-                  <strong className="flex-1">{l.name} <span className="font-normal opacity-60">({l.interval} • {lt.length} checks)</span></strong>
+                  <strong className="flex-1">{(l.custom ? l.name : ((cov(o, "todolists", l.name).name as string | undefined) ?? l.name))} <span className="font-normal opacity-60">({l.interval} • {lt.length} checks)</span></strong>
                   <button onClick={() => db.todoLists.update(l.id, { archived: false })} className="rounded-full border px-2.5 py-1 text-xs font-bold">{t("td.restore")}</button>
                   <button onClick={async () => { if (confirm(t("td.confirmDel").replace("{x}", l.name))) { await db.todos.where("listId").equals(l.id).delete(); await db.todoLists.delete(l.id); } }} className="text-xs font-bold text-red-600">{t("common.delete")}</button>
                 </div>

@@ -6,10 +6,13 @@ import { useSearchParams } from "next/navigation";
 import { db, getActiveContractId, uid, exportJSON } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { INVENTORY_LISTS, seedInventoryForContract } from "@/lib/inventory";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import type { InventoryListId } from "@/lib/types";
 
 function InventoryInner() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const listsOv = INVENTORY_LISTS.map((l) => withOv(l, cov(o, "invLists", l.id)));
   const params = useSearchParams();
   const [tab, setTab] = useState<InventoryListId>("flag");
   const [contractId, setContractId] = useState<string | null>(null);
@@ -61,7 +64,7 @@ function InventoryInner() {
   const rows = (items ?? [])
     .filter((r) => r.list === tab)
     .filter((r) => (q.trim() ? r.name.toLowerCase().includes(q.trim().toLowerCase()) : true));
-  const meta = INVENTORY_LISTS.find((t) => t.id === tab)!;
+  const meta = listsOv.find((t) => t.id === tab)!;
 
   return (
     <div className="grid gap-4">
@@ -74,7 +77,7 @@ function InventoryInner() {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {INVENTORY_LISTS.map((t) => (
+        {listsOv.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}

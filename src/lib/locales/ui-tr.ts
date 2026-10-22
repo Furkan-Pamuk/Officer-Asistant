@@ -618,6 +618,11 @@ export const UI_TR: Record<string, string> = {
   "menu.ownKcalPh": "kkal ≈",
   "menu.addDish": "Yemek ekle",
 
+  "recipe.search": "Tarif ara…",
+  "recipe.ing": "Malzemeler ({x} kişilik)",
+  "recipe.method": "Yapılışı",
+  "recipe.noMatch": "Uyan tarif yok.",
+
   "notes.title": "Notlar",
   "notes.titleVessel": "Notlar — bu kontrat",
   "notes.sub": "Metin + ses, zilli hatırlatmalı. Gemiyle arşivlenir.",

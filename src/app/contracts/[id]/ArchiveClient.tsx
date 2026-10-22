@@ -2,6 +2,7 @@
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { db, setActiveContractId } from "@/lib/db";
 import { SEED_CARDS, INSPECTION_TYPES } from "@/lib/data";
 import type { Contract, JobChecklist, Note, StoreRequest, EditorQuestion, TodoLog, TodoTask } from "@/lib/types";
@@ -10,6 +11,7 @@ import GibsCountdown from "@/components/GibsCountdown";
 
 export default function ArchiveClient({ params }: { params: Promise<{ id: string }> }) {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const { id } = use(params);
   const [contract, setContract] = useState<Contract | null | undefined>(undefined);
   const [progress, setProgress] = useState<ProgressRow[]>([]);
@@ -37,7 +39,11 @@ export default function ArchiveClient({ params }: { params: Promise<{ id: string
   if (contract === undefined) return <p>{t("ctr.loadingArchive")}</p>;
   if (!contract) return <p>{t("ctr.notFound")} <Link href="/contracts" className="underline">{t("common.back")}</Link></p>;
 
-  const cardTitle = (cardId: string) => SEED_CARDS.find((c) => c.id === cardId)?.title ?? cardId;
+  const cardTitle = (cardId: string) => {
+    const base = SEED_CARDS.find((c) => c.id === cardId);
+    if (!base) return cardId;
+    return withOv(base, cov(o, "cards", cardId)).title;
+  };
   const inspName = (cardId: string) => {
     const c = SEED_CARDS.find((x) => x.id === cardId);
     return INSPECTION_TYPES.find((t) => t.id === c?.inspection)?.short ?? "";

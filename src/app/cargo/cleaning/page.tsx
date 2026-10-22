@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { CLEANING_METHODS } from "@/lib/cargo-data";
 
 const STAGES = [
@@ -38,6 +39,8 @@ const SEGREGATION = [
 
 export default function CargoCleaning() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const methods = CLEANING_METHODS.map((m) => withOv(m, cov(o, "cleanMethods", m.key)));
   return (
     <div className="grid gap-4">
       <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">{t("cargo.back")}</Link>
@@ -56,7 +59,7 @@ export default function CargoCleaning() {
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-bold">{t("cargo.cleanMethods")}</h2>
         <ul className="mt-2 grid gap-2">
-          {CLEANING_METHODS.map((m) => (
+          {methods.map((m) => (
             <li key={m.key} className="text-sm"><span className="font-bold">{m.title}:</span> {m.body}</li>
           ))}
         </ul>

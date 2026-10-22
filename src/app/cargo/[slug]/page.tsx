@@ -3,19 +3,31 @@ import Link from "next/link";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
-import { COMPAT_GROUPS, cargoTags, cleaningTitle, findCargo } from "@/lib/cargo-data";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
+import { CLEANING_METHODS, COMPAT_GROUPS, cargoTags, cleaningTitle, findCargo } from "@/lib/cargo-data";
 
 export default function CargoDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const { slug } = use(params);
-  const c = findCargo(slug);
-  if (!c) notFound();
+  const base = findCargo(slug);
+  if (!base) notFound();
+  const c = withOv(base!, cov(o, "cargo", base!.slug));
+  const pick = (p: unknown, fb: string): string => {
+    if (typeof p === "string") return p;
+    const r = (p ?? {}) as Record<string, unknown>;
+    const v = r.value ?? r.name ?? r.title ?? fb;
+    return typeof v === "string" && v ? v : fb;
+  };
+  const cgName = pick(cov(o, "compatGroups", c.compatGroup), COMPAT_GROUPS[c.compatGroup] ?? "?");
+  const ovMethods = CLEANING_METHODS.map((m) => withOv(m, cov(o, "cleanMethods", m.key)));
+  const methodTitle = (k: string) => ovMethods.find((m) => m.key === k)?.title ?? cleaningTitle(k);
 
   const rows: [string, string][] = [
     [t("cargo.rowName"), c.name],
     [t("cargo.rowUn"), c.un],
     [t("cargo.rowIbc"), c.ibc],
-    [t("cargo.rowCompat"), `Group ${c.compatGroup} — ${COMPAT_GROUPS[c.compatGroup] ?? "?"} (${c.compatSrc}, 46 CFR 150)`],
+    [t("cargo.rowCompat"), `Group ${c.compatGroup} — ${cgName} (${c.compatSrc}, 46 CFR 150)`],
     [t("cargo.rowFormula"), c.formula],
     [t("cargo.rowBoil"), c.boiling],
     [t("cargo.rowFlash"), c.flash],
@@ -88,7 +100,7 @@ export default function CargoDetail({ params }: { params: Promise<{ slug: string
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="font-bold">{t("cargo.cleaning")}</h2>
         <ul className="mt-1 list-disc pl-5 text-sm">
-          {c.cleaning.map((k) => <li key={k}>{cleaningTitle(k)}</li>)}
+          {c.cleaning.map((k) => <li key={k}>{methodTitle(k)}</li>)}
         </ul>
         {c.cleanNote && <p className="mt-2 text-sm font-semibold text-slate-700">⚠ {c.cleanNote}</p>}
         <Link href="/cargo/cleaning" className="mt-2 inline-block text-sm font-bold text-slate-700 underline">{t("cargo.openGuide")}</Link>

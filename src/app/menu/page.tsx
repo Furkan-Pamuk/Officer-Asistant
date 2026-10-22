@@ -5,11 +5,14 @@ import { useLocale } from "@/lib/i18n";
 import { db, getActiveContractId, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { MEALS, autoWeek, dayLabel, dishesForMeal, mondayOf, addWeek, CUISINES } from "@/lib/menu";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import RecipeBrowser from "@/components/RecipeBrowser";
 import type { Dish, MenuMeal, MenuSnap, WeekPlan } from "@/lib/types";
 
 export default function MenuPage() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const cuisines = CUISINES.map((c) => withOv(c, cov(o, "cuisines", c.id)));
   const [contractId, setContractId] = useState<string | null>(null);
   const [week, setWeek] = useState("");
   const [cuisine, setCuisine] = useState("turkish");
@@ -133,7 +136,7 @@ export default function MenuPage() {
       <div className={tab === "menu" ? "contents" : "hidden"}>
       <div className="flex flex-wrap items-center gap-2">
           <div className="flex flex-wrap gap-1.5">
-            {CUISINES.map((c) => (
+            {cuisines.map((c) => (
               <button key={c.id} onClick={() => setCuisine(c.id)} className={`rounded-full px-3 py-1.5 text-sm font-bold ${cuisine === c.id ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "border bg-white dark:bg-black"}`}>{c.label}</button>
             ))}
           </div>

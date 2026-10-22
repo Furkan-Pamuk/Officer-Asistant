@@ -189,7 +189,7 @@ export default function NotificationCenter() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => updateAlarm(a.id, { on: !a.on })}
-                        aria-label={`${a.label} ${a.on ? "off" : "on"}`}
+                        aria-label={`${a.label} ${a.on ? t("route.off") : t("route.on")}`}
                         className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${a.on ? "bg-emerald-500" : "bg-stone-300 dark:bg-neutral-700"}`}
                       >
                         <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${a.on ? "left-[18px]" : "left-0.5"}`} />

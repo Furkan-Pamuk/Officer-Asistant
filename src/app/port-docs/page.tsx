@@ -18,13 +18,16 @@ import {
   type PortDocModule,
 } from "@/lib/portdocs";
 import type { PortDocData } from "@/lib/types";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
-function modById(id: string | null): PortDocModule {
-  return PORT_DOC_MODULES.find((m) => m.id === id) ?? PORT_DOC_MODULES[0];
+function modById(id: string | null, mods: PortDocModule[] = PORT_DOC_MODULES): PortDocModule {
+  return mods.find((m) => m.id === id) ?? mods[0];
 }
 
 function DocsInner() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const mods = PORT_DOC_MODULES.map((m) => withOv(m, cov(o, "portdocs", m.id)));
   const params = useSearchParams();
   const { contract } = useActiveContract();
   const [modId, setModId] = useState<string>("ship-data");
@@ -36,7 +39,7 @@ function DocsInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const mod = modById(modId);
+  const mod = modById(modId, mods);
   const contractId = contract?.id ?? null;
   const [shipHead, setShipHead] = useState<{ ship: string; port: string; date: string } | null>(null);
 
@@ -312,7 +315,7 @@ function DocsInner() {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {PORT_DOC_MODULES.map((m) => (
+        {mods.map((m) => (
           <button
             key={m.id}
             onClick={() => setModId(m.id)}

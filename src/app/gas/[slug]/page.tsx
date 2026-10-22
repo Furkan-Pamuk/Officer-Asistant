@@ -3,13 +3,16 @@ import Link from "next/link";
 import { use } from "react";
 import { notFound } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { findGas } from "@/lib/gas-data";
 
 export default function GasDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { t } = useLocale();
+  const o = useContentOverlay();
   const { slug } = use(params);
-  const g = findGas(slug);
-  if (!g) notFound();
+  const base = findGas(slug);
+  if (!base) notFound();
+  const g = withOv(base!, cov(o, "gas", base!.slug));
 
   const rows: [string, string][] = [
     [t("cargo.rowName"), g.name],

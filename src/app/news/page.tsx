@@ -4,14 +4,15 @@ import Link from "next/link";
 import { db, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { NEWS, SECTIONS, type NewsPost, type NewsSection } from "@/lib/news";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import type { CrewPost } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
 
 const LEGACY_KEY = "oa-crew-posts";
 const MIGRATED_KEY = "oa-crew-migrated";
 
-function sectionLabel(s: NewsSection): string {
-  return SECTIONS.find((x) => x.id === s)?.label ?? s;
+function sectionLabel(s: NewsSection, sections: typeof SECTIONS = SECTIONS): string {
+  return sections.find((x) => x.id === s)?.label ?? s;
 }
 
 // Downscale to max 1080px JPEG so wall photos stay small on-device.
@@ -42,6 +43,9 @@ function compressPhoto(file: File): Promise<string> {
 export default function NewsPage() {
   const [sec, setSec] = useState<"all" | NewsSection>("all");
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const sectionsOv = SECTIONS.map((s) => withOv(s, cov(o, "sections", s.id)));
+  const newsOv = NEWS.map((p) => withOv(p, cov(o, "news", p.id)));
   const crew = useLiveQuery(() => db.crewPosts.toArray(), []);
   const [form, setForm] = useState({ author: "", title: "", port: "", body: "" });
   const [photo, setPhoto] = useState<string | null>(null);
@@ -121,7 +125,7 @@ export default function NewsPage() {
   }));
   const photos = new Map((crew ?? []).map((c) => [c.id, c.photo ?? null]));
   const mine = new Set((crew ?? []).map((c) => c.id));
-  const all = [...crewNews, ...NEWS].slice().sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+  const all = [...crewNews, ...newsOv].slice().sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
   const shown = sec === "all" ? all : all.filter((p) => p.section === sec);
   const [featured, ...rest] = shown;
   const count = (s: NewsSection) => all.filter((p) => p.section === s).length;
@@ -141,7 +145,7 @@ export default function NewsPage() {
         <div className={big ? "p-5" : "p-4"}>
           <Link href={`/news/${n.id}`}>
             <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className={`rounded-full px-2 py-0.5 font-bold ${big ? "bg-amber-400 text-stone-950" : "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white"}`}>{sectionLabel(n.section)}</span>
+              <span className={`rounded-full px-2 py-0.5 font-bold ${big ? "bg-amber-400 text-stone-950" : "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white"}`}>{sectionLabel(n.section, sectionsOv)}</span>
               <span className="opacity-60">{n.date}</span>
               {n.port && <span className="opacity-60">📍 {n.port}</span>}
             </div>
@@ -167,7 +171,7 @@ export default function NewsPage() {
       </div>
       <div className="flex flex-wrap gap-1 rounded-2xl border border-amber-200 bg-white p-1 dark:border-red-950 dark:bg-neutral-950">
         <button onClick={() => setSec("all")} className={`min-w-20 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${sec === "all" ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{t("news.allN").replace("{n}", String(all.length))}</button>
-        {SECTIONS.map((s) => (
+        {sectionsOv.map((s) => (
           <button key={s.id} onClick={() => setSec(s.id)} title={s.blurb} className={`min-w-20 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${sec === s.id ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`}>{s.label} ({count(s.id)})</button>
         ))}
       </div>
@@ -202,7 +206,7 @@ export default function NewsPage() {
         mine.has(featured.id) || photos.get(featured.id) ? <CrewCard n={featured} big /> : (
           <Link href={`/news/${featured.id}`} className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-5 text-amber-50 hover:shadow dark:border-red-800 dark:bg-black">
             <div className="flex items-center gap-2 text-xs">
-              <span className="rounded-full bg-amber-400 px-2 py-0.5 font-bold text-stone-950">{sectionLabel(featured.section)}</span>
+              <span className="rounded-full bg-amber-400 px-2 py-0.5 font-bold text-stone-950">{sectionLabel(featured.section, sectionsOv)}</span>
               <span className="rounded-full bg-white/15 px-2 py-0.5 font-bold">{featured.tag}</span>
               <span className="opacity-60">{featured.date}</span>
             </div>
@@ -222,7 +226,7 @@ export default function NewsPage() {
             <div key={n.id} className="rounded-2xl border border-amber-200 bg-white p-4 hover:shadow dark:border-red-950 dark:bg-neutral-950">
               <Link href={`/news/${n.id}`}>
                 <div className="flex flex-wrap items-center gap-2 text-xs">
-                  <span className="rounded-full bg-stone-900 px-2 py-0.5 font-bold text-amber-50 dark:bg-red-700 dark:text-white">{sectionLabel(n.section)}</span>
+                  <span className="rounded-full bg-stone-900 px-2 py-0.5 font-bold text-amber-50 dark:bg-red-700 dark:text-white">{sectionLabel(n.section, sectionsOv)}</span>
                   <span className="rounded-full border px-2 py-0.5 font-bold opacity-70">{n.tag}</span>
                   <span className="opacity-60">{n.date}</span>
                 </div>

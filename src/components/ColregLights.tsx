@@ -1,4 +1,7 @@
+"use client";
+
 import { LIGHT_CONFIGS, type LightConfig, type ShapeKind } from "@/lib/colreg";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
 function Dot({ x, y, c, r = 5, label }: { x: number; y: number; c: string; r?: number; label?: string }) {
   return (
@@ -60,9 +63,11 @@ function ShipSide({ c }: { c: LightConfig }) {
 }
 
 export default function ColregLights() {
+  const o = useContentOverlay();
+  const configs = LIGHT_CONFIGS.map((c) => withOv(c, cov(o, "lightcfg", c.id)));
   return (
     <div className="grid gap-3 md:grid-cols-2">
-      {LIGHT_CONFIGS.map((c) => (
+      {configs.map((c) => (
         <div key={c.id} className="rounded-2xl border bg-white p-3">
           <h3 className="font-bold">{c.name}</h3>
           <div className="mt-2"><ShipSide c={c} /></div>

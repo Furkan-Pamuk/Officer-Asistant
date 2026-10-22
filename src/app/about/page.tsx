@@ -1,10 +1,16 @@
 "use client";
 import Link from "next/link";
 import { BRAND, FEATURES, MISSION, TAGLINE, TAGLINE_LONG, VALUES, VISION } from "@/lib/content";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import { useLocale } from "@/lib/i18n";
 
 export default function AboutPage() {
   const { t } = useLocale();
+  const o = useContentOverlay();
+  const mission = (cov(o, "site", "mission").v as string | undefined) ?? MISSION;
+  const vision = (cov(o, "site", "vision").v as string | undefined) ?? VISION;
+  const valuesOv = VALUES.map((v) => withOv(v, cov(o, "site", `value:${v.title}`)));
+  const featuresOv = FEATURES.map((f) => withOv(f, cov(o, "site", `feature:${f.title}`)));
   return (
     <div className="grid gap-6">
       <section className="rounded-3xl border border-amber-200 bg-stone-900 p-7 text-amber-50 md:p-10 dark:border-red-900 dark:bg-black dark:text-red-200">
@@ -38,18 +44,18 @@ export default function AboutPage() {
       <section className="grid gap-4 md:grid-cols-2">
         <div className="rounded-3xl border border-amber-200 bg-white p-6 dark:border-red-950 dark:bg-neutral-950">
           <p className="text-xs font-black uppercase tracking-widest text-amber-700 dark:text-red-400">{t("about.mission")}</p>
-          <p className="mt-2 text-sm font-medium leading-relaxed opacity-85">{MISSION}</p>
+          <p className="mt-2 text-sm font-medium leading-relaxed opacity-85">{mission}</p>
         </div>
         <div className="rounded-3xl border border-amber-200 bg-white p-6 dark:border-red-950 dark:bg-neutral-950">
           <p className="text-xs font-black uppercase tracking-widest text-amber-700 dark:text-red-400">{t("about.vision")}</p>
-          <p className="mt-2 text-sm font-medium leading-relaxed opacity-85">{VISION}</p>
+          <p className="mt-2 text-sm font-medium leading-relaxed opacity-85">{vision}</p>
         </div>
       </section>
 
       <section>
         <h2 className="text-xl font-bold">{t("about.features")}</h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f) => (
+          {featuresOv.map((f) => (
             <div key={f.title} className="rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950">
               <div className="text-2xl">{f.icon}</div>
               <div className="mt-1 font-bold">{f.title}</div>
@@ -62,7 +68,7 @@ export default function AboutPage() {
       <section>
         <h2 className="text-xl font-bold">{t("about.values")}</h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
-          {VALUES.map((v) => (
+          {valuesOv.map((v) => (
             <div key={v.title} className="rounded-2xl border border-amber-200 bg-white p-5 dark:border-red-950 dark:bg-neutral-950">
               <div className="font-bold">{v.title}</div>
               <div className="mt-1 text-sm font-medium text-stone-700 dark:text-red-300/80">{v.body}</div>
