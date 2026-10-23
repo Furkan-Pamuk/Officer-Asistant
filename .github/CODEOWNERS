@@ -1,0 +1,5 @@
+* @Furkan-Pamuk
+# Gerçek sahip Yağız'ın kullanıcı adıyla değiştir:
+# Örn: * @yagiz-kullanici-adi
+# CODEOWNERS zorunlu review için branch protection'ta
+# "Require review from Code Owners" açılmalı.
