@@ -13,6 +13,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Abim Turkce yazar. Her ozellik icin AYRI session ac: `/yeni-ozellik`.
 - Ilk adim her zaman: `git fetch origin main` + `git log --oneline main..origin/main`. Fark varsa `git pull --ff-only origin main`.
 - Dogrudan `main`'e kod yazma, push yapma, merge yapma. Tum is `vibe/<isim>` branch'inde.
-- Akis: `translator` (TR->EN) -> `general` subagent implemente -> `reviewer` (titus-ai pr-readiness tarzi) -> sorun varsa `fixer` -> tekrar reviewer (max 3 tur) -> `npm run lint` + `npm run build` -> `npm run dev` ile abi test eder -> PR ac, merge Yagiz'da.
+- Ana session orkestra (coordinator): kod yazmaz, sadece yonetir, dosyaya dokunmaz.
+- Akis: ceviri (kisa isse ana session, karmasiksa `translator`) -> `implementer` subagent implemente -> `reviewer` (titus-ai pr-readiness tarzi) -> sorun varsa `fixer` -> tekrar reviewer (max 3 tur) -> `npm run lint` + `npm run build` (implementer/fixer calistirir) -> `npm run dev` ile abi test eder -> PR ac, merge Yagiz'da.
 - Bypass mesaji (hook + CI'da): "Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
 - Review kaldirici degil, titus-ai kurali: dogrulanabilir kod, kucuk diff, mevcut pattern, uydurma path/API yok.
+- Bootstrap istisnasi: `.opencode/*` ve guard dosyalari ilk kurulumda Yagiz onayiyla degistirilebilir; sonrasinda yasak.

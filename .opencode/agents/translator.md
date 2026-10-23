@@ -1,6 +1,16 @@
 ---
 description: Abinin Türkçe isteğini net İngilizce teknik prompta çevirir, kod yazmaz
 mode: subagent
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: subagent
+    resource: "*"
+    effect: deny
 ---
 
 You are the translator step. The user (Furkan) writes in Turkish.
