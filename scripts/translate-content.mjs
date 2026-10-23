@@ -7,8 +7,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const outFile = path.join(here, "..", "src", "lib", "locales", "content-tr.ts");
-const cacheFile = "C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\content-tr-cache.json";
+// Target locale: MT_TL=es|zh-CN|ru|id|fil (default tr). Cache + output per locale.
+const TL = process.env.MT_TL || "tr";
+const TAG = TL.replace(/-.*/, "").toUpperCase();
+const outFile = path.join(here, "..", "src", "lib", "locales", `content-${TAG.toLowerCase()}.ts`);
+const cacheFile = `C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\content-${TAG.toLowerCase()}-cache.json`;
+const reviewFile = `C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\content-${TAG.toLowerCase()}-review.txt`;
 // Mirror of src/lib with node-resolvable relative imports (built by
 // C:\Users\furka\AppData\Local\Temp\opencode\pdfext\rtcopy2.mjs — re-run it
 // before this script so the mirror is fresh).
@@ -68,7 +72,7 @@ const cache = fs.existsSync(cacheFile) ? JSON.parse(fs.readFileSync(cacheFile, "
 let calls = 0;
 
 async function cevirTek(text) {
-  const usp = new URLSearchParams({ client: "gtx", sl: "en", tl: "tr", dt: "t" });
+  const usp = new URLSearchParams({ client: "gtx", sl: "en", tl: TL, dt: "t" });
   usp.append("q", text);
   for (let deneme = 0; deneme < 5; deneme++) {
     try {
@@ -222,6 +226,23 @@ for (const [m, ids] of Object.entries(overlay)) {
   for (const [id, patch] of Object.entries(ids)) out[m][id] = res(patch);
 }
 fs.writeFileSync(outFile,
-  `// AUTO-GENERATED machine translation (EN->TR) by web/scripts/translate-content.mjs. Do not edit.\n` +
-  `export const CONTENT_TR: Record<string, Record<string, Record<string, unknown>>> = ${JSON.stringify(out)};\n`, "utf8");
+  `// AUTO-GENERATED machine translation (EN->${TL}) by web/scripts/translate-content.mjs. Do not edit.\n` +
+  `export const CONTENT_${TAG}: Record<string, Record<string, Record<string, unknown>>> = ${JSON.stringify(out)};\n`, "utf8");
 console.log("TAMAM -> " + outFile);
+
+// Glossary lock review: source terms that must survive translation.
+// Lists EN segments where a protected term vanished — human spot-check list.
+const GLOSSARY = ["MMSI", "IMO", "freefall", "EEBD", "SCBA", "LPG", "LNG", "IMDG", "IBC", "MARPOL", "SOLAS", "STCW", "GMDSS", "ECDIS", "AIS", "VHF", "EPIRB", "SART", "FRC", "fomepizole"];
+const review = [];
+for (const [k, src] of segs) {
+  const tr = cache[k];
+  if (typeof tr !== "string") continue;
+  for (const g of GLOSSARY) {
+    if (src.includes(g) && !tr.toLowerCase().includes(g.toLowerCase().replace(/ $/, ""))) {
+      review.push(`${k}\n  EN: ${src.slice(0, 120)}\n  ${TL.toUpperCase()}: ${String(tr).slice(0, 120)}`);
+      break;
+    }
+  }
+}
+fs.writeFileSync(reviewFile, review.join("\n"), "utf8");
+console.log(`sozluk-inceleme: ${review.length} supheli -> ` + reviewFile);

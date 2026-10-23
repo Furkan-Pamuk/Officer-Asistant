@@ -7,23 +7,31 @@ import { useLocale } from "./i18n";
 // search filters and done[] indexes keep working unchanged.
 export type ContentOverlay = Record<string, Record<string, Record<string, any>>>;
 
-let cache: ContentOverlay | null = null;
-let loading: Promise<unknown> | null = null;
+let cache: Record<string, ContentOverlay | null> = {};
+let loading: Record<string, Promise<unknown> | null> = {};
+const EXP: Record<string, string> = {
+  tr: "CONTENT_TR",
+  es: "CONTENT_ES",
+  zh: "CONTENT_ZH",
+  ru: "CONTENT_RU",
+  id: "CONTENT_ID",
+  fil: "CONTENT_FIL",
+};
 
 export function useContentOverlay(): ContentOverlay {
   const { locale } = useLocale();
   const [, setTick] = useState(0);
   useEffect(() => {
-    if (locale !== "tr") return;
-    if (cache) { setTick((x) => x + 1); return; }
-    if (!loading) {
-      loading = import("./locales/content-tr")
-        .then((m) => { cache = (m.CONTENT_TR ?? {}) as ContentOverlay; })
-        .catch(() => { cache = {}; });
+    if (!EXP[locale]) return;
+    if (cache[locale]) { setTick((x) => x + 1); return; }
+    if (!loading[locale]) {
+      loading[locale] = import(`./locales/content-${locale}`)
+        .then((m) => { cache[locale] = (m[EXP[locale]] ?? {}) as ContentOverlay; })
+        .catch(() => { cache[locale] = {}; });
     }
-    loading.then(() => setTick((x) => x + 1));
+    loading[locale]!.then(() => setTick((x) => x + 1));
   }, [locale]);
-  return locale === "tr" ? (cache ?? {}) : {};
+  return EXP[locale] ? (cache[locale] ?? {}) : {};
 }
 
 // Overlay patch for one record, or {} when untranslated/another locale.
