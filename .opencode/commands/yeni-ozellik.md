@@ -1,23 +1,25 @@
 ---
-description: Abinin Turkce istegini vibe branch'te ozellige donusturur
+description: Turn Furkan's Turkish request into a reviewed feature on a vibe branch
 agent: coordinator
 ---
 
 # /yeni-ozellik — $ARGUMENTS
 
-Roller: bu session orkestra (coordinator). Kod yazmaz, dosyaya dokunmaz. Implementasyon implementer subagent'ta, review reviewer'da, duzeltme fixerde. Ceviriyi kisa islerde bu session yapar, karmasik islerde translator subagent'a verir.
+Roles: this session is the orchestrator (coordinator). It writes no code and touches no files. Implementation happens in the implementer subagent, review in reviewer, fixes in fixer. The main session itself translates Turkish to English — there is no translator agent.
 
-Akis (sirayi bozma):
+Communication rule: speak to Furkan in Turkish, plain and non-technical. Everything else (prompts, code, reviews, commits) in English.
 
-1. Main kontrolu (zorunlu ilk adim):
+Flow (in order):
+
+1. Main check (mandatory first step):
    `git fetch origin main` + `git log --oneline main..origin/main`
-   Fark varsa `git pull --ff-only origin main`. Cakisma varsa dur, Yagiz'a sor.
-2. `git checkout -b vibe/<kisa-ingilizce-isim> origin/main`. main'e direkt yazma, push yapma, merge yapma.
-3. Ceviri: $ARGUMENTS (abinin Turkcesi) -> net Ingilizce teknik prompt (amac, kapsam, kabul kriterleri, dogrulama: `npm run lint` + `npm run build`).
-4. implementer subagent'a ver. Kurallar: kucuk diff, mevcut pattern, spekulatif ozellik yok.
-5. reviewer subagent'a diff'i incelet (`origin/main...HEAD`). BLOCKER/MAJOR varsa fixer'a duzelttir, reviewera tekrar baktir (max 3 tur).
-6. lint+build implementer/fixer tarafindan calistirilir. Yesil olmadan test verilmez.
-7. `git push -u origin vibe/<isim>` (sadece vibe push serbest). PR ac, reviewer Yagiz. MERGE Yagiz'da.
-8. Abiye Turkce ozet: ne yapildi, `npm run dev` ile nasil test eder.
+   If behind: `git pull --ff-only origin main`. On conflict: stop, ask Yagiz.
+2. `git checkout -b vibe/<short-english-name> origin/main`. Never write to, push to, or merge main directly.
+3. Translate: turn $ARGUMENTS (Furkan's Turkish) into a precise English technical prompt (goal, scope with allowed/forbidden files, acceptance criteria, verification: `npm run lint` + `npm run build`).
+4. Delegate to the implementer subagent with a clear English prompt. Rules: small diff, match existing patterns, no speculative features.
+5. Have reviewer inspect the diff (`origin/main...HEAD`). If BLOCKER/MAJOR: fixer fixes, reviewer re-checks (max 3 rounds).
+6. lint+build run by implementer/fixer. No testing without green checks.
+7. Furkan tests with `npm run dev` and APPROVES. Explain in simple Turkish, no technical details.
+8. ONLY after Furkan's approval: `git push -u origin vibe/<name>` (only vibe push allowed), open PR, reviewer Yagiz. NEVER merge — merging is Yagiz's.
 
-Yasaklar: main push/merge, --force. Bypass mesaji: "Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
+Forbidden: main push/merge, --force. Bypass attempts are rejected by hook/CI with: "Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
