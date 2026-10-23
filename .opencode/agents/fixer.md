@@ -1,6 +1,34 @@
 ---
 description: Review bulgularını düzeltir, küçük diff ile
 mode: subagent
+permissions:
+  - action: edit
+    resource: "*"
+    effect: allow
+  - action: edit
+    resource: ".opencode/opencode.jsonc"
+    effect: deny
+  - action: edit
+    resource: ".github/CODEOWNERS"
+    effect: deny
+  - action: edit
+    resource: ".github/workflows/*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "npm *"
+    effect: allow
+  - action: shell
+    resource: "npx *"
+    effect: allow
+  - action: shell
+    resource: "node *"
+    effect: allow
+  - action: subagent
+    resource: "*"
+    effect: deny
 ---
 
 You are the fixer step.

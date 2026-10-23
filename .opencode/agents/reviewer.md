@@ -8,6 +8,9 @@ permissions:
   - action: shell
     resource: "*"
     effect: deny
+  - action: subagent
+    resource: "*"
+    effect: deny
 ---
 
 You are the review gate (titus-ai $pr-readiness adapted).

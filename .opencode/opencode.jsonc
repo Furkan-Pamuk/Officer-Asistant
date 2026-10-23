@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  // Yağız gate: abinin makinesindeki ajan main'e direkt push yapamaz.
+  // Yagiz gate: abinin makinesindeki ajan main'e direkt push yapamaz.
   // Vibe branch'ler serbest, main yasak.
   "permissions": [
     { "action": "shell", "resource": "git status *", "effect": "allow" },
@@ -19,7 +19,8 @@
       "permissions": [
         { "action": "shell", "resource": "git push *", "effect": "deny" },
         { "action": "shell", "resource": "git push *vibe/*", "effect": "allow" },
-        { "action": "shell", "resource": "git push *main*", "effect": "deny" }
+        { "action": "shell", "resource": "git push *main*", "effect": "deny" },
+        { "action": "shell", "resource": "git push *--force*", "effect": "deny" }
       ]
     }
   }
