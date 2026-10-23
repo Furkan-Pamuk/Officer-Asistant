@@ -178,6 +178,7 @@ for (const spec of SPEC) {
 
 const keys = [...segs.keys()];
 const todo = keys.filter((k) => cache[k] == null);
+if (process.argv.includes("--emit-only")) todo.length = 0;
 console.log(`benzersiz segment: ${keys.length}, cacheli: ${keys.length - todo.length}, cevrilecek: ${todo.length}`);
 
 const PAR = 4;
@@ -209,13 +210,17 @@ async function isci(ms) {
 if (todo.length) await Promise.all([0, 1, 2, 3].map((k) => isci(k * 600)));
 fs.writeFileSync(cacheFile, JSON.stringify(cache), "utf8");
 
-// resolve placeholders -> translated text
+// resolve placeholders -> translated text (fall back to EN source when uncached)
 function res(v) {
-  if (typeof v === "string") return cache[v] ?? v;
+  if (typeof v === "string") {
+    if (!v.includes("::")) return v;
+    if (cache[v] != null) return cache[v];
+    return segs.get(v) ?? v;
+  }
   if (Array.isArray(v)) return v.map(res);
   if (v && typeof v === "object") {
     const o = {};
-    for (const [k, x] of Object.entries(v)) o[k] = typeof x === "string" && x.includes("::") ? (cache[x] ?? x) : res(x);
+    for (const [k, x] of Object.entries(v)) o[k] = res(x);
     return o;
   }
   return v;
