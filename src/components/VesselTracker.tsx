@@ -29,6 +29,7 @@ export default function VesselTracker() {
   const [enr, setEnr] = useState<(Ais & { eta?: string }) | null>(null);
   const [enriching, setEnriching] = useState(false);
   const [enrNote, setEnrNote] = useState("");
+  const [enrAttr, setEnrAttr] = useState("");
 
   useEffect(() => {
     try {
@@ -65,7 +66,7 @@ export default function VesselTracker() {
   // One-button sync: phone GPS for position + free AIS voyage data.
   // Contract is only touched via explicit Apply (AIS data can be stale).
   async function syncAll() {
-    setEnriching(true); setEnrNote(""); setCands([]); setEnr(null);
+    setEnriching(true); setEnrNote(""); setCands([]); setEnr(null); setEnrAttr("");
     await locate();
     try {
       if (contract?.mmsi && /^\d{9}$/.test(contract.mmsi)) {
@@ -99,6 +100,7 @@ export default function VesselTracker() {
       const data = await r.json();
       if (!r.ok) throw new Error(data.error ?? "lookup failed");
       setEnr({ ...data, at: new Date().toISOString() });
+      setEnrAttr(typeof data.attribution === "string" ? data.attribution : "");
       setCands([]);
       if (contract && contract.mmsi !== mmsi) {
         await db.contracts.update(contract.id, { mmsi, updatedAt: new Date().toISOString() });
@@ -161,6 +163,7 @@ export default function VesselTracker() {
             <span>{enr.navigationalStatus || ""}</span>
           </div>
           <button onClick={applyVoy} className="mt-2 rounded-full bg-sky-500 px-3 py-1 text-xs font-black text-white">{t("vt.applyVoy")}</button>
+          {enrAttr ? <p className="mt-1 text-[10px] opacity-60">{enrAttr}</p> : null}
         </div>
       )}
       {valid ? (

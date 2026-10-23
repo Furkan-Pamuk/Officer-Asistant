@@ -23,7 +23,7 @@ function toError(e: unknown): VesselError {
 }
 
 /** Free name/MMSI search (anonymous tier, no key). */
-export async function searchVesselsFree(q: string): Promise<{ ok: true; candidates: VesselCandidate[] } | { ok: false; error: VesselError }> {
+export async function searchVesselsFree(q: string): Promise<{ ok: true; candidates: VesselCandidate[]; attribution: string } | { ok: false; error: VesselError }> {
   const query = q.trim();
   if (query.length < 2) return { ok: false, error: { kind: "invalid", message: "Type at least 2 characters." } };
   try {
@@ -38,18 +38,29 @@ export async function searchVesselsFree(q: string): Promise<{ ok: true; candidat
           seen: typeof f?.properties?.seen === "string" ? f.properties.seen : null,
         }))
         .filter((c: VesselCandidate) => /^\d{9}$/.test(c.mmsi)),
+      attribution: creditLine(j.attribution),
     };
   } catch (e) {
     return { ok: false, error: toError(e) };
   }
 }
 
+/** Flatten an Open Waters attribution object into a display line. */
+export function creditLine(a: unknown): string {
+  if (!a || typeof a !== "object") return "Open Waters AIS (https://openwaters.io/ais/)";
+  const parts = Object.entries(a as Record<string, unknown>)
+    .map(([k, v]) => (typeof v === "string" && v ? v : k))
+    .filter(Boolean);
+  parts.push("Open Waters AIS (https://openwaters.io/ais/)");
+  return [...new Set(parts)].join(" · ");
+}
+
 /** Free vessel detail by 9-digit MMSI (anonymous tier, no key). */
-export async function vesselByMmsiFree(mmsi: string): Promise<{ ok: true; data: VesselResult } | { ok: false; error: VesselError }> {
+export async function vesselByMmsiFree(mmsi: string): Promise<{ ok: true; data: VesselResult; attribution: string } | { ok: false; error: VesselError }> {
   if (!/^\d{9}$/.test(mmsi)) return { ok: false, error: { kind: "invalid", message: "MMSI must be 9 digits." } };
   try {
     const j = await owGet(`/vessels/${mmsi}`);
-    return { ok: true, data: normalizeOpenWaters(mmsi, j) };
+    return { ok: true, data: normalizeOpenWaters(mmsi, j), attribution: creditLine((j as Record<string, unknown>).attribution) };
   } catch (e) {
     return { ok: false, error: toError(e) };
   }

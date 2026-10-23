@@ -12,5 +12,5 @@ export async function GET(req: Request) {
     const s = r.error.kind === "invalid" ? 400 : r.error.kind === "rate-limited" ? 429 : 502;
     return NextResponse.json({ error: r.error.message }, { status: s });
   }
-  return NextResponse.json({ candidates: r.candidates });
+  return NextResponse.json({ candidates: r.candidates, attribution: r.attribution });
 }

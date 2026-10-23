@@ -13,7 +13,7 @@ export async function GET(req: Request) {
       const s = r.error.kind === "invalid" ? 400 : r.error.kind === "rate-limited" ? 429 : r.error.kind === "not-found" ? 404 : 502;
       return NextResponse.json({ error: r.error.message }, { status: s });
     }
-    return NextResponse.json(legacyShape(r.data));
+    return NextResponse.json({ ...legacyShape(r.data), attribution: r.attribution });
   }
   const imo = searchParams.get("imo") ?? "";
   const r = await lookupVessel(imo);
