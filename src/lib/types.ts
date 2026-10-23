@@ -1,5 +1,5 @@
 export type Department = "deck" | "engine" | "both";
-export type InspectionTypeId = "flag" | "psc" | "uscg" | "class" | "sire" | "cdi" | "sanitation" | "ism-isps";
+export type InspectionTypeId = "flag" | "psc" | "uscg" | "class" | "sire" | "cdi" | "sanitation" | "ism-isps" | "rightship";
 
 export interface InspectionType {
   id: InspectionTypeId;
