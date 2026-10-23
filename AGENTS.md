@@ -15,7 +15,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Dogrudan `main`'e kod yazma, push yapma, merge yapma. Tum is `vibe/<isim>` branch'inde.
 - Ana session orkestra (coordinator): kod yazmaz, sadece yonetir, dosyaya dokunmaz. Subagentlara Ingilizce net prompt verir. Ceviriyi ana session yapar, ayri ceviri ajani yok.
 - Abinle iletisim Turkce, sade, teknik detaysiz; gerisi Ingilizce.
-- Akis: ana session cevirir -> `implementer` subagent implemente -> `reviewer` -> sorun varsa `fixer` -> tekrar reviewer (max 3 tur) -> `npm run lint` + `npm run build` (implementer/fixer calistirir) -> abi `npm run dev` ile test eder ve ONAYLAR -> SADECE onaydan sonra push + PR ac, merge Yagiz'da.
+- Akis: dal guncel origin/main tabanindan acilir ve `git rev-parse HEAD` == `origin/main` ile dogrulanir -> ana session cevirir -> `implementer` subagent implemente -> `reviewer` -> sorun varsa `fixer` -> tekrar reviewer (max 3 tur) -> `npm run lint` + `npm run build` (implementer/fixer calistirir) -> abi `npm run dev` ile test eder ve ONAYLAR -> SADECE onaydan sonra push + PR ac, merge Yagiz'da.
 - Bypass mesaji (hook + CI'da): "Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
 - Review kaldirici degil, titus-ai kurali: dogrulanabilir kod, kucuk diff, mevcut pattern, uydurma path/API yok.
 - Bootstrap istisnasi: `.opencode/*` ve guard dosyalari ilk kurulumda Yagiz onayiyla degistirilebilir; sonrasinda yasak.
