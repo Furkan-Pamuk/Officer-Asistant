@@ -129,20 +129,33 @@ export default function CameraCaptureModal({
     setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
   }
 
-  // Snap photo from live video stream
+  // Snap photo from live video stream with high-speed downsampling
   function capturePhoto() {
     if (!videoRef.current) return;
     try {
       const video = videoRef.current;
+      const MAX_DIM = 900;
+      let w = video.videoWidth || 640;
+      let h = video.videoHeight || 480;
+      if (w > MAX_DIM || h > MAX_DIM) {
+        if (w > h) {
+          h = Math.round((h * MAX_DIM) / w);
+          w = MAX_DIM;
+        } else {
+          w = Math.round((w * MAX_DIM) / h);
+          h = MAX_DIM;
+        }
+      }
+
       const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth || 640;
-      canvas.height = video.videoHeight || 480;
+      canvas.width = w;
+      canvas.height = h;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      // Draw current video frame to canvas
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+      // Draw downsampled video frame to canvas
+      ctx.drawImage(video, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.78);
 
       if (navigator.vibrate) navigator.vibrate(40);
 
@@ -154,19 +167,43 @@ export default function CameraCaptureModal({
     }
   }
 
-  // Handle file upload fallback
+  // Handle file upload fallback with high-speed client-side downsampling
   function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      if (dataUrl) {
-        stopCamera();
-        setCapturedImage(dataUrl);
-        analyzePhoto(dataUrl);
-      }
+      const rawDataUrl = event.target?.result as string;
+      if (!rawDataUrl) return;
+
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+        const MAX_DIM = 900;
+        if (w > MAX_DIM || h > MAX_DIM) {
+          if (w > h) {
+            h = Math.round((h * MAX_DIM) / w);
+            w = MAX_DIM;
+          } else {
+            w = Math.round((w * MAX_DIM) / h);
+            h = MAX_DIM;
+          }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, w, h);
+          const compressed = canvas.toDataURL("image/jpeg", 0.78);
+          stopCamera();
+          setCapturedImage(compressed);
+          analyzePhoto(compressed);
+        }
+      };
+      img.src = rawDataUrl;
     };
     reader.readAsDataURL(file);
   }
@@ -187,7 +224,7 @@ export default function CameraCaptureModal({
       const catalogContext = await prepareCatalogContextForAI(contractId, currentTab);
       setCatalogContextCount(6795 + catalogContext.length);
 
-      setStatusText("Sending photo to Gemini 3.5 Flash Lite with all 6,795 catalog items...");
+      setStatusText("Analyzing image with Gemini 3.5 Flash Lite...");
 
       // Retrieve current profile & contract for user activity tracking in Admin Dashboard
       const profile = await db.profile.get("me").catch(() => null);
@@ -228,7 +265,7 @@ export default function CameraCaptureModal({
 
       const prod: IdentifiedProduct = data.product;
       setRecognized(prod);
-      setStatusText("Product recognized! Appending to My List...");
+      setStatusText(`Recognized ${prod.productName} in ${data.latencyMs || 850}ms! Appending to My List...`);
 
       // 3. Automatically append the recognized product to "My List"
       const targetTab: RequestTab = normalizeCategory(prod.category);

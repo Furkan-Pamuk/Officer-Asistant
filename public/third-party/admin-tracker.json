@@ -7,10 +7,10 @@
       "rank": "Engine Cadet",
       "vessel": "Atlantis Almeria",
       "department": "deck",
-      "totalRequests": 36,
-      "successfulRequests": 30,
+      "totalRequests": 37,
+      "successfulRequests": 31,
       "failedRequests": 6,
-      "lastActiveAt": "2026-10-23T17:59:28.669Z",
+      "lastActiveAt": "2026-10-23T18:28:00.803Z",
       "createdAt": "2026-09-01T08:00:00.000Z",
       "status": "active"
     },
@@ -100,6 +100,22 @@
     }
   ],
   "logs": [
+    {
+      "id": "log_1792780080803_d6tx",
+      "timestamp": "2026-10-23T18:28:00.803Z",
+      "userId": "usr_furkan",
+      "userName": "Furkan Pamuk",
+      "userRank": "Engine Cadet",
+      "vessel": "Atlantis Almeria",
+      "endpoint": "/api/requests/ai-identify",
+      "status": "success",
+      "model": "gemini-3.5-flash",
+      "latencyMs": 5255,
+      "productId": "391903",
+      "productName": "an tibiotic eye eye ointment (tube) 5 tubes 5 tubeS ' times daily or Appendix 7 ointment more frequently II required",
+      "category": "medicine",
+      "authMethod": "Google API Key (Authenticated)"
+    },
     {
       "id": "log_1792778368670_0owt",
       "timestamp": "2026-10-23T17:59:28.670Z",
