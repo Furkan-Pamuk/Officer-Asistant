@@ -1,0 +1,269 @@
+{
+ "rank": "STCW-Temel",
+ "ders": "Ileri-Yangin",
+ "deneme": 2,
+ "kaynak_url": "https://denizcisin.com/index.php/2017/01/27/stcw-soru-ileri-yangin-sorulari-test-2/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "3500 GRT'luk bir yolcu gemisinin en az kaç adet yangın pompası olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Hangi yangın türünde köpük ve su kesinlikle kullanılmaz",
+   "gorsel": [],
+   "siklar": [
+    "Elektrik",
+    "Petrol",
+    "Katı",
+    "Metal",
+    "Sıvı"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Nefes alma donanımlarında (Breathing Apparatus) bulunan hava tüplerinin kapasitesi en az kaç litre olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "1500",
+    "1400",
+    "1100",
+    "1300",
+    "1200"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Gemilerde pratik olabilecek en etkin yangından korunma yöntemleri aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yangınla mücadele için kaçış ve ulaşma yollarının neta olması, yanıcı malzemenin kullanılmasının sınırlandırılması",
+    "Yangının çıktığı yerde tespit edilmesi ve kontrol altına alınıp söndürülmesi",
+    "Yangın söndürme cihazlarının kullanıma hazır tutulması",
+    "Hepsi",
+    "Hiçbiri"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Portatif yangın söndürücü tüplerini en etkili şekilde kullanmak için, aşağıdakilerden hangisi yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Tüpleri bitene kadar sıkınız, yarım bırakmayınız",
+    "Yangının çıkış noktasından müdahale ediniz",
+    "Rüzgara karşı durarak ve tek tek, ard arda kullanınız",
+    "Tüpleri aynı anda değişik yönlerden beraberce kullanınız",
+    "Rüzgarı, istikametine göre arkanıza alınız"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdakilerden hangisi / hangileri doğrudur? I) Makine dairesinde bulunan her bir yangın pompası aynı anda iki hortumun su jetine yeterli su verebilmelidir II) Acil durum yangın pompaları makine dairesinde çıkabilecek yangınlar düşünülerek makine dairesine konur III) Gemide acil durum yangın pompasının dışında en azından iki tane yangın pompası bulunması gerekir. Ancak yangın dairesine bağlı safra (ballast) pompası ikinci yangın pompası olarak değerlendirilebilir",
+   "gorsel": [],
+   "siklar": [
+    "I ve III",
+    "I ve II",
+    "Sadece III",
+    "Sadece I",
+    "Hiçbiri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Gemilerde kullanılan yanmaz malzeme özelliği aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yaklaşık 750 dereceye kadar ısıtıldığında yanmayan ve kendi kendine tutuşacak miktarda parlayıcı buhar çıkarmayan malzemedir. Bunun dışındaki malzeme yanabilir malzemedir",
+    "100 dereceye kadar ıstıldığında yanmayan malzemedir",
+    "Yaklaşık 200 dereceye kadar ısıtıldığında yanmayan ve kendi kendine tutuşacak miktarda parlayıcı buhar çıkaran malzemedir",
+    "En az 100 derece ile en fazla 200 derece sıcaklık arasında yanmayan malzemedir",
+    "Hiçbiri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Giysileri alev almış kişilere ilk olarak aşağıdakilerden hangisi ile mudahale edilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "Kimyasal toz ile",
+    "Su ile",
+    "Yangın battaniyesi ile",
+    "Yangın söndürme cihazı ile",
+    "Köpüklü su ile"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Yangın hortumlarının içinden en az ne kadar zamanda bir tatlı su geçirmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "İki haftada bir",
+    "3 ayda bir",
+    "4 ayda bir",
+    "Haftada bir",
+    "Ayda bir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerden hangisi özellikle gemi kuzinesinde meydana gelen yangınlarda kullanılmak üzere bulundurulmaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "Kova",
+    "Yangın hortumu",
+    "Balta",
+    "Yangın battaniyesi",
+    "Portatif yangın söndürücü"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Kaç GRT ve üzerindeki yolcu gemilerinde en az 3 yangın pompası olmak zorundadır?",
+   "gorsel": [],
+   "siklar": [
+    "1000",
+    "10000",
+    "2000",
+    "4000",
+    "600"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "SOLAS sözleşmesine göre gemilerde en az kaç takım yangın elbisesi bulundurulması zorunludur?",
+   "gorsel": [],
+   "siklar": [
+    "1 takım",
+    "2 takım",
+    "Gerek yok",
+    "4 takım",
+    "3 takım"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Gemi limanda iken meydana gelen bir yangında aşağıdakilerden hangisi yapılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Makina dairesindeki bakım tutum işlemleri aksatılmadan devam ettirilir",
+    "Liman idaresine ve acenteye haber verilir",
+    "Etraftaki gemilere uygun kanallar ile haber verilir",
+    "Yangına gemi imkanları ile müdahale edilir",
+    "Yükleme ve boşaltma operasyonu durdurulur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Yangın hortumları kullanımdan sonra nasıl yıkanır?",
+   "gorsel": [],
+   "siklar": [
+    "Çamaşır suyu ile",
+    "Tatlı su ile",
+    "Tuzlu su ile",
+    "Yıkamaya gerek yoktur",
+    "Tel fırça ile"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "CO2 tüpleri kaç yılda bir basınç testine tabi tutulmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Makine dairesi yangınında aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Makine dairesi havalandırmalarını kapatmak",
+    "Makine dairesi havalandırmalarını açmak",
+    "Yangın alarmı verilmesi",
+    "Sabit CO2 söndürme sistemi kullanımında önce gemi içinde duyuru yapmak",
+    "Sabit CO2 söndürme sistemi kullanılacaksa tüm makine dairesi personelini önceden tahliye etmek"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Makine dairesi yangınında yapılacak ilk hareket aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Sabit CO2 söndürme sistemini çalıştırmak",
+    "Yakıt devresini ve havalandırmayı kapatmak",
+    "Gemiyi terk etmek",
+    "Yangın pompasını çalıştırmak",
+    "Geminin rotasını rüzgar altına doğru değiştirmek"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "Yaşam ve servis mahalleri için kullanılacak olan nozul başlıklarının hangi ölçüde olması yeterli görülmüştür?",
+   "gorsel": [],
+   "siklar": [
+    "19 mm",
+    "10 mm",
+    "16 mm",
+    "12 mm",
+    "15 mm"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Yangın söndürme cihazının periyodik bakım süresi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "6 ay",
+    "1 yıl",
+    "1 ay",
+    "3 ay",
+    "2 yıl"
+   ],
+   "cevap": null
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi yangın hortumlarının aylık bakım tutum ve kontrollerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kat yerleri değiştirilir",
+    "Hortumların içinden tatlı su geçirilir",
+    "Hortumlar yangın devresine bağlanır, 5 dakika basınca tabi tutularak su kaçırıp kaçırmadığı kontrol adilir",
+    "Hortumlar açılır, göz kontrolünden geçirilerek delik ve yırtık kontrolü yapılır",
+    "Hepsi"
+   ],
+   "cevap": 3
+  }
+ ]
+}

@@ -1,0 +1,243 @@
+{
+ "rank": "Uzakyol-Vardiya-Muhendisi",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 4,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Muhendisi/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-4/",
+ "soru_sayisi": 18,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Yüksek basınçlı devrelerde tek yönlü akım sağlayan valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yükselen çek valf",
+    "Swing (flaper) çek valf",
+    "Stop - çek valf",
+    "Kelebek - çek valf",
+    "İğne çek valf"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdaki hangi evaporatörde işletme basıncı en yüksektir?",
+   "gorsel": [],
+   "siklar": [
+    "Ters osmoz",
+    "Borulu",
+    "Vakumlu",
+    "Flaş",
+    "Kompresörlü"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Bazı motorların kaverleri ile silindir bloğu arasında aşağıda belirtilen contalardan hangisi kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Isıtma için yüksek basınçlı buhar gerekir",
+    "Yüksek sıcaklıkta kısır daha çok oluşur",
+    "Sistemin kuruluş maliyeti yükselir",
+    "Vakum için yüksek basınçlı buhar gerekir",
+    "Bakım ve işletme maliyeti yükselir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 5,
+   "soru": "Eğer bir separator çalışırken sadece bir dizçarçı varsa bu separator aşağıdaki hangi şekilde çalıştırılıyordur?",
+   "gorsel": [],
+   "siklar": [
+    "Klarifayer",
+    "Pürifayer",
+    "Lübrikeyter",
+    "Ekonomayzer",
+    "Transmiter"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Santrifüj bir pompa disçarç valfı açık olarak çalıştırılırsa aşağıdakilerden hangisi oluşur?",
+   "gorsel": [],
+   "siklar": [
+    "Isıtıcı veya hiyter",
+    "Soğutucu veya kuler",
+    "Fan",
+    "Klima sistemi",
+    "Havalandırıcı"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Yarı kapalı besleme sisteminde kullanılan tankın adı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "DA'tank",
+    "SÖRÇ tank",
+    "FW tank",
+    "SAMPtank",
+    "FILITRE tank"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Bir gemiye yük almak veya yükü tahliye etmek için kullanılan donanım aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Baş ırgat",
+    "Matafora",
+    "Kreyn",
+    "Kıç ırgat",
+    "Tov vinci"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Uzun borulu evaporatörlerde kışır giderme için aşağıdaki yöntemlerden hangisi uygulanır?",
+   "gorsel": [],
+   "siklar": [
+    "Fırçalar ile temizlemek",
+    "Isıl şoklama",
+    "Raspalama",
+    "Çekiçleme",
+    "Basınçlı su geçirme"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "Pelensnkli şaft kovanlarının boğazlarında aşağıdaki hangi tür salmastra kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Grafitili",
+    "Kauçuklu",
+    "Amyantlı",
+    "Kurşunlu",
+    "Don yağlı"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "Pis su devrelerinde kullanılması tavsiye edilen stop valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "İğne valf",
+    "Ralf valf",
+    "Piston valf",
+    "Redyusin valf",
+    "Musluk valf"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Seyfti valf nereye açılır?",
+   "gorsel": [],
+   "siklar": [
+    "Yüksek basınç dreynine",
+    "Atmosfere",
+    "Sintineye",
+    "Yardımcı egzost devresinde",
+    "Buhar dönüş devresinde"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "Dizayn kapasitesinde çalıştırılamayan santrifüj bir pompada aşağıdakilerden hangisi oluşur?",
+   "gorsel": [],
+   "siklar": [
+    "Mil aşırı ısınır",
+    "Impallerde radval sırsat oluşur",
+    "Keyste aşırı ısınma meydana gelir",
+    "Gövdede titreşim olur",
+    "Aşınma ringi kaçırır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Aşağıdakilerden hangisi bir buhar dramının iç donanımı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yüzey blöf nozulu",
+    "Yalpa saçı",
+    "Besi suyu regülatör şamandırası",
+    "Buhar bafılı",
+    "Hava musluğu"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Vakumu 28,5 inç Hg olan bir kondenserin iç basıncı aşağıdakilerden hangisidir? (latm=30 inç Hg)",
+   "gorsel": [],
+   "siklar": [
+    "0,02 atm",
+    "0,04 atm",
+    "0,05 atm",
+    "0,06 atm",
+    "0,08 atm"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "Kapalı basınç altında çalışan fit suyu sisteminde kamin devresinin görevi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Ana kondenserin suyunu tahliye etmek",
+    "Yoğuşum pompasına su temin etmek",
+    "Yoğuşumları kazana iletmek",
+    "Ana kondenseri susuz bırakmamak",
+    "Deaeratöre buhar temin etmek"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Su çemberli pompalar genellikle aşağıdaki amaçlardan hangisi için kullanılırlar?",
+   "gorsel": [],
+   "siklar": [
+    "Su basmak için",
+    "Vakum tutmada",
+    "Viskoz akışkan basmak için",
+    "Asit basmak için",
+    "Yakıt basmak için"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi iklimlendirme sisteminin bir elemanıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Enjektör",
+    "Oksijen tüpü",
+    "Kurutucu",
+    "Metil alkol",
+    "Distribütör"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Bir gemide kıç ırgatın görevi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Demirin funda veya vira edilmesi",
+    "Gemiden sahile verilen halatlarm boşunun alınması",
+    "Gemiye yük almak veya tahliye etmek",
+    "Filikaların bandosu ve virası",
+    "Gemiyi itmek Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

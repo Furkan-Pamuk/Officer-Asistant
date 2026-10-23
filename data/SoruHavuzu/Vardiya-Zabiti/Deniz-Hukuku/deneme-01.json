@@ -1,0 +1,230 @@
+{
+ "rank": "Vardiya-Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 1,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Vardiya_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-1/",
+ "soru_sayisi": 17,
+ "sorular": [
+  {
+   "no": 2,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Taşıyanın navlun sözleşmesinden doğan alacakları",
+    "Yük sigorta ücretleri",
+    "Müşterek avarya nedeni doğan yük borcu",
+    "Yükün kurtarılmasından doğan kurtarma yardım borcu",
+    "Yük karşılık gösterilerek alınan deniz ödüncü borcu"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Başka bir yük teslim almak amacıyla",
+    "Can ve mal kurtarmak amacıyla",
+    "Aktarma yapmak amacıyla",
+    "Yakıt almak amacıyla",
+    "Su almak amacıyla"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Yükün karakteristik özelliğine uygun istif",
+    "Yükün varma limanında kolaylıkla boşaltılabilecek şekilde istifi",
+    "Kuru yükün yaş yükten ayrı tutularak istifi",
+    "Yükün muvafakatsiz güverteye istifi",
+    "Yükün mahiyetine uygun ambalajlanarak istifi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdaki örneklerden hangisi gemi idaresindeki kusurlardandır?",
+   "gorsel": [],
+   "siklar": [
+    "Lombarı açık bırakmak",
+    "Yükün gemi personeli tarafından çalınması",
+    "Gecikmeden dolayı yükte meydana gelen kurtlanma zararı",
+    "Yükün havalandırılmaması",
+    "Yükün uygun istiflenmemesi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "1976 Londra Konvansiyonu",
+    "1924 Brüksel Konvansiyonu",
+    "1924 La Hey Kuralları",
+    "1968 Visby Kuralları",
+    "1978 Hamburg Kuralları"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdakilerden hangisi akdi ipotek çeşitlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Maksimal ipotek",
+    "Birlikte gemi ipoteği",
+    "Tersanecinin ipoteği",
+    "Sabit kıymetli ipotek",
+    "Yabancı para üzerinden ipotek"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Aşağıdakilerden hangisi çatmanın çeşitleri arasında sayılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Müşterek kusurlu çatma",
+    "Kusursuz çatma",
+    "Kusurlu çatma",
+    "Tek taraflı kusurlu çatma",
+    "Kusurlu olarak denizde sabit bir cisme çatma"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerden hangisi çatmanın unsurlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Fiilen veya hükmen bir çatmanın mevcut olması ve fiilen bir zararın doğmuş olması",
+    "Çarpışan gemilerin deniz gemisi olması",
+    "Çatmaya konu araçların gemi niteliği taşıması",
+    "Çarpışan gemiler arasında herhangi bir hukuki ilişki olmamalı",
+    "Kaptanın haklı ve makul karşı koymasının bulunmaması"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Ulusaldır ve yenilikçidir",
+    "Muhafazakardır ve uluslararasıdır",
+    "Yenilikçidir ve uluslararasıdır",
+    "Yenilikçidir ve bölgeseldir",
+    "Muhafazakardır ve ulusaldır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 12,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Hasarlı muafiyet, hasarsız muafiyet",
+    "İşlemli muafiyet, işlemsiz muafiyet",
+    "Tekne muafiyeti, yük muafiyeti",
+    "Tenzili muafiyet, Entegral muafiyet",
+    "Gerçek muafiyet, hükmi muafiyet"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz hukuku, Deniz Kamu Hukuku–Deniz Özel Hukuku olarak ikiye ayrılır.",
+    "Deniz hukuku, Deniz Ticaret Hukuku–Deniz Ceza Hukuku olarak ikiye ayrılır.",
+    "Deniz hukuku, Deniz Ticaret Hukuku–Deniz Özel Hukuku olarak ikiye ayrılır.",
+    "Deniz hukuku, Deniz Özel Hukuk–Deniz İdare Hukuku olarak ikiye ayrılır.",
+    "Deniz hukuku, Deniz Ceza Hukuku–Deniz Kamu Hukuku olarak ikiye ayrılır."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Aşağıdakilerden hangisi fazla çalışma sayılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptanın, geminin selameti için yapılmasını zorunlu gördüğü işler",
+    "Kaptanın, yükün selameti için yapılmasını zorunlu gördüğü işler",
+    "Kaptanın gemi adamlarının menfaati için yapılmasını zorunlu gördüğü işler",
+    "Kaptanın donatının menfaati için yapılmasını zorunlu gördüğü işler",
+    "Kaptanın gümrükle ilgili işlemler nedeniyle yapılmasını zorunlu gördüğü işler"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Denizde hareket kabiliyeti",
+    "Ticari kazanç amacı gütme",
+    "Pek küçük olmayan tekne",
+    "Amaca uygun kullanmanın denizde hareket imkanına bağlı olması",
+    "Denizde yüzme kabiliyeti"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Geminin tamir kabul etmez hale gelmesi",
+    "Geminin kurtarılamayacak şekilde batması",
+    "Gemi malik / maliklerinin talebi",
+    "Tescili caiz olmayan bir geminin tescili",
+    "Geminin iç bayrağını çekme hakkını kaybetmesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "Gemi Tasdiknamesi veya Bayrak Şahadetnamesi",
+    "Manifesto",
+    "Gemi Sicili",
+    "Yola ve Denize Elverişlilik Belgeleri",
+    "Gemi Jurnali"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 18,
+   "soru": "Aşağıdakilerden hangisinde iaşe servisi kurulması zorunludur?",
+   "gorsel": [],
+   "siklar": [
+    "Limanda geminin hareketinden önce gemiye gelmemek",
+    "Limanda gemi adamının tutuklanması",
+    "Kamarada içki bulundurmak",
+    "Gemi adamının işverene karşı kanuna aykırı hareket etmesi",
+    "Gemi adamının ahlaka aykırı davranışları"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi “Kaptan”ı tanımlar?",
+   "gorsel": [],
+   "siklar": [
+    "Donatan veya donatma iştirakinde müşterek donatanlar tarafından tayin edilen ve kendisine “Kamu Hukuku”na ve “Özel Hukuku” ilişkin görevler verilen kişidir.",
+    "Donatan veya donatma iştirakinde müşterek donatanlar tarafından tayin edilen yöneticidir.",
+    "Gerekli yeterlik belgesini haiz olup gemiyi sevk ve idare eden kişidir.",
+    "Gemideki işveren adına hareket eden kişidir",
+    "Gemide güverte bölümünden sorumlu en yüksek ehliyetli kişidir Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

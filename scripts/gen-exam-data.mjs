@@ -1,12 +1,13 @@
 // SoruHavuzu/*.json -> web/src/lib/exam-data/<rank>.ts (per-rank chunks,
 // dynamic import ile sayfada lazy yüklenir) + index.ts (rank/ders sayımları).
 // Usage: node web/scripts/gen-exam-data.mjs [havuzDir] [outDir]
+// Defaults: web/data/SoruHavuzu -> web/src/lib/exam-data
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const havuz = process.argv[2] ?? "C:\\Users\\furka\\Desktop\\Projects\\Officer Asistant\\SoruHavuzu";
+const havuz = process.argv[2] ?? path.join(here, "..", "data", "SoruHavuzu");
 const outDir = process.argv[3] ?? path.join(here, "..", "src", "lib", "exam-data");
 
 const trMap = { ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u", İ: "i", Ç: "c", Ğ: "g", Ö: "o", Ş: "s", Ü: "u" };

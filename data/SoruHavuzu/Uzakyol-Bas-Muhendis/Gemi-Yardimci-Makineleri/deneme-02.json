@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 2,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-2/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Onarım görmüş pistonlu bir pompadan gelen inleme seslerinin nedeni aşağıdakilerden hangisi olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Aşırı ısınmış piston segmanları",
+    "Silindir gömleğinde paslanma",
+    "Emme devresindeki hava",
+    "Aşırı sıkı segmanlar",
+    "Pistonun yüksek hızı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Su borulu bir kazanda seyfti valf atmadan önce onun atabileceğini haber veren valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Blodra valf",
+    "Sniftin valf",
+    "Gardiyan valf",
+    "Brayn valf",
+    "Sentinel valf"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerden hangisi güverte yardımcısı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Evaporator",
+    "Tov vinci",
+    "Baş ırgat",
+    "Kreynler",
+    "Mataforlar"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Evaporeyterlerde saf su elde etme işlemi aşağıdaki işlemlerden hangisi ile gerçekleştirilir?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz suyunun ısıtılması ile",
+    "Deniz suyunun sıkıştırılması ile",
+    "Deniz suyunun buharlaştırılıp yoğuşturulması ile",
+    "Deniz suyunu bir filitreden geçirerek",
+    "Deniz suyunun ısıtılıp soğutulması ile"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Kondenser tutyalarının değişim işlemi için yüzde kaçının aşınması gerekir?",
+   "gorsel": [],
+   "siklar": [
+    "%15",
+    "%40",
+    "%60",
+    "%75",
+    "%50"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Bir boru devresinde akımı düzenlemek için en uygun valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "İğne valf",
+    "Sülüs valf",
+    "Piston valf",
+    "Musluk valf",
+    "Kelebek valf"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Kelebek valf için aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Genellikle 10 bar basınca ve 65°C sıcaklığa kadar kullanılırlar",
+    "Büyük çaplı olarak imal edilebilirler",
+    "90°'Iik açma / kapama yaparlar",
+    "Debi ayar valfı olarak kullanılabilirler",
+    "Yukarıdakilerin hepsi doğrudur"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 8,
+   "soru": "Skoç tipi bir kazanda yakıtın yakıldığı bölüme ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Cehennemlik",
+    "Ocak",
+    "Şamot",
+    "Duman sandığı",
+    "Külhan"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Sintine separatörleriyle sintine basarken slaç solenoidinin açıklaması için aşağıdaki şartlardan hangisi gereklidir?",
+   "gorsel": [],
+   "siklar": [
+    "Numune suyun 0 ppm olması gerekir",
+    "Numune suyun 14 ppm olması gerekir",
+    "Numune suyun 16 ppm olması gerekir",
+    "Numune suyun 20 ppm olması gerekir",
+    "Slaç solenoidinin açılmasının ppm'le bir ilgisi yoktur"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Ekonomayzerin görevi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Kazandan çıkan buharı daha fazla ısıtmak",
+    "Baca gazlarını soğutmak",
+    "Kazana verilen suyu daha fazla ısıtmak",
+    "Suyun içindeki oksijeni ayırmak",
+    "Kullanılan buharı yoğuşturmak"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Gemi içme suyu sistemlerinde kullanılan hisroforların pnömatik tankiarma aşağıdakilerden hangisi sağlanmaz ise sistem çalışmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Doymuş buhar",
+    "Hava",
+    "Kızgın buhar",
+    "Propan gazı",
+    "Metan gazı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 12,
+   "soru": "1/2\" erkek x 3/8\" dişi olan bağlantı elemanına ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Manşon",
+    "Nipel",
+    "Redüksiyon",
+    "Adaptör",
+    "Yüksük"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "Uzun süre kullanılmayacak bir kazanın kuru olarak korunmasına karar verilirse nem ve oksijen alıcı olarak aşağıdakilerden hangilerini kullanmak uygun olur?",
+   "gorsel": [],
+   "siklar": [
+    "Sodyum klorür - Deniz kumu",
+    "Sönmemiş kireç - Taş kömürü",
+    "Sönmüş kireç - Mangal kömürü",
+    "Kalsiyum sülfat - Linyit kömürü",
+    "Demir çimentosu - Suni gübre"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Devreye alındıktan bir süre sonra verdisi azalan bir santrifüj pompada aşağıdakilerden hangisi buna neden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Pompa hava yapmıştır",
+    "Glend somunu biraz gevşemiştir",
+    "Impeller kanatları çok kirlenmiştir",
+    "Aşınma ringi erozyona uğramıştır",
+    "Emme devresinde kavitasyon olmuştur"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Bir telemotor donanımındaki havanın etkisi ve alınma yeri aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Hiçbir etkisi yoktur hava alınmaz",
+    "Dümeni vidaya tutar köprü üstündeki pompadan alınır",
+    "Dümen dolabını kilitler yağ deposunun kapağından alınır",
+    "Dümen yekesini kilitler, yekeden risiver'den (alıcıdan) alınır",
+    "Derce üzerindeki rilif valf atar rilif valfın girişinden alınır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi santrifüj pompalar için bir dezavantajdır?",
+   "gorsel": [],
+   "siklar": [
+    "Raks yapmazlar",
+    "Yüksek hıza ve yüke uygundurlar",
+    "Tasarımları basittir",
+    "Değişen hız ve basınca hassastırlar",
+    "Aynı kapasite ile çalışan diğerlerinden daha ufak ve hafifletirler"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Aşağıdakilerden hangisi ile balast alma işlemi yapılmamalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Balast tulumbaları ile",
+    "Seviye farkı ile",
+    "Yangın tulumbaları ile",
+    "Seyyar ecekterler ile",
+    "Sabit idaktörleri"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Aşağıdakilerden hangisi dreyn sisteminin amaçlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Sistemin verimli çalışmasını sağlamak",
+    "Buhar devrelerinde korozyonu önlemek",
+    "Boru devrelerini yüksek ısıdan korumak",
+    "Malzemenin hasar görmesini önlemek",
+    "Sistemdeki su kaybını önlemek"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Kazan saçlarının bakım ve onarımında aşağıdakilerden hangisi yapılmamalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Krom saçlar galvaniz boyayla boyanmak",
+    "Kazan saçları yırtık ve çatlak olmamalı",
+    "Krom ve paslanmaz kazan saçlan boyanmamalı",
+    "Kazan saçları birleşme yerlerine yanmaz amyant fitil konmalı",
+    "Kazan saçları kısır ve pastan temizlenmiş olmalı"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 20,
+   "soru": "Vakumlu bir evaporaörde deniz suyunun evapotörde buharlaşma sıcaklığı aşağıdakilerden hangileridir?",
+   "gorsel": [],
+   "siklar": [
+    "75 C",
+    "65 C",
+    "60 C",
+    "45 C",
+    "35 C Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 4
+  }
+ ]
+}

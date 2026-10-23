@@ -1,0 +1,281 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 1,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-1/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Ağ balıkçılığı demir üzerinde iken de yapılabilir. Ağ balıkçılığı yapan demir üzerinde olan ve ağlarının uzunluğu tekneden 150 metreden açığa uzanan bir balıkçı teknesi aşağıdaki fenerleri gösterecektir.",
+   "gorsel": [],
+   "siklar": [
+    "En iyi görülebilecek bir yere düşey bir doğrultuda üstte kırmızı altta beyaz renkli silyon feneri özelliğinde iki fener ve bu fenerlere ilave olarak baş ve kıç demir fenerleri.",
+    "En iyi görülebilecek bir yere düşey bir doğrultuda üstte beyaz altta kırmızı renkli silyon feneri özelliğinde iki fener ve bu fenerlere ilave olarak baş ve kıç demir fenerleri ile ağların atıldığı istikameti gösteren her yönden görünür bir beyaz fener.",
+    "En iyi görülebilecek bir yere düşey bir doğrultuda üstte beyaz altta kırmızı renkli her yerden görünür iki fener ve bu fenerlere ilave olarak baş ve kıç demir fenerleri ile ağların atıldığı istikameti gösteren her yönden görünür bir beyaz fener.",
+    "En iyi görülebilecek bir yere düşey bir doğrultuda üstte kırmızı altta beyaz renkli her yerden görünür iki fener ve bu fenerlere ilave olarak baş ve kıç demir fenerleri ile ağların atıldığı istikameti gösteren her yönden görünür bir beyaz fener.",
+    "En iyi görülebilecek bir yere düşey bir doğrultuda üstte kırmızı altta beyaz renkli her yerden görünür iki fener ve bu fenerlere ilave olarak ağların atıldığı istikameti gösteren her yönden görünür bir beyaz fener."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıda resmi bulunan ve üzerinde her yönden görünen beyaz 3 adet fener bulunan yarı batık teknenin özelliği nedir? [Görsel: 2.png]",
+   "gorsel": [
+    "2.png"
+   ],
+   "siklar": [
+    "Boyu 100 metreden az, eni 25 metreden fazla bir yarı batık",
+    "Boyu 100 metreden fazla, eni 25 metreden az bir yarı batık",
+    "Boyu 100 metreden az, eni 25 metreden az bir yarı batık",
+    "Boyu 100 metreden fazla, eni 25 metreden fazla bir yarı batık",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdaki cümlelerden yanlış olanı belirleyiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Vardiya tesliminden önce mevki konulur",
+    "Rota değiştirildikten sonra mevki kontrol edilir",
+    "Vardiya alındıktan hemen sonra mevki konulur",
+    "Her yarım saatte bir mevki konulur",
+    "Rota değiştirilmeden önce mevki konur"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Aşağıdaki fenerleri görülen tekne ne işle uğraşmaktadır? [Görsel: 4.png]",
+   "gorsel": [
+    "4.png"
+   ],
+   "siklar": [
+    "Ağ balıkçılığı yapan ve ağlarının uzunluğu tekneden 150 m. den fazla olan demirdeki bir tekne",
+    "Trol balıkçılığı yapan ve ağlarını atmakta olan üzerinde yol bulunan bir tekne",
+    "İçinde kılavuz kaptan bulunan, seyir halinde ancak içinde yol olmayan bir kılavuz teknesi",
+    "İçinde kılavuz kaptan bulunmayan, demirde bulunan bir kılavuz teknesi",
+    "İçinde kılavuz kaptan bulunan, demirde ki bir kılavuz teknesi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdaki feneri gösteren tekne ne tip bir teknedir?",
+   "gorsel": [
+    "5.png"
+   ],
+   "siklar": [
+    "Yelkenli tekne (boyu 12 metre)",
+    "Yelkenli tekne (boyu 20 metreden fazla)",
+    "Kürekli tekne",
+    "Boyu 50 metreden fazla demirli bir tekne",
+    "Boyu 20 metreden az kuvvetle yürütülen bir tekne"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdaki fenerleri gösteren teknenin durumu nedir?",
+   "gorsel": [
+    "6.png"
+   ],
+   "siklar": [
+    "Yedek çeken ve boyu 50 m.den az olan, yedek boyu 200 m.den az, manevrası kısıtlı bir teknenin pruvadan görünüşü",
+    "Yedek çeken ve boyu 50 m.den büyük, yedek boyu 200 m.den fazla manevrası kısıtlı bir teknenin pruvadan görünüşü",
+    "Yedek çeken ve boyu 50 m.den az olan, yedek boyu 200 m.den fazla manevrası kısıtlı bir teknenin pupadan görünüşü",
+    "Yedek çeken ve boyu 50 m.den büyük, yedek boyu 200 m.den az manevrası kısıtlı bir teknenin pruvadan görünüşü",
+    "Yedek çeken ve boyu 50 m.den büyük, yedek boyu 200 m.den fazla, kuvvetle yürütülen bir teknenin pruvadan görünüşü"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdaki fenerleri gösteren teknenin durumu nedir?",
+   "gorsel": [
+    "7.png"
+   ],
+   "siklar": [
+    "Üzerinde yol bulunan trol ağlarını toplamakla meşgul bir teknenin pruvadan görünüşü",
+    "Üzerinde yol bulunan ağ balıkçılığı ile meşgul bir teknenin pruvadan görünüşü",
+    "Üzerinde yol bulunan trol ağlarını atmakta olan bir teknenin pruvadan görünüşü",
+    "Üzerinde yol bulunan ağ balıkçılığı ile meşgul ve ağarının tekneden uzaklığı 150 m.den fazla olan bir teknenin pruvadan görünüşü.",
+    "Üzerinde yol bulunan bir kılavuz teknesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdaki ifadelerden yanlış olanını işaretleyiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Boyu 12 m. olan üzerinde yol bulunan bir yelkenli tekne borda fenerleri ile pupa fenerini gösterecektir.",
+    "Manevra gücü kısıtlı olan teknelerden boyu 12 m.nin altında olanlar gündüz ve gece göstermekle yükümlü oldukları şekil ve fenerleri göstermeyebilirler.",
+    "Mayın temizleme işlemleri ile uğraşan bir tekneye 1000 m. den fazla yaklaşmak tehlikelidir.",
+    "Kürekli bir tekne yelkenli tekne için gereken borda fenerleri ile pupa fenerini uygulayabildiği taktirde gösterebilir. Bu fenerleri gösteremediği taktirde çatışmayı önlemek için yeterli bir süre önce göstermesi şartıyla bir elektrik feneri bulun-durması yeterlidir.",
+    "Demirde iken dip taraması yapan manevrası kısıtlı tekneler baş ve kıç demir fenerlerini yakmazlar."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Aşağıdaki ifadelerden yanlış olanını işaretleyiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Boyu 12 m. olan ve üzerinde yol bulunan bir yelkenli tekne borda fenerleri ile pupa fenerini gösterecektir.",
+    "Mayın temizleme işlemleri ile uğraşan bir tekneye 1000 m. den fazla yaklaşmak tehlikelidir.",
+    "Kumanda altında olmayan ve manevra gücü kısıtlı olan teknelerden boyu 12 m. den az olan tekneler, gündüz ve gece göstermekle yükümlü oldukları şekil ve fenerleri göstermeyebilirler.",
+    "Kürekli bir tekne yelkenli tekne için gereken borda fenerleri ile pupa fenerini uygulayabildiği taktirde gösterebilir. Bu fenerleri gösteremediği taktirde çatışmayı önlemek için yeterli bir süre önce göstermesi şartıyla bir elektrik feneri bulundurması yeterlidir.",
+    "Demirde iken dip taraması yapan manevrası kısıtlı tekneler baş ve kıç demir fenerlerini yakmazlar."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdaki ifadelerden yanlış olanını işaretleyiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Trol balıkçılığı haricinde balıkçılıkla uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte kırmızı altta beyaz fener çekerler.",
+    "Trol balıkçılığı ile uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte yeşil altta beyaz fener çekerler.",
+    "Trol balıkçılığı demir üzerinde yapılamaz.",
+    "Trol balıkçılığı dışında balıkçılık demir üzerinde de yapılabilir. Demirde trol balıkçılığı haricinde balıkçılıkla uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte kırmızı altta beyaz fener çekerler.",
+    "Trol balıkçılığı dışında balıkçılık demir üzerinde de yapılabilir. Demirde trol balıkçılığı haricinde balıkçılıkla uğraşan tekneler en iyi görülecek bir yerde düşey bir doğru üzerinde her yönden görünür üstte kırmızı altta beyaz fener ve bu fenerlere ilaveten baş ve kıça demir fenerlerini çekerler."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Aşağıdaki ifadelerden yanlış olanını seçiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Boyu 20 m. den fazla yelkenli tekneler borda ve pupa fenerlerine ilaveten eğer isterler ise direk başında düşey doğrultuda her yönden görünür üste kırmızı altta yeşil fenerler çekebilirler.",
+    "Boyu 12 metre olan bir yelkenli tekne borda ve pupa feneri çekmek zorundadır. Bu tekne eğer isterse bu fenerleri direk başında bir fanus içinde bitişik olarak çekebilir.",
+    "Boyu 7 metreden az olan bir yelkenli tekne borda ve pupa fenerlerini göstermeyebilir. Ancak bu tekneler her zaman el altında ve kullanıma hazır bir el feneri bulundurmak zorundadırlar.",
+    "Yelkenli tekneler yelkenleri ile birlikte makinelerini kullandıkları taktirde, kuvvetle yürütülen bir tekne olarak kabul edileceklerdir. Bu tekneler geceleyin borda ve pupa fenerlerini göstermek zorundadırlar.",
+    "Yelkenli tekneler gündüz yelkenleri ile birlikte makinelerini de kullandıkları taktirde en iyi görülebilecek bir yere sivri ucu aşağıya doğru bir koni çekmek zorundadırlar."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Aşağıdaki tekne ne işle uğraşmaktadır?",
+   "gorsel": [
+    "12.png"
+   ],
+   "siklar": [
+    "Ağ balıkçılığı yapan ve ağlarının uzunluğu tekneden 150 m. den fazla olan, üzerinde yol olan bir teknenin pruvadan görünüşü.",
+    "Trol balıkçılığı yapan, boyu 50 metreden kısa, ağlarının uzunluğu tekneden 150 m. den fazla olan, üzerinde yol olan bir teknenin pruvadan görünüşü.",
+    "Trol balıkçılığı yapan, boyu 50 metreden kısa, trol ağlarını atmakta olan, üzerinde yol olan bir teknenin pruvadan görünüşü.",
+    "Trol balıkçılığı yapan, boyu 50 metreden uzun, trol ağlarını toplamakta olan, üzerinde yol olan bir teknenin pruvadan görünüşü.",
+    "Trol balıkçılığı yapan, boyu 50 metreden kısa, trol ağlarını toplamakta olan, üzerinde yol olan bir teknenin pruvadan görünüşü."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdaki teknelerden hangisi demirdeyken demir fenerlerini göstermeleri zorunlu değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kumanda altında olmayan tekne",
+    "Tarama ve su altı işleri ile uğraşan tekne",
+    "Boyu 10 metre olan Kuvvetle yürütülen tekne",
+    "Boyu 8 metre olan yelkenli bir tekne",
+    "Balıkçılıkla uğraşmayan bir balıkçı teknesi demirde iken"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "Aşağıdaki teknelerden hangisi “Manevrası Kısıtlı Tekne” değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Bir seyir işareti, denizatı kablosu veya boru hattının döşenmesi veya toplanması çalışması yapan bir tekne",
+    "Üzerinde yol bulunduğu halde ikmal yapan veya insan, kumanya veya yük aktaran bir tekne",
+    "Mayın temizleme işleri yapan bir tekne",
+    "Trol balıkçılığı ile uğraşan bir tekne",
+    "Tarama, sörvey veya sualtı çalışması yapan bir tekne"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "Aşağıdakilerden hangisi demir vardiyası tutmakta olan zabitin yapması gerekenlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemideki yüklerin durumunu araştırmak",
+    "Gözcülük görevinin yapıldığından emin olmak",
+    "Gemi çevresini belirli aralıklarla kontrol etmek",
+    "Gemi fenerlerinin yakılmasını sağlamak",
+    "Meteorolojik durumları gözlemlemek"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi demir vardiyasının yapısı ve süresi ile ilgili kriterlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Hava ve deniz durumu",
+    "Dış çevre tehlikelerinin yakınlığı",
+    "STCW kuralları",
+    "Geminin tipi",
+    "Şirket talimatları"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 17,
+   "soru": "Aşağıdakilerden hangisi Deniz Kirliliği konusunda alınacak tedbirlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "MARPOL kurallarının zabitlerce iyi bilinmesi",
+    "SOPEP kurallarının öngördüğü malzemelerin gemide bulundurulması",
+    "Genel ve özel liman kurallarının zabitlerce iyi bilinmesi",
+    "Gemi ve rıhtımın haberleşmesinin sorumlu kişilerce yapılması",
+    "Yangın ve diğer acil durumlara karşı tedbirlerin alınmış olması"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 18,
+   "soru": "Aşağıdakilerden hangisi güverte vardiyasının düzenlenmesi sırasında dikkate alınması gerekli kriterlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Liman çalışma saatleri",
+    "Gemi tayfasının sayısı",
+    "Limanda kalınacak süre",
+    "Yükün miktarı, yapısı ve istifi",
+    "Limanın özel kuralları"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi kaptanın köprüüstüne çağrılma sebebidir?",
+   "gorsel": [],
+   "siklar": [
+    "Dümencinin doğru rota gitmediğinin tespiti",
+    "Beklenen zamanda karanın görünmemesi",
+    "Yoğun kıyı ışıklarının varlığı",
+    "Normal hava koşulları",
+    "Çatışma riski olan 7 mildeki gemi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi vardiya sırasında zabitin potansiyel bir tehlikenin varlığını önceden fark etmesini sağlar?",
+   "gorsel": [],
+   "siklar": [
+    "Uluslararası kuralların iyi bilinmesi",
+    "Pilot kitaplarının yerinde incelenmesi",
+    "Gözle görünür hedeflerden konulmuş fix mevki",
+    "Zamanında yapılan çatışmayı önleme hareketi",
+    "İyi bir gözcülük vardiyası Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

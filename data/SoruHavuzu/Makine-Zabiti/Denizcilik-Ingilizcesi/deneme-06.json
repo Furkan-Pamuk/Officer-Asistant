@@ -1,0 +1,243 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 6,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-6/",
+ "soru_sayisi": 18,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Trunk type diesel engine pistons are most effectively cooled when heat is:",
+   "gorsel": [],
+   "siklar": [
+    "Radiated through the engine block",
+    "Mixed with lubrication oil",
+    "Conducted through the piston crown",
+    "Transferred to escaping exhaust gases",
+    "Transferred to water cooled cylinder walls"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": ".......................... should be regarded as a special attention after installing a new hydraulic pump.",
+   "gorsel": [],
+   "siklar": [
+    "The relief filters should be readjusted",
+    "The filters and strainers should be checked frequently",
+    "System pressures should be readjusted",
+    "The fluid should be drained and renewed",
+    "All above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Which of the following types of valves is used in the bilge manifold?",
+   "gorsel": [],
+   "siklar": [
+    "Swing check",
+    "Nonreturn",
+    "Angle",
+    "Globe",
+    "Butterfly"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "The process of supplying the intake of a diesel engine with air at a pressure greater than atmospheric is called:",
+   "gorsel": [],
+   "siklar": [
+    "Engine displacement",
+    "Scavenging",
+    "Air injection",
+    "Supercharging",
+    "Intercooling"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "The rotating part of a micrometer is the:",
+   "gorsel": [],
+   "siklar": [
+    "Anvil",
+    "Barrel",
+    "Frame",
+    "Thimble",
+    "Cover"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "In accordance with the international requirements, the bilge purifier will separete oily water within the density of ...............",
+   "gorsel": [],
+   "siklar": [
+    "&lt; 15 particular per million",
+    "&lt; 15 particular post million",
+    "&lt; 15 particular per meter",
+    "&lt; 15 particular per meter",
+    "&lt; 15 particular per billion"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Water in the lube oil system may be detected by: I. sounding lube oil tanks with water sensitive paste; II. observing the purifier discharge.",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "I and II",
+    "Neither I nor II",
+    "None of above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "By definition a separator: I. removes solids from the lube oil; II. removes water from the lube oil.",
+   "gorsel": [],
+   "siklar": [
+    "Overloaded cylinder",
+    "Poor combustion",
+    "Distortion and faulty reseating maintenance",
+    "Any above",
+    "1 and 2"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 10,
+   "soru": "Electrohydraulic steering units are protected from pounding forces (rudder shock) by:",
+   "gorsel": [],
+   "siklar": [
+    "Buffer springs",
+    "Followup mechanism",
+    "Relief valves",
+    "Relieving gear",
+    "Steering pumps"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "When the oil in the seperator is decreasing, which place cannot be leaking?",
+   "gorsel": [],
+   "siklar": [
+    "Lower bearing casing",
+    "Drum shaft",
+    "Wormgear shaft bearing hosing",
+    "Middle ball bearing casing",
+    "The o-ring at shock water entrance to separator into shockwater"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "When a cargo hose joint or coupling starts to leak badly the attempt you should do is to ............................",
+   "gorsel": [],
+   "siklar": [
+    "Reduce pumping pressure and wrag leak securely",
+    "Shut down transfer and make repairs",
+    "Soak spill with sawdust and reduce pumping pressure",
+    "Wash deck immediately and close tank tops",
+    "Carry on transfer"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "In the simple mechanical governor, the:",
+   "gorsel": [],
+   "siklar": [
+    "Flyweight centrifugal force is balanced by spring pressure",
+    "Centrifugal force rotates the ball head",
+    "Flyweight centrifugal force is balanced by hydraulic pres sure",
+    "Speeder spring actuates the fuel control rod",
+    "Hydraulic force rotates the ball head"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "The requirement for portable fire equipment is .........................",
+   "gorsel": [],
+   "siklar": [
+    "Annual check",
+    "Keeping in easily accessible places",
+    "Hose connections and keeping hoses in good condition",
+    "All above",
+    "Before the end of consuming period"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "Cut out system on the aux boiler operates.",
+   "gorsel": [],
+   "siklar": [
+    "On all vessels over 5.000 GT",
+    "In conjunction with the CO ² system",
+    "With a pressure tank of fresh water to the supply system pending the starting of the pump",
+    "None of the above",
+    "1 and 3"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "How are line shaft bearings usually lubricated?",
+   "gorsel": [],
+   "siklar": [
+    "A gravity-feed",
+    "Pressure-feed",
+    "Oil lubricating disks",
+    "Oil lubricating rings",
+    "Oil injectors"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "The function of the exhaust system for a turbocharged diesel engine is to .................",
+   "gorsel": [],
+   "siklar": [
+    "Power the aftercoolers",
+    "Power the turbocharger",
+    "Reduce the cylinder scavenge effect",
+    "Cool the turbocharger",
+    "Any above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Before ballasting by gravity .........................",
+   "gorsel": [],
+   "siklar": [
+    "Pump in balast for about 10 minutes to wash out bottom lines",
+    "Start pump before opening sea valves",
+    "Make sure all proper valves are open",
+    "All of above",
+    "1 and 2"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "In the incident of oil fire ............................",
+   "gorsel": [],
+   "siklar": [
+    "Gen water on deck",
+    "Open steam or CO2 smothering system to cargo holds",
+    "Close off all ventilation, blowers, doors etc.",
+    "Open CO2 smothering system to cargo holds",
+    "All above Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

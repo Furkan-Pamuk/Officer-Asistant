@@ -1,0 +1,91 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 8,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-8/",
+ "soru_sayisi": 6,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Vardiyasında her şeyden haberdar olmak ve vardiyası ile bütünleşmek zorunda olan zabitin - aşağıdaki seçeneklerden hangisi - devamlı yapması gerekli işlerinden olmayabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Göz ile gemi çevresinin kontrolü",
+    "Radar gözlem",
+    "Gemi mevki ve durumu",
+    "Alarmların açık olduğundan emin olunması",
+    "Havanın ve hava raporlarının gözlemlenmesi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Yedek fenerinin özellikleri ve kullanılışları ile ilgili aşağıdaki paragraflardan hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Yedek Feneri; Pupa feneri ile aynı nitelikte olan sarı ışık veren bir fenerdir",
+    "Yedek Feneri; Pupa feneri ile aynı nitelikte olan sarı ışık veren ve pupa fenerinin altında bulunan bir fenerdir",
+    "Yedek feneri; Çekerek, yedeklemede yedekleyen tekneye çekilir",
+    "Yedek feneri; İterek ve Bordadan yedeklemede kullanılmaz",
+    "Yedeklenen tekneler yedek feneri çekmezler"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Yedekleme ve yedeklenme durumunda ve yedek boyunun 200 metreden fazla uzun olduğu durumlarda bu tekneler gündüz durumlarını nasıl belirtirler?",
+   "gorsel": [],
+   "siklar": [
+    "Yedekleyen ve yedeklenen her iki tekne de en iyi görünür bir yerlerine birer siyah eşkenar dörtgen toka ederler.",
+    "Yedekleyen tekne en iyi görünür bir yerine üste bir siyah küre ortada bir siyah eşkenar dörtgen ve altta bir siyah küre toka eder. Yedeklenen tekne ise en iyi görünür bir yerine bir siyah eşkenar dörtgen toka eder.",
+    "Yedekleyen tekne en iyi görünür bir yerine üstte bir siyah küre ortada bir siyah eşkenar dörtgen ve altta bir siyah küre toka eder. Yedeklenen tekne ise en iyi görünür bir yerine üst üstte iki siyah küre toka eder.",
+    "Yedekleyen ve yedeklenen her iki teknede en iyi görünür bir yerlerine üste bir siyah küre ortada siyah eşkenar dörtgen ve altta yine bir siyah küre toka ederler.",
+    "Sadece yedekleyen tekne en iyi görülebilir yerine bir adet siyah eşkenar dörtgen işaret toka eder."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Yelkenli tekneler ile ilgili aşağıdaki ifadelerden yanlış olanını seçiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Boyu 20 m. den fazla yelkenli tekneler borda ve pupa fenerlerine ilaveten eğer isterler ise direk başında düşey doğrultuda her yönden görünür üste kırmızı altta yeşil fenerler çekebilirler.",
+    "Boyu 12 metre olan bir yelkenli tekne borda ve pupa feneri çekmek zorundadır. Bu tekne eğer isterse bu fenerleri direk başında bir fanus içinde bitişik olarak çekebilir.",
+    "Boyu 7 metreden az olan bir yelkenli tekne borda ve pupa fenerlerini göstermeyebilir. Ancak bu tekneler her zaman el altında ve kullanıma hazır bir el feneri bulundurmak zorundadırlar.",
+    "Yelkenli tekneler gündüz yelkenleri ile birlikte makinelerini de kullandıkları taktirde en iyi görülebilecek bir yere sivri ucu aşağıya doğru bir koni çekmek zorundadırlar.",
+    "Yelkenli tekneler yelkenleri ile birlikte makinelerini kullandıkları taktirde, kuvvetle yürütülen bir tekne olarak kabul edileceklerdir. Bu tekneler geceleyin borda ve pupa fenerlerini göstermek zorundadırlar."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdaki alametleri çeken teknenin durumu nedir?",
+   "gorsel": [
+    "145.png"
+   ],
+   "siklar": [
+    "Kumanda altında olmayan bir tekne",
+    "Manevrası kısıtlı bir tekne",
+    "Draftı nedeniyle rotasından ayrılması kısıtlı bir tekne",
+    "Trol çeken bir tekne",
+    "Trol çekme dışında balıkçılık yapan ve ağlarının tekneden yatay olarak uzaklığı 150 metreden fazla açığa uzanan tekne"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıda pruvadan görülen tekne ne işle meşgul olmaktadır?",
+   "gorsel": [
+    "146.png"
+   ],
+   "siklar": [
+    "Mayın tarama işleri ile meşgul bir tekne",
+    "Tarama ve sualtı işleri ile uğraşan, manevrası kısıtlı, sancak tarafı engelli bir tekne",
+    "Tarama ve sualtı işleri ile uğraşan, manevrası kısıtlı, iskele tarafı engelli bir tekne",
+    "Denizde insan ve/veya malzeme transferi yapan bir tekne",
+    "Karaya oturmuş bir tekne Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

@@ -1,0 +1,230 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 3,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-3/",
+ "soru_sayisi": 17,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Ana yardımcı türbinlerden kazana taşınan yağ aşağıdakilerden hangisine neden olur?",
+   "gorsel": [],
+   "siklar": [
+    "Kazan taşması",
+    "Kazan köpürmesi",
+    "Ocak tepmesi",
+    "Eksik yanma",
+    "Aşırı yanma"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Açılarak iç basıncı kontrol eden valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "İğne valf",
+    "Gate valf",
+    "Trotıl valf",
+    "Rilif valf",
+    "Redysun valf"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 3,
+   "soru": "Bir gemide mataforaların görevi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Demirin fundo ve virası",
+    "Yük alma ve boşaltma",
+    "Halatların virası",
+    "Usturmaçalara desteklik",
+    "Can filikalarının indirilmesi ve alınması"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Yoğuşum pompaları hava emerse kondenserin vakumu düşer. Bu nedenle aşağıdaki yöntemlerden hangisi pompaya uygulanır?",
+   "gorsel": [],
+   "siklar": [
+    "Çift salmastra",
+    "Uzun glend baskısı",
+    "Façunalı sahnasta kutusu",
+    "Yoğuşum suyu siil'i",
+    "Gövde üzerine çift hava ventili"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Valf sit yarası ne ile alıştırılır?",
+   "gorsel": [],
+   "siklar": [
+    "Yağ ile",
+    "Fuel oil ile",
+    "Su ile",
+    "Alıştırma macunu ile",
+    "Gasket macunu ile"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Bir santrifüj pompa tasarım kapasitesi üzerinde çalıştırılırsa aşağıdakilerden hangisi meydana gelir?",
+   "gorsel": [],
+   "siklar": [
+    "Pompa keysinde aşırı titreşim",
+    "Pompa keysinde aşırı ısınma",
+    "Impellerde aşırı radyal sırast (itme)",
+    "Emme devresinde kavitasyon",
+    "Basma devresinde çekiçleme"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Su borulu bir kazanda sönen bir atomizörün yeniden yakılmasında kızgın ocak duvarlarından yararlanılması aşağıdakilerden hangisine sebep olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Ocak tepmesine",
+    "Erhiter yangınına",
+    "Eksik yanmaya",
+    "Yakıt pompası regülatör arızasına",
+    "Yukarıdakilerin tümüne"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Bir gasketin iyi bir sızdırmazlık elemanı olabilmesi için aşağıdaki hangi yeteneğe sahip olması gerekir?",
+   "gorsel": [],
+   "siklar": [
+    "Pervane pompa",
+    "Dişli pompa",
+    "Vidalı pompa",
+    "Loblu pompa",
+    "Pistonlu pompa"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdaki malzemelerden hangisi tatlı su devrelerinde kullanılmamalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Çelik",
+    "PVC",
+    "Galvaniz",
+    "Bakır",
+    "Krom"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Demir alırken elektrik kesildiğinde aşağıdaki olaylardan hangisi oluşur?",
+   "gorsel": [],
+   "siklar": [
+    "Mıknatıslı bir fren devreye girer",
+    "Demir geri düşer",
+    "Demir elle güverteye alınır",
+    "Elektrik kesilmez",
+    "Demir vinçle güverteye alınır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Skoç tipi bir kazanda çökmesini önlemek için ne tür bir yapı geliştirilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Külhan dairesel kesitlidir ve kıvrımlı saçtan yapılmıştır",
+    "Külhan kare kesitlidir ve düz saçtan yapılmıştır",
+    "Külhan içine dikey olarak payandalar yerleştirilmiştir",
+    "Külhan takviye çemberleri ile donatılmıştır",
+    "Külhan kazanın arka aynasına masuralar ile bağlanmıştır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdaki borulardan hangisi su borulu bir kazanın dışında yer alır?",
+   "gorsel": [],
+   "siklar": [
+    "Buhar üretici borular",
+    "Aşağı akış boruları",
+    "Süperhiter boruları",
+    "Su duvarı boruları",
+    "Bölme duvarı boruları"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "Disçarcından su girişine kaçak oluşan bir santrifüj pompanın olası arızası aşağıdakilerden hangisi olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Sülfirik asitli su",
+    "Sodalı su",
+    "Deterjanlı su",
+    "Sirkeli su",
+    "Hidroklorik asitli su"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 16,
+   "soru": "Spindılı diskine bağlı olmayan valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Rilif valf",
+    "Stop çek valf",
+    "Kelebek valf",
+    "Emme devresinde kavitasyon",
+    "Basma devresinde çekiçleme"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Elektrikli bir pompayı onarmamız gerektiğinde öncelikli emniyet kuralı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Elektrik besleme şalteri üzerine ikaz etiketi asılır",
+    "Alet edevatlar olay yerine getirilir",
+    "Arıza kayıt defterine not alınır",
+    "Onarım süresi belirlenir",
+    "Onarımla ilgili dokümanlar araştırılır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Kazanda bulunan disüperhiterin görevi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Suyun ısısını yükseltir",
+    "Buharın basmanı yükseltir",
+    "Buharın basıncını düşürür",
+    "Buhar ısısını düşürür",
+    "Buharın ısısını yükseltir"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Vakumlu besleme suyu devresinde yoğuşum pompası ile buster pompası arasında aşağıdakilerden hangisi vardır?",
+   "gorsel": [],
+   "siklar": [
+    "Geyt valf",
+    "Glob valf",
+    "Piston valf",
+    "İğne valf",
+    "Kelebek valf Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

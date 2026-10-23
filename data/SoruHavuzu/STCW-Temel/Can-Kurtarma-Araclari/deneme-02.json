@@ -1,0 +1,659 @@
+{
+ "rank": "STCW-Temel",
+ "ders": "Can-Kurtarma-Araclari",
+ "deneme": 2,
+ "kaynak_url": "https://denizcisin.com/index.php/2017/01/27/stcw-soru-cankurtarma-araclarini-kullanma-yeterliligi-test-2/",
+ "soru_sayisi": 50,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Paraşütlü roket sinyali ne kadar sure ile ne renk ışık verecektir?",
+   "gorsel": [],
+   "siklar": [
+    "3 dakika- kırmızı ışık",
+    "30 saniye - kırmızı ışık",
+    "1 dakika - turuncu ışık",
+    "5 dakika- sarı ışık",
+    "40 saniye - parlak kırmızı ışık"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": "Can filikaları kaç çeşittir?",
+   "gorsel": [],
+   "siklar": [
+    "5",
+    "4",
+    "3",
+    "2",
+    "1"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Bir duman kandilinin duman çıkarma süresi kaç dakikadır?",
+   "gorsel": [],
+   "siklar": [
+    "7",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Yangına karşı korumalı can filikaları sudaki bir petrol yangınında içindeki insanları en az ne kadar süreyle yangına karşı koruyabilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "30 dakika",
+    "20 dakika",
+    "15 dakika",
+    "8 dakika",
+    "10 dakika"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Can filikalarının taşındığı mataforaların üst uçlarını birleştiren sabit tel halada ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "çektirme",
+    "sübye",
+    "falaka",
+    "can haladı",
+    "karanfil"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Can sallarında bulunan Kurtarma halkası ne işe yarar?",
+   "gorsel": [],
+   "siklar": [
+    "Can salını bir tekneyle yedeklerken kullanılır",
+    "Can salını denize atmadan evvel bağlı olduğu yerden kurtarmak içindir",
+    "Salda gözcülük edeni sala sabitlemek için kullanılır",
+    "Can salını gemi bordasından kurtarmak için kullanılır",
+    "Sudaki kazazedeleri sala doğru çekmek için kullanılır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Can filikaları, gemi sakin suda en fazla ne kadar süratle ileri giderken denize indirilmeye dayanaklı olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "5 knot sürat",
+    "8 knot sürat",
+    "6 mil sürat",
+    "10 knot sürat",
+    "2 mil sürat"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Can filikasında her bir kişi için en az kaç kilo jullük gıda olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "3000 kj",
+    "10000 kj",
+    "15000 kj",
+    "1000 kj",
+    "5000 kj"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Filikanın baş ve kıçında bulunan ve filikayı gemi bordasına bağlayan halatların ismi nedir ve en az ne kadar uzunlukta olurlar?",
+   "gorsel": [],
+   "siklar": [
+    "Kampana halatı - uzunluğu en az 30 metre",
+    "palamar halatı - uzunluğu en az 15 metre",
+    "parima halatı- uzunluğu en az 100 metre",
+    "Palanga halatları - uzunluğu en 5 metre",
+    "parima halatı- uzunluğu en az 15 metre"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerden hangisi can yeleğinde bulunması gereken techizatlardır?",
+   "gorsel": [],
+   "siklar": [
+    "Kordonla can yeleğine bağlı düdük",
+    "8 saat süreyle yanabilecek bir ışık",
+    "Işık yansıtıcı bantlar",
+    "Hepsi",
+    "Hiçbiri"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Solas'a tabi gemilerde bulundurulan en büyük can filikası kaç kişi kapasiteli olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "25",
+    "100",
+    "150",
+    "50",
+    "45"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Can salının denizde akıntı ile sürüklenmemesi için ne kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Çamçak",
+    "Deniz demiri",
+    "Tonoz demiri",
+    "Anele",
+    "Çapa"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Can filikalarının baş ve kıç parimaları en az ne kadar uzunlukta olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "5 m",
+    "15 m",
+    "25 m",
+    "20 m",
+    "10 m"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "Bir filikada motor çalıştırma talimatları nerede bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "Baş altı portuçta",
+    "Motorun ön tarafındaki oturağın altında",
+    "Kıç altı portuçta",
+    "filikanın baş tarafında",
+    "Motorun kumanda yeri yakınında göze çarpıcı bir yerde bulunur."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "Can filikasında kaç adet el baltası bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "4",
+    "3",
+    "6",
+    "2"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Kullanıcısını su yüzeyinde tutan, baygın ve bitkin durumda dahi ağzını sudan yukarda tutarak nefes yollarının açık olmasını sağlayan kişisel can kurtarma aparatı hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "deniz demiri",
+    "can yeleği",
+    "deniz feneri",
+    "el maytabı",
+    "can simidi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Can filikasında pusula nerede bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "kıç tarafta uygun bir muhafaza içersinde",
+    "Filika liderinin oturacağı oturağın altında uygun bir muhafaza içersinde",
+    "baş tarafta uygun bir muhafaza içersinde",
+    "uygun bir muhafaza içersinde ve uygun bir yerde",
+    "Dümen yekesinin yanında"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "Can salında taşınan her bir kişi başına, en az ne kadar tatlı su (içme suyu) bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "0,5 litre",
+    "2 litre",
+    "3 litre",
+    "1,5 litre",
+    "1 litre"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Filikalarda bulunan \"yüzer duman kandili\" ne renkte ve en az ne kadar süre duman çıkarmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "parlak kırmızı- 5 dakika",
+    "turuncu- 4 dakika",
+    "portakal rengi- 3 dakika",
+    "mavi- 2 dakika",
+    "siyah- 60 saniye"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Can salının parimasının uzunluğu ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "15 metre",
+    "25 metre",
+    "10 metre",
+    "30 metre",
+    "20 metre"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 21,
+   "soru": "Filika malzemeleri içersinde, aşağıdakilerden hangisi bulunmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Balık oltası",
+    "Çamçak",
+    "Paraşütlü işaret fişeği",
+    "Halat atma aleti",
+    "El maytabı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 22,
+   "soru": "Aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Her filikada 4 paraşütlü işaret fişeği + 6 el maytabı + 2 suda yüzer duman kandili bulunur",
+    "Her filikada 4 paraşütlü işaret fişeği + 6 el maytabı + 4 suda yüzer duman kandili bulunur",
+    "Her filikada 2 paraşütlü işaret fişeği + 4 el maytabı + 2 suda yüzer duman kandili bulunur",
+    "Her filikada 6 paraşütlü işaret fişeği + 4 el maytabı + 2 suda yüzer duman kandili bulunur",
+    "Her filikada 3 paraşütlü işaret fişeği + 3 el maytabı + 3 suda yüzer duman kandili bulunur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 23,
+   "soru": "Can filikası suda değilken, motoru soğuk iken en az ne kadar süre kuru (soğutmasız) çalıştırılabilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "8 dakika",
+    "5 dakika",
+    "3 dakika",
+    "10 dakika",
+    "15 dakika"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 24,
+   "soru": "Solas'a tabi olan yük gemilerinde en az kaç adet kurtarma botu bulunacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "1 adet",
+    "4 adet",
+    "2 adet",
+    "5 adet",
+    "3 adet"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 25,
+   "soru": "Can sallarını denize indirme tertibatları temel olarak kaça ayrılır?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "2",
+    "4",
+    "8",
+    "6"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 26,
+   "soru": "Can salında taşınan her bir kişi başına, en az ne kadar deniz tutması hapı bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "2 adet",
+    "48 saat yetecek miktarda",
+    "2 kutu",
+    "24 saat yetecek miktarda",
+    "10 adet"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 27,
+   "soru": "Solas'a tabi gemilerde bulundurulan can salları en az kaç kişilik olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "4 kişi",
+    "3 kişi",
+    "6 kişi",
+    "2 kişi",
+    "10 kişi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 28,
+   "soru": "12 kişi kapasiteli bir Can Salı Solas kurallarına göre, aşağıdakilerden hangisini bulundurmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "12 litre tatlı su",
+    "24 ünite gıda",
+    "36 ünite gıda",
+    "18 litre tatlı su",
+    "18 ünite gıda"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 29,
+   "soru": "Geminin bayrak ülkesinin lisanı ?",
+   "gorsel": [],
+   "siklar": [
+    "İngilizce + gemideki personelin çoğunluğunun kullandığı lisan",
+    "İngilizce",
+    "İngilizce + Türkçe",
+    "Kaptan ve zabitlerin anladığı lisan",
+    ""
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 30,
+   "soru": "Suda yüzer duman kandili ne kadar süre ile, ne renk duman çıkaracaktır ve her bir filikada en az kaç adet bulundurulacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "15 saniye - sarı duman - 6 adet",
+    "10 saniye - mavi duman - 8 adet",
+    "10 dakika - turuncu duman - 4 adet",
+    "3 dakika - portakal rengi duman- 2 adet",
+    "20 dakika - kırmızı duman - 4 adet"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 31,
+   "soru": "Can filikasında bulunan radar reflektörü ne işe yarar?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi radarına filikamızın adını reflekte eder",
+    "filikanın gemilerin radarında algılanmasını sağlar",
+    "Gemi radarlarına özel işaret vermeye yarar",
+    "filika radarını çalıştırmaya yarar",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 32,
+   "soru": "Can filikasında, her bir kişi başına, en az ne kadar tatlı su (içme suyu) bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "2 ltr",
+    "2,5 ltr",
+    "3 ltr",
+    "1 ltr",
+    "1,5 ltr"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 33,
+   "soru": "Can filikalarında yön bulmak amacıyla kullanılan cihaz aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "GPS",
+    "Parakete",
+    "Sort",
+    "Pusula",
+    "Sexsant"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 34,
+   "soru": "Filikada baş ve kıç palangalar ne işe yarar?",
+   "gorsel": [],
+   "siklar": [
+    "Filikayı mayna etmeye yarar",
+    "Filikayı güverte seviyesine kadar mayna etmeye yarar",
+    "Filikayı güverte seviyesine kadar mayna ettiğimizde, filikayı gemiye yanaştırmaya yarar",
+    "Filika ile alakası yoktur",
+    "Filikanın denize indirilmesi sırasında tel kopma ihtimaline karşı yedek halat görevi yaparlar"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 35,
+   "soru": "Can filikası taşıyabileceği tam kapasite insan ve teçhizatıyla yüklü iken, sakin suda en az ne kadar sürat yapabilmelidir ve en az ne kadar süre ile bu süratle seyir edebilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "4 mil- 16 saat",
+    "8 knots - 3 gün",
+    "5 knots- 6 saat",
+    "2,5 mil- 48 saat",
+    "6 mil - 24 saat"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 36,
+   "soru": "Filikada bulunan ışıldak toplam kaç saat çalışır?",
+   "gorsel": [],
+   "siklar": [
+    "6 saat",
+    "2 saat",
+    "12 saat",
+    "8 saat",
+    "3 saat"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 37,
+   "soru": "Can salındaki çakıyla can filikasındaki çakının ne farkı vardır?",
+   "gorsel": [],
+   "siklar": [
+    "Aralarında bir fark yoktur.",
+    "Can Salı çakısı ucu sivri değildir ve sapı suda batmaz",
+    "Can Salı çakısı ucu sivri ve kesici kenarı tırtıklıdır.",
+    "Can filikası çakısı ucu sivri değildir ve sapı suda batmaz",
+    "Can salındaki çakının boyu 5 cm yi geçmez"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 38,
+   "soru": "Yük gemilerindeki can kurtarma araçları, gemiyi terk emrinin verilmesinden itibaren en geç ne kadar bir sürede tüm teçhizat ve alabileceği insanla denize indirilebilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "5 dakika",
+    "12 dakika",
+    "10 dakika",
+    "3 dakika",
+    "8 dakika"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 39,
+   "soru": "Serbest düşmeli can filikaları bir geminin neresinde bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "Baş tarafında",
+    "Kıç tarafında",
+    "Sancak tarafında",
+    "iskele tarafında",
+    "Kıç tarafında sancakta"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 40,
+   "soru": "Can kurtarma aracındaki kazazadeler yerlerini çevredeki uçak ve gemilere belli etmek için geceleyin hangi işaretleri göstermelidirler?",
+   "gorsel": [],
+   "siklar": [
+    "Paraşütlü işaret / el maytabı",
+    "Duman sinyali / el maytabı",
+    "El feneri / duman sinyali",
+    "Duman sinyali / işaret aynası ile güneş ışığı",
+    "Duman sinyali / paraşütlü işaret"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 41,
+   "soru": "Can sallarının bağlandığı HRU (hidrostatik release unit) ne zaman otomatik olarak açılacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "gemi batınca",
+    "gemi 20 dereceden fazla bir tarafa yatınca",
+    "4 m su basıncı oluşunca (gemiyle beraber batan HRU, 4 m suya dalınca)",
+    "10 atmosfer basınçta",
+    "6 m basınçta"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 42,
+   "soru": "Filika mataforasında bulunan can halatları ne işe yarar?",
+   "gorsel": [],
+   "siklar": [
+    "Filikaya daha çabuk binmek için bu halatlardan tutunarak filikaya inilir",
+    "Denize düşenleri filikaya çekmeye",
+    "Filika denize indirilirken içindeki kişilerin tutunması içindir",
+    "Filikanın daha hızlı mayna edilmesi için kullanılırlar",
+    "Filikayı mataforaya bağlamak için kullanılır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 43,
+   "soru": "SOLAS' a göre can filikaları tam yüklü halde 6 knot hız ile kaç saat gidebilecek yakıt kapasitesine sahip olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "48",
+    "6",
+    "4",
+    "12",
+    "24"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 44,
+   "soru": "Gemilerde bulundurulması gerekli can kurtarma araçlarının özellikleri ile ilgili bilgiler aşağıdaki kaynakların hangisinde yer almaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "ILO",
+    "STCW",
+    "IMDG",
+    "SOLAS",
+    "MARPOL"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 45,
+   "soru": "Gemide bulunan yolcu sayısının en az yüzde kaçı kadar çocuk can yeleği bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "15",
+    "10",
+    "12",
+    "8",
+    "5"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 46,
+   "soru": "Filikada bulunan ışıldak 180 metre mesafeyi devamlı olarak kaç saat süre ile aydınlatabilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "1 saat",
+    "24 saat",
+    "5 saat",
+    "3 saat",
+    "10 saat"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 47,
+   "soru": "Yük gemisi can filikası, gemiyi terk emrinin verilmesinden itibaren en geç ne kadar bir sürede tüm teçhizat ve alabileceği insanla denize indirilmeye hazır olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "8 dakika",
+    "10 dakika",
+    "5 dakika",
+    "3 dakika",
+    "12 dakika"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 48,
+   "soru": "El maytabı en az en az ne kadar süre ışık vermelidir?",
+   "gorsel": [],
+   "siklar": [
+    "15 dakika",
+    "3 dakika",
+    "1 dakika",
+    "5 dakika",
+    "2 dakika"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 49,
+   "soru": "Aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Can salları kurallara göre bir yıl aralıklarla yetkili servise bakıma gönderilir",
+    "SART cihazı aktif halde olduğu zaman civardaki gemi ve uçakların radarları ile yerimizi tespit etmelerine imkan sağlar",
+    "Yük gemilerinde filika motorları her hafta test edilmelidir",
+    "EPIRB cihazı aktif halde olduğu zaman arama kurtarma istasyonlarına mevkiimizi bildirir",
+    "Can sallarındaki hidrostatik kilit salın suya atılmasında kullanılır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 50,
+   "soru": "Hangisi can salı ve gemiyi terk yöntemlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Mataforasız can salı ile terk",
+    "Matafora can salı ile terk",
+    "Can salından atlayarak terk",
+    "Serbest düşmesiz can salı ile terk",
+    "Serbest düşmeli can salı ile terk"
+   ],
+   "cevap": 3
+  }
+ ]
+}

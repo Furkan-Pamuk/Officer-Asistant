@@ -1,0 +1,243 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Denizcilik_ingilizcesi/Deneme_Sinavi-5/",
+ "soru_sayisi": 18,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Static electricity is most often produced by ........................",
+   "gorsel": [],
+   "siklar": [
+    "Pressure",
+    "Heat",
+    "Magnetism",
+    "Friction",
+    "Motion"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Fire tube boilers are designed to operate within the conditions of:",
+   "gorsel": [],
+   "siklar": [
+    "High pressure, temperature",
+    "Low pressure, temperature",
+    "High capacity and quick steam raising process",
+    "Low capacity but quick steam raising process",
+    "High capacity but they are heavy"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "If one fuel oil strainer of a duplex unit becomes clogged while your vessel is steaming at sea, you should first:",
+   "gorsel": [],
+   "siklar": [
+    "Clean the dirty strainer as quickly as possible",
+    "Change the strainer over to the clean side",
+    "Stop the fuel oil service pump",
+    "Open the strainer bypass valve",
+    "Stop the engine"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "....................... is the principal hazard to staff when a diesel nozzle tester is in use is.",
+   "gorsel": [],
+   "siklar": [
+    "Electrical shock",
+    "Toxic fumes",
+    "Explosion",
+    "Blood poisoning",
+    "Loosing consciousness"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "The usual cause of crankcase explosions in diesel engines is not ............",
+   "gorsel": [],
+   "siklar": [
+    "Heating lubricating oil",
+    "Overheating lubricating oil",
+    "Poor condition of the cylinder",
+    "Crank shaft bearing failures maintanance",
+    "Any above"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Another name for the liquid valve is:",
+   "gorsel": [],
+   "siklar": [
+    "Master valve",
+    "King valve",
+    "Freon valve",
+    "Shut off valve",
+    "None of above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "................. is not one of the advantages of the open cooling system.",
+   "gorsel": [],
+   "siklar": [
+    "Being the simplest system",
+    "No requirement of heat exchange",
+    "Obligation of keeping engine cool",
+    "The requirement of only one water circulating pump",
+    "The requirement of 2 water circulating pumps"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Before starting an auxiliary diesel engine, you should:",
+   "gorsel": [],
+   "siklar": [
+    "Change fuel oil strainers",
+    "Clean the air filter",
+    "Check the crankcase oil level",
+    "Vent the cooling system",
+    "Clean flywheel"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Scavenging means .......................... on an internal combustion engines.",
+   "gorsel": [],
+   "siklar": [
+    "The removal of exhaust gases by blowing in fresh air",
+    "The filling of the engine cylinder with a supply or change of fresh air",
+    "The formation of exhaust gases within the cylinder",
+    "The removal of exhaust gases",
+    "Any above"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 10,
+   "soru": "What types of lubricating oil systems are used on diesel engines?",
+   "gorsel": [],
+   "siklar": [
+    "Forced feed and gravity",
+    "Forced feed and splash",
+    "Both 1 and 2",
+    "Gravity and wick",
+    "Wet sump and dry sump"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "What is the high pressure side of the refrigeration system?",
+   "gorsel": [],
+   "siklar": [
+    "Compressor to condenser",
+    "Evaporator to compressor",
+    "Expansion valve to evaporator",
+    "Compressor to expansion valve",
+    "Evaporator"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Pre combustion chambers in a diesel engine:",
+   "gorsel": [],
+   "siklar": [
+    "Require that each cylinder use two spray nozzles",
+    "Require the use of fiat crowned pistons to obtain turbulence",
+    "Permit the use of a wide range of fuel in that engine",
+    "Contain all of the air charge at the end of the compression stroke",
+    "Require that each cylinder use more than four spray nozzles"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "What is the flexible coupling used for?",
+   "gorsel": [],
+   "siklar": [
+    "Small amount of misalignment",
+    "Take up for vibration in the shaft",
+    "To allow for expansion",
+    "Connects between the bull gear and the tail shaft",
+    "To allow for streching"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "If a bilge pump failed to build up discharge pressure, you should check for:",
+   "gorsel": [],
+   "siklar": [
+    "Excessive water in the bilges",
+    "A clogged suction strainer",
+    "Oil in the bilges",
+    "A closed skin valve",
+    "None of the above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Fuel is ignited in the cylinder of an operating diesel engine by:",
+   "gorsel": [],
+   "siklar": [
+    "The manual trick wheel is engaged for steering",
+    "The pupm is off stroke",
+    "A normal rudder order is given by the control system",
+    "An electric power failure occurs at the steering gear",
+    "1 and 2"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "A propeller turning clockwise when viewed from aft is considered right handed nost single screw ships have ................ propellers. A twin screw ship usually has .................................... propeller and a .............................. propeller.",
+   "gorsel": [],
+   "siklar": [
+    "Right handed / right handed starboard / left handed port",
+    "Right handed / right handed port / left handed starboard",
+    "Left handed / right handed starboard / left handed port",
+    "Left handed / right handed port / left handed starboard",
+    "Right handed / left handed starboard / right handed port"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "What would cause white smoke after you just started the diesel?",
+   "gorsel": [],
+   "siklar": [
+    "Too week battery power",
+    "Water in the fuel",
+    "Water in the gas",
+    "Water in the oil",
+    "Salt water in cooling water"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "The solenoid valve can be typed as a:",
+   "gorsel": [],
+   "siklar": [
+    "Oil pressure",
+    "Air level",
+    "Liquid level",
+    "Air pressure",
+    "Air temperature Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

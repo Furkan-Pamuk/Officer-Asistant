@@ -1,0 +1,256 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 7,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-7/",
+ "soru_sayisi": 19,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Şirket, Güvenlik Yönetimi Sistemi’ne, ...................... ilişkin kararların alınmasında kaptanın en üst düzey yetkiye sahip olduğunu ve bu yetkisini, şirketten kararının uygulanması için yardım ve destek istemekte de kullanılabileceği konusunu dahil etmelidir. Noktalı yerlere uygun olanı bulun.",
+   "gorsel": [],
+   "siklar": [
+    "Kumanya ve malzeme alımına",
+    "Güvenlik ve çevre korumaya",
+    "Tamir ve bakım-tutuma",
+    "Personel alımına",
+    "İşlerin planlanmasına"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslararası sözleşmesi (MARPOL 73/78)’in EK-V’ de belirtilen gemilerden atılan çöpler ile ilgili kurallar kapsamında denize atılması kesinlikle yasak olan madde aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gıda atıkları",
+    "Yüzebilecek olan istif gereçleri",
+    "Ambalaj malzemeleri",
+    "Sentetik halatlar",
+    "Madeni şişeler"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 3,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslararası sözleşmesi (MARPOL 73/78)’in EK-V’ inde belirtilen gemilerden atılan çöpler (gıda atıkları, kağıtlar, tabak kırıkları vb.), parçalayıcı ve öğütücüden geçmek koşulu ile 12 mil içinde 3 milden daha az olmamak koşulu ile, ............ mm. den daha geniş olmayan süzgeçten geçebilecek kadar parçalandıktan sonra denize atılabilir?",
+   "gorsel": [],
+   "siklar": [
+    "15",
+    "20",
+    "25",
+    "30",
+    "35"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Aşağıdakilerden hangisi Deniz Kirliliği konusunda alınacak tedbirlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "MARPOL kurallarının zabirlerce iyi bilinmesi",
+    "SOPEP kurallarının öngördüğü malzemelerin gemide bulundurulması",
+    "Genel ve özel liman kurallarının zabitlerce iyi bilinmesi",
+    "Gemi ve rıhtımın haberleşmesinin sorumlu kişilerce yapılması",
+    "Yangın ve diğer acil durumlara karşı tedbirlerin alınmış olması"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdakilerin hangisi, TTK.md.973’e göre, kaptanın sorumlu olduğu kişileri gösterir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptan donatandan başka, taşıtana, yükletene, gönderilene, yolcuya, gemiadamlarına, alacağı 988 md. giren bir kredi alacaklısına, özellikle deniz ödüncü verene karşı da sorumludur.",
+    "Kaptan donatana, taşıyana, taşıtana, yükletene, gönderilene, gemiadamlarına, deniz ödüncü ve gemi alacaklılarına, sorumludur.",
+    "Kaptan donatana, taşıyana, taşıtana, yükletene, gönderilene, gemiadamlarına, Kurtarma ve Yardım alacaklısı ile Müşterek Avarya alacaklılarına karşı sorumludur.",
+    "Kaptan donatana, donatma iştirakinde müşterek donatanlara, taşıyana, taşıtana, yükletene, gönderilene, çarterer’e gemiadamlarına, Kurtarma ve Yardım alacaklısı ile Müşterek Avarya alacaklılarına karşı sorumludur.",
+    "Kaptan donatana, donatma iştirakinde müşterek donatanlara, taşıyana, taşıtana, Kurtarma ve Yardım ile Müşterek Avarya alacaklıları, Liman ve Gümrük yetkilileri ile Güvenlik güçlerine karşı sorumludur."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Gemi adamları hizmet mukavelesinde aşağıdakilerden hangisi zorunlu değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yazılı olması",
+    "İşverenin adının yer alması",
+    "Gemi adamının adının yer alması",
+    "Sözleşmenin yapıldığı yer ve tarih",
+    "Kefilin adı ve adresi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Fazla çalışma yapılacak günlerin toplam bir yılda en çok kaç gün olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "90 gün",
+    "50 gün",
+    "90 işgünü",
+    "50 işgünü",
+    "60 işgünü"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslararası sözleşmesi (MARPOL 73/78)’in EK-IV’ ünde belirtilen gemilerden çıkan pis sularla (tuvalet, revir, hastane ve canlı hayvan) ilgili denizlerin kirlenmesini önleyici kurallar gereği;",
+   "gorsel": [],
+   "siklar": [
+    "4 deniz miline kadar pis sular (atık su), parçalanmış ve dezenfekte edilmiş olarak atılabilir",
+    "4-12 deniz miline kadar pis sular (atık su), parçalanmış ve dezenfekte edilmiş olarak ve geminin hızı 6 knots’dan az olmamak koşulu ile atılabilir.",
+    "4 deniz miline kadar pis sular (atık sular), arıtılmadan denize deşarj edilebilir.",
+    "12 milden sonra pis sular (atık sular), geminin hızı 6 knots’dan daha az olmamak koşulu ile dezenfekte edilmeden veya parçalanmadan atılabilir.",
+    "12 milden sonra pis sular (atık sular), geminin hızı 8 knots'dan daha az olmamak koşulu ile dezenfekte edilmeden veya parçalanmadan atılabilir."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Gemide görevinize başladığınızda, kendi işinizi her ne kadar iyi yaparsanız yapın, ast ve üstlerinizle saygı ve sevgiye dayalı iyi ve uygar ilişkiler içinde olmak için çaba göstermenize rağmen, bazen insanlar arasındaki iletişim zorlukları veya engelleri, hayatı ve çalışma ortamını, bizim için zor ve sıkıcı hale getirebilir. İyi insan ilişkileri çok basit formüllerle kolayca açıklanmasa da, aşağıdakilerden hangisi, başkalarını daha iyi anlamamıza ve kendimizi iyi anlatmamıza yardımcı olur?",
+   "gorsel": [],
+   "siklar": [
+    "Onlar hakkında başkalarından bilgi toplamak, kendimizi kurnazca ve açık vermeden ifade etmek.",
+    "Onları dinlemek ve kendimizi onların yerine koyarak düşünmek, böylelikle onları daha iyi anlamaya çalışmak. Kendimizi açık ve anlaşılır şekilde ifade etmek",
+    "Onlarla mümkün olduğunca mesafe koyarak sorunlardan uzak durmak. Gerekirse kendimizi yazılı olarak ifade etmek",
+    "Onlarla çok samimi olarak kendimizi sevdirmek. Sohbet ortamında kendimizi şakalaşarak ve eğlenceli bir şekilde ifade etmek",
+    "Ne yaparsak yapalım, kimseye fazla güvenilmeyeceğini peşinen kabul ederek, onların anlattıklarına inanmayıp zamana bırakmak. Kendimizi onların güvenini kazanacak şekilde göstermek için onların hoşuna gidecek şekilde anlatmak"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 10,
+   "soru": "Hangisi (ISM Code)’un tanımıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Gemilerin güvenli işletilmesi ve çevre kirliliğinin önlenmesine ilişkin uluslararası kurallardır",
+    "Petrol taşımacılığını düzenleyen uluslararası kurallardır",
+    "Kara, deniz ve hava taşımacılığı kurallarıdır",
+    "Gemilerde kullanılan güvenlik malzeme ve ekipmanının standartlarını belirleyen bir kod’dur",
+    "Uluslararası işletmecilik yapan şirketlerin güvenlik kodudur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 11,
+   "soru": "Aşağıdakilerden hangisi Güvenlik Yönetimi Sisteminin getirilerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "GYS uygulamaları sayesinde personelin güvenlik bilinci ve güvenliği hızla gelişir",
+    "Şirkette oluşan güvenlik ve çevre koruma kültürü, sürekli gelişimi teşvik eder",
+    "Müşterilerde güven duygusu artar, şirket içi moral yükselir",
+    "Daha fazla personel istihdam edilir",
+    "Ayrıca, zaman içinde, sistemin tam anlamıyla yerleşmesinden sonra, gelişen etkinlik, sürat ve verimlilik (gemi operasyonlarının zamanında ve tam yapılması ile önlenen zaman ve malzeme kayıpları….), sigorta primlerinde sağlanacak indirimler, büyük felaket risklerini minimize etmiş olmanın kazandıracakları sistemim kazancı olarak ortaya çıkar"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Bir işlemin kirlenmeye sebep olmasını engelleyecek en önemli faktör aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Böyle bir işlem için hazırlanmış kontrol listesi",
+    "Çalıştırma el kitabı",
+    "Yeterli sayıda yardımcı personel",
+    "İşlemin yetenekli bir zabitin gözetiminde yapılması",
+    "Tayfanın işlem ile ilgili tecrübesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdakilerden hangisi kaptanın ISM Koduna göre sorumluluklarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Şirketin Güvenlik ve Çevre Koruma Politikasının uygulanması",
+    "Şirketin Güvenlik ve Çevre Koruma Politikasının çerçevesinde personelin teşvik edilmesi",
+    "Emir ve talimatların İngilizce verilmesi",
+    "Belirlenmiş özel kurallara uyulduğunun gözlenmesi",
+    "Güvenlik Yönetimi Sisteminin gözden geçirilerek yetersizliklerin ofis yönetimine bildirilmesi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Plastik atıklarla ilgili olarak aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Plastik atıklar Özel Bölgeler içinde atılmalıdır",
+    "Plastik atıklar gemilerde az olduğundan uygun bir yerde atılabilir",
+    "Prensip olarak gemide insinetörde yakılır",
+    "Köpük stiren plastik atık olarak kabul edilmez",
+    "Plastik atıklar mutfak atıkları içinde yer alır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Özel alanlarda MARPOL 73/78 EK-V kapsamındaki çöplerden istif tahtaları kaç mil açıkta denize atılabilir?",
+   "gorsel": [],
+   "siklar": [
+    "10 mil",
+    "12 mil",
+    "15 mil",
+    "25 mil",
+    "Atılamaz"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi kirlenme durumunda aykırı bir kaptan talimatı olmadıkça kesilmesi gereken işlerden olamaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yük operasyonu",
+    "Gemiye insan giriş çıkışı",
+    "Gemi müstehlik malzemesi ve yüklenmesi",
+    "Gemi bakım ve tamir çalışmaları",
+    "Balast operasyonu"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "SOLAS 74 Konvansiyonu içeriği aşağıdakilerden hangisi için azami (en çok) gerekliliktir?",
+   "gorsel": [],
+   "siklar": [
+    "MARPOL",
+    "IOPP",
+    "OPRC",
+    "OILPOL",
+    "FUND"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi ya da hangileri, denizde meydana gelebilecek acil durumlara karşı, doğrudan can kurtarma amacına uygun biçimde tedbirli ve hazırlıklı olmayı sağlayıcı düzenlemeler içerir? (I) SAR (II) OILPOL (III) MARPOL (IV) CLC (V) TONNAGE (VI) SOLAS",
+   "gorsel": [],
+   "siklar": [
+    "I, V",
+    "II, VI",
+    "III, IV",
+    "IV, V, VI",
+    "I, VI"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi genel olarak SOLAS 74 Konvansiyonunun uygulanmayacağı gemidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yolcu gemileri",
+    "Kuru yük gemileri",
+    "Tankerler",
+    "Yüksek Süratli Gemiler (HSC)",
+    "Savaş Gemileri Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

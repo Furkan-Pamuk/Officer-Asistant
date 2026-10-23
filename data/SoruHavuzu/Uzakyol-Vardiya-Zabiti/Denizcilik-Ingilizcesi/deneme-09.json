@@ -1,0 +1,35 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 9,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-9/",
+ "soru_sayisi": 2,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "................................. is NOT included in a radar identification message.",
+   "gorsel": [],
+   "siklar": [
+    "destination",
+    "addressee",
+    "sender",
+    "position",
+    "course/speed"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 2,
+   "soru": "................................................. mevkiinde monte edilmiş akıntı ölçer var.",
+   "gorsel": [],
+   "siklar": [
+    "There are oceanographic instruments moored in position ...............",
+    "There are current meters moored in position ....................",
+    "There are drilling rigs installed in position ...............",
+    "There are speedometers installed in position ..............",
+    "There are cable laying operations in position ............. Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

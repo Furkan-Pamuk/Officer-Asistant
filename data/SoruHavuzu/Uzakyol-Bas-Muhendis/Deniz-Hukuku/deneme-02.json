@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Deniz-Hukuku",
+ "deneme": 2,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-2/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "MARPOL 73/78 Sözleşmesinin EK-V (Gemilerden atılan çöpler ile deniz kirlenmesini önleyici kurallar)'i gereği Özel Alan kapsamına giren denizlerin tümü aşağıdaki paragraflardan hangisinde bulunmaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "Akdeniz, Karadeniz, Baltık, Körfez, Kuzey Denizi, Antartika ve Karayip",
+    "Akdeniz, Karadeniz, Baltık, Hint Okyanusu, Kuzey Denizi, Antartika ve Karayip",
+    "Akdeniz, Karadeniz, Baltık, Körfez, Kuzey Denizi ve Karayip",
+    "Akdeniz, Karadeniz, Baltık, Körfez, Kuzey Denizi ve Antartika",
+    "Akdeniz, Karadeniz, Baltık, Körfez, Kuzey Denizi, Atlantik Okyanusu, Antartika ve Karayip"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdakilerden hangisi yağ kirliliği temizleme metotlarından olup yağın tekrar toplanamaması durumunda kullanılması belli bir izin gerektiren bir yöntemdir?",
+   "gorsel": [],
+   "siklar": [
+    "Kepçe kova ve benzeri bir metotla yağın temizlenme çabası",
+    "Emici keçelerle geri toplama metodu",
+    "Yağın kenarına şamandıralar yerleştirme",
+    "Yağ ıslah ediciler kullanarak temizleme metodu",
+    "Yağ döküntüsünün çevresine su sıkmak"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 3,
+   "soru": "TK.md.829'a göre \"Gemi Tasdiknamesine ve Bayrak Şahadetnamesine\" gerek olmaksızın Türk Bayrağı çekebilecek gemiler,",
+   "gorsel": [],
+   "siklar": [
+    "Ticari olmayan gemilerdir",
+    "50 Grt.'dan küçük gemilerdir",
+    "50 Grt.'dan küçük ticaret gemilerdir",
+    "18 Grt.'dan küçük gemilerdir",
+    "Liman içi sefer yapan küçük yolcu gemileri / motorlarıdır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "500 rusum tonilatodan büyük gemilerin \"Denize Elverişlilik\" denetini yapmaya, aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Bölge müdürlükleri Sörvey kurulları",
+    "Liman Başkanlıkları",
+    "Marmara Bölge Müdürlüğü sörvey kurulu",
+    "Devlet Denetleme Kumlu"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Yolcu motoru,",
+   "gorsel": [],
+   "siklar": [
+    "Tam boyu 35 metrenin altında olan ve yolcu taşıyan sadece limanda çalışan ticari tekneleri ifade eder",
+    "Tam boyu 25 metrenin altında olan ve yolcu taşıyan sadece limanda çalışan tekneleri ifade eder",
+    "Tam boyu 40 metrenin altında olan ve yolcu taşıyan, liman veya 100 mil ile sınırlı seferi bölgelerinde çalışan ticari tekneleri ifade eder",
+    "Tam boyu 30 metrenin altında olan ve 100 mil ile sınırlı liman seferi bölgelerinde çalışan ticari tekneleri ifade eder",
+    "Tam boyu 40 metrenin altındaki Türk karasularında yolcu taşıyan tekneleri ifade eder"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdakilerin hangisi \"Kaptanın\" özel hukuka ilişkin görev ve yetkilerine girmez?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiye yüklenen yüke ilişkin konişmento ve manifestoları imzalamak",
+    "Gemisini denize, yola ve yüke elverişli kılmaz",
+    "Yüklemeyi istifi denizcilik usullerine göre yapmak",
+    "Şahsi sicil ve nüfus memurluğu görevi yapmak",
+    "Gemiyi dikkatlice sevk ve idare etmek"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerden hangisi kaptanın haklarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kendi hesabına yük taşıma",
+    "Ücret",
+    "Tedavi ve ilaç masrafları",
+    "Ücretli izin",
+    "Bağlama limanına dönüş masrafları"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdakilerden hangisi kaptanın hizmet sözleşmesinin sona erme sebeplerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin kaybı",
+    "Geminin bayrak çekme hakkının kaybı",
+    "Feshi ihbar",
+    "Donatan ücret ödememesi",
+    "Geminin isim değiştirmesi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Aşağıdakilerden hangisi kaptanın yolculuk başlamadan önceki işlemlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yerli ve yabancı mevzuata riayet etmek",
+    "Donatana bilgi vermek",
+    "Geminin yola çıkabilmesi için gerekli tüm resmi muameleleri yapmak",
+    "Gümrük, polis, vergi ve kambiyo hükümlerine riayet etmek",
+    "Ambar temizliği"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerden hangisi çatmanın çeşitleri arasında sayılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Müşterek kusurlu çatma",
+    "Kusursuz çatma",
+    "Kusurlu çatma",
+    "Tek taraflı kusurlu çatma",
+    "Kusurlu olarak denizde sabit bir cisme çatma"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Aşağıdakilerden hangisi müşterek avarya hallerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin karaya oturtulması",
+    "Denize yük vesaire atılması",
+    "Geminin hafifletilmesi",
+    "Güvertedeki yükün gemiye de hasar vererek aniden denize düşmesi",
+    "Geminin yüzdürülmesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Yolculuk geminin zayi ile bittiği takdirde aşağıdakilerden hangisi \"Varma yeri\" kabul edilir?",
+   "gorsel": [],
+   "siklar": [
+    "Yolculuğun bittiği yer",
+    "Yükün emniyet altına alındığı yer",
+    "Konişmentoda varma yeri olarak belirtilen yer \"varma yeri\" olarak kalmakta devam eder",
+    "Bağlama limanı",
+    "Donatanın merkezinin bulunduğu yer"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 13,
+   "soru": "Deniz iş Kanunu,",
+   "gorsel": [],
+   "siklar": [
+    "Bütün yabancı gemi adamlarına uygulanır",
+    "Aynı zamanda hem TC hem de yabancı devlet vatandaşı olanlara uygulanır",
+    "Mütekabiliyet esaslarına göre, Türk gemi adamlarına aynı mahiyette haklar tanıyan devletlerin uyruğunda olup bu Kanun kapsamına giren gemilerde çalışan gemi adamlarına uygulanır",
+    "Bükreş sözleşmesine göre sadece bu anlaşmaya taraf devlet vatandaşlarına uygulanır",
+    "Mütekabiliyet esaslarına göre, sadece Avrupa devletleri vatandaşlarına uygulanır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Fesih yetkisi sebebin öğrenilmesinden itibaren aşağıdaki hangi sürede kullanılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "6 ay",
+    "1 yıl",
+    "10 gün",
+    "6 iş günü",
+    "10 iş günü"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "Kıdem tazminatı Deniz İş Kanununa tabi gemi adamlarının hizmet akitlerinin,",
+   "gorsel": [],
+   "siklar": [
+    "İşveren tarafından bu kanun 14. maddesinin 1. bendinde gösterilen sebepler dışında",
+    "Gemi adamı tarafından bu kanunun 14. maddesinin 2. ve 3. bentleri uyarınca",
+    "Muvazzaf askerlik hizmeti dolayısıyla",
+    "Bağlı bulundukları kanunla kurulu kurum veya sandıklardan yaşlılık, emeklilik veya malüllük aylığı yahut toptan ödeme almak amacıyla",
+    "İşveren tarafından bu kanunun 14. maddesindeki sebepler dahilinde feshedilmesi durumunda işçi kıdem tazminatına hak kazanır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi Deniz İş Kanunu sürelerine uymak zorunda değildir?",
+   "gorsel": [],
+   "siklar": [
+    "3. mühendis",
+    "Süvari",
+    "Kamarot",
+    "Güverte lostromosu (reis)",
+    "Birden fazla mühendis olan gemilerde baş mühendis"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 17,
+   "soru": "Gemide işin bir haftadan fazla süreyle tatil edilmesini gerektiren zorlayıcı sebepler ortaya çıktığında bu süreye rastlayan hafta tatili ücreti, ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "Tam gün",
+    "10 saat karşılığı",
+    "2 gün",
+    "Yarım gün",
+    "1,5 gün"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Aşağıdaki hallerden hangisinde sapma haklı sayılabilmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "Başka bir yük teslim almak amacıyla",
+    "Can ve mal kurtarmak amacıyla",
+    "Aktarma yapmak amacıyla",
+    "Yakıt almak amacıyla",
+    "Su almak amacıyla"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Gemi ve deniz ile ilgili aşağıdaki harç ve resimlerden hangisi liman başkanlıklarınca alınmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yola Elverişlilik belgesi harcı",
+    "Gemi Tasdikname harcı",
+    "Ölçme Belgesi harcı",
+    "Denize Elverişlilik belgesi harcı",
+    "Liman işgal resmi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Hizmet sözleşmesi belli bir süre için yapılabilir",
+    "Hizmet sözleşmesi süresiz yapılabilir",
+    "Hizmet sözleşmesi belli bir sefer için yapılabilir",
+    "Hizmet sözleşmesi belli bir sefer için yapılmışsa fesih ihbarıyla sona erer",
+    "Hizmet sözleşmesi belli bir sefer için yapılmışsa varma limanında yükün boşaltılmasıyla sona erer Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 4
+  }
+ ]
+}

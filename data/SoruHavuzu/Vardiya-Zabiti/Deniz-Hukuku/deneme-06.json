@@ -1,0 +1,113 @@
+{
+ "rank": "Vardiya-Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 6,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Vardiya_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-6/",
+ "soru_sayisi": 8,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Yola elverişlilik belgesi olmayan gemi ……………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "Yük taşıyamaz",
+    "Ticari faaliyette bulunamaz",
+    "Yolcu taşıyamaz",
+    "Yük taşır, yolcu taşıyamaz",
+    "Hiçbir şekilde hareket edemez"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "50 rüsum tonilatoya kadar gemilerin “Denize Elverişlilik” denetini yapmaya, aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Bölge Müdürlükleri Sörvey Kurulları",
+    "Liman Başkanlıkları",
+    "Marmara Bölge Müdürlüğü Sörvey Kurulu",
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Devlet Denetleme Kurulu"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "50 rüsum tonilatoya kadar gemilerin “Yola Elverişlilik” denetini yapmaya aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Marmara Bölge Müdürlüğü Sörvey Kurulu",
+    "Bölge Müdürlükleri Sörvey Kurulları",
+    "Liman Başkanlıkları",
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Devlet Denetleme Kurulu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "500 rüsum tonilatodan büyük gemilerin “Yola Elverişlilik” denetini yapmaya aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Liman Başkanlıkları",
+    "Bölge Müdürlükleri Sörvey Kurulları",
+    "Marmara Bölge Müdürlüğü Sörvey Kurulu",
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Devlet Denetleme Kurulu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "50-500 rüsum tonilato arasındaki gemilerin “Denize Elverişlilik” denetini yapmaya, aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Liman Başkanlıkları",
+    "Marmara Bölge Müdürlüğü Sörvey Kurulu",
+    "Bölge Müdürlükleri Sörvey kurulları",
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Devlet Denetleme Kurulu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "50-500 rüsum tonilato arasındaki gemilerin “Yola Elverişlilik” denetini yapmaya, aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Marmara Bölge Müdürlüğü Sörvey Kurulu",
+    "Liman Başkanlıkları",
+    "Bölge Müdürlükleri Sörvey Kurulları",
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Devlet Denetleme Kurulu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "854 sayılı Deniz İş Kanunu açısından aşağıdakilerden hangisi uygulanma kapsamı dahilinde değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Bu kanun denizlerde, göllerde, akarsularda TC bayrağını taşıyan 100 GRT ve üstü gemilere uygulanır",
+    "Bu kanun sadece denizde taşımacılık yapan gemilere uygulanır",
+    "Bu kanun aynı işverene ait gemilerin çalıştırdığı gemi adamı sayısı 5 ve yukarı olduğunda da uygulanır",
+    "Bu kanun uygulamasında; sandal, mavna, şat, salapurya gibi olanlar da gemi sayılır",
+    "Bakanlar Kurulu ekonomik ve sosyal gerekler bakımından bu kanun hükümlerini kapsam dışında kalan gemilere"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "4922 sayılı Denizde Can ve Mal Koruma Hakkındaki Kanuna göre aşağıdakilerden hangisi gemi vasfı taşımaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yüzer havuz",
+    "Mavna",
+    "Boğaz’da lokanta olarak işletilen gemi",
+    "Kik",
+    "2 kişilik yelkenli yarış teknesi Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 4
+  }
+ ]
+}

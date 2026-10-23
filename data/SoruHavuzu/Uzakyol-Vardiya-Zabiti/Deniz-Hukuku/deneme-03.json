@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 3,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-3/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Aşağıdakilerden hangisi yük alacaklısı haklarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi adamlarının kusurundan doğan alacaklar",
+    "Kılavuz ücretleri",
+    "Kurtarma yardım ücreti",
+    "Kaptanın hususi vekaletle yaptığı muamelelerden doğan alacaklar",
+    "Fener ücreti"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdakilerden hangisi yükün güvertede taşınabilmesi için gerekli şartlardan biri değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yükün konşimentoda “güverte yükü” olarak gösterilmesi",
+    "Yükün fiilen güvertede taşınması",
+    "Güverteye yüklemenin yükletenin muvafakatiyle olması",
+    "Konteyner olması",
+    "Dökme yük olması"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerin hangisi “Gemi Sicili” ile ilgili değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Resmi sicildir",
+    "Gemi adamlarının sayısı ve yeterliklerini düzenler",
+    "Alenidir, yani ilgili herkese açıktır",
+    "Devletin bayrağını taşıyan gemilerin kaydını tutmaya yarar",
+    "Mülkiyet, ipotek, intifa gibi özel hukuk ilişkilerini düzenler"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Aşağıdakilerin hangisi “Kaptanın” kamu hukukuna ilişkin görev ve yetkilerine girmez?",
+   "gorsel": [],
+   "siklar": [
+    "Soruşturma yapmak",
+    "Yeddi eminlik ve muhafaza görevi yapmak",
+    "Şahsi sicil ve nüfus memurluğu görev yapmak",
+    "Yüklemeyi istifi denizcilik usullerine göre yapmak",
+    "Emir ve disiplin yetkisini kullanmak"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdakilerin hangisi “Kaptanın” özel hukuka ilişkin görev ve yetkilerine girmez?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiye yüklenen yüke ilişkin konşimento ve manifestoları imzalamak",
+    "Gemisini denize, yola ve yüke elverişli kılmaz",
+    "Yüklemeyi istifi denizcilik usullerine göre yapmak",
+    "Şahsi sicil ve nüfus memurluğu görevi yapmak",
+    "Gemiyi dikkatlice sevk ve idare etmek"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdakilerin hangisi konşimentonun tanımına dahil değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiye taşımak üzere yüklenen tüm yüklerin sıra ile yazıldığı belge",
+    "Yükün deniz yolu ile ve gemi ile taşınmak üzere teslim alındığına ilişkin belge",
+    "Yükün varma limanında hak sahibi kişiye teslim edileceğine ilişkin taahhüdü içeren belge",
+    "Yükü temsil eden bir belge",
+    "Kıymetli evrak niteliğinde bir belge"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerin hangisi kurtarma yardımın unsurlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Tehlike unsuru",
+    "İradilik unsuru",
+    "Hizmetin konusu kurtarılan ve yardım gören",
+    "Kurtarma yardım hizmeti",
+    "Faydalı ve başarılı sonuç unsuru"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdakilerin hangisi navlun sözleşmesine taraftır?",
+   "gorsel": [],
+   "siklar": [
+    "Yükleten - gönderilen",
+    "Taşıtan – yükleten",
+    "Taşıtan - taşıyan",
+    "Taşıyan – gönderilen",
+    "Taşıyan – broker"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Aşağıdakilerin hangisi navlun sözleşmesinin unsuru değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Eşya taşıma taahhüdü",
+    "Deniz yolu ile taşıma",
+    "Yük ve yolcu taşımaya elverişli bir gemi olması",
+    "Taşıyanın eşya üzerinde zilyetliği ve gözetim ve koruma yükümlülüğü",
+    "Taşımanın bir ücret (navlun) karşılığında yapılması"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerin hangisi TTK md.851/1’e göre gemi sicil kaydının terkini (silinmesi) için şart değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Malikin talebi",
+    "Kurtarılamayacak şekilde batması",
+    "Tamir kabul etmez hale gelmesi",
+    "Türk Bayrağını çekme hakkını kaybetmesi",
+    "Navlun getirecek surette yolcu veya yük taşıma kabiliyetini zayi etmesi (kaybetmesi)"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Aşağıdakilerin hangisi TTK md.973’e göre, kaptanın sorumlu olduğu kişileri gösterir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptan donatandan başka, taşıtana, yükletene, gönderilene, yolcuya, gemi adamlarına, alacağı 988 md. giren bir kredi alacaklısına, özellikle deniz ödüncü verene karşı da sorumludur.",
+    "Kaptan donatana, taşıyana, taşıtana, yükletene, gönderilene, gemi adamlarına, deniz ödüncü ve gemi alacaklılarına, sorumludur.",
+    "Kaptan donatana, taşıyana, taşıtana, yükletene, gönderilene, gemi adamlarına, Kurtarma ve Yardım alacaklısı ile Müşterek Avarya alacaklılarına karşı sorumludur.",
+    "Kaptan donatana, donatma iştirakinde müşterek donatanlara, taşıyana, taşıtana, yükletene, gönderilene, çarterer’e gemi adamlarına, Kurtarma ve Yardım alacaklısı ile Müşterek Avarya alacaklılarına karşı sorumludur.",
+    "Kaptan donatana, donatma iştirakinde müşterek donatanlara, taşıyana, taşıtana, Kurtarma ve Yardım ile Müşterek Avarya alacaklıları, Liman ve Gümrük yetkilileri ile Güvenlik güçlerine karşı sorumludur."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Aşağıdakilerden hangisinin “Gemi Sicili”ne tescili mümkün olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Donanmaya ait yardımcı gemiler",
+    "Harp gemileri",
+    "Özel yatlar",
+    "Kamu hizmetine tahsis edilmiş devlet gemileri",
+    "Kamu hizmetinde kullanılan kamu tüzel kişilerine ait gemiler"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Aynı menfaatin aynı rizikolara karşı birden çok sigortacılara sigorta ettirilmesine ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Aşkın sigorta",
+    "Çifte sigorta",
+    "Güvenceli sigorta",
+    "Teşvik sigortası",
+    "Tedbir sigortası"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "Çatmada zaman aşımı süresi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "1 yıl",
+    "2 yıl",
+    "5 yıl",
+    "3 yıl",
+    "7 yıl"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Denizde çalışma süresi günde kaç saattir?",
+   "gorsel": [],
+   "siklar": [
+    "10",
+    "8",
+    "5",
+    "12",
+    "7"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Denize Elverişlilik” belgesinin geçerlik süresi ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "Klass sörveyi tarihine kadar",
+    "Seferlik",
+    "Altı ay",
+    "Üç ay",
+    "Bir yıl"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 17,
+   "soru": "Denize Elverişlilik” belgesi olmayan veya süresi biten gemi ………………………………………",
+   "gorsel": [],
+   "siklar": [
+    "Hiçbir şekilde hareket edemez",
+    "Yük taşıyamaz",
+    "Yolcu taşıyamaz",
+    "Yük taşır, yolcu taşıyamaz",
+    "Ticari faaliyette bulunamaz"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Doğruyu bulunuz. Kıdem tazminatı her yıl için …………………………………………….",
+   "gorsel": [],
+   "siklar": [
+    "45 gün",
+    "60 gün",
+    "30 gün",
+    "15 gün",
+    "90 gün tutarında ödenir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Donatanın çevre kirliliğinden doğan sorumluluğunun hukuki niteliği hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Sınırsız",
+    "Sınırlı ayni",
+    "Sınırlı şahsi",
+    "Sınırsız ayni",
+    "Sorumluluğu yoktur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 20,
+   "soru": "Donatanının gemi adamlarının fiillerinden doğan sorumluluğunun hukuki niteliği hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Sınırsız",
+    "Sınırlı şahsi",
+    "Sınırlı ayni",
+    "Sınırsız şahsi",
+    "Sorumluluğu yoktur Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

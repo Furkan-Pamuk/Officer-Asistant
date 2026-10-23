@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Seyir",
+ "deneme": 3,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Seyir/Deneme_Sinavi-3/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Bir gemi seyir anında adanın düşey açısını sextant ile 2° 54' olarak ölçmüştür. Haritada aynı tepenin yüksekliği 300 m. dir. Geminin adadan olan mesafesi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "4,2 mil",
+    "2,3 mil",
+    "3,2 mil",
+    "2,9 mil",
+    "3,9 mil"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Bir gemi seyir anında adanın düşey açısını sextant ile 3° 36' olarak ölçmüştür. Haritada aynı tepenin yüksekliği 300 feettir. Geminin adadan olan mesafesi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "0.665 mil",
+    "6.65 mil",
+    "0.178 mil",
+    "7.85 mil",
+    "0.785 mil"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Bir gemi seyir anında adanın düşey açısını sextant ile 5° 36' olarak ölçmüştür. Haritada aynı tepenin yüksekliği 250 feettir. Geminin adadan olan mesafesi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "1,42 mil",
+    "0,42 mil",
+    "0,52 mil",
+    "1,52 mil",
+    "1,00 mil"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Bir geminin pruvasından pupasına kadar olan mesafe 367,5 feet olduğuna göre pruvadan bırakılan yüzer bir cismin 14 saniye sonra pupadan geçtiği saptanmıştır. Geminin sürati aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "14,0 kts",
+    "14,5 kts",
+    "15,5 kts",
+    "16,0 kts",
+    "16,8 kts"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Bir geminin pusulasının hangi hallerde düzeltilmesi gerekir?",
+   "gorsel": [],
+   "siklar": [
+    "Arızi sapma 5° yi geçerse,",
+    "Gemi uzun süre tamirde kalırsa,",
+    "Geminin yara alması veya çatışması halinde,",
+    "Uzun zaman bir yere bağlı kalması halinde,",
+    "Hepsi doğru."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Bir gök cismi aşağıdaki belirtilen koşuldan hangisinde ufkun üzerinde hiç görülmez ve gök cismi için doğuş ve batış olayı meydana gelmez?",
+   "gorsel": [],
+   "siklar": [
+    "Lat N, Dec.S Dec",
+    "Lat N, Dec.S Dec &gt;CoLat",
+    "Lat S, Dec.N Dec",
+    "Lat N, Dec.N Dec &gt;CoLat",
+    "Lat N, Dec.N Dec"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Bir gök cismi bulunduğumuz boylama yaklaşırken aşağıdaki olaylardan hangisi gerçekleşir?",
+   "gorsel": [],
+   "siklar": [
+    "Yükseklik açısı azalır.",
+    "Yükseklik açısı artar.",
+    "Azimuth azalır.",
+    "Azimuth açısı küçülür.",
+    "Yükseklik açısı sabit kalır."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "Bir gök cisminin almanaktan bulunan GHA değeri 220°, Dec 15°00’N ve DR mevkiin koordinatları 35°N – 060°E olduğuna göre HA (t) açısı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "80°",
+    "100°",
+    "180°",
+    "200°",
+    "280°"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "Bir kerte kaç derecedir?",
+   "gorsel": [],
+   "siklar": [
+    "10°,25",
+    "11°,50",
+    "12°,25",
+    "11°,25",
+    "12°,50"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Bir limana girişte veya sahile yaklaşırken tehlikelerden uzak emniyetli bir seyir yapabilmek için tesis edilmiş olan hatta ne isim verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Sektör hattı",
+    "Rehber hattı",
+    "Transit hattı",
+    "Kerteriz hattı",
+    "Mevki hattı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "Bir mevkiin koordinatlarını belirtirken aşağıdakilerden hangisi kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "42°N - 183°E",
+    "92°N - 072°E",
+    "60°S - 240°W",
+    "35°S - 108°W",
+    "94°N - 085°E"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Bir otopilot’da dümen ele alınmadan büyük rota değişikliği yaptırılacaksa ve otopilotun sadece pusuladan ve istenen rota devresinden gelen sinyallere bağlı olarak çalışması isteniyorsa aşağıdakilerden hangisi devreden çıkarılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Weather kontrolu",
+    "Rudder kontrolu",
+    "F.U çalışma düzeni",
+    "Güç anahtarı",
+    "Hepsi devrede olmalıdır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Bir periyot içinde farklı renkler sergileyen ritmik fenerlere ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Ritmik Fener",
+    "Sabit Fener",
+    "Sektörlü Fener",
+    "Renk Değiştiren Fener",
+    "Rehber Fener"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "Bir seyirci; iki fenerin transitini hatası 1°W olan cayro pusula ile 201° olarak okumaktadır. Bölgede doğal sapma 3°E ve gidilen rotadaki yapay sapma değeri 2°W ise manyetik pusula ile bu transitler kaç derecede okunur?",
+   "gorsel": [],
+   "siklar": [
+    "197°",
+    "198°",
+    "199°",
+    "200°",
+    "201°"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Boylam 060° 12’ W olan bir mevkide LMT 08:21:37 iken boylamı 018° 03’ E olan bir noktada LMT kaçtır?",
+   "gorsel": [],
+   "siklar": [
+    "13:34:37",
+    "12:22:25",
+    "17:50:41",
+    "14:22:25",
+    "13:50:41"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "Boylamımız 100° W ve GHA değeri 350° ise saat açısı (HA veya t) aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "150° W",
+    "250°",
+    "10° W",
+    "90° E",
+    "110° E"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 17,
+   "soru": "Buzlar arasında seyreden bir geminin hızı kaç knot olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "12-9",
+    "10-7",
+    "8-5",
+    "6-3",
+    "4-1"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Buzlar arasında seyreden bir geminin rota değişiklikleri max kaç derece olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "30°",
+    "25°",
+    "20°",
+    "15°",
+    "10°"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "Buzlarla ilgili bilgiler aşağıdaki kaynakların hangilerinde bulunur? I) Okyanus kılavuz haritalarında II) Routeing chartlar III) Ocean passage kitapları IV) Okyanus kılavuz kitapları",
+   "gorsel": [],
+   "siklar": [
+    "I, IV",
+    "II, III",
+    "I, III",
+    "I, III, IV",
+    "I, II, IV"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Büyük daire seyri problemlerinin çözümü için kurulan küresel üçgen için aşağıdaki ifadelerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Üçgenin bir köşesi kalkış noktasının bulunduğu yarı kürenin kutup noktasıdır.",
+    "Üçgenin kutup noktası açısı kalkış ve varış noktaları arasındaki d.long kadardır.",
+    "Kalkış ve varış noktaları arasındaki kenarın açısal değeri 90°-Lat dır.",
+    "Üçgenin kutup noktası karşısındaki kenarının açısal değeri mesafedir.",
+    "Üçgenin kutup noktasından karşısındaki kenara çizilen dik, kenarı vertex noktasında keser. Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

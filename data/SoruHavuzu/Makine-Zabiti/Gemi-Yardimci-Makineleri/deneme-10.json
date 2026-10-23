@@ -1,0 +1,217 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 10,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-10/",
+ "soru_sayisi": 16,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Freon - 134 a veya Freon - 22 gibi gazların gemide kullanıldığı sistem aşağıdakilerin hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın söndürme sistemi",
+    "Soğutma iklimlendirme sistemi",
+    "Alarm sistemi",
+    "İlk hareket havası sistemi",
+    "Inter gaz sistemi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdakilerden hangisi bir valfın ana elemanı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yoğuşum pompasının tam kapasitesinde onu 1 dakika besleyecek yoğuşum suyu hacmine sahip olmalıdır",
+    "Yoğuşum pompasını 5 dakika süre ile besleyebilmelidir",
+    "Yoğuşum pompasını 4 dakika süre ile besleyebilmeldir",
+    "Yoğuşum pompasını 6 dakika süre ile besleyebilmelidir",
+    "Yoğuşum pompasını 10 dakika süre ile besleyebilmelidir"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "Basketli bir hava pompası ne tür bir pompadır?",
+   "gorsel": [],
+   "siklar": [
+    "0 ppm",
+    "5 ppm",
+    "10 ppm",
+    "15 ppm",
+    "20 ppm"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Dişli bir pompa orijinal (tasarım) devrinin üzerine çalıştırılırsa aşağıdakilerden hangisi oluşur?",
+   "gorsel": [],
+   "siklar": [
+    "Pompanın dişleri aşınır ve verimi düşer",
+    "Pompanın kapasitesi düşer",
+    "Pompada titreşim oluşur",
+    "Pompa aşırı soğur",
+    "Pompa yatakları bozulur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdaki besleme suyu sistemi yüksek basınçlı sistemlerde kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Açık besleme suyu sistemi",
+    "Vakum kapalı besleme suyu sistemi",
+    "Yarı kapalı besleme suyu sistemi",
+    "Basınçlı besleme sistemi",
+    "Vakumlu — açık besleme sistemi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdakilerden hangisi alev borulu kazanın bölümlerindendir?",
+   "gorsel": [],
+   "siklar": [
+    "Buhar dramı",
+    "Külhan",
+    "Su dramı",
+    "Yan duvar borusu",
+    "Gaz bafılı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Gemilerde içme suyunun en uç merkezlere kadar ulaşımını sağlayan sistem aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Transmiter",
+    "Telemotor",
+    "Servomotor",
+    "Elektromotor",
+    "Hidrofor"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Bir yakıt separatörü ilk hareketten sonra aşırı şekilde titreşimle hızlanıyorsa bunun nedeni aşağıdakilerden hangisi olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Besleme vanası kapalıdır, açılmalıdır",
+    "Gravite diski separatöre donatılmamıştır",
+    "Bavl ve diskler kirlidir, iyi temizlenmemiştir",
+    "Su sıcaklığı çok yüksektir",
+    "Su borusundaki basınç çok yüksektir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Kazan çalışmıyor ve tam dolu olarak muhafaza ediliyorsa tuzluluk testi ne kadar sürede bir yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "12 saatte bir",
+    "24 saatte bir",
+    "Haftada bir",
+    "15 günde bir",
+    "Ayda bir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Kazanlar kullanıldıkları yakıt cinsine göre kaça ayrılırlar?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "İki strokta bir disçarç yapan pistonlu bir pompanın valf sandığında kaç adet ve ne tür valf bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "3 adet rilif valf",
+    "2 adet musluk valf",
+    "2 adet lift çek valf",
+    "3 adet çalpara çek valf",
+    "2 adet redyusin valf"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Aşağıdakilerden hangisi elementlerin ortak özelliği değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Graftil",
+    "Kauçuklu",
+    "Amyantlı",
+    "Kurşunlu",
+    "Don yağlı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "İç hacmi değişmeyen ve ağzı açık çelik bir kap içinde bulunan bir gazın kütlesinin, sıcaklık arttıkça değişimi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Birinci kademe silindirine daha az hava emilir",
+    "Birinci kademenin disçarç basıncı çoğalır",
+    "Kompresörün çalışma süresi artar",
+    "Yüksek basınçlı hava geriye kaçar",
+    "İkinci kademede emme basıncı artar"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "Kimyasal maddeleri taşıyan devrelerin valf boğazlarında conta malzemesi olarak aşağıdakilerden hangisi kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Amyant",
+    "Sidem",
+    "Yağlanmış muşamba",
+    "Neopren",
+    "Tauril"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Bir sintine separatöründe ayrıştırılan yağlı suların rotası aşağıdakilerin hangisi olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Separatör - slop tank - deniz",
+    "Separatör - deniz",
+    "Separatör - baş pik - deniz",
+    "Separatör - slop tank - barge",
+    "Separatör-kıç pik-deniz"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Separatörün asıl görevi aşağıdakilerden hangisinde verilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Çökme ayrılma olayını hızlandırır.",
+    "Normalde ayrılmaz karışımları ayırır.",
+    "Çökmeyen maddelerin çökmesine yardım eder.",
+    "Renk ve koyuluklarına göre maddeleri ayırır.",
+    "Basınç kullanarak akışkanı hızlandırır. Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

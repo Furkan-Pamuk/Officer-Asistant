@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Seyir",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Seyir/Deneme_Sinavi-5/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Düzlemleri yer eksenini kapsamak üzere kutuplardan geçen büyük dairelere ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Spiral",
+    "Elipsoid",
+    "Enlem",
+    "Ekvator",
+    "Boylam"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": "Ege Denizinde saatte 50 mil hızla esen Lodos rüzgarının oluşturduğu rüzgar akıntısının yön ve hızı ne olur?",
+   "gorsel": [],
+   "siklar": [
+    "225° - 1 knot",
+    "045° - 0,5 knot",
+    "065° - 1 knot",
+    "025° - 0,5 knot",
+    "085° - 1 knot"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Eko elektrikli iskandil kullanarak derinlik tespit ederken, dip yapısı sert ve dip derinse aşağıdakilerden hangisi doğru bir seçim olur?",
+   "gorsel": [],
+   "siklar": [
+    "P.R.F çoğaltılmalı ve kazanç arttırılmalıdır.",
+    "P.R.F azaltılmalı ve kazanç azaltılmalıdır.",
+    "P.R.F azaltılmalı ve kazanç da arttırılmalıdır.",
+    "P.R.F çoğaltılmalı ve kazanç azaltılmalıdır.",
+    "Dip yapısının özelliğinin kazanç ile ilişkisi yoktur."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Ekte bulunan Tide Tables sayfasını ve harita parçasını kullanarak Drill Stone şamandırası civarında 27 Mart 11:00:00 ZT gel-git akıntısının yön ve hızını bulunuz.",
+   "gorsel": [],
+   "siklar": [
+    "328° - 1 knot",
+    "033° - 0,9 knot",
+    "028° - 1 knot",
+    "173° - 0,9 knot",
+    "189° - 1,9 knot"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "Ekvatoryal Mercator projeksiyonu ile yapılmış haritalar ile ilgili aşağıdaki ifadelerden hangisi hatalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "60°N ve 60°S enlemleri arasında kullanılır.",
+    "Mesafe ölçeği her yerde aynı değildir.",
+    "Büyük daire yayları bir doğru şeklinde değildir.",
+    "Kerte hattı bir doğru şeklindedir.",
+    "Kerte hattı bir doğru şeklinde değildir."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Elektrik alanının yönü ile elektromanyetik dalganın hareket yönünü gösteren vektörleri içinde bulunduran düzleme ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Elektrik alan.",
+    "Polarizasyon.",
+    "Manyetik alan",
+    "Akım yönü",
+    "Dalga yönü"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Elektromanyetik dalga boyunca; herhangi bir noktadaki dalga kuvvetine ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Saykıl",
+    "Frekans",
+    "Genlik",
+    "Kritik bölge",
+    "Periyot"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Evrensel zamana (UT) veya Greenwich Ortalama Zamanını aşağıdaki ifadelerden hangisi tanımlar?",
+   "gorsel": [],
+   "siklar": [
+    "Hakiki güneş zamanının Greenwich Meridyenine göre değerlendirilmesine UT zamanı denir.",
+    "Ortalama güneş zamanının, Greenwich Meridyenine göre değerlendirilmesine UT zamanı denir.",
+    "Görünen güneşin Greenwich alt meridyeninden ard arda iki geçişine göre düzenlenen zamana denir.",
+    "Görünen güneşin Greenwich üst meridyeninden ard arda iki geçişine göre düzenlenen zamana denir.",
+    "Ortalama güneş zamanının herhangi bir mevkiin boylamına göre değerlendirilmesine UT zamanı denir."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Farklı iki datum sistemi için aşağıdaki ifadelerden doğru olanlar hangileridir? I-Yerin ekvatoral ve kutupsal çapları değişik değerdedir II-Farklı iki datum sistemine göre yapılmış haritalarda mevkiler farklıdır III-Farklı iki datum sistemine göre yapılmış haritada şekillerin yerleri değişiktir IV-Farklı iki datuma göre yapılmış haritada derinlik ve yükseklikler değişiktir",
+   "gorsel": [],
+   "siklar": [
+    "IV",
+    "II-III",
+    "I",
+    "II-III-IV",
+    "Hepsi doğru"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Fenerler ve Sis İşaretleri Kitabında verilen fener kerterizleri ile ilgili, aşağıdaki ifadelerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Fenerlerin görünme kerterizleri nispi kerterizlerdir.",
+    "Fenerlerin görünme kerterizleri fenerin ışık şiddetine bağlıdır.",
+    "Fenerlerin kerterizleri denizden verilmiştir.",
+    "Fenerlerin kerterizleri nispi ve sektör olarak verilmiştir.",
+    "Fenerlerin kerterizleri fenerden verilir."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Fenerlerin frekansları hangi kaynaktan bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "Haritalardan",
+    "Portolonlardan",
+    "Fenerler ve sis işaretleri kitaplarından",
+    "Kılavuz kitaplarından",
+    "Kılavuz haritalarından"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "FL(3) 25sec 100m 20M özelliklerini taşıyan bir fener 5 mil görüş mesafesinde kaç milden görülebilir?",
+   "gorsel": [],
+   "siklar": [
+    "5 milden",
+    "12 milden",
+    "13 milden",
+    "15 milden",
+    "20 milden"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "FL5sec 49m 10M nominal özelliklerini taşıyan bir fener göz yüksekliği 9 m olan bir zabit için görüş mesafesinin 15 mil olduğu bir ortamda gece ve gündüz kaç milden görülebilir?",
+   "gorsel": [],
+   "siklar": [
+    "15-15 mil",
+    "10-10 mil",
+    "12-15 mil",
+    "14-21 mil",
+    "12-21 mil"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Gece şartlarında CENOVA/İtalya limanına giriş yapan yüksek tonajlı bir gemi; pruva istikametinde orta mesafede gördüğü bir fenerin karakteristiğini, Fl.(2+1)G olarak tespit etmiştir. Bu geminin vardiya zabiti olarak hareket tarzınız ne olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "Halihazırdaki rotada seyre devam ederim",
+    "Şamandıranın güneyinden geçecek şekilde yeni bir rotada viyalarım.",
+    "Şamandırayı iskelede bırakarak, sancak taraftaki tercihli kanalda seyrederim.",
+    "Şamandırayı sancakta bırakarak, iskele taraftaki tercihli kanalda seyrederim.",
+    "Şamandıranın kuzeyinden geçecek şekilde yeni bir rotada viyalarım."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Gece şartlarında 000° rotasında seyrederken, pruvanızda gördüğünüz ve ışık karakteristikleri VQ (3) 5s olan yan yana iki fener ile ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Bu şamandıralar; sancak tarafta bırakılarak seyre devam edilmelidir.",
+    "Bu şamandıralar haritada bulunmayan; yeni oluşmuş bir tehlikeyi markalamaktadırlar.",
+    "Bu şamandıralar; iskele tarafta bırakılarak sancak tarafta bulunan, tercihli kanalda seyre devam edilmelidir.",
+    "Bu şamandıralar liman girişini markalamaktadırlar.",
+    "Bu şamandıralar emniyetli suları markalamaktadırlar."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Geçici düzeltmeler ile ilgili olarak aşağıdaki ifadelerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Haritanın sol alt kenarına mürekkepli kalem ile yapılır.",
+    "Haritanın sol alt kenarına kurşun kalem ile yapılır. Yanına (T) kısaltması konur.",
+    "Haritanın orta alt kısmına kurşun kalem ile yapılır.",
+    "Haritanın orta alt kısmına mürekkepli kalem ile yapılır.(T) kısaltması konur.",
+    "Kurşun kalem ile yapılır.Haritanın müsait bir yerine kayıt edilir."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Gel-git akıntılarının en hızlı aktıkları zaman aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yüksek su zamanı (time of HW)",
+    "Alçak su zamanı (time of LW)",
+    "Gel akıntısının bitip, git akıntısının başladığı zaman",
+    "Yüksek su veya alçak su zamanları",
+    "Yüksek su zamanı ile alçak su zamanının ortasına denk gelen zaman"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Gel-git akıntısının denizden karaya doğru olanının bitip, karadan denize doğru olanının başladığı durum aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Ebb Current",
+    "Stand",
+    "Flood Current",
+    "Slack Water",
+    "Menzil"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "Gel-git nedeniyle en fazla su alçalması ayın hangi döneminde meydana gelir?",
+   "gorsel": [],
+   "siklar": [
+    "Yeni ay",
+    "İlk dördün",
+    "Yeniay ile ilk dördün arasında",
+    "Son dördün",
+    "Son dördün ile yeniay arasında"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 20,
+   "soru": "Gel-git’de yüksek su ile alçak su seviyeleri arasındaki yükseklik farkına ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Yüksek su",
+    "Menzil",
+    "Stand",
+    "Neap",
+    "Alçak su Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

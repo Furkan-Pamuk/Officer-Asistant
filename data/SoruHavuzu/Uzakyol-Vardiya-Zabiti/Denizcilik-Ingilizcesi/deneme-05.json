@@ -1,0 +1,256 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-5/",
+ "soru_sayisi": 19,
+ "sorular": [
+  {
+   "no": 2,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "meteorology and first aid",
+    "channels and publications",
+    "navigation and communication",
+    "grounding and towing",
+    "navigation and meteorology"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "signatures",
+    "silence",
+    "signals",
+    "sibilants",
+    "solidarity"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Ship A has Ship C ahead of her so Ship C is ……………. of Ship A.",
+   "gorsel": [],
+   "siklar": [
+    "Ahead",
+    "Astern",
+    "Abeam",
+    "On the bow",
+    "On the quarter"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 5,
+   "soru": "“Ships” in general are classified into the following three types:",
+   "gorsel": [],
+   "siklar": [
+    "warships, merchant vessels, yachts",
+    "passenger ships, merchant vessels, yachts",
+    "warships, fishing vessels, yachts",
+    "passenger ships, auxiliary vessels, yachts",
+    "cargo vessels, merchant vessels, yachts"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Ship’s position can NOT be given in ........................................................",
+   "gorsel": [],
+   "siklar": [
+    "latitude and longtitude",
+    "bearing and distance",
+    "reference to a navigation mark",
+    "rapid and unambigious method",
+    "electronic position – fixing references"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 7,
+   "soru": "Signalling by using hand flags is called .........................................................................................",
+   "gorsel": [],
+   "siklar": [
+    "sophomore",
+    "semiphone",
+    "semaphore",
+    "sphere",
+    "siren"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "announcements",
+    "clarification",
+    "conversation control",
+    "polite statements",
+    "channel switching"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 9,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "negative",
+    "affirmative",
+    "not immediately available",
+    "not proper",
+    "not heard"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Şamandıranın kuzeyinden geçmenizi tavsiye ederim.",
+   "gorsel": [],
+   "siklar": [
+    "Advise you pass East of Mark",
+    "Advise you pass West of Mark",
+    "Advise you pass South of Mark",
+    "Advise you pass North of Mark",
+    "Advise you pass Northeast of Mark"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "kept in a locked drawer on board the ship",
+    "taken to the court by the master himself",
+    "passed to the owner / charterer or their agent",
+    "published in any regional newspaper related with the topic",
+    "checked and corrected by the chief officer."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "",
+   "gorsel": [],
+   "siklar": [
+    "BACD",
+    "ABCD",
+    "DABC",
+    "CDBA",
+    "DBAC"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "The force or speed of a ................ is measured by an anemometer.",
+   "gorsel": [],
+   "siklar": [
+    "precipitation",
+    "hail",
+    "fog",
+    "wind",
+    "pressure"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "The forepeak tank is used to ................................",
+   "gorsel": [],
+   "siklar": [
+    "store fresh water or ballast water.",
+    "store paint, buckets, ropes in.",
+    "divide the vessel into longitudinal subdivisions.",
+    "stow the chain cables of the bower anchors.",
+    "determine the ship’s carrying capacity."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "The four (4) types of merchant vessels are:",
+   "gorsel": [],
+   "siklar": [
+    "Passanger ships—Cargo vessels—Auxiliary vessels—Fishing vessels,",
+    "Warships—Cargo vessels—Auxiliary vessels—Fishing vessels,",
+    "Passanger ships—Yachts—Auxiliary vessels—Fishing vessels,",
+    "Passanger ships—Cargo vessels—Dredgers—Fishing vessels,",
+    "Passanger ships—Cable layers—Auxiliary vessels—Fishing vessels."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "The Gross Tonnage of a ship is .............................................................................",
+   "gorsel": [],
+   "siklar": [
+    "The weight of living spaces and navigational spaces,",
+    "The weight of cargo, passengers and provisions, measured in metric tons,",
+    "The total volume of all closed spaces of a ship in ft³, divided by hundred (100),",
+    "The weight of fuel, fresh water and water tanks in tons,",
+    "The amount of water spilled out by a ship"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "The instruction “to single up” shows …...................................",
+   "gorsel": [],
+   "siklar": [
+    "The ship is ready to leave the quay or berth",
+    "The ship has completed the operation",
+    "The ship has departed",
+    "The ship is underway",
+    "The ship is abandoned"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "The main aim of the Classification Society is ……………………………………",
+   "gorsel": [],
+   "siklar": [
+    "To provide quick and cheap construction of a vessel",
+    "To design a ship",
+    "To put limits on the ship’s dimensions",
+    "To pay for the ship construction",
+    "To observe if the ship is seaworthy and is capable of carrying the corgo she has been designed to carry"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 19,
+   "soru": "The maintenance on board is the responsibility of the ………………… and the men in his charge.",
+   "gorsel": [],
+   "siklar": [
+    "Captain",
+    "Chief officer",
+    "Second officer",
+    "Third officer",
+    "Chief engineer"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 20,
+   "soru": "“The master of every ship carrying hazardous cargo other than in bulk- whether it is, or may be, explosive, flammable, toxic, health- threatening, or environment polluting- shall in organizing safe watch keeping arrangements take full account of the nature, quantity, packing and stowage of the hazardous cargo and of any special conditions on board, afloat and ashore.” Considering this rule, complete the following statement in case the cargo is ………………. , the master must consider ……………………………………………………………. while arranging.",
+   "gorsel": [],
+   "siklar": [
+    "hazardous/ the nature, quantity, packing and stowage of the cargo/ watch keeping",
+    "bulk / explosive, flammable, toxic, health- threatening/ the stowage",
+    "special/ health- threatening or environment polluting/ the full account",
+    "on board/ watch keeping arrangements/ any special conditions",
+    "carried in bulk / any special conditions on board / watch keeping Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

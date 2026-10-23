@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Deniz-Hukuku",
+ "deneme": 1,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-1/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslar arası sözleşmesi (MARPOL 73/78)in EK-l'inde belirtilen petrol ile deniz kirlenmesini önleyici kurallar kaç GRT üzerindeki teknelere uygulanır?",
+   "gorsel": [],
+   "siklar": [
+    "150 GRT altındaki tankerler",
+    "150 GRT üzerindeki kuru yük gemileri",
+    "350 GRT üzerindeki kuru yük gemileri",
+    "400 GRT üzerindeki tüm tekneleri",
+    "500 GRT üzerindeki tüm tekneler"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Petrol tankerlerinde MARPOL 73/78 Ek-1 kapsamındaki yağ kayıt defteri tutma mecburiyeti hangi tonajdan (GRT) itibaren vardır?",
+   "gorsel": [],
+   "siklar": [
+    "150",
+    "300",
+    "400",
+    "500",
+    "600"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "MARPOL 73/78 EK-11 kapsamına göre Dökme Zehirli Sıvı maddeler kaç sınıfa ayrılır?",
+   "gorsel": [],
+   "siklar": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "MARPOL 73/78 gereği gemilerden çıkan pis sularla denizlerin kirlenmesi önlemek amacıyla ÖZEL ALAN olarak ilan edilmiş denizler aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Karadeniz, Baltık",
+    "Kızıl Deniz, Karadeniz",
+    "Akdeniz, Karadeniz",
+    "Basra Körfezi, Karadeniz",
+    "Henüz özel alanlar belirlenmemiştir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Bir yağ boşaltım olasılığı gerektirecek tüm kazalar mutlaka rapor edilmeyi gerektirir. Bu tür kazaların türleri tam yapılamayacağından bu kazalar; çatma, oturma, yangın, patlama, yapısal arıza, su alma, yük kayması şeklinde özetlenebilir. Yukarıdaki bilgilerde yanlış nerede yapılmıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Yağ boşaltım olayı oluşmadan olasılık üzerine rapor verilmez",
+    "Gemi içi her kaza ayrıntıya girilmeden rapor gerektirir",
+    "Yukarıda açıklanan tüm bilgi doğrudur",
+    "Yük kayması hariç bu tür kazalar rapor edilmeyi gerektirir",
+    "Yapısal arızalar ve yük kayması hariç diğerleri rapor gerektirir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Denizde yağ kirliliğini fark eden gemici ilk olarak ne yapmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Hemen SOPEP temizleme kitini kullanır",
+    "Acenteye durumu rapor eder",
+    "Sorumlu vardiya zabitine veya 2. Kaptana veya Baş mühendise olayı rapor eder",
+    "Gemi anons devresinden durumu rapor eder",
+    "Yağ kirliliği acil istasyonu görevli ekibini görece çağırır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerden hangisi hukuken gemide bulunması gereken belgelerden (Borda veya Gemi Evrakı) biri değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi Tastiknamesi veya Bayrak Şahadetnamesi",
+    "Manifesto",
+    "Gemi Sicili",
+    "Yola ve Denize Elverişlilik Belgeleri",
+    "Gemi Jurnali"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Serbest Pratika aşağıdaki kuruluşların hangisinin ilgili biriminden alınır?",
+   "gorsel": [],
+   "siklar": [
+    "Hudut ve Sahiller Sağlık Genel Müdürlüğü",
+    "Denizcilik Müsteşarlığı, Bölge Müdürlükleri",
+    "Liman Başkanlıkları",
+    "Liman İşletme Müdürlükleri",
+    "Deniz polisi yetkilileri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "TTK.817/l'e göre, aşağıdakilerden hangisi \"Denize Elverişlilik\" denetinde dikkate alınmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Can kurtarma ve seyir donanımları, Yangından korunma ve yangın söndürme araçları",
+    "Tekne",
+    "Makine",
+    "Kazan",
+    "Genel donatım"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 10,
+   "soru": "50-500 rusum tonilato arasındaki gemilerin \"Denize Elverişlilik\" denetini yapmaya, aşağıdaki kuruluşların hangisi yetkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Liman Başkanlıkları",
+    "Marmara Bölge Müdürlüğü sörvey kurulu",
+    "Bölge Müdürlükleri Sörvey kurulları",
+    "Yüksek okul mezunu liman başkanlıkları",
+    "Devlet Denetleme Kurulu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "\"Denize Elverişlilik\" belgesinin geçerlik süresi ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "Klas sörveyi tarihine kadar",
+    "Seferlik",
+    "Altı ay",
+    "Üç ay",
+    "Bir yıl"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "\"Yola Elverişlilik\" belgesinin geçerlik süresi ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "Bir yıl",
+    "Seferlik",
+    "Altı ay",
+    "Denize elverişlilik belgesinin geçerlik süresi kadar",
+    "Klas sörveyi tarihine kadar"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Güvenlik Yönetim Sistemi (SMS) fikrinin oluşması dünya denizciliğinin gelişim zincirinin en önemli halkalarından birini oluşturur. Denizcilik tarihinde ilk kez insan faktörü ve teknolojik limitlere kadar gelişen gemi odaklı çözümlerin güvenlik konusunda bilinçli insanlar tarafından uygulanması gerektiği göz önüne alındı. Bu yeni fikir ve oluşumdaki amaç, insan çevre, gemi ve yükün güvenliğini sağlamak için teknoloji, insan ve sistemin uyumunun sağlanmasıdır. Bunu sağlamak için oluşturulan uluslar arası kurallara ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Uluslar arası Güvenlik Yönetimi Kodu (ISM Code)",
+    "Denizde Çatışmayı Önleme Tüzüğü (COLREG)",
+    "Dünya Çalışma Örgütü Kodu (ILO Code)",
+    "MARPOL",
+    "STCW"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "ISM kodunun amacı, gemilerin güvenli yönetilmesi, işletilmesi ve çevre kirliliğinin önlenmesi konularını, ............ Standarda bağlamaktır. Noktalı yere hangisi uygundur?",
+   "gorsel": [],
+   "siklar": [
+    "Değişik",
+    "Yerel",
+    "Ulusal",
+    "Uluslararası",
+    "Şirkete ait"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "ISM Kod'un gereklilikleri aşağıdakilerden hangisine uygulanır?",
+   "gorsel": [],
+   "siklar": [
+    "Büyük gemilere",
+    "Kara ve deniz taşıtlarına",
+    "Denizcilik firmalarına",
+    "Tüm gemilere",
+    "Tüm taşıt araçlarına"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "ISM Kod gereği olarak şirket (donatan) gemilerini, ulusal ve uluslar arası kurallara uygun yeterlikte, gerekli sertifikalara sahip ve ................... gemiadamlarıyla donatmalıdır. Noktalı yerlere uygun olanı bulun.",
+   "gorsel": [],
+   "siklar": [
+    "Tecrübeli",
+    "Çalışkan",
+    "Bayrak devletinin vatandaşı olan",
+    "Sağlıklı",
+    "Sabıkasız"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Uygunluk Belgesi (DOC) hakkında aşağıdakilerden hangisi doğru değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi, bu gemi ile ilgili bir Uygunluk belgesine (DOC) sahip bir şirket tarafından işletilmelidir.",
+    "Uygunluk belgesi (DOC), ISM Kod'un gereklerini yerine getiren her şirket için; İdare veya İdarenin yetki verdiği bir kuruluş tarafından düzenlenmelidir",
+    "Sorulduğunda kaptanın İdareye veya İdare tarafından yetkilendirilmiş kuruluşların doğrulamasına sunabilmesi için, Uygunluk belgesinin (DOC) bir kopyası gemide bulundurulmalıdır",
+    "Şirketin Uygunluk Belgesi (DOC) olmasa dahi, Güvenlik Yönetimi Sertifikası (SMC) gemiye, İdare veya İdarenin yetki verdiği bir kuruluş tarafından verilebilir. Belgenin verilişinde, İdare; şirket veya geminin onaylı Güvenlik Yönetimi Sistemine göre çalıştığını doğrulamalıdır",
+    "İdare veya İdarenin yetki verdiği bir kuruluş, geminin Güvenlik Yönetimi Sistemi'nin onaylandığı şekline uygun olarak işlediğini düzenli aralıklarla doğrulamalıdır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Hangisi kalite terminolajisindeki iç müşteriye örnektir?",
+   "gorsel": [],
+   "siklar": [
+    "Yerli mal kullananlar",
+    "Kendi firmasının ürünlerini satın alanlar",
+    "Kendi firmasının satılmayıp bedavaya dağıtılan defolu ürünlerini alanlar",
+    "Kendi firmasının işçiler için verdiği hizmetlerden ücretsiz yararlanan işçiler",
+    "Taşeron veya yan sanayiden mal veya hizmet alan firmalar"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Hangisi riskin en yakın tanımıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Tehlike",
+    "İstenmeyen bir olay",
+    "İstenmeyen bir olayın olma ihtimali",
+    "Tehlikeli bir durumun belirsizliği",
+    "İnsana veya çevreye zararlı olabilecek her şey"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Deniz Kirliliğini Önleme Acil Planı (SOPEP), MARPOL 73/78 Sözleşmesinin hangi EK'i kapsamında kaç GRT'dan büyük yük gemileri için düzenlenerek gemide bulundurulması gereklidir?",
+   "gorsel": [],
+   "siklar": [
+    "EK-1, 150 GRT",
+    "EK-1,400 GRT",
+    "EK-1V, 150 GRT",
+    "EK-1V, 400 GRT",
+    "EK-V, 400 GRT Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

@@ -4,11 +4,12 @@
 // Turkish lines are dropped. Filled form values (MPX / Pilot Card) are
 // dropped — only blank field labels become "Complete: ..." items.
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const inDir = process.argv[2] ?? "C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\docdump";
+const inDir = process.argv[2] ?? path.join(os.tmpdir(), "opencode", "docdump");
 const outFile = process.argv[3] ?? path.join(here, "..", "src", "lib", "sms-checklists.ts");
 
 const TR_CHARS = /[ğüşöçıİ]/;

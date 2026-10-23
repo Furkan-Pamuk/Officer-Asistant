@@ -1,0 +1,659 @@
+{
+ "rank": "STCW-Temel",
+ "ders": "Kisisel-Can-Kurtarma",
+ "deneme": 1,
+ "kaynak_url": "https://denizcisin.com/index.php/2017/01/27/stcw-soru-denizde-kisisel-can-kurtarma-teknikleri-test-1/",
+ "soru_sayisi": 50,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Filikada iken deniz suyu neden içmemeliyiz?",
+   "gorsel": [],
+   "siklar": [
+    "Daha çok susatır",
+    "Çünkü ishal oluruz",
+    "Deniz suyu kabızlık yapar",
+    "Çünkü deniz suyundaki tuzun vücuttan atılması için vücuttan daha fazlası idrar yoluyla atılır",
+    "Çünkü deniz suyu tuzludur"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Hipotermi nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Ruhsal bir hastalık",
+    "Kalbin aşırı hızlı atması",
+    "Vücut ısısının normalin altına düşmesi",
+    "Vücut ısısının aşırı artması",
+    "Bir çeşit şiddetli baş ağrısı"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerden hangisi can sallarında gemiyi terkten hemen sonra yapılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yaralılar ve hastalara ilkyardım yapılır",
+    "Deniz tutmuş olanlara deniz hapı verilir",
+    "Gemiden uzaklaşılır.",
+    "Gözcü konularak gece dinleme yapılır",
+    "Telsiz cihazı varsa çalıştırılır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Gemiyi terk edip can salına bindiniz. Sal tam olarak şişince emniyet valfından gelen bir tıslama sesi işitince ne yaparsınız?",
+   "gorsel": [],
+   "siklar": [
+    "Salın havasını indirme tapasını gevşetirim",
+    "Emniyet valfını tıkaçla tıkarım",
+    "Emniyet valfını kapatırım",
+    "Emniyet valfını çıkartır, yerine yama yaparım",
+    "Bu ses uzun bir süre devam etmedikçe telaşa kapılmam"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Denize adam düştüğünde aşağıdakilerden hangisi ilk yapılacak hareketlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Derhal kaptana haber verilir",
+    "Dümen kazazede tarafına alabandaya basılır",
+    "Makineler stop edilir",
+    "Kazazedeye ışıklı ve duman kandilli can simidi atılır",
+    "Hepsi doğru"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 6,
+   "soru": "Can salına binilince hemen deniz tutması hapı içilmesinin nedeni ne olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Can salındaki yaşantımıza problemsiz alışmamız için",
+    "Mide bulanıp kusmayı önlemek için",
+    "Açlığımızı bastırmak için",
+    "Moralimizi yükseltmek için",
+    "Denizin çalkantısına alışmak"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Can yeleklerine takılan ışıkların aydınlatma gücü en az ne kadar olmalı ve en az ne kadar süre bu gücü sağlamalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "1,5 mum- 6 saat",
+    "1 mum- 7 saat",
+    "2 mum- 4 saat",
+    "3,5 mum- 12 saat",
+    "0,75 mum- 8 saat"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 8,
+   "soru": "Can salları ve filikalarda kişi başı günlük kaç litre su bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "0,75 lt",
+    "0,5 lt",
+    "1,5 lt",
+    "1 lt",
+    "0,25 lt"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Suda vücut sıcaklığı düştükçe oksijen ve besin alma ihtiyacı azalacağından bu durum hangi hayati organlara biraz daha koruma sağlar?",
+   "gorsel": [],
+   "siklar": [
+    "Akciğer-karaciğer",
+    "Akciğer",
+    "Böbrek ve akciğer",
+    "Kalp ve beyin",
+    "Hepsi doğru"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Bir insan hiç su içmeden ne kadar süre yaşayabilir?",
+   "gorsel": [],
+   "siklar": [
+    "7 gün",
+    "25 gün",
+    "3 gün",
+    "10 gün",
+    "30 gün"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 11,
+   "soru": "240 metre tam boya sahip bir yolcu gemisinde toplam en az kaç adet can simidi bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "18 adet",
+    "24 adet",
+    "30 adet",
+    "15 adet",
+    "12 adet"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Boyu 115 metre olan bir yolcu gemisinde toplam en az kaç adet can simidi bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "12 adet",
+    "15 adet",
+    "14 adet",
+    "8 adet",
+    "10 adet"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdaki bilgilerden hangisi bir tehlike mesajının içeriği değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Personelin uyruğu",
+    "Geminin mevkii",
+    "Tehlikenin ve istenen yardımın niteliği",
+    "Geminin kimliği",
+    "Kurtarma işleminin kolaylaştıracak bilgiler"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Suya dalış giysisi (immersion suit) nin 0o sıcaklıktaki deniz suyunda kurtarılmayı bekleyen bir kazazedeye ne gibi bir faydası vardır?",
+   "gorsel": [],
+   "siklar": [
+    "Bu sıcaklıkta yüzdürme etkisi yalnızca 5 saattir, daha sonra batar.",
+    "Giyen kişinin vücut ısısının 6 saat sonra en fazla 2 derece ısı kaybına uğramasını sağlar",
+    "Isı yalıtımı ancak 10 derece su sıcaklığına kadar dayanır.",
+    "Bu sıcaklıktaki suda bu elbiseylke günlerce kalabilir, hiç üşümez",
+    "Bu giysi 0 derece sıcaklıkta bir işe yaramaz."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Can yeleği giyinmiş olarak suya atlamak zorunda kalınırsa, atlama usulü hangisi olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Balıklama",
+    "Çömlekleme",
+    "Çivileme ve kollar yana açılarak",
+    "Sırt üstü",
+    "Çivileme ve bir elle ağız ve burnu kapatarak"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Immersion suit (suya dalış giysisi) hakkında aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiyi terk ederken bu elbise yürüme, merdiven tırmanma ve yerden eğilip bir şey alabilme gibi vücut hareketlerine müsaade eder",
+    "Bu elbiseyi ancak iyi yüzme bilenler giyebilir. Yüzme bilmeyenlerin bununla su üzerinde kalabilmesi çok zordur",
+    "Bu elbise vücut ısısını içerde tutar ve hipotermiye karşı haftalarca koruma sağlar",
+    "Bu elbise ateşe dayanıklıdır ve giyen kişiyi suda yanan yağların arasında yüzerken alevlerden korur",
+    "Bu elbise kişinin hareket kaabiliyetini çok ciddi şekilde kısıtladığından dolayı ancak gemiyi terkten saniyeler önce giyilmelidir."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Suya dalış giysisi (immersion suit) giyinmiş olarak- elbisenin hasar görmemesi için- en fazla ne kadar yükseklikten suya atlanabilir?",
+   "gorsel": [],
+   "siklar": [
+    "4.5 metre",
+    "6 metre",
+    "yükseklik önemli değildir",
+    "2 metre",
+    "10 metre"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Gemiden can yeleğiyle suya atladıktan sonra ilk yapılacak iş hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiden derhal 50 metre kadar uzaklaşmak",
+    "Derhal gemiden 1000 metre açılmak",
+    "Gemiden hemen 150 metre kadar uzaklaşmak",
+    "Gemiden 10 metre uzaklaşmak",
+    "Gemiden derhal 500 metre uzaklaşmak"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Kışın Kuzey Denizi'nde batan bir gemiden denize atlayan bir kazazede için en büyük tehlike hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Susuzluk",
+    "Boğulma",
+    "Hipotermi",
+    "Moral bozulması",
+    "Açlık"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Can yeleği giymiş vaziyette en fazla kaç metre yükseklikten denize atlamak gerekir?",
+   "gorsel": [],
+   "siklar": [
+    "4,5 metre",
+    "15 metre",
+    "5,5 metre",
+    "3 metre",
+    "10 metre"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 21,
+   "soru": "280 metre tam boya sahip bir dökme yük gemisinde toplam en az kaç adet can simidi bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "15 adet",
+    "10 adet",
+    "8 adet",
+    "12 adet",
+    "14 adet"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 22,
+   "soru": "Can filikası veya Can Salına bindikten sonra ilk olarak ne zaman gıda alınmalı veya su içilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "48 saat içersinde",
+    "İlk anda biraz gıda ve su alınmalı, sonra 48 saat dolunca tekrar alınmalıdır",
+    "24 saat sonra",
+    "6 saat sonra",
+    "12 saat sonra"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 23,
+   "soru": "Denize düşen adamı pervaneden sakınmak için hangi manevra yapılır?",
+   "gorsel": [],
+   "siklar": [
+    "Pervane durdurulur ve dümen adamın düştüğü tarafa alabanda basılır",
+    "Pervane tornistan çalıştırılır ve dümen adamın düştüğü tarafa alabanda basılır.",
+    "Geminin sürati arttırılır, dümen viyada tutulur",
+    "Pervane durdurulur",
+    "Pervane durdurulur ve dümen adamın düştüğü tarafın tersine basılır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 24,
+   "soru": "Boyu 115 metre olan bir yük gemisinde toplam en az kaç adet can simidi bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "15 adet",
+    "8 adet",
+    "14 adet",
+    "12 adet",
+    "10 adet"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 25,
+   "soru": "Kurtarma botlarına ilişkin hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "En az 5 oturan 1 yatan kişiyi taşıyabilir.",
+    "Yolcu gemilerinde 500 GRT'ye kadarbir adet, 500 GRT'den büyüklerde",
+    "Makinası dıştan takmalıdır",
+    "Her yük gemisinde bir kurtarma botu çalışacaktır",
+    "4 saat süreyle seyretmelidir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 26,
+   "soru": "Denize adam düşmede uygulanması gereken manevra hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Willamson dönüşü yapmak",
+    "Sancak tarafa 15 derecelik bir açıyla dümen basmak",
+    "Tornistan vermek",
+    "Dümeni adamın düştüğü tarafın aksi yönüne alabandaya basmak",
+    "Holger Nıelsen manevrası yapmak"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 27,
+   "soru": "Can simitlerinin dış çapı en fazla ne kadar olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "65 cm",
+    "40 cm",
+    "80 cm",
+    "50 cm",
+    "90 cm"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 28,
+   "soru": "Gemiyi terkten sonraki ilk 24 saat içersinde can salında su içilmemesi veya çok az içilmesi nedendir?",
+   "gorsel": [],
+   "siklar": [
+    "İçilen su heyecan ve terle tekrar hemen vücuttan dışarıya atılacağı için",
+    "Çünkü içilen suyun çoğu vücut tarafından tam olarak emilmeden idrarla dışarı atılır",
+    "İçilen su deniz tutmasını tetikleyebilir",
+    "Su içmezsek midemiz bulanmaz",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 29,
+   "soru": "Gemiyi terkten sonraki ilk 24 saat içersinde can salında içtiğiniz su nasıl bir etki yapar?",
+   "gorsel": [],
+   "siklar": [
+    "5 saat boyunca zinde tutar",
+    "Yorgunluğu önler",
+    "Vücut tarafından fazla emilmeden vücuttan tekrar dışarıya atılır",
+    "Deniz tutmasını önler",
+    "Sadece iki saatliğine susuzluğu giderir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 30,
+   "soru": "Boyu 167 metre olan bir yük gemisinde en az kaç adet can simidi bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "14 adet",
+    "12 adet",
+    "8 adet",
+    "10 adet",
+    "15 adet"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 31,
+   "soru": "Denize düşen adama kırlangıçtan atılan can simidine bağlı olan ışıklı şamandıra (MOB) en az ne kadar süre boyunca portakal renkli duman çıkarır?",
+   "gorsel": [],
+   "siklar": [
+    "10 dakika",
+    "5 dakika",
+    "15 dakika",
+    "40 saniye",
+    "3 dakika"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 32,
+   "soru": "Köprü üstünde vardiyada iken \"Sancak bordadan denize adam düştü!\" diye işitirseniz ne yapmalısınız?",
+   "gorsel": [],
+   "siklar": [
+    "Dümeni sancak 5 derece yaparım",
+    "Dümeni sancak alabandaya basarım",
+    "Dümeni iskele alabandaya basarım",
+    "Dümeni ortalarım",
+    "İlk olarak, adamın düştüğü yeri markalamak için bir can simidini denize atarım"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 33,
+   "soru": "Bir gemide kaç adet can simidi yüzer halatla donatılmış olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "1 adet",
+    "en az 2 adet",
+    "en fazla 4 adet",
+    "en az 3 adet",
+    "5 adet"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 34,
+   "soru": "Gemi battıktan sonra eğer birden fazla sayıda can salında kazazedeler denizde kaldıysa ne yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Arama kurtarma uçaklarının bulma şansını çoğaltmak için can salları etrafa yayılmalıdır",
+    "Her bir can salı karayı bulmak için değişik yöne gitmelidir",
+    "Tüm kazazedelerin bir arada olması için hepsi tek bir can salına alınır",
+    "Tüm can sallarını bir araya toplayıp birbirlerine bağlanarak bir grup halinde kalmalıdır",
+    "Kazazedeleri bir veya iki sala toplayıp, fazla salları batırmak gerekir"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 35,
+   "soru": "100 metreden kısa olan yük gemileri en az kaç tane can simidi taşıyacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "8",
+    "4",
+    "6",
+    "10",
+    "12"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 36,
+   "soru": "Bir insan normal vücut sıcaklığının altında bir ısıya sahip olan suya girdiğinde kaçınılmaz olarak hipotermiye uğrar. Bu olayın hızı aşağıdakilerden hangisine bağlıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Isı farkı",
+    "Giysilerin sağladığı yalıtım",
+    "Fiziksel davranış ve kişinin su içersinde aldığı duruş biçimi",
+    "Kişinin sudaki hareket miktarı",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 37,
+   "soru": "Bir gemide kaç adet can simidi kendiliğinden yanan ışıkla donatılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "toplam can simitlerinin % 60 ı.",
+    "2 adet",
+    "8 adet",
+    "Toplam can simitlerinin en az yarısı",
+    "4 adet"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 38,
+   "soru": "Can Salı ve can filikasında kişi başına kaç gramlık kuru gıda (yiyecek) bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "200 gram",
+    "300 gram",
+    "1000 gram",
+    "500 gram",
+    "1500 gram"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 39,
+   "soru": "Isıl koruma yardımcısı (TPA) nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Şirket tarafından kışın gönderilen ve yazlık tulumlara göre daha kalın olan tulum",
+    "Köpek balıklarının bulunduğu denizde gemi batarken gemiden suya girişte kullanılan bir çeşit özel tulumdur",
+    "Sadece üstü açık can filikasında giyilen ve bizi yağmurdan ve güneşten koruyan bir giysidir.",
+    "Gemiyi terk durumunda filika veya can salı içinde soğuktan korunmak için giyilen ısı koruyucu bir çeşit tulumdur ve bununla denize atlarsak batmayız.",
+    "Can filikası veya can salında iken ısımızı korumak maksadıyla içine girdiğimiz bir çeşit torba/tulumdur"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 40,
+   "soru": "Açık denizde seyir durumunda olan büyük bir gemide, güvertede yüzer iple donatılmış bir can simidinin taşındığı yerden su hattına kadar olan mesafe 17 metredir. Bu yüzer halatın uzunluğu en az ne kadar olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "17 metre",
+    "34 metre",
+    "30 metre",
+    "20 metre",
+    "25 metre"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 41,
+   "soru": "Soğuk su içersinde canlı kalabilme açısından, gemilerde bulunan en önemli kişisel can kurtarma ekipmanı hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Can simidi",
+    "Suya dalış giysisi (immersion suit)",
+    "Can yeleği",
+    "Isıl koruyucu tulum (TPA)",
+    "Dalgıç giysisi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 42,
+   "soru": "Can simidi ile beraber kullanılan, kendiliğinden yanmaya başlayan ışıklar en az kaç mumluk güçte olacak ve en az ne kadar süre ile bu ışığı verecektir?",
+   "gorsel": [],
+   "siklar": [
+    "1,5 mum- 8",
+    "2 mum- 4 saat",
+    "2 mum- 2 saat",
+    "3,5 mum- 6 saat",
+    "6 mum- 12 saat"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 43,
+   "soru": "Can Salı ve can filikasında bulunan kuru gıda (yiyecek) lar kişi başına en az ne kadar enerji verir?",
+   "gorsel": [],
+   "siklar": [
+    "2000 Kilojul",
+    "5000 Kilojul",
+    "10000 Kilojul",
+    "1500 Kilojul",
+    "15000 Kilojul"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 44,
+   "soru": "Bir insan hiç yemek yemeden ne kadar süre yaşamının devam ettirebilir?",
+   "gorsel": [],
+   "siklar": [
+    "15 gün",
+    "7 gün",
+    "30 gün",
+    "20 gün",
+    "45 gün"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 45,
+   "soru": "Gemiyi terkte, soğuk suya atlayarak birden girildiğinde karşılaşılan soğuk şokunun tehlikesi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Şokun neden olduğu nefes tutulması ve nefes düzensizliği neticesinde su yutarak boğulma",
+    "Hipotermi oluşması",
+    "Kalp kasının soğuktan çalışamaması ve dolaşımın durması",
+    "vücut birden soğur",
+    "Şokun neden olduğu kramplar nedeniyle yüzememe"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 46,
+   "soru": "Sudaki bir kazazedenin donarak ölmemesi için hangi önlemi alması gerekir?",
+   "gorsel": [],
+   "siklar": [
+    "sırt üstü yatar vaziyette sakin durmalıdır",
+    "Yüzmeye çalışmalıdır",
+    "Ayaklarını karnına çekerek durmalıdır",
+    "Immersion suit giymiş olmalıdır",
+    "Devamlı olarak hareket etmelidir"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 47,
+   "soru": "Geminiz süratle batıyor ve siz can yeleği ile sudasınız. Hidrostatik serbest kalma mekanizması çalışan bir can salı konteynerinin birden su yüzüne çıktığını gördünüz. Ne yapmalısınız?",
+   "gorsel": [],
+   "siklar": [
+    "Konteyneri elle açıp, Salı içinden çıkartırım",
+    "Bir şey yapmadan beklerim çünkü parima biraz sonra salın şişmesini ve konteynerin açılmasını sağlayacaktır",
+    "Hemen konteynerin parima halatını keserim ki sal gemiyle birlikte dibe gitmesin",
+    "Konteyner dibe giderken beni de çekmemesi için yüzerek uzaklaşırım",
+    "Konteyneri elle açıp, el pompasıyla Salı şişiririm"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 48,
+   "soru": "Can simitlerine takılan yüzer halatın uzunluğu en az ne kadar olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "25 metre",
+    "30 metre",
+    "15 metre",
+    "10 metre",
+    "20 metre"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 49,
+   "soru": "Can filikasında bulunan herkesin eşit miktarda su içmesini nasıl sağlayabiliriz?",
+   "gorsel": [],
+   "siklar": [
+    "Dereceli su içme kabını kullanarak",
+    "Herkese ayrı bardak vererek",
+    "Suyu kepçe ile dağıtarak",
+    "Aynı büyüklükteki bardaklardan herkese birer tane dağıtarak",
+    "Hiçbiri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 50,
+   "soru": "Man Over Board (MOB) olarak kullanılan can simitleri en az kaç kilo ağırlıkta olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "4",
+    "5",
+    "2",
+    "3",
+    "6"
+   ],
+   "cevap": 1
+  }
+ ]
+}

@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 4,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-4/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Donatanın sınırlı sorumluluğu denince ne anlaşılır?",
+   "gorsel": [],
+   "siklar": [
+    "Donatanın sorumluluğunun taahüt ettiği sermaye ile sınırlandırılması",
+    "Donatanın sorumlu olacağı hallerin belirlenmesi",
+    "Donatanın sorumlu olacağı kişilerin belirlenmesi",
+    "Donatanın sorumluluğunun takip safhasındaki sınırlarının belirlenmesi",
+    "Donatanın sorumluluğunun şirketteki hissesi oranında sınırlandırılması"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Donatanın sorumluluğu ile ilgili TTK.md.947, aşağıdakilerden hangisini kapsar?",
+   "gorsel": [],
+   "siklar": [
+    "Taşıyanın, gemiadamlarının kusurundan doğan sorumluluğunun dışında olmak kaydıyla yükle ilgililere karşı sorumluluğu",
+    "Taşıyanın, gemiadamlarının kusurundan doğan sorumluluğunun üzerinde olmak kaydıyla yükle ilgililere karşı sorumluluğu",
+    "Taşıyanın, gemiadamlarının kusurundan doğan sorumluluğu derecesinde olmak kaydıyla yükle ilgililere karşı sorumluluğu",
+    "Taşıyanın sorumlu olmadığı bir zarardan dolayı doğan sorumluluğu",
+    "Taşıyanın sorumluluk limitleri dışında kalan zararlardan sorumluluğu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Donatma iştiraki aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Birden çok kişi müşterek mülkiyet şeklinde malik oldukları bir gemiyi aralarında yapmış oldukları bir sözleşme gereğince tümünün nam ve hesabına deniz ticaretinde kullanmalı.",
+    "Donatan bir şahıs olmayıp bir şirket olmalı",
+    "Donatan birden fazla kişi olmalı",
+    "Donatanın bir şirket olmalı ve bu şirketin hisse senetlerinin hamiline yazılı olmalı",
+    "Donatanın bir şirket olmalı ve bu şirketin hisse senetlerinin nama yazılı olmalı"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Gemi adamları hizmet mukavelesinde aşağıdakilerden hangisi zorunlu değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yazılı olması",
+    "İşverenin adının yer alması",
+    "Gemi adamlarının adının yer alması",
+    "Sözleşmenin yapıldığı yer ve tarih",
+    "Kefilin adı ve adresi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Gemi adamlarının ücretlerini alamamaları ve talep etmeleri durumunda gemi üzerinden imtiyazlı olarak alabilmeleri hakkına ne denilmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "Yük alacaklısı hakkı",
+    "İşçi alacaklısı hakkı",
+    "İşveren alacaklısı hakkı",
+    "Deniz alacağı hakkı",
+    "Gemi alacaklısı hakkı"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Gemi herhangi bir sebeple seferden, …………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "30 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "20 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "15 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "35 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "40 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Gemi mecburi kılavuz tarafından sevk edilirken onun kusurundan ileri gelen çatmadan kim sorumludur?",
+   "gorsel": [],
+   "siklar": [
+    "Donatan",
+    "Kılavuz",
+    "Taşıyan",
+    "Sorumluluk donatan ile kılavuz arasında paylaştırılır",
+    "Liman Başkanlığı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "Gemi ve deniz ile ilgili aşağıdaki harç ve resimlerden hangisi liman başkanlıklarınca alınmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yola Elverişlilik belgesi harcı",
+    "Gemi Tasdikname harcı",
+    "Ölçme Belgesi harcı",
+    "Denize Elverişlilik belgesi harcı",
+    "Liman işgal resmi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Gemide işin bir haftadan fazla süreyle tatil edilmesini gerektiren zorlayıcı sebepler ortaya çıktığında bu süreye rastlayan hafta tatili ücreti ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "Tam gün",
+    "10 saat karşılığı",
+    "2 gün",
+    "Yarım gün",
+    "1,5 gün"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Geminin “Bağlama Limanı” aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Seferlerinin idare olunduğu liman",
+    "Sefer sonu bağlandığı liman",
+    "Tescil edildiği liman",
+    "Denize indirildiği liman",
+    "Devamlı bakım ve onarımlarının yapıldığı liman"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 11,
+   "soru": "Hizmet sözleşmesi sırasında gemi adamı ölürse aşağıdakilerden hangisi olmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Hizmet sözleşmesi sona erer",
+    "Tazminat hakları sona erer",
+    "Tazminat hakları mirasçılarına geçer",
+    "Yargıtay’a göre işçi kusurlu davranışıyla kendi ölümüne neden olması durumunda bu bir haklı nedenle fesih sebebi teşkil ettiği taktirde mirasçılarına tazminat ödenmez",
+    "Kıdem tazminatı mirasçılarına ödenir"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 12,
+   "soru": "Hizmet sözleşmesinden alacağın temini için açılacak davalarda zamanaşımı hususunda aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Türk Ticaret Kanunu md 1235 gereği açılan davalarda zamanaşımı 2 yıldır",
+    "Türk Ticaret Kanunu md 1235 gereği açılan davalarda zamanaşımı 1 yıldır",
+    "Türk Borçlar Kanunu md 126 gereği açılan davalarda zamanaşımı 5 yıldır",
+    "Türk Borçlar Kanunu genel olarak 10 yıllık zamanaşımı öngörmüştür",
+    "Deniz İş Kanununda zamanaşımı süresi hususunda açıklık bulunmamaktadır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "İş Kanunu açısından aşağıdakilerin hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz ve hava taşıma işlerinde çalışanlara İş Kanunu kuralları uygulanmaz",
+    "Deniz ve hava taşıma işlerinde çalışanlara İş Kanunu kuralları uygulanır",
+    "Kıyılarda gemilerden karaya ve karadan gemilere yapılan yükleme ve boşaltma işlerinde çalışanlara İş Kanunu uygulanır",
+    "Limanlarda gemilerden karaya ve karadan gemilere yapılan yükleme ve boşaltma işlerinde çalışanlara İş Kanunu uygulanır",
+    "Balık avcılığı işi ile uğraşan kimseler mahkeme içtihatlarına göre İş Kanunu hükümlerinden yararlanır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "İşveren işçiyi kötü niyetli olarak işten çıkarırsa ……………………………………………………………",
+   "gorsel": [],
+   "siklar": [
+    "2 aylık tazminat",
+    "6 aylık tazminat",
+    "6 aylıktan az olmayan tazminat",
+    "1 yıllık tazminat",
+    "1 yıllıktan az olmayan tazminat ödemek durumunda kalır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "İşveren sendikalı ve sendikasız işçiler arasında aşağıdakilerden sadece biri hususunda takdir hakkını haizdir.",
+   "gorsel": [],
+   "siklar": [
+    "İşin sevk ve dağılımında ayırım yapabilir",
+    "İşin ücretinde ayırım yapamaz",
+    "Mesleki ilerlemede ayırım yapamaz",
+    "Sosyal yardımlarda ayırım yapamaz",
+    "İşe son verilmesinde ayırım yapamaz"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "Kaptanın kanuni temsil yetkisi’ni aşağıdakilerin hangisi kapsar?",
+   "gorsel": [],
+   "siklar": [
+    "Donatanı, taşıyanı, yükü ve yük ilgililerini temsil",
+    "İşveren vekili olarak sadece donatını temsil",
+    "İşveren vekili olarak sadece donatanı ve donatma iştirakini temsil",
+    "Taşıyanı tüm yük ilgilerine ve konişmento hamillerine karşı temsil",
+    "Emrindeki gemi adamlarını temsil"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Kıdem tazminatı Deniz İş Kanununa tabi gemi adamlarının hizmet akitlerinin ……………………………….",
+   "gorsel": [],
+   "siklar": [
+    "İşveren tarafından bu kanunun 14. maddesinin 1. bendinde gösterilen sebepler dışında",
+    "Gemi adamı tarafından bu kanunun 14. maddesinin 2. ve 3. bentleri uyarınca",
+    "Muvazzaf askerlik hizmeti dolayısıyla",
+    "Bağlı bulundukları kanunla kurulu kurum veya sandıklardan yaşlılık, emeklilik veya malüllük aylığı yahut toptan öde-me almak amacıyla",
+    "İşveren tarafından bu kanunun 14 üncü maddesindeki sebepler dahilinde feshedilmesi durumunda işçi kıdem tazmi-natına hak kazanır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Kıdem tazminatında gecikme faizi ne kadar olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "%30",
+    "%10",
+    "Mevduata uygulanan en yüksek faiz",
+    "Bankalararası en yüksek faiz",
+    "TÜFE enflasyon oranı"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "Konşimento aşağıdakilerden hangisi arasındaki hukuki ilişkilerde esas tutulmaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "Taşıyan ile taşıtan",
+    "Donatan ile taşıyan",
+    "Taşıyan ile yükleten",
+    "Taşıyan ile gönderilen",
+    "Taşıtan ile donatan"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Konişmentoda taşıyanın adı gösterilmemişse kim taşıyan sayılmaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "Donatan",
+    "Yükleten",
+    "Taşıtan",
+    "Taşıyan",
+    "Gönderilen Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

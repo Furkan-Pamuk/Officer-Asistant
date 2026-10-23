@@ -1,0 +1,230 @@
+{
+ "rank": "Vardiya-Zabiti",
+ "ders": "Seyir",
+ "deneme": 4,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Vardiya_Zabiti/Seyir/Deneme_Sinavi-4/",
+ "soru_sayisi": 17,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Büyük daire seyri problemlerinin çözümünde göksel seyir kısa yol cetvelleri kullanıldığında, göksel seyir bilinenleri ile bilinmeyenleri yerine büyük daire seyri bilinenleri ile kullanılır. Aşağıda verilen eşleşmelerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "LHA yerine d.long",
+    "Dec. yerine Lat2",
+    "Semt yerine kalkış rota açısı",
+    "Hesabi yükseklik yerine mesafe",
+    "Lat yerine Lat1"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Büyük daire seyrinin Göksel Seyir Cetvelleri ile çözümünde aşağıdaki eşleşmelerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "LHA yerine d.long",
+    "Dec. yerine Lat2",
+    "Semt yerine kalkış rota açısı",
+    "Hesabi yükseklik yerine mesafe",
+    "Lat yerine Lat1"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 3,
+   "soru": "Cayro hatası 2° W olan bir geminin hakiki 110° rotasına gitmek için cayro ile rotası ne olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "126°",
+    "127°",
+    "128°",
+    "129°",
+    "130°"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Cayro pusula hatalarından enlem hatasında, enlemdeki değişme ne kadar olunca düzeltme uygulanır?",
+   "gorsel": [],
+   "siklar": [
+    "2°",
+    "3˚",
+    "5˚",
+    "10˚",
+    "6˚"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 6,
+   "soru": "Cayro pusula ile 016° rotasına ilerlerken cayro arızalanmıştır. Bölge’de Var 2°E ve bu rotada Dev 6°E olduğuna göre manyetik pusula ile kaç rotasına seyretmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi 050 rotasına 10 mil hız ile seyrederken",
+    "Gemi 025 rotasına 10 mil hız ile seyrederken",
+    "Gemi 090 rotasına 15 mil hız ile seyrederken",
+    "Gemi 090 rotasına 10 mil hız ile seyrederken",
+    "Gemi 130 rotasına 10 mil hız ile seyrederken"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Cayro pusulalarda; birbirine dik üç ayrı eksen etrafında hareket serbestiyetine sahip olan, yüksek devirle dönen ve ağırlığı çevresinde balans edilmiş elemana verilen isim aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Fantom element (Gölge eleman)",
+    "Spider element (Örümcek eleman)",
+    "Hassas element (Duyarlı bölüm)",
+    "Cayro döndürme sistemi",
+    "Düşey çember"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Cayro pusulalarda; fantom element ile hassas elementi taşıyacak şekilde imal edilen kısma verilen isim, aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Fantom element (Gölge eleman)",
+    "Spider element (Örümcek eleman)",
+    "Hassas element (Duyarlı bölüm)",
+    "Cayro döndürme sistemi",
+    "Düşey çember"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 10,
+   "soru": "CE 3°45′W ve bölgedeki Var :1°30'E ise manyetik pusuladaki “deviation” miktarı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "5° 15′E",
+    "2° 15′E",
+    "2° 15′W",
+    "5° 15′W",
+    "3° 35′W"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Demir yeri kontrolunda en sıhhatli mevki koyma yöntemi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Bir transit bir kerteriz ile",
+    "Bir transit bir mesafe ile",
+    "Aynı maddenin bir kerteriz bir mesafe ile",
+    "Sextant ve Station Pointer ile",
+    "Sextant ile"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Deniz dibinin taşlık olduğunu gösteren sembol aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Rk.S.",
+    "St.",
+    "M.",
+    "Rky.",
+    "St.M"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Denizde hareket halindeki bir geminin süratini ölçen ve katettiği mesafeyi gösteren seyir yardımcı aletleri aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "İskandil",
+    "Stadimetre",
+    "Parakete",
+    "Sextant",
+    "Station Pointer"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Devamlı olarak 190° hakiki rotasına seyreden bir geminin başlangıçta manyetik pusula ile cayro pusulası arasındaki fark 4° iken giderek bu fark büyümeye başlamıştır. Bunun nedenleri aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Tabii sapmanın değişmesi",
+    "Yapay sapmanın değişmesi",
+    "Enlemlerin değişmesi",
+    "Tabii ve yapay sapmanın değişmesi",
+    "Tabii ve yapay sapma ile enlemlerin değişmesi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "Diferansiyel GPS’in işlevine aşağıdakilerden hangisi en uygundur?",
+   "gorsel": [],
+   "siklar": [
+    "Gemilerin GPS alıcılarının ölçtüğü değerlere uygulanacak kerteriz düzeltmelerini yayımlayan istasyonlardır.",
+    "Gemilerin GPS alıcılarının ölçtüğü değerlere uygulanacak uzaklık düzeltmelerini yayımlayan istasyonlardır.",
+    "İstendiğinde gemilerin mevkilerini kendilerine bildiren istasyonlardır.",
+    "Uydulardan gelen dalgaların faz farklarını ölçerek mevki bulan GPS alıcısıdır.",
+    "Uydulardan gelen dalga atımlarının (palslarının) varış zamanları arasındaki farka dayanarak geminin mevkiini bulan gemideki GPS alıcısıdır."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Doppler Paraketeler ile ilgili olarak aşağıdaki ifadelerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "200 metreden daha derin sularda, doppler paraketelerin çoğu otomatik olarak su (water track) konumuna geçerler.",
+    "Hata oranı yüksektir",
+    "Parakete kılıcı üzerinden akan suyun oluşturduğu manyetik alan ile sürat ölçerler.",
+    "Doppler paraketelerde ses baş tarafta bulunan vericiden yayınlanır ve kıç tarafta bulunan alıcı tarafından alınırlar.",
+    "Parakete kılıcı sürtünme etki alanı dışındadır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Dünyanın bünyesinde meydana gelen mıknatıslanma nedeniyle pusulamızda meydana gelen sapmaya ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Tabii sapma denir, (D) kısaltması ile gösterilir.",
+    "Tabii sapma denir, (V) kısaltması ile gösterilir.",
+    "Arızi sapma denir, (D)kısaltması ile gösterilir.",
+    "Arızi sapma denir, (V) kısaltması ile gösterilir.",
+    "Pusula hatası"
+   ],
+   "cevap": null
+  },
+  {
+   "no": 18,
+   "soru": "Düşey sekstant açısı ile bir fenerin yükseklik açısı ölçülürken aşağıdaki işlemlerden hangisini yapmak yanlış olur?",
+   "gorsel": [],
+   "siklar": [
+    "Yıldız teleskopu takılır.",
+    "Uzade kolu 0’a alınır.",
+    "Önce fenerin üstüne direk olarak bakılır.",
+    "Sekstant aşağı doğru çevrilirken uzade kolu sabit tutulur.",
+    "Fenerin üstü deniz seviyesine indirilir ve sonra derece okunur."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Düşey şeritler halinde boyanmış şamandıranın haritadaki sembolü altındaki “RW” gibi kısaltmalar hangi düzene göre yazılmıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Transver Mercator",
+    "Obliq",
+    "Ekvatoryal Mercator",
+    "Lambert",
+    "Konik Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 4
+  }
+ ]
+}

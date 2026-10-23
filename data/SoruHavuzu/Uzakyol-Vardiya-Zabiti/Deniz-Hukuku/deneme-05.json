@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-5/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Liman seferini aşağıdakilerden hangisi tanımlar?",
+   "gorsel": [],
+   "siklar": [
+    "İdari bölge, sınırları belli limanlar içinde yapılan seferlerle, sınırları belli olmayan limanlarda merkez iskeleden 30 mil açılmadan yapılan seferler.",
+    "Yüz mil ile sınırlı bölge, en yakın kıyı noktasından on milden çok açılmadan ve kalkma limanının merkez iskelesin-den 100 milden fazla uzaklaşmadan yapılan seferler.",
+    "Yüz mil ile sınırlı bölge, en yakın kıyı noktasından yirmi milden çok açılmadan ve kalkma limanının merkez iskelesin-den 100 milden fazla uzaklaşmadan yapılan seferler.",
+    "İdari bölge, sınırları belli limanlar içinde yapılan seferlerle, sınırları belli olmayan merkez iskeleden 20 mil açılmadan yapılan seferler.",
+    "Sınırları belirli limanlar içinde yapılan seferler."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": "Müşterek avaryanın doğrudan doğruya sonucu olan zarar ve masraflar, kurtarılan gemi yük ve navlun arasında değerleri oranında paylaştırılır. Bu paylaşmayı ve hesaplaşmayı gösteren belge veya rapor aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "M/A zarar hesabı",
+    "Manifesto",
+    "M/A hesap cetveli",
+    "Dispeç",
+    "M/A Garame nispeti"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 3,
+   "soru": "Müşterek kusurlu çatmada can zararlarından sorumluluk ne şekilde tezahür etmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "Donatanlar zarar görene karşı müteselsilen sorumludur",
+    "Donatanlar kusurlarının ağırlığı ölçüsünde sorumludur",
+    "Kusuru fazla olan gemi donatanı zararı tazmin eder",
+    "Donatanlar eşit olarak zararın tazmini yoluna giderler",
+    "Herkes zararına katlanır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Serbest Pratika aşağıdaki kuruluşların hangisinin ilgili biriminden alınır?",
+   "gorsel": [],
+   "siklar": [
+    "Hudut ve Sahiller Sağlık Genel Müdürlüğü",
+    "Denizcilik Müsteşarlığı, Bölge Müdürlükleri",
+    "Liman Başkanlıkları",
+    "Liman İşletme Müdürlükleri",
+    "Deniz Polisi yetkilileri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 5,
+   "soru": "“Serbest Pratika” aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Temiz patenta",
+    "Serbest geçiş",
+    "Transit geçiş",
+    "Uğraksız geçiş",
+    "Liman giriş müsaadesi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Ticari yatın tanımına aşağıdakilerden hangisi uymaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "Gezi amaçlı tekneler",
+    "En az 12 yolcu taşıyan ticari tekneler",
+    "Yat tipinde inşa edilen ticari tekneler",
+    "Yat tipinde inşa edilen gezi veya spor amacıyla ticari yönden yararlanılan, taşıdıkları yolcu sayısı12’yi geçmeyen yük veya yolcu gemisi niteliğinde olmayan veya uluslararası teknik kurallara göre yolcu gemilerinde aranan gerekli niteliklerde olup yolcu sayısı 12 ila 36 arasında olan ve tonilato belgesinde ticari yat olarak belirlenmiş deniz araçlarını ifade eder",
+    "Yat tipinde inşa edilen gezi veya spor amacıyla ticari yönden yararlanılan, taşıdıkları yolcu sayısı 12’yi geçmeyen yük ve yolcu gemisi niteliğinde olmayan veya uluslararası teknik kurallara göre yolcu gemilerinde aranan gerekli niteliklerde olup yolcu sayısı 12 ila 32 arasında olan ve tonilato belgesinde ticari yat olarak belirlenmiş deniz araçlarını ifade eder"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 7,
+   "soru": "TTK 817/1’e göre, aşağıdakilerden hangisi “Denize Elverişlilik” denetinde dikkate alınmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Can kurtarma ve seyir donanımları, Yangından korunma ve yangın söndürme araçları",
+    "Tekne",
+    "Makine",
+    "Kazan",
+    "Genel donatım"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "TTK 817/2’ye göre, aşağıdakilerden hangisi “Yola Elverişlilik” denetinde dikkate alınmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi adamları yeterlilikleri ve sayıları",
+    "Can kurtarma ve seyir donanımları",
+    "Yangından korunma ve yangın söndürme araçları",
+    "Makine yeterliliği",
+    "Kumanya, yakıt yeterliliği ve yükleme durumu"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 9,
+   "soru": "TTK md.829’a göre “Gemi Tasdiknamesine ve Bayrak Şahadetnamesine” gerek olmaksızın Türk Bayrağı çekebilecek gemiler,",
+   "gorsel": [],
+   "siklar": [
+    "Ticari olmayan gemilerdir",
+    "50 Grt.dan küçük gemilerdir",
+    "50 Grt.dan küçük ticaret gemilerdir",
+    "18 Grt.dan küçük gemilerdir",
+    "Liman içi sefer yapan küçük yolcu gemileri/motorlarıdır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "TTK md.839’a göre, “Gemi Sicili” aşağıdakilerden hangisinin nezareti (kontrolü) altında tutulur?",
+   "gorsel": [],
+   "siklar": [
+    "Bağlama Limanındaki Liman Başkanlığı",
+    "Gemi Sicilinin bulunduğu Liman Başkanlığı",
+    "Asliye Hukuk Mahkemesi",
+    "Bölge Müdürlüğü Sörvey Kurulu Başkanlığı",
+    "TDİ, Türkiye Denizcilik İşletmeleri Genel Müdürlüğü"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "TTK md.948’e göre aşağıdaki hallerin hangisinde donatan sınırlı sorumludur?",
+   "gorsel": [],
+   "siklar": [
+    "Donatanın yapmış olduğu akitle yüküm altına girmişse",
+    "Kaptanın yasal yetkilerine dayanarak yaptığı bir sözleşmenin gereği gibi ifasında donatanın kusuru varsa",
+    "Donatan mukaveleyi yapmakla kalmamış, mukavelenin yerine getirilmesini ayrıca garanti etmişse",
+    "Gemi adamlarının hizmet ve iş sözleşmelerinden doğan alacaklarından",
+    "Alacak kaptanın özel bir vekaletle değil sırf kaptan sıfatıyla sahip olduğu yasal yetkiye dayanarak yaptığı bir hukuki işlemden doğmuşsa"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "TTK uyarınca aşağıdaki hükümlerden hangisi emredicidir?",
+   "gorsel": [],
+   "siklar": [
+    "Taşıma sözleşmesinin canlı hayvanlara taalluk ettiği haller",
+    "Konşimentoda yükün güvertede taşınacağı yazılı olup da fiilen böyle taşınan yüklere ilişkin sözleşmeler",
+    "Konşimentonun karine teşkil etmesine dair hüküm",
+    "Taşıyana malların yüklenmesinden önce ve boşaltılmasından sonra düşen mükellefiyetler",
+    "Çarter sözleşmesinin düzenlenip konşimentonun 3. şahsa devredilmediği haller"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "TTK’nın kaptanın hakları ile ilgili düzenlemelerine, aşağıdakilerden hangisi aykırıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Hastalanması halinde tedavi ve ilaç giderlerini donatan öder",
+    "Kaptan, donatanın izni olmadan kendi hesabına yük taşıyamaz",
+    "Kaptan, yükle ilgililerden gerekirse, prim, ikramiye, alabilir",
+    "Belirli durumlarda yurda dönüş masraflarını donatan öder",
+    "Gemide iaşe edilme hakkı vardır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "TTK’nın 821. maddesi uyarınca aşağıdakilerden hangisi gemi adamlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptan",
+    "Tayfa",
+    "Gemi Zabitleri",
+    "Kılavuz",
+    "Çamaşırcı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "TTK’ya göre donatanlık sıfatının kazanılabilmesi için aşağıdakilerden hangisi şart değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Ticari olsun olmasın bir geminin bulunması ve bu geminin bakım, onarım ve donatımının üstlenilmesi",
+    "Geminin maliki olması",
+    "Bir deniz gemisinin sözkonusu olması",
+    "Ticaret gemisinin sözkonusu olması",
+    "Gemiyi kendi adına işletmesinin gerekmesi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "Türk Bayrağı çekme hakkını yurt dışında elde eden gemi bu hakkını aşağıdakilerden hangisi ile belgeler?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi Tasdiknamesi",
+    "Bayrak Şahadetnamesi",
+    "Bayrak çekme müsaade belgesi",
+    "Gemi jurnali’nin tasdikli örneği",
+    "Gemi Kayıt Defteri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Türk Ticaret Kanunu hükümlerine göre, hizmet akdi işveren tarafından md 14/1,2,3,4 hükmüne göre sona erdirildiğinde, gemi bir Avrupa limanında olduğunda gemi adamı aşağıdakilerden hangisini isteyemez?",
+   "gorsel": [],
+   "siklar": [
+    "Yurda dönüş masraflarını",
+    "Yurda dönüş yolluğunu",
+    "Birikmiş ödenmemiş ücretlerini",
+    "İki ay ilave aylık ücretini",
+    "Dört ay ilave aylık ücretini"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Yabancı gemi adamlarının iade edileceği yer neresidir?",
+   "gorsel": [],
+   "siklar": [
+    "Varılacak ilk liman",
+    "Bağlama limanı",
+    "İkametgahının bulunduğu liman",
+    "Geminin sicil kaydının olduğu liman",
+    "Geminin donatanının bulunduğu liman"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Yıllık izin süresi 18 ay çalışan bir gemi adamı için en az ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "15 gün",
+    "40 gün",
+    "45 gün",
+    "1 ay",
+    "2 ay"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Yola elverişlilik belgesinin geçerlik süresi ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "Bir yıl",
+    "Seferlik",
+    "Altı ay",
+    "Denize elverişlilik belgesinin geçerlik süresi kadar",
+    "Klas sörveyi tarihine kadar Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

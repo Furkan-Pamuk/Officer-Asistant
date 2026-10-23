@@ -1,0 +1,269 @@
+{
+ "rank": "Vardiya-Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 4,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Vardiya_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-4/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Deniz kirletici madde raporu (MP) içerisinde aşağıdakilerden hangisi yer almaz?",
+   "gorsel": [],
+   "siklar": [
+    "Maddenin tahmin edilen miktarı ve durumu",
+    "Maddenin doğru teknik adı ve adları",
+    "Maddenin yüzüyor ve batmış olması",
+    "Maddenin geminin hangi ambarında kaybolduğu",
+    "Gemi sahibi ve temsilcisinin adı, adresi ve ilgili numaraları"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Deniz kirliliği durumunda müdahale edecek ekip görevini yazılı hangi çizelgede bulur?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi Yağ Kirliliği Acil Planında Yağ kirliliği acil istasyonundaki listeden",
+    "Role cetvelinden",
+    "SOLAS kaidelerinden",
+    "Uluslararası Petrol Kirliliğini Önleme (IOPP) belgesinden",
+    "MARPOL sözleşmesinin ilgili bölümünden"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Dümen arızası durumunda ilk yapılması gereken hareketlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptana haber verilecek",
+    "Geminin üzerindeki yol durdurulacak",
+    "“Kumanda altında değil” işaret /fenerleri toka edilecek",
+    "Makine dairesine haber verilecek",
+    "Geminin mevkisi koyulacak"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Demir vardiyasını teslim alan zabit ilk olarak görevine hangi işi yaparak başlar?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz durumunu inceler",
+    "Gemi çevresinin kirletilmesini önleyici tedbir alır.",
+    "Gemi fenerlerinin yanıp yanmadığının kontrolünü yapar.",
+    "Görüş durumunu inceler",
+    "Geminin pozisyonunu, güvenli bir konumda kalıp kalmadığını kontrol eder."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Demirli bir tekne boyu kaç metreden fazla ise zorunlu olarak güvertelerini sağlanabilen iş veya buna eşit ışıklarla aydınlatmaları gerekmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "50 metre",
+    "75 metre",
+    "100 metre",
+    "120 metre",
+    "150 metre"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Demirli bir tekne kısıtlı görüş şartlarında kampana ve/veya gong ile vereceği seda işaretlerine ilave olarak, yaklaşan bir tekneye bulunduğu yeri ve çatışma olasılığını ihtar etmek üzere;",
+   "gorsel": [],
+   "siklar": [
+    "Bir kısa – bir uzun – bir kısa olmak üzere birbiri ardından üç düdük çalabilir",
+    "Bir uzun – bir kısa – bir uzun olmak üzere birbiri ardından üç düdük çalabilir",
+    "İki kısa – bir uzun olmak üzere birbiri ardından üç düdük çalabilir",
+    "İki uzun– bir kısa olmak üzere birbiri ardından üç düdük çalabilir",
+    "Beş kısa düdük çalabilir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Demirli olarak su altı çalışması yapan boyu 100 metreden kısa bir tekne, kısıtlı görüş koşullarında durumunu hangi seda işaret veya işaretleri ile belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli sürekli kampana çalar bunu takiben bir kısa bir uzun bir kısa gemi düdüğü çalar.",
+    "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli sürekli kampana çalar.",
+    "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli kampana çalar bunu takiben bir uzun iki kısa gemi düdüğü çalar.",
+    "Bu tekne iki dakikayı geçmeyen aralıklarla bir uzun iki kısa gemi düdüğü çalar.",
+    "Bu tekne bir dakikayı geçmeyen aralıklarla beş saniye süreli sürekli kampana çalar bunu takiben beş saniye süreli gong çalar."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Denize adam düşmesi durumunda yapılması gereken ilk işlem aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Dümeni denize düşen adam tarafına doğru alabandaya basmak",
+    "“OSKAR” sancağını toka etmek",
+    "Kaptana haber vermek",
+    "Altı kısa düdük çalmak",
+    "Denize düşen adamın mevkiini haritaya markalamak"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "Denizde Çatışmayı Önleme Tüzüğünün Dar kanallar, Trafik Ayırım Düzenleri ve Yetişme ile ilgili 9, 10 ve 13 sayılı kurallarının aykırı hükümleri hariç; balıkçılıkla uğraşan bir tekne aşağıda belirtilen teknelerden hangisinin yolundan çıkmak ile yükümlü değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kumanda altında olmayan",
+    "Manevra yapma gücü kısıtlı olan",
+    "Su çekimi nedeniyle kısıtlı olan",
+    "Yelkenli",
+    "Mayın tarama faaliyeti ile meşgul olan"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Denizde Çatışmayı Önleme Tüzüğünün Dar kanallar, Trafik Ayırım Düzenleri ve Yetişme ile ilgili 9, 10 ve 13 sayılı kurallarının aykırı hükümleri hariç; üzerinde yol bulunan kuvvetle yürütülen bir tekne aşağıda belirtilen teknelerden hangisinin yolundan çıkmak ile yükümlü değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kumanda altında bulunmayan",
+    "Manevra yapma gücü kısıtlı olan",
+    "Su çekimi nedeniyle kısıtlı olan",
+    "Balıkçı",
+    "Deniz uçağı"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Dönüş mevkiine yaklaşmaktasınız. Etrafınızda gemiler var. Dümen devreden çıktı. Gemi iskele tarafa dönmeye başladı. Aşağıdakiler arasında öncelikli olarak yapılması gereken hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi makinelerini durdurmak",
+    "Makine dairesine haber vermek",
+    "Üç uzun düdükle çevre gemilerin dikkatini çekmek",
+    "Diğer dümen motorunu devreye almak",
+    "Kaptana haber vermek"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Dümen arızası durumunda ilk yapılması gereken hareketlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptana haber verilecek",
+    "Geminin üzerindeki yol durdurulacak",
+    "“Kumanda altında değil” işaret /fenerleri toka edilecek",
+    "Makine dairesine haber verilecek",
+    "Geminin mevkisi koyulacak"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Emniyetli bir demir vardiyası için gemi kaptanı vardiya tutacak zabitlerini bazı konularda uyarır, onlara yazılı emir ve talimatlarını gemi jurnalinde sunar. Bu emir ve talimatlar arasında yer alamayacak madde aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Telsiz çağrılarının anlaşılamaması durumunda kaptanın çağrılması.",
+    "Mevkii kontrolünün sıklığı hakkında uyarı.",
+    "Çevre gemilerin yoğunluğundan kaynaklanan uyarılar.",
+    "Varış limanı kuralları.",
+    "Kıyı devleti özel kuralları."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "Emniyetli bir seyir vardiyasının değerlendirilmesinin ölçütü aşağıdakilerden hangisi olamaz?",
+   "gorsel": [],
+   "siklar": [
+    "Seyir bilgileri ve tüm olaylar kayıt edilmektedir",
+    "Gözcülük devamlı olarak kurallara uygun yerine getirilmektedir",
+    "Güverte çalışma performansı yakından takip edilmektedir",
+    "Vardiya kabul edilmiş prensip ve kaidelerce teslim alınıp teslim edilmektedir",
+    "Fenerler, cisimler ve ses işaretleri hatasız tanınmaktadır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Emniyetli bir seyir vardiyası için gerekenlerin en iyi sağlanma yeri ve zamanı hangi seçenekte en doğru verilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Eksiklikler ve arızalar zaman içinde fark edilir ve ilk gidilen limanda bunlar giderilmeye çalışılır",
+    "Şirketin enspektörleri limanda gelir kontrol ederler ve eksikleri giderirler",
+    "Liman kontrol memurları gemiyi kontrol ettiklerinde eksiklikler ve arızalar çıkar ve orada giderilir",
+    "Kaptan yaptığı periyodik bakım tutumlar sonrası eksikleri ve arızaları fark eder ve seyir öncesi bunların giderilmesini sağlar",
+    "Klas kuruluşları periyodik kontrollerde geminin eksikliklerinin giderilmesini sağlarlar"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "Emniyetli bir seyir vardiyasının değerlendirilmesinin ölçütü aşağıdakilerden hangisi olamaz?",
+   "gorsel": [],
+   "siklar": [
+    "Seyir bilgileri ve tüm olaylar kayıt edilmektedir",
+    "Gözcülük devamlı olarak kurallara uygun yerine getirilmektedir",
+    "Güverte çalışma performansı yakından takip edilmektedir",
+    "Vardiya kabul edilmiş prensip ve kaidelerce teslim alınıp teslim edilmektedir",
+    "Fenerler, cisimler ve ses işaretleri hatasız tanınmaktadır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "Emniyetli hız saptanırken aşağıdaki faktörlerden hangisi dikkate alınmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Sabah ve akşam alacakaranlık zamanları",
+    "Balıkçı tekneleri veya diğer teknelerin bir araya toplanmış durumu dahil trafik yoğunluğu",
+    "Sahil ışıkları ve kendi ışıklarının geceleyin geriye doğru yayılması gibi arka cephe ışıklarının varlığı",
+    "Rüzgar, deniz ve akıntının durumu ve seyir tehlikelerinin yakınlığı",
+    "Görüş durumu"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Emniyetli seyir vardiyasının yeterliliğinin sağlanmasında gerekli olmayacak seçenek hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yapılacak sefer önceden planlanmalıdır",
+    "Vardiya tutacak personel uygun belge ve sertifikalara sahip olmalıdır",
+    "Zabit köprü üstü seyir cihazlarının yerlerini ve çalışma prensiplerini iyi biliyor olmalıdır",
+    "Seyir vardiyasından sorumlu zabite başka görevler verilemez",
+    "Seyir vardiyasından sorumlu zabitin yanında kaptan da devamlı köprü üstünde olmalıdır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 19,
+   "soru": "Gece bir adet pruva silyonu, borda fenerleri ve pupa fenerine ek olarak, düşey bir doğrultuda, ufkun her yönünden görülür üstte kırmızı, ortada beyaz ve onun altında kırmızı fener bulunan geminin iskele bordasında, iskele borda fenerinden geriye kıça doğru ve bu fenerden yukarıda, düşey bir doğrultuda yukardan aşağı ve ufkun her yönünden görülür üst üste iki adet yeşil fener göstermektedir. Bu gemiyi tanımlayınız.",
+   "gorsel": [],
+   "siklar": [
+    "Seyir halinde boyu elli metreden kısa su altı çalışması yapan bir gemi olup sancak tarafından geçiş uygundur",
+    "Boyu 50 metreden kısa seyir halinde ve su altı çalışması yapan bir tekne olup iskele tarafından geçiş uygundur",
+    "Seyir halinde boyu elli metreden kısa manevrası ağları engele takıldığı için kısıtlı bir trol çeken gemidir",
+    "Seyir halinde boyu elli metreden kısa manevrası kısıtlı ve denizden yaklaşılması uygun olmayan tarafını işaret eden bir gemidir",
+    "Seyir halinde boyu elli metreden kısa mayın, arama-tarama görevi yapan bir teknedir"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 20,
+   "soru": "Gece demir feneri veya fenerlerine ilaveten düşey bir doğru üzerinde ufkun her yönünden görünür üst üste iki kırmızı fenerden başka bir işaret göstermeyen gemi hangi durumu veya yaptığı işi belirtmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "Demirli ve trol ağları engele takılmış bir tekne olduğunu belirtir",
+    "Demirli ve sualtı işi yada, tarama yapan bir tekne olduğunu belirtir",
+    "Demirli ve ağ balıkçılığı yapan bir tekne olduğunu belirtir",
+    "Demirli ve draftı nedeniyle manevrası kısıtlı bir tekne olduğunu belirtir",
+    "Karaya oturmuş bir tekne olduğunu belirtir Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

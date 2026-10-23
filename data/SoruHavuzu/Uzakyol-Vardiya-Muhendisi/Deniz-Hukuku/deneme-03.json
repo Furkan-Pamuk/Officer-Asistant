@@ -1,0 +1,256 @@
+{
+ "rank": "Uzakyol-Vardiya-Muhendisi",
+ "ders": "Deniz-Hukuku",
+ "deneme": 3,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Muhendisi/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-3/",
+ "soru_sayisi": 19,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Hastalanması halinde tedavi ve ilaç giderlerini donatan öder",
+    "Kaptan, donatanın izni olmadan kendi hesabına yük taşıyamaz",
+    "Kaptan, yükle ilgililerden gerekirse prim ikramiye alabilir",
+    "Belirli durumlarda yurda dönüş masraflarını donatan öder",
+    "Gemide iaşe edilme hakla vardır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerden hangisi kaptanın sorumluluğu hakkında gerçeği yansıtmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Sevk ve idare kusurlarından sorumluluk",
+    "Sınırsız sorumluluk",
+    "1. Derece sorumluluk",
+    "Donatanın talimatı üzerine hareket etmiş olmak sorumsuzluk sebebidir",
+    "Haksız fiil sorumluluğu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Aşağıdakilerin hangisi kurtarma yardımın unsurlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Tehlike unsuru",
+    "İradilik unsuru",
+    "Hizmetin konusu kurtarılan ve yardım gören",
+    "Kurtarma yardım hizmeti",
+    "Faydalı ve başarılı sonuç unsuru"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "Türk Bayrağı çekme hakkını yurt dışında elde eden gemi bu hakkını aşağıdakilerden hangisi ile belgeler?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi Tasdiknamesi",
+    "Bayrak Şahadetnamesi",
+    "Bayrak çekme müsaade belgesi",
+    "Gemi jurnalinin tasdikli örneği",
+    "Gemi kayıt defteri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdakilerden hangisi deniz sigorta muafiyetleri (deductible) ile ilgilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Hasarlı muafiyet, hasarsız muafiyet",
+    "İşlemi muafiyet, işlemsiz muafiyet",
+    "Tekne muafiyeti, yük muafiyeti",
+    "Tenzili muafiyet, entegral muafiyet",
+    "Gerçek muafiyet, hükmi muafiyet"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 7,
+   "soru": "400 GRT'dan büyük yük gemileri için makine daireleri sintinelerinde oluşan kirlenmeyi önlemek üzere EK-1 gereği bu gemilerde bulunması gereken teçhizat aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "IOPP sertifikası",
+    "Yüklü su hattı üzerinde balast tahliyesi cihazı",
+    "Petrol atıklarını izleme ve kontrol cihazı",
+    "Sintine separatörü, 15 ppm alarm otomatik stop aleti",
+    "Atıklar için slop tank"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Gemi kendi makinesi ile ilerlerken özel alanlar haricinde karadan 12 mil açıktan itibaren pis sular geminin hızı .............. knots dan az olmamak koşuluyla denize tahliye edilebilir.",
+   "gorsel": [],
+   "siklar": [
+    "4 knot",
+    "6 knot",
+    "7 knot",
+    "10 knot",
+    "12 knot"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "Yağ sızıntısının olduğu tespit edilmiştir. Aşağıdakilerden hangisi Baş Mühendisin yapması gerekenlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yağ sızıntısının olduğu noktayı belirler",
+    "Sızıntının nedenini araştırır",
+    "P&I temsilcisine haber verir",
+    "Gemiden dökülen yağın yaklaşık miktarını belirler",
+    "Olayı Kaptana rapor eder"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "\"Denize Elverişlilik\" belgesi olmayan veya süresi biten gemi:",
+   "gorsel": [],
+   "siklar": [
+    "Hiçbir şekilde hareket edemez",
+    "Yük taşıyamaz",
+    "Yolcu taşıyamaz",
+    "Yük taşır, yolcu taşıyamaz",
+    "Ticari faaliyette bulunamaz"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Aşağıdakilerden hangisi kaptanın yolculuk bittikten sonraki işlemlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Varma limanında resmi muameleleri yapmak",
+    "Dönüş yolculuğu için yük aramak",
+    "Yükü usulü dairesinde boşaltmak",
+    "Yolculuk hakkında donatana bilgi vermek",
+    "Gemiyi yeni sefer için hazırlamak"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 12,
+   "soru": "Aşağıdakilerden hangisi, TTK md. 1230 gereği; makineli gemilerde kaptanın kurtarma alacağının miktarını gösterir?",
+   "gorsel": [],
+   "siklar": [
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarılmadan 1/8",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/2",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/3",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/6",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra %10"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdakilerden hangisi müşterek avarya şartlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Tehlike unsuru",
+    "Fevkalade fedakarlık",
+    "Müşterek bir deniz sergüzeştine atılmış gemi veya yük",
+    "Makul hareket tarzı",
+    "Olağandışı masraf"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Gemi herhangi bir sebeple seferden,",
+   "gorsel": [],
+   "siklar": [
+    "30 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "20 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "15 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "35 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir",
+    "40 günden fazla kaldırıldığında hizmet sözleşmesi önelsiz sona erdirilir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "Donatanın çevre kirliliğinden doğan sorumluluğunun hukuki niteliği hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Sınırsız",
+    "Sınırlı ayni",
+    "Sınırlı şahsi",
+    "Sınırsız ayni",
+    "Sorumluluğu yoktur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "İşveren işçiyi kötü niyetli olarak işten çıkarırsa,",
+   "gorsel": [],
+   "siklar": [
+    "2 aylık tazminat",
+    "6 aylık tazminat",
+    "6 aylıktan az olmayan tazminat",
+    "1 yıllık tazminat",
+    "1 yıllıktan az olmayan tazminat ödemek durumunda kalır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Fazla çalışma süresi günde kaç saati geçemez?",
+   "gorsel": [],
+   "siklar": [
+    "5",
+    "6",
+    "2",
+    "3",
+    "7"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "TTK'nın 821. maddesi uyarınca aşağıdakilerden hangisi gemi adamlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptan",
+    "Tayfa",
+    "Gemi zabitleri",
+    "Kılavuz",
+    "Çamaşırcı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi kaptanın kanuni temsil yetkisine dayanarak yapamayacağı muamelelerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiyi, navlun ve yükü sigorta ettirmek",
+    "Donatan adına kambiyo taahhüdünde bulunmak",
+    "Donatan tarafından akdedilmiş taşıma sözleşmelerini feshetmek",
+    "Yükü, gemi ve navlunla karşılık göstererek deniz ödüncü almak",
+    "Gemiye tayfa almak"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi, TTK md. 1230 gereği; makinalı gemilerde kaptan hariç, baş mühendis dahil, gemi adamlarının tümünün kurtarma yardım alacağının miktarını gösterir?",
+   "gorsel": [],
+   "siklar": [
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra %10",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/2",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/3",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarılmadan 1/8",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/6 Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

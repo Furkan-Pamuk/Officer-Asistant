@@ -1,0 +1,217 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 2,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Denizcilik_ingilizcesi/Deneme_Sinavi-2/",
+ "soru_sayisi": 16,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "An electric heater built into the cylinder water jacket would be used to:",
+   "gorsel": [],
+   "siklar": [
+    "Wearing rings",
+    "Renewable sleeves",
+    "A hardened metal coating",
+    "Internally flooded lantern rings",
+    "Lantern rings"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 3,
+   "soru": "It shall be the responsibility of the ................ to prepare the boilers for inspection.",
+   "gorsel": [],
+   "siklar": [
+    "Chief Engineer",
+    "2nd Engineer",
+    "Boatswain",
+    "2nd officer",
+    "Any above organization"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Cavitation, the forming and bursting of vapor filled cavities or bubbles will result in .............................",
+   "gorsel": [],
+   "siklar": [
+    "A loss of thrust",
+    "Erosion of the blade surface",
+    "Vibrations in the afterbody of the ship",
+    "Noise",
+    "All above"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Sediment collects in a tubular purifier:",
+   "gorsel": [],
+   "siklar": [
+    "On top cover",
+    "In drain line",
+    "On sides of bowl",
+    "On the discs",
+    "None of above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Studs and nuts intended for use in main steam line flanges and fittings are marked with an \"H\" or a \"T\" to show they are:",
+   "gorsel": [],
+   "siklar": [
+    "Heat resistant",
+    "Hard finished",
+    "Half threaded",
+    "Corrosion resistant",
+    "Fire proof"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "What kind of bolts would you use on a saltwater line?",
+   "gorsel": [],
+   "siklar": [
+    "That cylinder's being overloaded",
+    "The exhaust valve's being overheated",
+    "Average compression",
+    "Incomplete combustion",
+    "Complate combustion"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "The air supplied to the cylinders by a turbocharger is often reduced in volume by a/an:",
+   "gorsel": [],
+   "siklar": [
+    "Air compressor",
+    "Diffuser",
+    "Filter",
+    "Venturi",
+    "Aftercooler"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "What harmful consequence can result from sludge in the lube oil system of a trunk piston diesel engine?",
+   "gorsel": [],
+   "siklar": [
+    "Clogged oil pump suction screens",
+    "Increased oil temperature",
+    "Stuck piston rings",
+    "Any of the above",
+    "None of the above"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "\"Water hammer\" is caused by:",
+   "gorsel": [],
+   "siklar": [
+    "Hitting water pipe with hammer",
+    "Too much water in pipe line system",
+    "Water in steam lines",
+    "Steam in water lines",
+    "Few amount of water in pipe line system"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "A cracked cylinder head on a diesel engine could be indicated by:",
+   "gorsel": [],
+   "siklar": [
+    "Excessive lube oil consumption",
+    "Water draining from the fuel leakoff valves",
+    "Excessive fuel oil consumption",
+    "Excessive cooling water consumption",
+    "Combustion gases venting at the expansion tank"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "The thermostatic expansion valve of R-22 or R-134 a refrigeration system controls the:",
+   "gorsel": [],
+   "siklar": [
+    "Back pressure in the evaporator coils",
+    "Temperature in the refrigerated space",
+    "Superheat in the refrigerant leaving the evaporator",
+    "Refrigerant pressure in high side",
+    "Temperature in the condenser"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "When operating at high or low speed in the use of nozzles in a turbine, attention and precaution must be taken that ........................",
+   "gorsel": [],
+   "siklar": [
+    "The nozzles in use should be wide open",
+    "Operation with a few nozzles as it's economical",
+    "The nozzles not in use must be tightly closed",
+    "All above",
+    "Only 1 and 2"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "An advantage of aluminum pistons compared to cast iron pistons is:",
+   "gorsel": [],
+   "siklar": [
+    "Greater high temperature strength",
+    "Greater weight per cubic meter",
+    "Increased resistance to wear",
+    "Low temperature strength",
+    "Better heat conductivity"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Insufficient refrigerant in a refrigeration plant on board a ship may result in:",
+   "gorsel": [],
+   "siklar": [
+    "Increase engine wear",
+    "Decrease engine wear",
+    "Increase possible breakdowns",
+    "Decrease possible breakdowns",
+    "2 and 4"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "A propulsion diesel engine is normally shut down by .........................",
+   "gorsel": [],
+   "siklar": [
+    "Shutting off the air supply",
+    "Overspeeding the engine",
+    "Securing the fuel supply",
+    "Securing the ignition system",
+    "All above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "The valve which is always partially open when the evaporator is in operation is the:",
+   "gorsel": [],
+   "siklar": [
+    "The thermal expansion valve",
+    "The dehydrator inlet valve",
+    "The suction line valve",
+    "Both the thermal expansion valve and dehydrator inlet valve",
+    "The liquid line king valve Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}
