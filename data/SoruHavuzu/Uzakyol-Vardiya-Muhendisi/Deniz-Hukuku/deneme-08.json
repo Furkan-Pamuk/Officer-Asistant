@@ -1,0 +1,139 @@
+{
+ "rank": "Uzakyol-Vardiya-Muhendisi",
+ "ders": "Deniz-Hukuku",
+ "deneme": 8,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Muhendisi/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-8/",
+ "soru_sayisi": 10,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Güvenlik Yönetimi Sisteminin kurulması, etkin uygulanması ve gelişimi belirli şartlara bağlıdır. Aşağıdakilerden hangisi bunlardan biri değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Üst yönetimin ciddi taahhüdü",
+    "Uygun kaynakların sağlanması",
+    "Şirket filosundaki gemi sayısının yeterliliği",
+    "Deniz ve kara personelinin ortak katılımı",
+    "Gerçekçi zamanlama ve planlama"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Hangisi ISM Kod’un hedeflerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Denizde güvenliğin sağlanması",
+    "İnsan yaralanmaları ve ölümlerin önlenmesi",
+    "Denizcilikle ilgili teknolojilerin geliştirilmesi",
+    "Çevreye, özellikle de denizlere verilecek zararlardan kaçınılması",
+    "Mülkiyete (yüke, gemiye ve kıyılara) gelecek zararların önlenmesidir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerden hangisi kalitenin tanımı olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Çok kıymetlilik ve pahalı olmak",
+    "Kullanıma ve amaca uygunluk",
+    "Kontrol altında tutulmak",
+    "Üreticiye ve işyerine uygunluk",
+    "Nitelikte belirsizlik"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Kalite güvencesi sistemi ile kalite kontrol arasında ne ilişki vardır?",
+   "gorsel": [],
+   "siklar": [
+    "Her ikisi de aynıdır",
+    "Kalite kontrol kalite güvencesini de kapsar",
+    "Kalite kontrol nihahi ürünle, kalite güvence ise üretimin tüm aşamalarıyla ilgilenir",
+    "Her ikisi de ISO 9000 sistemlerinin farklı isimleridir",
+    "Kalite güvence hizmet, kalite kontrol ise üretim sektöründe kullanılır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "SOLAS 74 Konvansiyonu kural 1/11(a) uyarınca bir geminin bakım/tutumundan aşağıdakilerden hangisi sorumludur?",
+   "gorsel": [],
+   "siklar": [
+    "Mürettebat",
+    "Bayrak Devleti",
+    "Liman Devleti",
+    "Donatan",
+    "Gemi Kaptanı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Gemilerin taşıyabileceği max yük miktarını ve su üzerinde batabileceği max draftı belirlemek maksadıyla gemilerin nasıl ölçümlendirileceğinin belirlendiği uluslararası sözleşmenin kısa adı ve tarihi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "LL",
+    "SOLAS",
+    "LDC",
+    "LLMC",
+    "TONNAGE"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Süresi belli olmayan hizmet akitlerinde deneme süresi en çok ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "15 gün",
+    "1 ay",
+    "21 gün",
+    "3 ay",
+    "6 ay"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "İlk kurulan MoU hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Paris MoU",
+    "Londra MoU",
+    "Portekiz MoU",
+    "Washington MoU",
+    "İspanya MoU"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "SOLAS'ın yangın ile alakalı olan bölümü hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Bölüm II-1",
+    "Bölüm II-2",
+    "Bölüm I",
+    "Bölüm V",
+    "Bölüm III"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 10,
+   "soru": "P&I Club teminat tarihleri aşağıdakilerin hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "10 Ocak - 10 Ocak",
+    "20 Şubat - 20 Şubat",
+    "10 Ocak - 20 Şubat",
+    "10 ocak 10 subat",
+    "20 Şubat - 10 Ocak Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

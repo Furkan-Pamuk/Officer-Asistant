@@ -1,0 +1,243 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 8,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-8/",
+ "soru_sayisi": 18,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "The suction control switch on the compressor is a ..........................",
+   "gorsel": [],
+   "siklar": [
+    "Thermal element",
+    "Thermostat",
+    "Pressure element",
+    "None above",
+    "All of above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "In case of burning of radio equipments on the bridge the extinguishers should be the same as the ones to be used in ......................... fires, keeping in mind that the fire will turn out to be a ......................... fire when starting firefighting takes long.",
+   "gorsel": [],
+   "siklar": [
+    "Class E / Class A",
+    "Class E / Class B",
+    "Class B / Class A",
+    "Class C / CIass A",
+    "Class C / Class E"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Considering the fuel, ignition quality is determined by .......................",
+   "gorsel": [],
+   "siklar": [
+    "Cetane number",
+    "Diesel index",
+    "Calculated cetane index",
+    "Flashpoint",
+    "All except 4"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "As Freon leaves the expansion valve ..........................",
+   "gorsel": [],
+   "siklar": [
+    "Pressure increases - Volume increases",
+    "Pressure decreases - Volume increases",
+    "Pressure decreases - Volume decreases",
+    "Pressure increases - Volume decreases",
+    "Pressure increases - No change in the volume"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "........................ should be followed as a procedure, if it is necessary to pump bilges while a vessel is in port.",
+   "gorsel": [],
+   "siklar": [
+    "Pumping only if discharge is led to a shore tank or barge",
+    "Pumping only during the hours of darkness",
+    "Pumping only on the outgoing tide",
+    "Pumping only as much as is necessary",
+    "Pumping only the day hours"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "The system used for breaking scale from the evaporator coil while the evaporator is in operation is called:",
+   "gorsel": [],
+   "siklar": [
+    "Recirculating",
+    "Blowing down",
+    "Cracking off",
+    "Dumping",
+    "None of above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Fire detecting and extinguishing equipment is required on all ................",
+   "gorsel": [],
+   "siklar": [
+    "Cargo vessels",
+    "Passenger vessels on international voyage",
+    "Vessels over 150 feet in length",
+    "Vessels over 450 feet in length",
+    "Cruise boats"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "When starting ballasting .......... valve should be opened last.",
+   "gorsel": [],
+   "siklar": [
+    "Seacock",
+    "Pump discharge valve",
+    "Deck filling valve",
+    "Tank suction valve",
+    "None above"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "On a diesel engine, a freshwater heat exchanger is used rather than a saltwater to:",
+   "gorsel": [],
+   "siklar": [
+    "Maintain fuel oil temperature",
+    "Maintain lube oil temperature",
+    "Cut down on rust and corrosion",
+    "Keep the engine block from freezing in cold weather",
+    "Maintain air temperature"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "The lubricant is expected to have the qualities of ............................",
+   "gorsel": [],
+   "siklar": [
+    "Preventing metal-to metal contact",
+    "Causing metal to metal contact",
+    "Decrease friction",
+    "Decrease friction wear",
+    "All expect 2"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "An overheated bearing in the main propulsion unit is indicated by:",
+   "gorsel": [],
+   "siklar": [
+    "Bubbles in the sight glass",
+    "Sludge in the strainers",
+    "A high oil level in the sump",
+    "Low temperature of the lube oil leaving the bearing",
+    "High temperature of the lube oil leaving the bearing"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "The heat which is used to change a liquid to a gas or vapor is called latent heat of .......................",
+   "gorsel": [],
+   "siklar": [
+    "Wet",
+    "Dry",
+    "Integral",
+    "None of the above",
+    "Cooled with lubrication oil"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "................................... is the first to do when securing an AC generator.",
+   "gorsel": [],
+   "siklar": [
+    "Tripping the generator circuit breaker",
+    "Switching the voltage regulator to manual",
+    "Decreasing the field excitation to minumum",
+    "Reducing the load on the unit",
+    "Increasing the load on the unit"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": ".......................... should be considered as a hazard on the propeller and a thorough examination and repair will be carried out when the vessel is in dry dock.",
+   "gorsel": [],
+   "siklar": [
+    "Bent blades",
+    "Signs of cracks on the blade edge",
+    "Deep pits and holes",
+    "Edge cracks",
+    "All above"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "The upper section of a piston is called the:",
+   "gorsel": [],
+   "siklar": [
+    "Land",
+    "Skirt",
+    "Crown",
+    "Plate",
+    "Disk"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "The main characteristics of a diesel engine is:",
+   "gorsel": [],
+   "siklar": [
+    "internal combustion engine; the fuel is burned external of the cylinders",
+    "producing high power of energy",
+    "either 2 or 4 stroke, fuel is burned inside the cylinders",
+    "economical in compare with the steam engines, but hard maintenance",
+    "fixed sequence of events within its unique type"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 18,
+   "soru": ".................... is hardly the cause of a smoky diesel engine exhaust.",
+   "gorsel": [],
+   "siklar": [
+    "Once a year",
+    "Once a month",
+    "Once a week",
+    "At survey time only",
+    "At drydock"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Emulsification of oil will ocur when mixed with:",
+   "gorsel": [],
+   "siklar": [
+    "Air",
+    "Water",
+    "Black oil",
+    "Ice cream",
+    "Oxygen Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

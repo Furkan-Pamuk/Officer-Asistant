@@ -1,6 +1,6 @@
 import type { JobChecklistTemplate } from "./types";
 
-// Zabitan soru havuzu indexi — gerçek dosyalar: /SoruHavuzu/ (2997 soru, doğrulandı).
+// Zabitan soru havuzu indexi — gerçek dosyalar: web/data/SoruHavuzu/ (repo içi).
 // Build'i kırmamak için sadece tip + sayım tutulur.
 
 export interface HavuzSoru {

@@ -1,0 +1,269 @@
+{
+ "rank": "Vardiya-Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 2,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Vardiya_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-2/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Aşağıdakilerden hangisi kaptanın haklarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kendi hesabına yük taşıma",
+    "Ücret",
+    "Tedavi ve ilaç masrafları",
+    "Ücretli izin",
+    "Bağlama limanına dönüş masrafları"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdakilerden hangisi kaptanın hizmet sözleşmesinin sona erme sebeplerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin kaybı",
+    "Geminin bayrak çekme hakkının kaybı",
+    "Feshi ihbar",
+    "Donatan ücret ödememesi",
+    "Geminin isim değiştirmesi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerden hangisi kaptanın kanuni temsil yetkisine dayanarak yapamayacağı muamelelerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemiyi, navlun ve yükü sigorta ettirmek",
+    "Donatan adına kambiyo taahhüdünde bulunmak",
+    "Donatan tarafından akdedilmiş taşıma sözleşmelerini feshetmek",
+    "Yükü, gemi ve navlunla karşılık göstererek deniz ödüncü almak",
+    "Gemiye tayfa almak"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "Aşağıdakilerden hangisi kaptanın sorumluluğu hakkında gerçeği yansıtmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Sevk ve idare kusurlarından sorumluluk",
+    "Sınırsız sorumluluk",
+    "1.Derece sorumluluk",
+    "Donatanın talimatı üzerine hareket etmiş olmak sorumsuzluk sebebidir",
+    "Haksız fiil sorumluluğu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdakilerden hangisi kaptanın yolculuk başlamadan önceki muamelelerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yerli ve yabancı mevzuata riayet etmek",
+    "Donatana bilgi vermek",
+    "Geminin yola çıkabilmesi için gerekli tüm resmi muameleleri yapmak",
+    "Gümrük, polis, vergi ve kambiyo hükümlerine riayet etmek",
+    "Ambar temizliği"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdakilerden hangisi kaptanın yolculuk bittikten sonraki muamelelerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Varma limanında resmi muameleleri yapmak",
+    "Dönüş yolculuğu için yük aramak",
+    "Yükü usulü dairesinde boşaltmak",
+    "Yolculuk hakkında donatana bilgi vermek",
+    "Gemiyi yeni sefer için hazırlamak"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerden hangisi kaptanın yolculuk sırasındaki işlemlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yolculuk sırasında yükte hak sahibi olanların menfaatlerini gözetmek",
+    "Gemiyi dikkat ve itina ile sevk ve idare etmek",
+    "Gerektiğinde donatandan talimat almak",
+    "Geminin denize, yola ve yüke elverişli olmasını sağlamak",
+    "Deniz seyir kurallarına uymak"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdakilerden hangisi kirlenme durumunda aykırı bir kaptan talimatı olmadıkça kesilmesi gereken işlerden olamaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yük operasyonu",
+    "Gemiye insan giriş çıkışı",
+    "Gemi müstehlik malzemesi ve yüklenmesi",
+    "Gemi bakım ve tamir çalışmaları",
+    "Balast operasyonu"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Aşağıdakilerden hangisi müşterek avarya hallerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin karaya oturtulması",
+    "Denize yük vesaire atılması",
+    "Geminin hafifletilmesi",
+    "Güvertedeki yükün gemiye de hasar vererek aniden denize düşmesi",
+    "Geminin yüzdürülmesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerden hangisi müşterek avaryanın unsurlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Fedakarlık unsuru",
+    "Müşterek tehlike unsuru",
+    "Kaptanın makul ve açık direnişinin ve ayrı bir hukuki ilişkinin bulunmaması unsuru",
+    "Fedakarlığın iradi olması",
+    "Faydalı netice unsuru"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Aşağıdakilerden hangisi sicile kayıtlı gemilerin cebri icra vasıtasıyla satış yollarındandır?",
+   "gorsel": [],
+   "siklar": [
+    "Açık arttırma yolu ile",
+    "Pazarlık suretiyle",
+    "Abandan yoluyla",
+    "Zaman aşımıyla",
+    "Mahkemenin belirlediği değere satış yoluyla"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "Aşağıdakilerden hangisi sicilin hukuki fonksiyonlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Tescilin bildirici ve ayni haklar bakımından (ipotek gibi) kurucu etkisi vardır.",
+    "Sicil alenidir.",
+    "Sicilin kamu güveni özelliği vardır.",
+    "Sicildeki kayıtların karine fonksiyonu vardır.",
+    "Tescil edilmiş haklar ancak mahkeme yolu ile kullanılır."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdakilerden hangisi ticari geminin unsurlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Münhasıran kamu hizmetinin ifasına tahsis edilmiş olmak",
+    "Denizde kazanç elde etme amacı gütme",
+    "Deniz yolu ile menfaat sağlama amacıyla tahsis",
+    "Deniz yolu ile menfaat sağlamak üzere fiilen kullanma",
+    "Yük ve yolcu taşıma"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Aşağıdakilerden hangisi “Time charter” (zaman üzerine çarter) de kullanılan “charterparty” (çarterparti) formlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Uniform time charterparty",
+    "Gencon charterparty",
+    "New-York Produce Exchange charterparty",
+    "Baltime charterparty",
+    "Linertime charterparty"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Aşağıdakilerden hangisi TTK.’daki “Deniz Ticaret Sözleşmeleri” içerisinde yer almamaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz aşırı satış sözleşmesi",
+    "Navlun sözleşmesi",
+    "Yolcu taşıma sözleşmesi",
+    "Gemi inşaa sözleşmesi",
+    "Deniz ödüncü sözleşmesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi TTK.md.1226/3 gereği kurtarma yardım ücretinin belirlenmesinde 1.derecede göz önüne alınacak hususlardan değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kurtarma yardım mesaisi",
+    "Elde edilen netice",
+    "Emniyet altına veya kurtarılan şeylerin değeri",
+    "Göze alınan ve maruz kalınan tehlike",
+    "Kurtarmada tehlikeye sokulan malzemenin değeri"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "Aşağıdakilerden hangisi, TTK md.1230 gereği; makinalı gemilerde kaptan hariç, baş mühendis dahil, gemi adamlarının tümünün kurtarma yardım alacağının miktarını gösterir?",
+   "gorsel": [],
+   "siklar": [
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra %10",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/2",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/3",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarılmadan 1/8",
+    "Kazanılan kurtarma yardım ücretinden masraflar çıkarıldıktan sonra 1/6"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Aşağıdakilerden hangisi “Voyage Charter” de kullanılan “charter party” formlarından değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Gencon charter party",
+    "New-York Produce Exchange charter party",
+    "Gasvoy charter party",
+    "Asbatankvoy charter party",
+    "Bimchemvoy charter party"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "18 GRT ve daha büyük tüm ticaret gemilerinin tescili mecburidir",
+    "Donanmaya ait harp gemileri ile yardımcı gemiler, tescili mümkün olmayan gemilerdir.",
+    "Kamu hizmetine tahsis edilmiş gemiler, tescili mümkün olmayan gemilerdir",
+    "Devlete ait olan tüm gemiler tescili mümkün olmayan gemilerdir",
+    "18 GRT’dan küçük ticaret gemileri ile tonilatosu ne olursa olsun tescili mümkün diğer bütün gemilerin tescili isteğe bağlıdır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz İş Kanunu açısından gemi sahibine veya kendisinin olmayan bir gemiyi kendi adına ve hesabına işleten kimseye işveren denir",
+    "Türk Ticaret Kanunu açısından gemisini deniz ticaretinde kullanan gemi sahibine donatan denir ve işveren sayılır",
+    "Türk Ticaret Kanunu açısından kendisinin olmayan bir gemiyi kendi adına deniz ticaretinde bizzat veya kaptan marifetiyle kullanan kimse, donatan kabul edilir ve işveren sayılır",
+    "Donatma iştirakinde paydaş olanlar donatan kabul edilir ve işveren sayılır",
+    "Sadece gemi sahibi olan kimseler donatandır ve işveren sayılır Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

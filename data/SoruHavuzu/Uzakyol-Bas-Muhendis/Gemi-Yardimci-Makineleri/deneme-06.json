@@ -1,0 +1,256 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 6,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-6/",
+ "soru_sayisi": 19,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Aşağıdakilerden hangisi ana makine yardımcısı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yağlama yağı pompası",
+    "Enjektör soğutma suyu pompası",
+    "Yakıt pompası",
+    "Sintine pompası",
+    "Serküleytin pompası"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 2,
+   "soru": "Rejeneratif besleme suyu ısıtıcısında besleme suyu nasıl ısıtılır?",
+   "gorsel": [],
+   "siklar": [
+    "Besleme suyu kangal borulu bir ısıtıcıda buhar ile ısıtılır",
+    "Besleme suyu paralel akımlı bir ısıtıcıda yağ ile ısıtılır",
+    "Besleme suyu türbinden çekilen buhar ile ısıtılır",
+    "Besleme suyu süperhiterden çekilen buhar ile ısıtılır",
+    "Besleme suyu elektrikli ısıtıcı ile ısıtılır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Yağ yakıt separatörlerinde devir tutmuyor ya da geç tutuyorsa aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Fren takılı kalmıştır",
+    "Devir balata pad'leri aşınmış ya da yağlıdır",
+    "Voltaj düşüktür",
+    "Rulmanlarda hasar vardır",
+    "Yukarıdakilerin tümü"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Bir inert gaz sisteminde kullanılan gaz aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Karbon dioksit gazı",
+    "Karbon monoksit",
+    "Karbon tetraklorür gazı",
+    "Halon gazı",
+    "Freon gazı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Kontrollü süperhiter için aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Buhar üretici borular arasında bulunurlar",
+    "Apteykete ekonomayzerin hemen altında bulunurlar",
+    "Apteykte erhiterin hemen üzerinde bulunurlar",
+    "Kazanda ayrı bir ocakta bulunurlar ve briilörleri ayrıdır",
+    "Kazanın iç ve dış zarfının arasında bulunurlar"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Ana hava ecekterinin görevi aşağıdakilerden hangisi değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kondenserdeki yoğuşmayan gazları emer",
+    "Kondenserde vakum yaratır",
+    "Kondenserdeki yoğuşmaya yardımcı olur",
+    "Kondenserdeki havayı emerek vakum oluşturur",
+    "Deniz suyunun kondenserden geçişini sağlar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Kazan besleme suyu devrelerinde kazana yakın olan valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Musluk valf",
+    "Geyt valf",
+    "Çek valf",
+    "Glob valf",
+    "Piston valf"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Besi suyu sistemlerindeki buster pompaları çoğu zaman hangi türden pompalardır?",
+   "gorsel": [],
+   "siklar": [
+    "Dişli pompa",
+    "Vidalı pompa",
+    "Paletli pompa",
+    "Diyaframlı pompa",
+    "Santrifüj pompa"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Normal durumlar altında kondenser 2-3 yılda bir kaynatılmalıdır.Bu kaynatma işleminde aşağıdakilerden hangisi anlatıldığı şekilde yapılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Tüm valflar v hava pompası ya da eksrakşm pompası alıcı kapatılır",
+    "Kondenser hazırlanan karışım veya çözelti ile boruları örtecek bir biçimde doldurulmalıdır",
+    "Kondensere buhar açılarak karışım atmosfer basıncında buharlaşma noktasına kadar kaynatılmalıdır",
+    "Kaynama süresi buharlaşma noktasının üstünde olmak koşulu ile 22 saattir",
+    "Kaynama süreci tamamlandıktan sonra kondenser sintine veya MARPOL'a uygun bir şekilde dreyn edilmeli veya boşaltılmalıdır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Vakumun tanımı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Atmosfer basıncının üstündeki basınçlara denir",
+    "Atmosfer basıncı altındaki basınçlara denir",
+    "Atmosfer basmca vakum denir",
+    "Kapalı bir kaptaki basıncın artması ile vakum elde edilir",
+    "Kapalı bir kabın çeperlerine uygulanan basınçtır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "İki kademeli pistonlu bir hava kompresöründe birinci kademe emme valfının sızdırması aşağıdakilerden hangisine neden olur?",
+   "gorsel": [],
+   "siklar": [
+    "7,5 bar",
+    "5 bar",
+    "3 bar",
+    "1,5 bar",
+    "0,5 bar"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Inert (inertgen) gazlar aşağıdaki hangi gazların kombinasyonuna verilen isimdir?",
+   "gorsel": [],
+   "siklar": [
+    "Nitrojen + Argon + Karbon dioksit",
+    "Nitrojen + Argon + Karbon monoksit",
+    "Nitrojen",
+    "Argon + Asetilen + Karbon dioksit",
+    "Argon + Asetilen + karbon monoksit"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Açık besleme suyu sisteminde kondenserde oluşan su nereye basılır?",
+   "gorsel": [],
+   "siklar": [
+    "Kazana",
+    "Besleme ve filtre tankına",
+    "Sintineye",
+    "Denize",
+    "Gözlem tankına"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Çift volütlü santrifüj bir pompada aşağıdakilerden hangisi oluşmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Kavitasyon ve titreşim",
+    "İmpellerde radyal sarsat",
+    "Disçarçdan emmeye kaçak",
+    "Atmosferden hava emme",
+    "Verdide azalma"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi kapalı besleme suyu sistemi elemanı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "İçme suyu pompası",
+    "Besleme suyu pompası",
+    "Dearatör",
+    "Ecekter",
+    "Vent kondenseri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Kondenser borularının dış yüzeylerinin temizliği aşağıdakilerden hangisi ile yapılır?",
+   "gorsel": [],
+   "siklar": [
+    "Hidrokolik asit ile",
+    "Soda ile",
+    "Sabunlu su ile",
+    "Motorin ile",
+    "Sülfürik asit ile"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "Bir hava ısıtıcısının temizliği seyirdeki bir gemide hangi sıklıkla ve ne kullanılarak yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Her gün - yaş buharla",
+    "Gün aşırı - suyla",
+    "Gün aşırı - deterjanlı suyla",
+    "Her gün - kurum üfleyici ile",
+    "Haftada bir - kuru buharla"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Santrifüj bir pompada kavitasyonun nedeni aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Pompayı dizayn kapasitesinde çalıştırmamak",
+    "Emme akımmdaki buhar ve hava cepleri",
+    "Salmastra kutusundan hava emilmesi",
+    "Aşınma ringlerinin erozyana uğraması",
+    "Pompa mil yataklarının bozulması"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 20,
+   "soru": "Boru devrelerinde akışın yönünü ve miktarını kontrol eden valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Stop çek valf",
+    "Sülüs valf",
+    "Nıdıl valf",
+    "Lift çek valf",
+    "küresel çek valf Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

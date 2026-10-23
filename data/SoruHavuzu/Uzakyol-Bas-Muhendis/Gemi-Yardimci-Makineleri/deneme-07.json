@@ -1,0 +1,217 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 7,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-7/",
+ "soru_sayisi": 16,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Aşağıdakilerden hangisi görev (hizmet) makinesi değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Buzluk kompresörü",
+    "Sintine separatörü",
+    "Lübrikeyter",
+    "Yangın pompası",
+    "Balast pompası"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Ana kondenser denizden alıcı valfı aşağıdaki tiplerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "25-40 bar",
+    "15-25 bar",
+    "10-15 bar",
+    "5 - 10 bar",
+    "50-60 bar"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Devrede olan bir yakıt separatörünün titreşim yapmaya başlaması aşağıdakilerden hangisini işaret eder?",
+   "gorsel": [],
+   "siklar": [
+    "Separatör aşırı ısınmıştır soğutulmalıdır.",
+    "Separatör aşırı soğumuştur ısıtılmalıdır.",
+    "Separatör aşırı kirlenmiştir şoklanmalıdır",
+    "Separatör aşırı hava yapmıştır, havasızlandınlmalıdır.",
+    "Separatör aşırı hızlanmıştır, yavaşlatılmıştır."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Yağ-yakıt separatörlerinde dişli kutusundan (karterden) ses geliyorsa aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Yağ eksik ya da hiç yok",
+    "Sıcak çalışan yatak veya rulman var",
+    "Devir düşük",
+    "1, 2 ve 3",
+    "Kapasite çok yüksek"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Evapratörlerden kısırın giderilmesinde aşağıdaki yöntemlerden hangisi kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Mekanik yöntem",
+    "Soğuk su",
+    "Kimyasal temizleme",
+    "Kaynatma",
+    "Elle temizleme"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Kazanların büyüklüğü ne ilgilidir?",
+   "gorsel": [],
+   "siklar": [
+    "Isıtma yüzeyi ile",
+    "İşletme basıncı ile",
+    "Maksimum basınç ile",
+    "Isıtma yüzeyi ile işletme basıncı ile",
+    "Hiçbiri"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Çok yollu bir glob valfin gövdesinde en fazla kaç adet giriş flençi olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "2 adet",
+    "3 adet",
+    "1 adet",
+    "4 adet",
+    "5 adet"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "Elektrikli dümen makineleri aşağıdaki hangi ilkeye göre çalışırlar?",
+   "gorsel": [],
+   "siklar": [
+    "Balast tulumbaları ile",
+    "Sabit idaktörler ile",
+    "Sabit yangın tulumbaları ile",
+    "Seyyar yangın tulumbaları ile (hava soğutmalı)",
+    "Elektrikli dalgıç tulumbaları ile"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Elektro-hidrolik dümen makinelerinin hidrolik donanımına ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Valf diski yukarı kalkar ve akışkana yol verir",
+    "Valfın yayının kısaltmasına neden olur",
+    "Yay tansiyonu diski yuvasına oturtur ve akış kesilir",
+    "Alçak basınç presostatı kompresörü durdurur",
+    "Kompresör karterine yağ akımı durur"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Buhar devresi üzerinde onarım yapılırken yapılacak ilk işlem aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Devre üzerindeki valflar kapatılır.",
+    "Flenç sökümüne geçilir.",
+    "Devrenin izalasyonu sökülür.",
+    "Giriş çıkış vanaları kapatılır. \"Dikkat çalışma vardır\" etiketi asılır.",
+    "Devre içindeki buhar dreyn edilir."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "Kıvrık saçtan yapılan külhanların düz saçtan yapılan külhanlara göre yararı aşağıdakilerden hangisi değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kazanın ısıtma yüzeyinin büyütülmesi",
+    "Kazanın ısıtma yüzeyinin küçültülmesi",
+    "Kazanın dayanıklılığının arttırılması",
+    "Bağlantı yerlerinden Kazanın akıtmasının önlenmesi",
+    "Kışır oluşumunun yavaşlatılması"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Dümen sisteminde ram neye denir?",
+   "gorsel": [],
+   "siklar": [
+    "Hidrolik gücü sağlayan pompa",
+    "Dümen yelpazesi",
+    "Dümene hareket veren bir piston ve iki hidrolik silindir",
+    "Motor hidrolik pompası",
+    "Piston hidrolik silindirleri"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 16,
+   "soru": "Hava sisteminde yağ görülmesinin nedeni aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Segman ve silindirlerin aşınması",
+    "Hava filtresinin tıkalı olması",
+    "Soğutma suyunun ısısının yüksek olması",
+    "Kompresör devrinin yüksek olması",
+    "Yağlama yağı basıncının düşük olması"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Elektro-hidrolik dümen makinelerinin hidrolik donanımına ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Hidrofor",
+    "Servomotor",
+    "Transmitor",
+    "Telemotor",
+    "Ka-Me-Wa"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Kazan besleme suyunun iç ıslahında aşağıdakilerden hangisi besleme suyundan çıkartılır?",
+   "gorsel": [],
+   "siklar": [
+    "Baş ırgat",
+    "Kıç ırgat",
+    "Kreyn",
+    "Tov makinesi",
+    "Matafora"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi cehennemliğin görevlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yüksek cehennemlik sıcaklığını muhafaza etmek",
+    "Kazan keysinin sağlamlılığını arttırmak",
+    "Kazanda ısı kaybını minimuma indirmek",
+    "Bağlantı yerlerinden kazanın akıtmasının önlenmesi",
+    "İç parçaları direkt ışınım ısısı ve alevden korumak Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

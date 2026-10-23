@@ -3,6 +3,7 @@
 // Usage: node web/scripts/translate-content.mjs
 // Resume-safe: cache file updated every 50 segments. Re-run any time.
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -11,12 +12,14 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const TL = process.env.MT_TL || "tr";
 const TAG = TL.replace(/-.*/, "").toUpperCase();
 const outFile = path.join(here, "..", "src", "lib", "locales", `content-${TAG.toLowerCase()}.ts`);
-const cacheFile = `C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\content-${TAG.toLowerCase()}-cache.json`;
-const reviewFile = `C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\content-${TAG.toLowerCase()}-review.txt`;
+const tmpOpencode = path.join(os.tmpdir(), "opencode");
+const cacheFile = path.join(tmpOpencode, `content-${TAG.toLowerCase()}-cache.json`);
+const reviewFile = path.join(tmpOpencode, `content-${TAG.toLowerCase()}-review.txt`);
 // Mirror of src/lib with node-resolvable relative imports (built by
-// C:\Users\furka\AppData\Local\Temp\opencode\pdfext\rtcopy2.mjs — re-run it
+// <tmp>/opencode/pdfext/rtcopy2.mjs — re-run it
 // before this script so the mirror is fresh).
-const RT2B = "C:/Users/furka/AppData/Local/Temp/opencode/rt2b";
+// Override with RT2B env var.
+const RT2B = process.env.RT2B ?? path.join(tmpOpencode, "rt2b");
 
 // Field spec: "s" = string, "ss" = string[], {keyed:{key,label}} = [{key,label}] arrays.
 const SPEC = [

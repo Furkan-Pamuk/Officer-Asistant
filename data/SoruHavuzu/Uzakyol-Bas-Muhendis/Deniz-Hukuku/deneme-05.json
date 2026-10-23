@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Deniz-Hukuku",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-5/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "\"SOLAS 74 Konvansiyonu uyarınca 1.7.1986'dan sonra inşa edilen bütün gemilerde en az ............................ dümen/yeke donanımı olması gerekir.\" ifadesinde noktalı yerlere uygun olan aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "SOLAS 74/78 Sözleşmesinin içerisinde yer alan düzenleme aşağıdakilerden hangisi değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Klas kurumlarının standartları",
+    "Çift gövdeli tankerlerde emniyet sistemi",
+    "IMO numarasına ait zorunluluk",
+    "Korozyonun önlenmesi",
+    "Giriş kaportalarının standardı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "SOLAS 78 protokolünün getirdiği önemli yeniliklerden birisi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Liman Devleti kontrolü gerekliliklerin önemi",
+    "ARPA kullanımı",
+    "Zimni kabul",
+    "Seperatör kullanımı",
+    "Hiçbiri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Gemilerdeki kuru kumanyalıklar, soğuk kumanyalıklar ve kuzinelerdeki kumanya saklama dolapları ile bunların genel fiziki durumlarının, hastalık unsuru oluşturmayacak biçimde olması ve sağlık koşullarına uygun olması amacıyla gerekli düzenlemeler getiren uluslar arası kuralları içeren denizcilik sözleşmesine ait kısaltma aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "ISM",
+    "FAL",
+    "SOLAS",
+    "CLC",
+    "FUND"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Gemilerde çalışacak olan gemi adamlarının vardiya düzenlerinin nasıl olacağım belirleyen uluslar arası denizcilik sözleşmesi, aşağıdakilerden hangisi ya da hangileridir?",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "IMO tarafından yapılan sözleşmeler, genel olarak aşağıdaki gibi dört temel grup altında incelenecek olursa, International Convention on Standarts of Training, Certification and Watchkeeping for Fishing Vessel Personnel (STCW-F), 1995 sözleşmesi, aşağıdaki sınıflandırmalardan hangisi ya da hangilerine dahil olur? (I) Maritime Safety (Denizcilik Güvenliği) (II) Marine Pollution (Deniz Kirliliği) (III) Liability and Compensation (Sorumluluk ve Tazminat) (IV) Other Subjects (Diğer Konular)",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "I ve III"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerden hangisi gemilerin farklı koşul ve bölgelerde yüklendiklerinde draft ve freebord yükseklikleri ile ilgili uluslar arası kuralları içerir?",
+   "gorsel": [],
+   "siklar": [
+    "MARPOL 73/78",
+    "SOLAS 74",
+    "LOADLINE 66",
+    "TONNAGE 69",
+    "STCW 78"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "IOPP nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Sudaki yağ karışım miktarı",
+    "Sudaki zehirli madde karışım miktarı",
+    "Uluslar arası Pis Su Arıtma Cihazı Belgesi",
+    "Uluslar arası Denizin Petrolle Kirlenmesini Önleme Belgesi",
+    "Tanker Taşıma Belgesi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 9,
+   "soru": "Uluslar arası Denizin Petrolle Kirlenmesini Önleme Belgesi (IOPP)' ne sahip olan gemilerin MARPOL 73/78 Ek-I'e göre periyodik sörveyleri kaç yılda bir yapılır?",
+   "gorsel": [],
+   "siklar": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 10,
+   "soru": "(I) Özel bir alan içinde olmayan tankerler, (II) Sahilden en yakın mesafesi 50 milden fazla olan tankerler, (III) Atık yağ (oil) içeriği her 1 mil için 30 litreyi aşmayan tankerler, (IV) Sahilden en yakın mesafesi 12 milden fazla olan tankerler, (V) Atık sintinesi içindeki katı atık (oil) miktarı 15 ppm'i aşmayan 400 Grt' dan küçük kuruyük gemileri, (VI) Atık yağ (oil) içeriği her 1 mil için 15 litreyi aşmayan tankerler. MARPOL 73/78 Annex-I' e göre, yukarıdakilerden hangisi ya da hangileri gemilerin denizleri kirletmesini önleyici değildir?",
+   "gorsel": [],
+   "siklar": [
+    "IV, VI",
+    "III",
+    "II",
+    "I, III",
+    "V"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 11,
+   "soru": "MARPOL 73/78 Sözleşmesinin EK-1V (Gemilerden çıkan pis sulardan denizlerin kirlenmesinin önlenmesi)'ü gereği gemilerde bulunması gereken eçhizelerin tümü aşağıdaki paragraflardan hangisinde belirtilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Arıtma tesisleri, parçalama ve dezenfekte tesisleri, boru hattı ve standart kıyı bağlama tesisatı",
+    "Arıtma tesisleri, parçalama ve dezenfekte tesisleri, toplama tankı, boru hattı ve standart kıyı bağlama tesisatı",
+    "Arıtma tesisleri, parçalama ve dezenfekte tesisleri, toplama tankı ve boru hattı",
+    "Parçalama ve dezenfekte tesisleri, toplama tankı, boru hattı ve standart kıp bağlama tesisatı",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 12,
+   "soru": "Yağ Kirliliğinin genişlemesinin önlenmesi için aşağıdakilerden hangisi yapılmamalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Yağın kenarlarına şamandıralar konulmalıdır",
+    "Yağın kenarlarına su sıkarak genişlemesi önlenmelidir",
+    "Keçe ve yağ emici bezler uygulanmalıdır",
+    "Yağ birikintisi çerçevelenip sınırlandırılmalıdır",
+    "Her şeyden önce yağ ıslah ediciler uygulanmalıdır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Gittikleri limanlarda gemilerden istenen bilgiler doğrultusunda, doküman boyutlarındaki çeşitlilikleri ve gemide harcanan kağıt miktarını azaltmak ayrıca farklı dillere tercüme sorununu ortadan kaldırmak; bu sayede de gemilerin limanlara giriş çıkış işlemleri ile ilgili bürokrasiyi azaltarak dolaşımlarını hızlandırmak amacıyla, 1965 yılında yapılmış olan uluslar arası sözleşmenin kısa adı, aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "SFV",
+    "PAL",
+    "MTF",
+    "FAL",
+    "FMT"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "IMO tarafından yapılan sözleşmeler, genel olarak aşağıdaki gibi dört temel grup altında incelerecek olursa, Athens Convention relating to Carriage of Passengers and their Lagguage by Sea (PAL), 1974 sözleşmesi, yukarıdaki sınıflandırmalardın hangisi ya da hangilerine dahil olur?",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "II ve III"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Bir gemide, can güvenliğine ilişkin bulundurulması zorunlu olan teçhizatın belirlenmesinde, aşağıdaki uluslar arası sözleşmelerden hangisi en çok etkilidir?",
+   "gorsel": [],
+   "siklar": [
+    "MARPOL",
+    "SOLAS",
+    "STCW",
+    "COLREG",
+    "SAR"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "SOLAS 74 Konvansiyonu içeriği uyarınca gemilere verilen uluslar arası sertifikalar ve bunlarla ilgili sörvey ve denetlemeler konusunda sorumlu aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Klas kurumları",
+    "IMO",
+    "Kıyı emniyeti",
+    "Bayrak devleti",
+    "Liman devleti"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "\"Specification of minimum Standard of competence in crisis management and human behaviour\" olarak adlandırılan ve geminin dizayn yapısı, emniyet kuralları, acil durum planları ve prosedürleri gibi konuların belirlenmesi ve bilinmesi ile ilgili düzenlemeler, aşağıdaki uluslar arası denizcilik sözleşmelerinden hangisinin kapsamında ele alınmaktadır?",
+   "gorsel": [],
+   "siklar": [
+    "SOLAS",
+    "STCW",
+    "COLREG",
+    "ISM",
+    "SAR"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "SOLAS Sözleşmesinin ana gayelerinden birisi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi adamlarının vardiya standartlarını belirlemek",
+    "Balıkçı gemilerinin personelinin eğitim standardını belirlemek",
+    "Gemi teçhizatı için minimum standardı belirlemek",
+    "IMO'nun gücünü ortaya koymak",
+    "Deniz kirlenmesini önlemek"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdaki sözleşmelerden hangisi ya da hangileri, denizde çatışma meydana gelmesi vb. gibi durumlara karşı, gemilerin taşıdığı can ve malın emniyetini sağlamak amacıyla düzenlenmiştir? (I) SOLAS (II) COLREG (III) MARPOL (IV) STCW (V) LL (VI) FAL",
+   "gorsel": [],
+   "siklar": [
+    "II",
+    "V",
+    "I",
+    "VI",
+    "III, VI"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Bir gemide çalışacak olan gemi adamlarının sayısının, yeterliliklerinin ve sertifikalarının neler olacağı belirlenirken aşağıdaki uluslar arası sözleşmelerden hangisinin kurallarına bakılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "COLREG",
+    "MARPOL",
+    "STCW",
+    "SOLAS",
+    "MIN SAFE MANNING Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

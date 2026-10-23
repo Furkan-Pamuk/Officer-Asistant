@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 8,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-8/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Which of the following procedures is used while abandoning the vessel?",
+   "gorsel": [],
+   "siklar": [
+    "Urgency",
+    "Security",
+    "Distress",
+    "SOS",
+    "TTT"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Which of the following statements is incorrect?",
+   "gorsel": [],
+   "siklar": [
+    "The bridge is generally located amidship extending from one side of the vessel to the other",
+    "The bridge may be also situated aft or forward on a vessel",
+    "The bridge is made up of the wheel-house, the chart-room and the radio-room",
+    "The bridge is always high up as the ship is controlled from there by the captain and officers",
+    "The bridge functions as the heart of the vessel"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Which of the following statements is incorrect?",
+   "gorsel": [],
+   "siklar": [
+    "If there is a new crew member who joins the vessel, he must be trained within the first two weeks after joining the vessel",
+    "All the life-saving equipment and appliances must be in their correct places and order",
+    "If there are any passengers on board, they must be trained on how to use the life-saving appliances",
+    "Drills must be conducted as if there is a real emergency situation",
+    "It is not necessary to lower at least one life-boat into the sea when there is an onboard training"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Which of the following statements is not correct about tallying?",
+   "gorsel": [],
+   "siklar": [
+    "Tallying is the process of counting, checking and recording of cargo when it comes aboard and leaves the ship",
+    "Tally clerks are responsible for tallying",
+    "One group of tally clerks are employed by shipper whereas one group are employed by ship owner",
+    "The Bill of Lading is important as it states the description of the goods, quantity, marks on packages",
+    "It’s not anybody’s responsibility if there’s damaged cargo on board"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Which of the following statements about finding a ship’s position is not true?",
+   "gorsel": [],
+   "siklar": [
+    "A ship’s position can be calculated by a technique known as dead reckoning",
+    "When in sight of land, the navigator uses the techniques of coastal navigation to find position",
+    "To find the exact position of the ship, a compass bearing can be used",
+    "When out of sight of land, a ship’s position can be found out by using the techniques of celestial navigation",
+    "It is not possible finding the position of a ship by means of satellite"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Which of the following vessels is to give way to the others?",
+   "gorsel": [],
+   "siklar": [
+    "A sailing vessel",
+    "A fishing vessel",
+    "A disabled vessel",
+    "A vessel not under command.",
+    "A vessel underway and driven by force."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "While using abbreviations in shipping forecasts, the capital letter R denotes:",
+   "gorsel": [],
+   "siklar": [
+    "Showers of rain",
+    "Continuous heavy rain",
+    "Heavy rain",
+    "Intermittent rain",
+    "Rain followed by mist"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Yangını önlemek için tedbirler alınacaktır. Correct translation of this sentence into English is;",
+   "gorsel": [],
+   "siklar": [
+    "Precautions must be done to avoid fire.",
+    "Precautions shall be taken to prevent fire.",
+    "There shall be prevented with caution.",
+    "To prevent fire, some cautions shall be taken.",
+    "Fire is prevented by some precautions."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "You are running into danger. Fog bang ahead of you.",
+   "gorsel": [],
+   "siklar": [
+    "Tehlikeye gidiyorsunuz. Önünüzde kesik sis var",
+    "Tehlikeye gidiyorsunuz. Önünüzde sığ su var",
+    "Tehlikeye gidiyorsunuz. Önünüzde enkaz var",
+    "Tehlikeye gidiyorsunuz. Önünüzde kesif sis var",
+    "Tehlikeye gidiyorsunuz. Önünüzde mayın var"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "You can anchor until there is sufficient water.",
+   "gorsel": [],
+   "siklar": [
+    "Su yetersiz onun için demirleme",
+    "Su derinliği yeterli olana dek demirleyebilirsiniz",
+    "Su derinliği giderek azalıyor, demirliyebilirsiniz",
+    "Su derinliği yetersiz, demirlemek tehlikelidir",
+    "Su derinliği kafi yola çıkabilirsiniz"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "“You have caught my fishing gear.” is a term used by a ..........................",
+   "gorsel": [],
+   "siklar": [
+    "passing ship",
+    "ship aground",
+    "vessel moving",
+    "fishing boat",
+    "protecting vessel"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "You may navigate by yourself or wait for pilot.",
+   "gorsel": [],
+   "siklar": [
+    "Kendiniz seyredebilirsiniz yoksa pilot gelir",
+    "Kendiniz seyrederseniz pilot bekleyebilir",
+    "Kendiniz seyredebilir veya pilotu bekleyebilirsiniz",
+    "Kendiniz seyredemezseniz, pilotu bekleyin",
+    "Kendiniz seyredin yoksa pilotu bekleteyim"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "“You must shorten your cable to three shackles” is an order given by a pilot station ……………….....",
+   "gorsel": [],
+   "siklar": [
+    "when the pilot boards the vessel to take her from waiting anchorage into harbour",
+    "after the pilot boards the vessel to take her from waiting anchorage into harbour",
+    "immediately before the pilot boards her to take her from waiting anchorage into harbour",
+    "immediately after the pilot boards her to take her from waiting anchorage into harbour",
+    "it has nothing to do with the pilot whatsoever"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Your navigation lights are not visible.",
+   "gorsel": [],
+   "siklar": [
+    "Seyir fenerleriniz görülmüyor.",
+    "Seyir fenerleriniz çalışıyor mu?",
+    "Hangi seyir fenerleriniz arızalı?",
+    "Seyir fenerleriniz neden görülmüyor?",
+    "Seyir fenerlerim arızalı."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "You are in the leading line.",
+   "gorsel": [],
+   "siklar": [
+    "Transit hattınız uzun",
+    "Transit hattı üzerindesiniz",
+    "Transit geçişte baştasınız",
+    "Transit hattı uzuyor",
+    "Transitte lider olun"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "You are running into danger.",
+   "gorsel": [],
+   "siklar": [
+    "Gemime yaklaşmayın.",
+    "Tehlike var.",
+    "Tehlikeye gidiyorsunuz.",
+    "Yol veriniz.",
+    "Geçmeyiniz."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "A: Do not follow me B: ...........................",
+   "gorsel": [],
+   "siklar": [
+    "I am stopping",
+    "I will not follow you",
+    "What is your course?",
+    "Full ahead immediately",
+    "Must I take tugs?"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "A: Full ahead immediately B: ......................................",
+   "gorsel": [],
+   "siklar": [
+    "Stop your vessel",
+    "I am going full ahead immediately",
+    "I am stopping my vessel",
+    "I am increasing my speed",
+    "I am slowing down"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "A : Go ahead : (Follow me) B : ......................................",
+   "gorsel": [],
+   "siklar": [
+    "I will be ready to help",
+    "I am going ahead (I am following you)",
+    "I will be followed by vessel",
+    "He will go ahead",
+    "Will you be followed by vessel?"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 20,
+   "soru": "........................ and ..................................... are used as distress signals.",
+   "gorsel": [],
+   "siklar": [
+    "speakers – aviators",
+    "asmoke – pigeons",
+    "rockers – voices",
+    "flares – rockets",
+    "navigators – passengers Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 4
+  }
+ ]
+}

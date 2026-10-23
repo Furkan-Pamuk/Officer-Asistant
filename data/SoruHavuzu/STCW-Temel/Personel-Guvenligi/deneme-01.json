@@ -1,0 +1,269 @@
+{
+ "rank": "STCW-Temel",
+ "ders": "Personel-Guvenligi",
+ "deneme": 1,
+ "kaynak_url": "https://denizcisin.com/index.php/2017/01/27/stcw-soru-personel-guvenligi-ve-sosyal-sorumluluk-test-1/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslararası sözleşmesi (MARPOL 73/78)'in EK-V' de belirtilen gemilerden atılan çöpler ile ilgili kurallar kapsamında denize atılması kesinlikle yasak olan madde aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gıda atıkları",
+    "Yüzebilecek olan istif gereçleri",
+    "Ambalaj malzemeleri",
+    "Madeni şişeler",
+    "Sentetik halatlar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": "Yiyecek atıklarımız ufalanmamış halde Marpol'e göre \"Özel sahalar\" içerisinde en yakın sahile kaç mil mesafeden daha yakın uzaklıklarda denize boşaltılamaz?",
+   "gorsel": [],
+   "siklar": [
+    "6 mil",
+    "12 mil",
+    "4 mil",
+    "3 mil",
+    "Boşaltılamaz"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Plastik atıklarla ilgili olarak aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Köpük (strofor) plastik atık olarak kabul edilmez",
+    "Plastik atıklar gemilerde az olduğundan uygun bir yerde atılabilir",
+    "Plastik atıklar Özel Bölgeler içinde atılmalıdır",
+    "Plastik atıklar mutfak atıkları içinde yer alır",
+    "Gemide tutulur, limana gelinince sahile verilir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Deniz kirliliği bakımından,en yakın karadan 4 mil açıkta ve tüm iç sularda,aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Sadece yakıt, yağ,gibi sintine birikimleri atılamaz",
+    "Denize kağıt, paçavra ve metal atılabilir",
+    "Denize hiçbir şey atılamaz",
+    "Denize plastik ve yüzen madde atılamaz",
+    "Denize kağıt, paçavra ve metal atılamaz"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Deniz kirliliği açısından aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Katı atıklar sahile verilmelidir",
+    "6 mil açıkta denize atabiliriz",
+    "Katı atıklar yakılarak yok edilirler",
+    "Katı atıklar 25 mil açıkta denize atılabilirler",
+    "Katı atıklar plastik torbalara konup denize atılır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 6,
+   "soru": "Hangi gemilerde \"Çöp Kayıt Defteri\" tutulması zorunludur?",
+   "gorsel": [],
+   "siklar": [
+    "1000 gros ve daha büyük olan gemiler",
+    "400 gros ton ve daha büyük; ve 15 kişi ve daha fazlasını taşıma sertifikası olan her gemi",
+    "500 grostan büyük yolcu gemileri ve 1000 grostan büyük yük gemileri",
+    "500 grostan büyük ve en az 150 kişi kapasiteli yolcu gemileri",
+    "Liman seferi dışında sefer yapan 300 grostan büyük gemiler"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerden hangisi gemilerde tehlikeli bölmelere girmeden alınacak tedbirlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Uygun atmosfer yok ise solunum cihazı kullanılmalıdır",
+    "Bölmedeki atmosfer test edilmelidir",
+    "Karşılaşılacak tehlikeler belirlenmelidir",
+    "Yangın hortumu hazırlanmalıdır",
+    "Çalışma müsaadesi sistemi kullanılmadır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Hangi durumda gemi adamının iş akdi işveren tarafından tek taraflı olarak bozulur?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi adamının verilen işi kabul etmemesi durumunda",
+    "Gemi adamının gemide fazla mesai yapması durumunda",
+    "Gemi adamının kaza geçirmesi durumunda",
+    "Gemi adamının hastalanması",
+    "Gemi adamı gemiye katılınca"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "MARPOL 73/78 gereği, gemilerden çıkan pis sularla denizlerin kirlenmesini önlemek amacıyla ÖZEL ALAN olarak ilan edilmiş denizler aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Karadeniz, Baltık",
+    "Basra Körfezi, Karadeniz",
+    "Henüz özel alanlar belirlenmemiştir",
+    "Kızıl Deniz, Karadeniz",
+    "Akdeniz, Karadeniz"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Deniz kirliliğini önleme konusunda bilinmesi gerekenlerden biri de genel atıklardır. Aşağıdakilerden hangisi \"genel atık\" kapsamında yer almaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yemek artıkları",
+    "cam, metaller",
+    "Kağıt ürünleri ve giysiler",
+    "Salmastra",
+    "Porselen"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Güverte personeli ve güverte zabitlerinin amiri kimdir?",
+   "gorsel": [],
+   "siklar": [
+    "2.Kaptan",
+    "3.Kaptan",
+    "Fenerci",
+    "Güverte Lostromosu",
+    "Reis"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Geminin disiplin amiri kimdir?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptan",
+    "1.Zabit",
+    "2.Kaptan",
+    "Çarkçıbaşı",
+    "3.Kaptan"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdakilerden hangisi \"marpol\" açısından \"özel bölge\" değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Akdeniz",
+    "Baltık denizi",
+    "Karadeniz",
+    "Kızıldeniz",
+    "Güney pasifik denizi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 14,
+   "soru": "İçine az miktarda yağ ve yakıt karışmış sintine suyumuzu, Marpol'e göre en yakın sahile kaç mil uzaklıkta denize boşaltabiliriz?",
+   "gorsel": [],
+   "siklar": [
+    "15 mil",
+    "6 mil",
+    "Boşaltamayız",
+    "3 mil",
+    "Hiçbiri"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "En yakın sahilden 3 mil açığa kadar ve iç sularda kirlilikle ilgili aşağıdaki seçeneklerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Yemek atıkları ufalanmış olarak atılabilir",
+    "Denize hiçbir şey atılamaz",
+    "Sadece yemek artıkları atılabilir",
+    "Plastikler haricinde hiçbir şey atılamaz",
+    "Su üzerinde yüzen malzemeden oluşan atıklar atılamaz"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Arıtılmamış pis suların denize boşaltılmasına ilişkin MARPOL kuralı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "En yakın karadan 12 açıkta denize basılabilir",
+    "En yakın karadan 4 mil açıkta denize basılabilir",
+    "Karadan 3 mil açıkta denize basılmalıdır",
+    "En yakın karadan 6 mil açıkta denize basılır",
+    "Limanlar haricinde denize basılabilir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Türkiye'de geçerli olan 26.12.2004 tarihli \"Gemilerden atık alınması ve atıkların kontrolü yönetmeliği\" adlı yönetmelik neye dayanarak hazırlanmıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Uluslararası MARPOL sözleşmesi kuralları",
+    "STCW kuralları",
+    "Uluslararası COLREG kuralları",
+    "Uluslararası SOLAS kuralları",
+    ""
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Limanda deniz kirliliği oluştuğunda öncelikle yapılması gereken işlem hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Alarm verilir",
+    "Acentaya veya sigortaya haber verilir",
+    "Döküntünün etrafı çevrilir",
+    "Sahil otoritesine haber verilir",
+    "Hiçbiri"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Gemi adamı hangi durumlarda yıllık izni hak etmiş sayılır?",
+   "gorsel": [],
+   "siklar": [
+    "Aynı gemide en az 5 ay çalışmışsa",
+    "Aynı gemide en az 1 yıl çalışmışsa",
+    "Aynı gemide bir takvim yılı içersinde en az 6 ay çalışmışsa",
+    "Aynı gemide 3 ay çalışmışsa",
+    "Aynı gemide 4 ay çalışmışsa"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Gemilerin neden olduğu deniz kirliliğinin önlenmesi için yapılan uluslararası sözleşme aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "SOLAS",
+    "IOPP",
+    "STCW",
+    "SAR",
+    "MARPOL"
+   ],
+   "cevap": 5
+  }
+ ]
+}

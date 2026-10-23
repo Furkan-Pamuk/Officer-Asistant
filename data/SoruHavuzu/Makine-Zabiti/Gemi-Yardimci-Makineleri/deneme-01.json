@@ -1,0 +1,269 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 1,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-1/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Yağ - yakıt separatörlerinde yağ-yakıt su tarafına geçiyorsa (dışarı veriyorsa) aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Gravity disk çok küçük",
+    "Siil suyu gelmiyor veya az geliyor",
+    "Su çıkışı kapalı",
+    "Karşı basınç çok yüksek",
+    "Slaç çıkış tarafı dolu"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Tek akışlı bir vidalı pompada eksenel sıratsı önlemek için genellikle aşağıdakilerin hangisi yapılır?",
+   "gorsel": [],
+   "siklar": [
+    "Vidaların içine boylu boyunca ince bir kanal açılır",
+    "Vidaların bir ucuna sırast yatağı konur",
+    "Tek akış bir bafıl ile ikiye bölünür",
+    "Disçarc basıncı düşürülür",
+    "Pompanın devri çok düşük tutulur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Her iki yönde bağlanabilen ve akışkanın geri kaçmasını engellemeyen valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Çek valf",
+    "Glob valf",
+    "Geyt valf",
+    "Çalpara valf",
+    "Solenoid valf"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "Buhar kondenseri borularının imalinde aşağıdaki malzemelerden hangisi kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Tombak (kızıl pirinç)",
+    "Kupro nikel",
+    "Titanyum",
+    "Admiralti pirinci",
+    "Yukarıdakilerin tümü"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Borulu bir konderser normal şartlarda hangi zaman aralığında kaynatılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "5 yılda bir",
+    "4 yılda bir",
+    "2-3 yılda bir",
+    "Her yıl",
+    "Kaynatılmaz"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Kazan besleme suyunun havasının alınma işlemi aşağıdaki hangi elemanda nasıl gerçekleşir?",
+   "gorsel": [],
+   "siklar": [
+    "Deaeratör tankta ısıtarak",
+    "Kondenserde ısıtarak",
+    "Ecekterde soğutarak",
+    "Ana besleme pompası ile basıncını arttırarak",
+    "Konderserde soğutarak"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Aşağıdakilerden hangisi besleme suyu sistemi elemanı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kimyasal madde besleme tankı",
+    "Ana buster pompası",
+    "Türbofit",
+    "Ana yoğuşum devirdaim termostatik valfı",
+    "Ekonomayzer"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Bir redyusin valfın çıkış devresinde bulunması gereken valflar aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Glob - geyt",
+    "Glob - rilif",
+    "Glob-çek",
+    "Glob - piston",
+    "Glob-İğne"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Alev borulu kazanlarda buhar tutma süresi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "1 — 1,5 saat",
+    "2,5 saat",
+    "10-20 saat",
+    "5-10 saat",
+    "4 saat"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Bir gemiyi iterek yanaştırmak veya düzeltmek için kullanılan donanıma verilen isim aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Matafora",
+    "Kreyn",
+    "Baş ırgat",
+    "Tov vinci",
+    "Kıç ırgat"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Yağ - yakıt separatörlerinde yağ-yakıt su tarafına geçiyorsa (dışarı veriyorsa) aşağıdakilerden hangisi doğrudur?",
+   "gorsel": [],
+   "siklar": [
+    "Karşı basınç düşüktür",
+    "Karşı basınç yüksektir",
+    "Gravity disk çok küçüktür",
+    "Slaç çıkış tarafı doludur",
+    "3 ve 4"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Ambarlarında parlayıcı yükler taşıyan gemilerde bu ambarlar aşağıdaki sistemlerin hangisi ile donatılmalıdırlar?",
+   "gorsel": [],
+   "siklar": [
+    "Yaş spinkler sistemi ile",
+    "Inter gaz sistemi ile",
+    "Kuru spinkler sistemi ile",
+    "CO2 sistemi ile",
+    "Soda - asit sistemi ile"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Gemi manevralarında aborda veya kıçtan kara olurken insan gücünün yetmediği yerde halat manevrası aşağıdakilerden hangisi ile olur?",
+   "gorsel": [],
+   "siklar": [
+    "Sahilden çekme ile",
+    "Gemi vasıtası ile",
+    "Kontrollü ırgatlar ile",
+    "Gemi düdüğü ile",
+    "Açavela ile"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "Bir separatörün klarifayer olarak kullanılması sonucu elde edilen yabancı maddeler aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Katı partiküller ve su karışımı",
+    "Sadece katı partiküller",
+    "Sadece su",
+    "Yakıt ve su karışımı",
+    "Yakıt ve katı partiküller"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "Genleşme boru bağlantıları için aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Uzun buhar devrelerinde kullanılırlar",
+    "Uygun aralıklarla birden fazla kullanılırlar",
+    "Alçak basınçlı su sistemlerinde de kullanılırlar",
+    "Yüksek basınç ve yüksek sıcaklıktaki buhar devreleri için tercih edilir",
+    "Sıcaklık değişiklilerinden dolayı kırılıp bükülmeleri önlemek için kullanılırlar"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 16,
+   "soru": "Çift taraftan emme yapan impellerin santrifüj pompalarda kullanılma avantajı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Hidrolik sırast bertaraf edilir",
+    "Radyal kleners ayarlanır",
+    "Pompa hedi düşük olur",
+    "Pompa disçarcı düşük olur",
+    "Emiş devresinde vakum oluşur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Tek etkili pistonlu bir pompada silindir ile plancer arasında oluşan bir sızıntı neye yol açar?",
+   "gorsel": [],
+   "siklar": [
+    "Silindir içerisinde vakum düşmesi sonucu emişi etkiler",
+    "Pompa disçarcını yükseltir",
+    "Pompa verimi yükseltir",
+    "Pompa hedini yükseltir",
+    "Pompa disçarcında vuruntulara neden olur"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Bir gemide kıç pik tankına alınan safra ile aşağıdakilerden hangisi önlenir?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin yalpaya düşmesi",
+    "Geminin draftı",
+    "Pervanenin srast etkisi",
+    "Geminin meyli",
+    "Geminin başa trimi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Sitinde yara olan valfı alıştırmak için aşağıdakilerden hangisi kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Yağ",
+    "Gasket macunu",
+    "Alıştırma macunu",
+    "Permateks",
+    "Devkon"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Basıncı (supply) ve emici (egzoz) havalandırmada dikkat edilecek husus yaşam yerleri için nasıl olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Basıcı ve emici fanlar birbirine eşit olmalı ve aynı zamanda çalıştırılmalıdır",
+    "Basıcı fanlar her zaman %20 daha fazla hava basmalıdır",
+    "Emici fanlar her zaman %20 daha fazla hava emmelidir",
+    "Sadece basıcı fan yeterlidir",
+    "Sadece emici fan yeterlidir Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

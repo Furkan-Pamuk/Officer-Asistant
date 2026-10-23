@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 9,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-9/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Su borulu kazanlarda süperhiterin koruyucusu olarak görev yapan ve bazen de su dramında da bulunan teçhizatın adı nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Hava ısıtıcısı",
+    "Süperhiter",
+    "Disüperhiter",
+    "Ekonomayzer",
+    "Gaz bafılı"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdakilerden hangisi farklı havalandırma ile korozyon oluşumunu gerçekleştiremez?",
+   "gorsel": [],
+   "siklar": [
+    "Çözelti damarcıklarının malzeme yüzeyinde bulunması",
+    "Deniz suyu derinlik farklılığı",
+    "Deniz suyu osmotik basıncının değişmesi",
+    "Malzeme üzerinde bulunan çizikler",
+    "Bazı deniz canlılarının malzeme yüzeyine yapışması"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Gemilerde inter gazın depolandığı tüpler ağırlıklarının yüzde kaçını kaybederlerse yeniden doldurulmalıdırlar?",
+   "gorsel": [],
+   "siklar": [
+    "%15",
+    "%40",
+    "%60",
+    "%80",
+    "%100"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Salmastra kullanmanın başlıca amacı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Sızıntı ve kaçağa engel olmak",
+    "Sıcaklığa engel olmak",
+    "Daha çok verim elde etmek",
+    "Daha çabuk iş yapmak",
+    "Daha sıcak ortam elde etmek"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 5,
+   "soru": "Separatörlerin çalışma prensibi aşağıdakilerden hangisi değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Katı parçacıklar ile sıvı özgül ağırlığının arasındaki farka göre çalışırlar",
+    "Katı parçacıkların büyüklüğüne göre ayarlanırlar",
+    "Sıvının viskozitesine göre ayarlanırlar",
+    "Ayrılma kuvvetinin şiddetine göre discarçları değişir",
+    "Aynı özgül ağırlıktaki farklı cins maddelere göre ayırım yaparlar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Yakıt devrelerinin frençlerinde conta malzemesi olarak aşağıdakilerden hangisi kullanılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Klingerit",
+    "Bakır",
+    "Amyant",
+    "Lastik",
+    "Asbestos"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Nominal debisi (Kvs) 24 m ³",
+   "gorsel": [],
+   "siklar": [
+    "6 m ³ /s",
+    "8 m ³ /s",
+    "10 m ³ /s",
+    "12 m ³ /s",
+    "16m ³ /s"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Aşağıdakilerden hangisi pozitif deplasmanlı (rotari) pompa değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Basketli hava pompası",
+    "Vidalı pompa",
+    "Dişli pompa",
+    "Loblu pompa",
+    "Viking pompa"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "Ters alev borulu kazanlarda duman ve yanma gazlarının takip ettiği yol aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Ocak - külhan - süperhiter - borular - duman sandığı - baca",
+    "Külhan - cehennemlik - alev ve payanda boruları - baca",
+    "Külhan - cehennemlik - alev boruları - duman sandığı - baca",
+    "Cehennemlik - alev boruları - külhan - baca",
+    "üperhiter - disüperhiter - alev boruları - baca"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Gemilerin güverte yüzeylerine sırası ile hangi boyalar uygulanır?",
+   "gorsel": [],
+   "siklar": [
+    "Astar boya - antifouling boya",
+    "Astar boya - antikorozif boya",
+    "Astar boya - antikorozif boya -antifouling boya",
+    "Astar boya - antifouling boya- antikorozif boya",
+    "Astar boya - antikorozif boya- antifouling boya- antikorozif boya"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "Borulu kondenserler susuz kaldığı zaman aşağıdakilerden hangisinin yapılması gerekir?",
+   "gorsel": [],
+   "siklar": [
+    "kamin açılır, kondensere besleme suyu alınır",
+    "Ekstrakşın pompasının hızı düşürülür",
+    "Yoğuşum pompası durdurulur",
+    "Serküleytin pompası durdurulur",
+    "3 ve 4"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Evaporeyterler hangi durumlarda blöf edilir?",
+   "gorsel": [],
+   "siklar": [
+    "Sistem devreye girerken",
+    "Sistem devreden çıktıktan sonra",
+    "Sistem çalışırken",
+    "Sistem temizliği yapılırken",
+    "Kademelerde suyun yükselmemesi için blöf valfı sürekli açık kalmalı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Valf ne işe yarar?",
+   "gorsel": [],
+   "siklar": [
+    "Akışkanın önünü keser",
+    "Akışkana depoluk eder",
+    "Akışkanın hızını azaltır",
+    "Akışkanın yönünü belirler yavaşlatır ya da durdurur",
+    "Akışkanı durdurur ve ısıtır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "İki kademeli hava soğutmak bir hava kompresöründe kaç adet emme ve disçarç valfı bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "2 emme 2 disçarç",
+    "1 emme 1 disçarç",
+    "1 emme 2 disçarç",
+    "2 emme 1 disçarç",
+    "4 emme 2 disçarç"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "Akaryakıtla fayraplı bir gemide üretilecek buhar miktarı aşağıdakilerden hangisine bağlı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kullanılan atomizörün kapasitesine",
+    "Kullanılan yakıt basıncına",
+    "Kullanılan kazan sayısına",
+    "Yakıt ile hava karışım oranına",
+    "Kazanda kullanılan brülör sayısına"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "Galvanik pil (ekşın olayı) kondenserlerin hangi kısmında oluşur?",
+   "gorsel": [],
+   "siklar": [
+    "Su kutularında",
+    "Kondenser kapaklarında",
+    "Borularda",
+    "Deniz suyu çıkışlarında",
+    "Yukarıdakilerin tümünde"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 17,
+   "soru": "Aşağıdakilerden hangisi bir havalandırma / iklimlendirme sisteminin elemanı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kondenser",
+    "Evaporator",
+    "Fan",
+    "Kompresör",
+    "Kazan"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Separatörler için genellikle aşağıdakilerden hangisi söylenemez?",
+   "gorsel": [],
+   "siklar": [
+    "Yakıtta bulunan suyu ayırır",
+    "Yakıtta bulunan tortuyu ayırır",
+    "Yağda bulunan suyu ayırır",
+    "Yakıtta bulunan yağı ayırır",
+    "Sintine suyunda bulunan yağı ayırır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi yağlama yağlarının işlevlerinden biri değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Sürtünen yüzeyleri korozyona karşı korumak",
+    "Sürtünen yüzeylerin aşırı ısınmasını engellemek",
+    "Sürtünen yüzeylerin mekanik aşınmasını engellemek",
+    "Sürtünen yüzeyler arasındaki sürtünme kuvvetini azaltmak",
+    "Sürtünen yüzeylerde oluşan mıknatıslanma olgusunu gidermek"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Stimli flaş tip evaporeyterde kışırın önlenmesi için yapılan aşağıdaki işlemlerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Periyodik olarak temizliği zamanında yapılmalı",
+    "Yüksek ısıda çalıştırılmamalı",
+    "Vakumların istenilen değerlerden olması sağlanmalı",
+    "Besleme suyu ısıtıcısının sıcaklığı 170° F'ın üzerinde olmak",
+    "Kışırın önlenmesi için sık sık kademe temizliği yapılmak Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

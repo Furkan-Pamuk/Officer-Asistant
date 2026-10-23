@@ -1,0 +1,477 @@
+{
+ "rank": "STCW-Temel",
+ "ders": "Kisisel-Can-Kurtarma",
+ "deneme": 2,
+ "kaynak_url": "https://denizcisin.com/index.php/2017/01/27/stcw-soru-denizde-kisisel-can-kurtarma-teknikleri-test-2/",
+ "soru_sayisi": 36,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Denize düşen adama kırlangıçtan atılan can simidine bağlı olan ışıklı şamandıranın ışığı en az ne kadar süre yanar?",
+   "gorsel": [],
+   "siklar": [
+    "15 dakika",
+    "45 dakika",
+    "2 saat",
+    "30 dakika",
+    "1 saat"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Can kurtarma araçlarında bulunan kuru gıdaların içeriğindeki hayvansal yağ oranı ne olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "% 5",
+    "En az % 15",
+    "% 20",
+    "% 30 dan az",
+    "Hiç bulunmaz"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Can Salı ve can filikasında kişi başına ne kadar deniz tutmasına karşı hap bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "1 günlük",
+    "2 adet",
+    "1 adet",
+    "4 adet",
+    "48 saatlik yetecek kadar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Hangi boydaki yolcu gemilerinde en az 8 adet can simidi bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "50 metreden kısa",
+    "60 metreden kısa",
+    "120 metreden kısa",
+    "80 metreden kısa",
+    "100 metreden kısa"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "Kullanıcısını su yüzeyinde tutan, baygın ve bitkin durumda dahi ağzını sudan yukarda tutarak nefes yollarının açık olmasını sağlayan kişisel can kurtarma aparatı hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "can simidi",
+    "deniz feneri",
+    "can yeleği",
+    "deniz demiri",
+    "el maytabı"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Can simitlerinin iç çapı en küçük ne kadar olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "35 cm",
+    "40 cm",
+    "50 cm",
+    "45 cm",
+    "60 cm"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "Can simidiyle kullanılan duman işareti sakin suda en az ne kadar süreyle duman çıkaracaktır?",
+   "gorsel": [],
+   "siklar": [
+    "8 dakika",
+    "15 dakika",
+    "5 dakika",
+    "10 dakika",
+    "20 dakika"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "Solas'a tabi bir gemide bulundurulacak can yeleği sayısı en az ne kadar olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "Her mürettebat için birer adet",
+    "Gemideki tüm mürettebat + yolcu + çocuk için birer adet",
+    "Liman başkanının müsaade ettiği kadar",
+    "Gemide bulunan herkes için birer adet",
+    "Tüm mürettebat+yolcu+çocuk+vardiyada olan mürettebata yetecek kadar+ yaşam mahallinden uzakta bulunan can salında kullanılacak kadar bulunacaktır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Gemiyi terk esnasında denize atlamak zorunda kalınırsa, rüzgara göre geminin hangi bordasından ve ne kadar yükseklikten atlanmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Rüzgar üstünden ve mümkün olan en az yükseklikten",
+    "Rüzgar altından ve mümkün olan en yüksek yerden",
+    "Rüzgar üstünden ve mümkün olan en yüksek yerden",
+    "Rüzgar altından ve mümkün olan en alçak yerden",
+    "Rüzgar dikkate alınmadan denize en yakın yerden"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 10,
+   "soru": "İnsanın vücut ısısı neden su içersindeyken, suyun dışarısında olduğundan daha çabuk düşer?",
+   "gorsel": [],
+   "siklar": [
+    "Suyun spesifik ısısı havaya göre 1000 kat fazladır",
+    "Suyun ısı geçirgenliği havadan 25 kat daha fazladır",
+    "Suyun hacimsel spesifik ısı kapasitesi havadan yaklaşık 3500 kat fazladır",
+    "Suyun hacimsel spesifik ısı kapasitesi havaya göre çok fazladır",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Can simitlerinin asgari ağırlığı ne kadardır?",
+   "gorsel": [],
+   "siklar": [
+    "3 kg",
+    "4 kg",
+    "2,5 kg",
+    "2 kg",
+    "5 kg"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Hipotermide vücut ısısı \"25 o C\" dereceye düştüğünde ne olur?",
+   "gorsel": [],
+   "siklar": [
+    "Kas hareketleri azalır, vücut gevşer",
+    "Bilinç kaybı olur",
+    "Kalp atışları aşırı hızlanır",
+    "Aşırı ısı kaybından dolayı tüm vücutta titremeler olur",
+    "Kalp durur ve ölüm gerçekleşir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Can Salı malzemeleri arasında bulunan sünger ne için kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "Taban temizliği için",
+    "Çadırın dışını ıslatıp serinletmek için",
+    "Deniz suyunu süngerden geçirip arıtmak için",
+    "Çadırın iç yüzeyinde yoğunlaşan suyu toplamak için",
+    "Aşırı terleyen kişilerin terini almak için"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "Aşağıdakilerden hangisi can kurtarma araç ve gereçlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Can Salı",
+    "Can yeleği",
+    "Cayro",
+    "TPA (Isıl korumalı tulum)",
+    "Can filikası"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Can simitleri kaç kilogram ağırlığındaki bir demiri tatlı suda 24 saat süre ile yüzdürebilecek durumda olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "12,5",
+    "14,5",
+    "18,5",
+    "20",
+    "16,5"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Aşağıdakilerden hangisi kişisel can kurtarma aracı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "EPIRB",
+    "ISI korumalı tulum",
+    "Can simidi",
+    "",
+    ""
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Gemi haricinde can sallarının bakımı hangi sıklıkla yapılır?",
+   "gorsel": [],
+   "siklar": [
+    "Yıllık ve 5 yıllık",
+    "6 aylık",
+    "Aylık",
+    "2 yıllık",
+    "Yıllık"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Can simitleri kaç kilodan ağır olmamalı ve kaç kilogram ağırlığı su üzerinde tutabilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "2,5 / 14,5",
+    "2 / 14,5",
+    "3 / 11",
+    "2,5 / 12,5",
+    "2 / 2,5"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi can yeleğinin üstünde bulunan ekipmanlardan değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Hiçbiri",
+    "Can halatı",
+    "Lamba",
+    "Düdük",
+    "Duman sinyali"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Aşağıdakilerden hangisi can yeleklerinin özellikleri arasında yer almaz?",
+   "gorsel": [],
+   "siklar": [
+    "Yardımsız bir dakika içinde giyilebilir olmalı",
+    "Sıkıca bağlanmış bir adet düdüğü bulunmalı",
+    "En az 8 saat yanabilen 0,75 mumluk bir ışıkla donatılmış olmalı",
+    "Beyaz renkli olmalı",
+    "Yapışık vaziyette yansıtıcı bantlı olmalı"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 21,
+   "soru": "Denize düşen kazazadeler denizde boğulmadan ziyade ısı kaybından ölmektedir. Soğuk suda vücut ısısı 25 dereceye düştüğü zaman kalp çalışmaz duruma gelmektedir. Bir kazazadenin artı 4 derecedeki suda kalma süresi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "5 - 20 dakika",
+    "3 - 15 dakika",
+    "30 dakika - 3 saat",
+    "1 - 6 saat",
+    "2 - 24 saat"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 22,
+   "soru": "Yük gemilerinde bulunması gereken dalma giysisi sayısı kaçtır?",
+   "gorsel": [],
+   "siklar": [
+    "Personel sayısı kadar",
+    "Gemide toplam 3 adet",
+    "Her personel için 1 tane, ayrıca vardiya tutulan yerlerde ve çalışma alanlarında çalışan personel kadar bulundurulacak",
+    "Her can filikasında 3 adet",
+    "Her filikada 1 adet"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 23,
+   "soru": "150 metre boyundaki bir yük gemisinde bulundurulması gereken can simidi sayısı kaçtır?",
+   "gorsel": [],
+   "siklar": [
+    "18",
+    "32",
+    "30",
+    "12",
+    "15"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 24,
+   "soru": "Aşağıdakilerden hangisi can kurtarma aracı değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Can salı",
+    "Kurtarma botu",
+    "Can simidi",
+    "Servis botu",
+    "Can yeleği"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 25,
+   "soru": "Tehlikedeki insanların gemiyi terk ettikleri zamandan başlayarak hayatlarını devam ettirmelerini sağlayan araçalara ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Kurtarma aracı",
+    "Can kurtarma aracı",
+    "Şişirilebilir araç",
+    "Hiçbiri",
+    ""
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 26,
+   "soru": "Denize adam düşmesi halinde ilk yapılması gereken nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Hemen kaptana haber vermek",
+    "Kazazadeyi pervaneden kurtarmak için makineleri stop etmek",
+    "Kazazadeye can simidi fırlatmak",
+    "Kazazadeyi kurtarmak amacıyla suya atlamak",
+    "Denize adam düştü diye bağırmak"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 27,
+   "soru": "Aşağıdakilerden hangisinin can salında bulundurulması gerekmez?",
+   "gorsel": [],
+   "siklar": [
+    "Can yeleği",
+    "İşaret fişeği",
+    "El feneri",
+    "Isı korumalı tulum",
+    "Çamçak"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 28,
+   "soru": "Denize adam düştüğünde aşağıdakilerden hangisi ilk yapılacak hareketlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Makina stop edilir",
+    "Dümen kazazade tarafına alabandaya basılır",
+    "Kazazadeye duman kandili ve ışıklı can simidi atılır",
+    "Derhal kaptana haber verilir",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 29,
+   "soru": "Aşağıdakilerden hangisi can simitlerinde kullanılan ekipmanlardandır?",
+   "gorsel": [],
+   "siklar": [
+    "I, II, IV, V",
+    "I, IV, V",
+    "I ve II",
+    "I, II, III, V",
+    "Hepsi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 30,
+   "soru": "Yüzen can halatının çapı kaç mm den az olmamalı ve kopma gücü en az kaç kN olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "6mm / 5kN",
+    "8mm / 5kN",
+    "6mm/ 4kN",
+    "8mm / 4kN",
+    "8mm / 6kN"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 31,
+   "soru": "Can yeleği ile ilgili olarak aşağıda verilen bilgilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Işık reflektörü olacaktır",
+    "1 dakikada giyilebilmelidir",
+    "Kırmızı renkte olacak ve geminin IMO numarası bağlama limanı üzerinde yazılı olacaktır",
+    "2 saniye tamamen alever içinde kaldıktan sonra yanmaya devam etmeyecek ve erimeyecektir",
+    "Hiçbiri"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 32,
+   "soru": "EPIRB'in kullanılma amacı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi - gemi arasında haberleşmeyi sağlamak",
+    "Arama - kurtarma faaliyetlerinde bulunan araçların radar cihazlarında görülecek yer tespitinde bulunmaya yardımcı olmak",
+    "Uydulara gönderdiği sinyaller ile arama - kurtarma faaliyetlerinde yer tespitine yardımcı olmak",
+    "Sahil ve yer istasyonları ile haberleşmeyi sağlamak",
+    "Hepsi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 33,
+   "soru": "Can simidinde bulunan duman kandili kaç dakika süre ile duman çıkarmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "20",
+    "10",
+    "5",
+    "15",
+    "25"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 34,
+   "soru": "125 metre boyundaki bir yük gemisinde bulundurulması gereken can simidi sayısı kaçtır?",
+   "gorsel": [],
+   "siklar": [
+    "10",
+    "14",
+    "12",
+    "8",
+    "16"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 35,
+   "soru": "Yüzer duman kandili hangi renkte ve kaç dakika işaret verir?",
+   "gorsel": [],
+   "siklar": [
+    "Kırmızı - 5 dk",
+    "Turuncu - 5 dk",
+    "Turuncu - 7 dk",
+    "Turuncu - 3 dk",
+    "Kırmızı - 3 dk"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 36,
+   "soru": "Can simitleri ile ilgili olarak aşağıda verilen bilgilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin adı ve bağlama limanı yazılı olmalı",
+    "Turuncu renkte olmalı",
+    "Üzerinde ışık reflektörleri bulunmalı",
+    "Geminin IMO numarası yazılı olmalı",
+    "Hepsi"
+   ],
+   "cevap": 4
+  }
+ ]
+}

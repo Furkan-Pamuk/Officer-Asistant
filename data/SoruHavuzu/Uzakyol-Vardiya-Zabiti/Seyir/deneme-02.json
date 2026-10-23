@@ -1,0 +1,271 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Seyir",
+ "deneme": 2,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Seyir/Deneme_Sinavi-2/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Aşağıdakilerden hangisi Fix’ siz emniyetli seyir yöntemlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kurtarma Hatlarıyla",
+    "Rehber Hatlarıyla",
+    "Yatay Tehlike Açılarıyla",
+    "Dikey Tehlike Açılarıyla",
+    "Mevki Hattıyla"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 2,
+   "soru": "Aşağıdakilerden hangisi NAVTEX mesaj tiplerinden biri değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Denizcilik uyarısı",
+    "INMARSAT mesajı",
+    "SATNAV mesajı",
+    "Arama ve kurtarma bilgileri",
+    "DECCA mesajı"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Aşağıdakilerden hangisi sis işareti ile ilgili bir kısaltma veya açıklama değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Dia",
+    "Explos",
+    "Bell",
+    "Fog Det Lt.",
+    "Siren Mo (N)"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "Aşağıdakilerden hangisi sulu ve kuru pusula tası arasındaki farklardan biri değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Kuru pusula tası kartı, sulu pusula tası kartına göre çok oynaktır.",
+    "Sulu pusula tası ile daha rahat dümen tutulur.",
+    "Sulu pusula tasında pusula kartını şamandıra, kuru pusula tasında ise iğnecik taşır.",
+    "Sulu pusula tasında pusula kartı, gemi yalpaya düştüğünde düz durduğu halde, kuru pusula tasında düz durmaz.",
+    "Sulu pusula tasında körük olduğu halde kuru pusula tasında körük yoktur."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdakilerden hangisi yanlış ekodur?",
+   "gorsel": [],
+   "siklar": [
+    "Deniz ekosu",
+    "Yağmur ekosu",
+    "Kenar ekosu",
+    "Kuş ekosu",
+    "Tepe ekosu"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Atlantik Okyanusu’nda 156° rotasına seyrederken karşılaştığınız; cayro pusula hatası 0° olan bir gemi ile yapmış olduğunuz pusula kontrolunda, siz gemiyi 356° de kerteriz ettiniz. Diğer gemi sizi 179° de kerteriz ettiğini bildirdiğine göre cayro pusula hatanız nedir?",
+   "gorsel": [],
+   "siklar": [
+    "13°W",
+    "13°E",
+    "3°E",
+    "3°W",
+    "0°"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Aydınlık süresi karanlık süresinden daha fazla, 15 sn de bir kez çakan, görünme mesafesi 17 mil ve yüksekliği 20m olan bir fener haritalarda nasıl gösterilir?",
+   "gorsel": [],
+   "siklar": [
+    "Iso 15sn 17m 20M",
+    "Oc 15 sec 17M 20m",
+    "Oc 15 sec 20m 17M",
+    "Iso 15 sec 17M 20m",
+    "Al 15 sec 17m20M"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Ay’ın alt kenarından alınan Sex.Alt. : 32° 20’, IC :-2’ ve göz yüksekliği 8m olduğuna göre, Düzeltilmiş Yükseklik (Ho). nedir? (HP 54’,4 alınacaktır.)",
+   "gorsel": [],
+   "siklar": [
+    "32° 12’,2",
+    "33° 12’,1",
+    "33° 38’,2",
+    "33° 14’,6",
+    "32° 42’,2"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Aynı maddeden değişik zamanlarda iki defa kerteriz alınarak kerteriz kaydırma usulü ile bulunan mevkiye ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Fix mevki",
+    "Kesin fix mevki",
+    "AP mevki",
+    "Running fix mevki",
+    "MPP Mevkii"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Az S ve E ise; Zn'yi bulma formülü aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Zn = 360° - Az",
+    "Zn = Az",
+    "Zn = 180° + Az",
+    "Zn = 180° - Az",
+    "Zn = 360° + Az"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Başlangıç boylamı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Kutuplar",
+    "Ekvator",
+    "Greenwich boylamı",
+    "Üst boylam",
+    "Alt boylam"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Başucu noktasından itibaren kuzey veya güney yönünde kutup noktasına doğru ölçülen açısal mesafe aşağıdaki hangi kısaltma ile gösterilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "CoDec",
+    "CoAlt",
+    "CoLat",
+    "CoZ",
+    "H"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Batı Kardinal şamandırasının tepelikleri ile ilgili olarak aşağıdaki ifadelerden hangisi doğrudur?",
+   "gorsel": [
+    "13.png"
+   ],
+   "siklar": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Bir akıntının etki yaptığı, yani gemiyi sürüklediği yön aşağıdakilerden hangisi ile tanımlanır?",
+   "gorsel": [],
+   "siklar": [
+    "DRIFT",
+    "ROTA",
+    "SET",
+    "ACTUAL TRACK",
+    "INTENDED TRACK"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Bir ARPA “Hedef Tehditi (Çatışma Uyarısı)” alarmını aşağıdaki durumlardan hangisinde verir?",
+   "gorsel": [],
+   "siklar": [
+    "İzlenmekte olan bir hedef EYN uzaklığı içine girdiği zaman,",
+    "İzlenmekte olan bir hedef Koruma Çemberi (Guard Ring) içine girdiği zaman",
+    "İzlenmeyen bir hedef koruma çemberi içine girdiği zaman",
+    "İzlenmeyen bir hedefin EYN’dan geçmesine saptanmış olan EYN zamanından daha az zaman kaldığı zaman",
+    "İzlenmeyen bir hedef otomatik olarak izlenmeye alındığı zaman"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Bir bölgede açık denizden limana girişte, gemi seyrine uygun kanalların yan sınırları Sistem-A şamandıraları ile belirlenmiştir. Buna göre, iskele tarafta kullanılan şamandıraların şekli, rengi ve tepeliği aşağıdakilerden hangisine uygun olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Kırmızı sütun şamandıra kırmızı koni tepelik",
+    "Kırmızı konik şamandıra kırımız küre tepelik",
+    "Yeşil sütun şamandıra yeşil koni tepelik",
+    "Kırmızı sütun şamandıra kırmızı silindir tepelik",
+    "Kırmızı küre şamandıra kırmız silindir tepelik"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Bir bölgenin ZD değeri -3 olursa merkez (standart) boylamı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "17°.5",
+    "45°",
+    "30°",
+    "24°",
+    "40°"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "Bir filikanın süratini belirlemek için filikanın baş tarafından yüzer bir cisim denize atılıyor, cisim filikanın baş ve kıç bodoslamalarından geçerken zaman tespiti yapılıyor ve süre 18 saniye olarak bulunuyor. Filikanın boyu 28 kadem olduğuna göre filikanın saatteki hızı yaklaşık olarak nedir?",
+   "gorsel": [],
+   "siklar": [
+    "0,5 knot",
+    "0,9 knot",
+    "1,1 knot",
+    "1,5 knot",
+    "1,8 knot"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Bir gemi küçük bir adanın yanından geçerken sextantla adanın iki ucu arasındaki açıyı 7° olarak ölçmüştür. Adanın haritadan ölçülen genişliği 1.7 mildir. Geminin adadan olan mesafesi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "13,91 mil",
+    "24,31 mil",
+    "10,91 mil",
+    "22,09 mil",
+    "17,06 mil"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 20,
+   "soru": "Bir gemi küçük bir adanın yanından geçerken sextantla adanın iki ucu arasındaki açıyı 10° olarak ölçmüştür. Adanın haritadan ölçülen genişliği 2 mildir. Geminin adadan olan mesafesi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "10,02 mil",
+    "11,46 mil",
+    "12,26 mil",
+    "11,02 mil",
+    "10,50 mil Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

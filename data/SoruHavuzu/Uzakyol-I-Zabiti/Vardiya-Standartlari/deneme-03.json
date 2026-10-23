@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 3,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-3/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Boyu 60 m. ve eni 8 m. olan bir teknenin kıç silyon fenerinin küpeşteden yüksekliği en az kaç metre olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "10,5 m",
+    "12,5 m",
+    "14,5 m",
+    "16,5 m",
+    "18,5 m"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Boyu 110 metre olan demirli bir tekne kısıtlı görüş şartlarında;",
+   "gorsel": [],
+   "siklar": [
+    "Bir dakikadan daha uzun olmayan aralıklarla seri bir şekilde beş saniye süre ile bir kampana çalacaktır.",
+    "Bir dakikadan daha uzun olmayan aralıklarla seri bir şekilde beş saniye süre ile bir gong çalacaktır.",
+    "İki dakikadan daha uzun olmayan aralıklarla seri bir şekilde beş saniye süre ile bir kampana çalacaktır.",
+    "İki dakikadan daha uzun olmayan aralıklarla geminin baş tarafından seri bir şekilde beş saniye süre ile bir kampana çalacak ve kampananın çalınmasından hemen sonra teknenin kıç tarafından bir gong yaklaşık olarak beş saniye süre ile ses verecektir.",
+    "Bir dakikadan daha uzun olmayan aralıklarla geminin baş tarafından seri bir şekilde beş saniye süre ile bir kampana çalacak ve kampananın çalınmasından hemen sonra teknenin kıç tarafından bir gong yaklaşık olarak beş saniye süre ile ses verecektir."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Boyu 120 m. ve eni 11 m. olan bir teknenin kıç silyon fenerinin küpeşteden yüksekliği kaç metre olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "10,5 m",
+    "12,5 m",
+    "14,5 m",
+    "15,5 m",
+    "18,5 m"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "Boyu 160 m. olan bir geminin kıç silyon fenerinin yatay mevki, geminin baş tarafından ne kadar geride olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "105 m",
+    "110 m",
+    "115 m",
+    "120 m",
+    "125 m"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 5,
+   "soru": "Boyu 170 metre ve eni 27 metre olan kısmen batık bir tekne yedeklendiğinde bu teknede;",
+   "gorsel": [],
+   "siklar": [
+    "Başta ya da başa yakın bir yerde en az 2 milden ve her yönden görünür bir beyaz fener, kıçında ya da kıçına yakın bir yerde en az 2 milden ve her yönden görünür bir beyaz fener gösterecektir.",
+    "Başta ya da başa yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener, kıçında ya da kıçına yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener gösterecektir.",
+    "Başta ya da başa yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener, kıçında ya da kıçına yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener gösterecektir. Bu fenerlere ilave olarak genişliğin en uç noktalarında ya da yakın bir yerde en az 3 milden ve her yönden görünür fenerler gösterecektir.",
+    "Başta ya da başa yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener, baş kıç doğrultusunda 100 metreyi geçmemek üzere en az 3 milden ve her yönden görünür bir beyaz fener gösterecektir. Bu fenerlere ilave olarak genişliğin en uç noktalarında ya da yakın bir yerlerde en az 3 milden ve her yönden görünür birer beyaz fener gösterecektir.",
+    "Başta ya da başa yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener, baş kıç doğrultusunda 100 metreyi geçmemek üzere en az 3 milden ve her yönden görünür bir beyaz fener kıçında ya da kıçına yakın bir yerde en az 3 milden ve her yönden görünür bir beyaz fener gösterecektir. Bu fenerlere ilave olarak genişliğin en uç noktalarında ya da yakın bir yerde en az 3 milden ve her yönden görünür fenerler gösterecektir."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Boyu 200 metre veya daha fazla olan bir teknenin düdüğünün deniz mili olarak duyulabilme mesafesi ..........",
+   "gorsel": [],
+   "siklar": [
+    "0.5 mildir",
+    "1 mildir",
+    "1.5 mildir",
+    "2 mildir",
+    "2.5 mildir"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 7,
+   "soru": "Boyu: 200 m., eni: 13m. olan bir geminin kıç silyon fenerinin küpeşteden (ana güverteden) yüksekliği kaç metredir?",
+   "gorsel": [],
+   "siklar": [
+    "15,5 m",
+    "16,5 m",
+    "17,5 m",
+    "18,5 m",
+    "19,5 m"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "Boyu 220 m. olan bir geminin kıç silyon fenerinin yatay mevki, geminin baş tarafından ne kadar geride olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "155 m",
+    "165 m",
+    "175 m",
+    "185 m",
+    "195 m"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "Boyu 300 m. olan bir geminin kıç silyon fenerinin yatay mevki, geminin baş tarafından ne kadar geride olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "150 m",
+    "175 m",
+    "225 m",
+    "250 m",
+    "275 m"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 10,
+   "soru": "Çakar fener deyimi, düzenli aralıklarla dakikada;",
+   "gorsel": [],
+   "siklar": [
+    "120 veya daha fazla çakan bir fener anlamına gelecektir",
+    "130 veya daha fazla çakan bir fener anlamına gelecektir",
+    "140 veya daha fazla çakan bir fener anlamına gelecektir",
+    "150 veya daha fazla çakan bir fener anlamına gelecektir",
+    "160 veya daha fazla çakan bir fener anlamına gelecektir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 11,
+   "soru": "Çatışma riskinin doğruluğunu erken tespit etmek için vardiya zabiti ne yapmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Radar gözlem iyi yapılmalıdır",
+    "Harita bilgileri devamlı hafızada tutulmalıdır",
+    "COLREG kuralları zabit tarafından iyi bilinmelidir",
+    "Zabit yeterince tecrübeli olmalıdır",
+    "Yaklaşan gemilerin kerterizleri sık ve doğru alınmalıdır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 12,
+   "soru": "Çekerek yedeklemede yedeklenen tekneler;",
+   "gorsel": [],
+   "siklar": [
+    "Sadece silyon fenerlerini çekerler",
+    "Borda fenerlerini çekerler",
+    "Pupa fenerlerini çekerler",
+    "Seyir fenerlerini (Silyon, borda ve pupa fenerlerini) çekerler",
+    "Borda ve pupa fenerlerini çekerler"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Çektiği su (draft) nedeniyle manevrası kısıtlı bir tekne gündüz bu durumunu hangi işaret veya işaretlerle belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "En iyi görünür bir yere bir siyah silindir şekli toka eder.",
+    "En iyi görünür bir yere bir siyah eşkenar dörtgen toka eder.",
+    "En iyi görünür bir yere sivri uçları birbirine bakan iki siyah koni toka eder.",
+    "En iyi görünür bir yere iki siyah küre şekli toka eder.",
+    "En iyi görünür bir yere bir siyah küre, bir eşkenar dörtgen, bir siyah küre şekillerini toka eder."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Çektiği su (draft) nedeniyle manevrası kısıtlı bir tekne gece bu durumunu hangi fenerlerle belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Borda fenerlerine, silyon fener veya fenerleri ile pupa fenerine ek olarak ufkun her yönünden görülür, dikey bir doğrultuda üstte ve altta kırmızı ortada bir beyaz fener göstererek belirtir.",
+    "Borda fenerlerine, silyon fener veya fenerleri ile pupa fenerine ek olarak ufkun her yönünden görülür, dikey bir doğrultuda alt alta üç kırmızı fener göstererek belirtir.",
+    "Borda fenerlerine, silyon fener veya fenerleri ile pupa fenerlerine ek olarak ufkun her yönünden görülür, dikey bir doğrultuda üstte ve altta beyaz ortada bir kırmızı fener göstererek belirtir.",
+    "Borda fenerlerine, silyon fener veya fenerleri ile pupa fenerlerine ek olarak ufkun her yönünden görünür, dikey bir doğrultuda üst üste iki kırmızı fener göstererek belirtir.",
+    "Borda fenerlerine, silyon fener veya fenerleri ile pupa fenerlerine ek olarak ufkun her yönünden görünür, dikey bir doğrultuda üst üste üç beyaz fener göstererek belirtir."
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Dalgıç işleri uğraşan tekneler haricinde boyları kaç metreden küçük olan tekneler, kumanda altında olmayan ve manevrası kısıtlı olan teknelerin çekmeleri gereken fener ve şekilleri göstermeye mecbur değillerdir?",
+   "gorsel": [],
+   "siklar": [
+    "12 metre",
+    "11 metre",
+    "10 metre",
+    "8 metre",
+    "7 metre"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "Dar bir kanal veya geçitte emniyetle seyreden bir teknenin geçişine mani olmayacak teknelerin tümü aşağıdaki paragraflardan hangisinde belirtilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Boyu 20m. den az olan tekneler",
+    "Boyu 20m den az olan tekneler ve balıkçılar",
+    "Boyu 20m den az olan tekneler, balıkçılar ve yelkenli tekneler",
+    "Boyu 20m den az olan tekneler, balıkçılar, yelkenli tekneler ve karşıdan karşıya geçen tekneler",
+    "Boyu 20m den az olan tekneler, yelkenli tekneler ve karşıdan karşıya geçen tekneler"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Dar bir kanal veya geçitte kendisini geçme niyetinde olan bir tekneye olumlu yanıt vermek isteyen bir gemi hangi seda işaretini verir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi düdüğü ile bir uzun bir kısa, bir uzun bir kısa düdük çalarak durumunu belirtir",
+    "Gemi düdüğü ile en az beş kısa düdük çalarak durumunu belirtir",
+    "Gemi düdüğü ile bir uzun düdük çalarak durumunu belirtir",
+    "Gemi düdüğü ile bir uzun iki kısa düdük çalarak durumunu belirtir",
+    "Gemi düdüğü ile iki uzun iki kısa düdük çalarak durumunu belirtir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Dar bir kanal veya geçitte seyir ile ilgili aşağıdaki ifadelerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Dar bir kanal veya geçit boyunca ilerleyen bir tekne geçit veya kanalın emin ve uygulayabildiği kadar, kendi sancak tarafındaki dış sınırına yakın geçecektir.",
+    "Balıkçılıkla uğraşan bir tekne, dar bir kanal veya geçitte seyreden bir teknenin geçişine mani olmayacaktır.",
+    "Dar bir kanal veya geçitte karşıdan karşıya geçmek isteyen bir tekne, dar bir kanal veya geçit içinde emniyet ile seyretmekte olan bir teknenin geçişine engel olmayacak, engel olacak ise bu geçişini yapmayacaktır. Karşıdan karşıya geçen teknenin niyetinden şüphe eden bir tekne gemi düdüğü ile dört uzun düdük çalarak karşıdan karşıya geçmekte olan tekneyi uyaracaktır.",
+    "Olayın koşulları elverdiği taktirde, hiçbir tekne dar bir kanal veya geçitte demirlemeyecektir.",
+    "Boyu 20 m. den az olan bir tekne, dar bir kanal veya geçitte seyreden bir teknenin geçişine mani olmayacaktır."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Dar bir kanalda seyreden tekneler ile ilgili olarak aşağıdaki paragraflardan hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Araya giren bir engel sebebiyle diğer teknelerin görülmesinin engellendiği dar bir kanal veya geçitin dönüm yerine veya bir alanına yaklaşan bir tekne özel bir tedbir ve dikkatle seyredecek, bir kısa düdük çalarak mevcudiyetini çevre-deki gemilere bildirecektir.",
+    "Dar bir kanalda veya geçitte yetişen gemi yetişilen gemiyi sancak tarafından geçme isteğini iki uzun ve bir kısa düdük çalarak belirtecektir.",
+    "Dar bir kanalda veya geçitte yetişen gemi yetişilen gemiyi iskele tarafından geçme isteğini iki uzun ve iki kısa düdük çalarak belirtecektir.",
+    "Boyu 20m den az olan tekneler, balıkçılar, yelkenli tekneler ve karşıdan karşıya geçen tekneler, dar bir kanal veya geçitte emniyetle seyreden bir teknenin geçişine mani olmayacaktır.",
+    "Olayın koşulları elverdiği taktirde, hiçbir tekne dar bir kanalda demirlemeyecektir."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 20,
+   "soru": "Dar kanallar, Trafik Ayırım Düzenleri ve Yetişme ile ilgili Kuralların aykırı hükümleri hariç, su çekimi nedeniyle kısıtlı olan bir teknenin emniyetle geçişine mani olmayacak teknelerin tümü aşağıdaki hangi paragrafta belirtilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Kumanda altında olmayan ve manevrası kısıtlı tekneler",
+    "Balıkçılıkla uğraşan tekneler",
+    "Kumanda altında olmayan tekneler ve balıkçılıkla uğraşan tekneler",
+    "Balıkçılıkla uğraşan tekneler, yelkenli tekneler, kuvvetle yürütülen tekneler",
+    "Balıkçılıkla uğraşan tekneler, yelkenli tekneler, kuvvetle yürütülen tekneler ve deniz uçağı Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 5
+  }
+ ]
+}

@@ -1,0 +1,269 @@
+{
+ "rank": "Vardiya-Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 2,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Vardiya_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-2/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Arrival message does NOT include ………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "nationality of the ship",
+    "call sign",
+    "position",
+    "last port",
+    "destination"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Atmospheric pressure is usually given in ………………………………….",
+   "gorsel": [],
+   "siklar": [
+    "minibars",
+    "minimum",
+    "millenium",
+    "miles",
+    "milibar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "“At its 20 th session in November 1997, 1MO’s Assembly adopted resolution A. 850 (20) on “The Human Element: Vision, Principles and Goals” and, at the 21 st Assembly in November 1999, IMO passed a resolution whereby the prime emphasis in the Organization’s work was shifted away from developing technical standards and towards the human factor. Resolution A. 900 (21) “Objectives of the Organization in the 2000s” pays particularly close attention to the importance of fostering a culture of maritime safety. This was deemed to be the Organization’s prime mission in the early years of the new millennium.” According to the above paragraph, the resolution adopted at the 21 st assembly focused more on than.",
+   "gorsel": [],
+   "siklar": [
+    "developing technical standards / the human factor",
+    "the human factor / developing technical standards",
+    "the organization’s work / maritime safety",
+    "maritime safety / the human factor",
+    "the previous resolution / the one of the new millenium"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Auxiliary vessels do not include .........................",
+   "gorsel": [],
+   "siklar": [
+    "cable layers",
+    "ice breakers",
+    "floating cranes",
+    "harbour tugs",
+    "fishing boats"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Bir teknenin diğer bir tekne üzerine veya rıhtıma, iskeleye yanaşması;",
+   "gorsel": [],
+   "siklar": [
+    "Alongside",
+    "Berthing",
+    "Portside",
+    "Starboard",
+    "Afloading"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 6,
+   "soru": "By means of radio, the captain of a ship can talk with men in other ships or with men ashore. …......., or if bad weather is ahead, he can be told of it in time to change his course.",
+   "gorsel": [],
+   "siklar": [
+    "TV is a means of entertainment",
+    "Because of it, captains keep the radio under their pillows",
+    "Phone too, makes communication possible",
+    "Whatever, the captain should maintain his course",
+    "He can learn if it is safe for him to go on his destination"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Careless and improper handling of cargo during loading and discharging operations, improper stowage, fastening and lashing, improperly laid dunnage or lack of dunnage altogether, insufficient ventilation or lack of it and poor separation of cargo may be considered as the main ones. The passage is related with …………………………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "crushing",
+    "pilferage",
+    "leakage",
+    "damage to cargo",
+    "ventilation"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Cargo gear …………………………………………………………………………………",
+   "gorsel": [],
+   "siklar": [
+    "provides ventilation in the holds",
+    "sometimes called manholes leading to the lower compartments",
+    "protects the weather compartments below deck from waves",
+    "is a vital concern both for good seamanship and for the seaworthiness of the vessel",
+    "is used for purposes of loading and discharging"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Coal shipped in wet condition .......................................................",
+   "gorsel": [],
+   "siklar": [
+    "loses weight",
+    "gains weight",
+    "weighs the same",
+    "has no loss in weight",
+    "has no difference in weight"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 10,
+   "soru": "COLREG defines a “vessel turning” as a vessel .................................................",
+   "gorsel": [],
+   "siklar": [
+    "making no move",
+    "making a small alteration in course",
+    "making a U turn",
+    "making a large alteration in course",
+    "not making any alteration"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Communications within the ship are done by …………………..",
+   "gorsel": [],
+   "siklar": [
+    "VHF",
+    "Radio telegraph",
+    "Radiotelephone",
+    "An internal telephone system",
+    "Loudspeaker"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Complete the following message with a proper message marker: “ .................... Obstruction in the fairway”",
+   "gorsel": [],
+   "siklar": [
+    "Warning",
+    "Request",
+    "Information",
+    "Advice",
+    "Instruction"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 13,
+   "soru": "Dear Sirs, I regret to inform you that due to the stoppage of the separating valve of the bilge manifold some water from the ballast tank on port side was pumped overboard together with the oil contaminated bilge water from the shaft tunnel. The cause of this contamination is purely technical and totally accidental. The CHIEF ENGINEER OF THE M/V . . . . . . . . . . . . . This correspondence is an example of",
+   "gorsel": [],
+   "siklar": [
+    "bunkering order",
+    "notification",
+    "damage to the ship",
+    "statement of sea protest",
+    "resume"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "Depth from waterline to vessel’s bottom is called;",
+   "gorsel": [],
+   "siklar": [
+    "keel",
+    "air draught",
+    "draught",
+    "freeboard",
+    "underkeel clearance"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 15,
+   "soru": "Displacement Tonnage of a ship is …………………………………………………….",
+   "gorsel": [],
+   "siklar": [
+    "The weight that a ship carries, when it is fully loaded with cargo,",
+    "The amount of water spilled out by a ship, when it floats at a specific condition",
+    "The total volume of all the closed spaces of a ship,",
+    "The sum of all weights including the cargo,",
+    "None of the above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Dredging operations by the M/V Gate from 10 Oct 13:00 hours to 11 Oct 03:00 hours in position 15˚ 34’N, 061˚ 29’W. Wide …………………………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "channel needed",
+    "berth requested",
+    "assistance required",
+    "distances indicated",
+    "cases covered"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Dünya sıcaklığındaki son değişimlerin nedenlerinden biri de ozon tabakasındaki deliktir. The English version would be ............",
+   "gorsel": [],
+   "siklar": [
+    "The late hole in the ozone layer is partly the result of changes in the world’s temperature",
+    "Due to global temperature change, you can expect a hole in the ozone layer",
+    "One of the reasons for the recent changes in the world temperature is the hole in the ozone layer",
+    "One reason for the hole in the ozone layer is nationwide change in temperature",
+    "The hole in the ozone layer was the result of a sudden change in the global temperature"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 18,
+   "soru": "Fire-fighting equipment …………………………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "should be regularly checked.",
+    "might be driven",
+    "must be drawn",
+    "is loaded",
+    "is used for keeping liquid for foods"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "For classification survey,the following is to be kept on board and made available to the surveyor on request",
+   "gorsel": [],
+   "siklar": [
+    "Class certificates and other documentation of significance,",
+    "Reports on previous surveys performed,",
+    "Approved drawings,",
+    "All the above,",
+    "None of the above"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "For maintenance of class ………………………………………………………………….",
+   "gorsel": [],
+   "siklar": [
+    "U.S. Coast Guard controls must be performed by the Flag State,",
+    "The periodical(regular) and occasional(extraordinary) surveys must be performed,",
+    "Inspections by IMO officers for the ship’s documents must be performed,",
+    "The shipyard must control the ship,",
+    "The Port State Control should be performed. Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

@@ -1,0 +1,1041 @@
+{
+ "kaynak": "https://www.gemiadamlarisinavi.com/testler",
+ "ranklar": {
+  "Uzakyol-Vardiya-Zabiti": {
+   "dersler": {
+    "Vardiya-Standartlari": {
+     "kaynak_ders": "Vardiya_Standartlari",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-05.json",
+       "soru": 19
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-06.json",
+       "soru": 20
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-07.json",
+       "soru": 20
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Vardiya-Standartlari/deneme-08.json",
+       "soru": 6
+      }
+     ]
+    },
+    "Seyir": {
+     "kaynak_ders": "Seyir",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Seyir/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Seyir/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Seyir/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Seyir/deneme-04.json",
+       "soru": 17
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Seyir/deneme-05.json",
+       "soru": 20
+      }
+     ]
+    },
+    "Deniz-Hukuku": {
+     "kaynak_ders": "Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Deniz-Hukuku/deneme-01.json",
+       "soru": 17
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Deniz-Hukuku/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Deniz-Hukuku/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Deniz-Hukuku/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Deniz-Hukuku/deneme-05.json",
+       "soru": 20
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Deniz-Hukuku/deneme-06.json",
+       "soru": 8
+      }
+     ]
+    },
+    "Denizcilik-Ingilizcesi": {
+     "kaynak_ders": "Denizcilik_ingilizcesi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-05.json",
+       "soru": 19
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-06.json",
+       "soru": 19
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-07.json",
+       "soru": 20
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-08.json",
+       "soru": 20
+      },
+      {
+       "deneme": 9,
+       "dosya": "Uzakyol-Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-09.json",
+       "soru": 2
+      }
+     ]
+    }
+   },
+   "toplam_soru": 507
+  },
+  "Uzakyol-I-Zabiti": {
+   "dersler": {
+    "Vardiya-Standartlari": {
+     "kaynak_ders": "Vardiya_Standartlari",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-05.json",
+       "soru": 19
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-06.json",
+       "soru": 20
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-07.json",
+       "soru": 20
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-I-Zabiti/Vardiya-Standartlari/deneme-08.json",
+       "soru": 6
+      }
+     ]
+    },
+    "Seyir": {
+     "kaynak_ders": "Seyir",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-I-Zabiti/Seyir/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-I-Zabiti/Seyir/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-I-Zabiti/Seyir/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-I-Zabiti/Seyir/deneme-04.json",
+       "soru": 17
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-I-Zabiti/Seyir/deneme-05.json",
+       "soru": 20
+      }
+     ]
+    },
+    "Deniz-Hukuku": {
+     "kaynak_ders": "Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-I-Zabiti/Deniz-Hukuku/deneme-01.json",
+       "soru": 17
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-I-Zabiti/Deniz-Hukuku/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-I-Zabiti/Deniz-Hukuku/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-I-Zabiti/Deniz-Hukuku/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-I-Zabiti/Deniz-Hukuku/deneme-05.json",
+       "soru": 20
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-I-Zabiti/Deniz-Hukuku/deneme-06.json",
+       "soru": 8
+      }
+     ]
+    },
+    "Denizcilik-Ingilizcesi": {
+     "kaynak_ders": "Denizcilik_ingilizcesi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-05.json",
+       "soru": 19
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-06.json",
+       "soru": 19
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-07.json",
+       "soru": 20
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-08.json",
+       "soru": 20
+      },
+      {
+       "deneme": 9,
+       "dosya": "Uzakyol-I-Zabiti/Denizcilik-Ingilizcesi/deneme-09.json",
+       "soru": 2
+      }
+     ]
+    }
+   },
+   "toplam_soru": 507
+  },
+  "Vardiya-Zabiti": {
+   "dersler": {
+    "Vardiya-Standartlari": {
+     "kaynak_ders": "Vardiya_Standartlari",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-05.json",
+       "soru": 19
+      },
+      {
+       "deneme": 6,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-06.json",
+       "soru": 20
+      },
+      {
+       "deneme": 7,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-07.json",
+       "soru": 20
+      },
+      {
+       "deneme": 8,
+       "dosya": "Vardiya-Zabiti/Vardiya-Standartlari/deneme-08.json",
+       "soru": 6
+      }
+     ]
+    },
+    "Seyir": {
+     "kaynak_ders": "Seyir",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Vardiya-Zabiti/Seyir/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Vardiya-Zabiti/Seyir/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Vardiya-Zabiti/Seyir/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Vardiya-Zabiti/Seyir/deneme-04.json",
+       "soru": 17
+      },
+      {
+       "deneme": 5,
+       "dosya": "Vardiya-Zabiti/Seyir/deneme-05.json",
+       "soru": 20
+      }
+     ]
+    },
+    "Deniz-Hukuku": {
+     "kaynak_ders": "Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Vardiya-Zabiti/Deniz-Hukuku/deneme-01.json",
+       "soru": 17
+      },
+      {
+       "deneme": 2,
+       "dosya": "Vardiya-Zabiti/Deniz-Hukuku/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Vardiya-Zabiti/Deniz-Hukuku/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Vardiya-Zabiti/Deniz-Hukuku/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Vardiya-Zabiti/Deniz-Hukuku/deneme-05.json",
+       "soru": 20
+      },
+      {
+       "deneme": 6,
+       "dosya": "Vardiya-Zabiti/Deniz-Hukuku/deneme-06.json",
+       "soru": 8
+      }
+     ]
+    },
+    "Denizcilik-Ingilizcesi": {
+     "kaynak_ders": "Denizcilik_ingilizcesi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-03.json",
+       "soru": 20
+      },
+      {
+       "deneme": 4,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-05.json",
+       "soru": 19
+      },
+      {
+       "deneme": 6,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-06.json",
+       "soru": 19
+      },
+      {
+       "deneme": 7,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-07.json",
+       "soru": 20
+      },
+      {
+       "deneme": 8,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-08.json",
+       "soru": 20
+      },
+      {
+       "deneme": 9,
+       "dosya": "Vardiya-Zabiti/Denizcilik-Ingilizcesi/deneme-09.json",
+       "soru": 2
+      }
+     ]
+    }
+   },
+   "toplam_soru": 507
+  },
+  "Uzakyol-Bas-Muhendis": {
+   "dersler": {
+    "Gemi-Yardimci-Makineleri": {
+     "kaynak_ders": "Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-03.json",
+       "soru": 17
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-04.json",
+       "soru": 18
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-05.json",
+       "soru": 18
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-06.json",
+       "soru": 19
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-07.json",
+       "soru": 16
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-08.json",
+       "soru": 15
+      },
+      {
+       "deneme": 9,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-09.json",
+       "soru": 20
+      },
+      {
+       "deneme": 10,
+       "dosya": "Uzakyol-Bas-Muhendis/Gemi-Yardimci-Makineleri/deneme-10.json",
+       "soru": 16
+      }
+     ]
+    },
+    "Deniz-Hukuku": {
+     "kaynak_ders": "Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-03.json",
+       "soru": 19
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-05.json",
+       "soru": 20
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-06.json",
+       "soru": 20
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-07.json",
+       "soru": 19
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Bas-Muhendis/Deniz-Hukuku/deneme-08.json",
+       "soru": 10
+      }
+     ]
+    },
+    "Denizcilik-Ingilizcesi": {
+     "kaynak_ders": "Denizcilik_ingilizcesi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-01.json",
+       "soru": 18
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-02.json",
+       "soru": 16
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-03.json",
+       "soru": 15
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-04.json",
+       "soru": 15
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-05.json",
+       "soru": 18
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-06.json",
+       "soru": 18
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-07.json",
+       "soru": 19
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-08.json",
+       "soru": 18
+      },
+      {
+       "deneme": 9,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-09.json",
+       "soru": 17
+      },
+      {
+       "deneme": 10,
+       "dosya": "Uzakyol-Bas-Muhendis/Denizcilik-Ingilizcesi/deneme-10.json",
+       "soru": 11
+      }
+     ]
+    }
+   },
+   "toplam_soru": 492
+  },
+  "Uzakyol-Vardiya-Muhendisi": {
+   "dersler": {
+    "Gemi-Yardimci-Makineleri": {
+     "kaynak_ders": "Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-03.json",
+       "soru": 17
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-04.json",
+       "soru": 18
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-05.json",
+       "soru": 18
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-06.json",
+       "soru": 19
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-07.json",
+       "soru": 16
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-08.json",
+       "soru": 15
+      },
+      {
+       "deneme": 9,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-09.json",
+       "soru": 20
+      },
+      {
+       "deneme": 10,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Gemi-Yardimci-Makineleri/deneme-10.json",
+       "soru": 16
+      }
+     ]
+    },
+    "Deniz-Hukuku": {
+     "kaynak_ders": "Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-03.json",
+       "soru": 19
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-05.json",
+       "soru": 20
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-06.json",
+       "soru": 20
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-07.json",
+       "soru": 19
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Deniz-Hukuku/deneme-08.json",
+       "soru": 10
+      }
+     ]
+    },
+    "Denizcilik-Ingilizcesi": {
+     "kaynak_ders": "Denizcilik_ingilizcesi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-01.json",
+       "soru": 18
+      },
+      {
+       "deneme": 2,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-02.json",
+       "soru": 16
+      },
+      {
+       "deneme": 3,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-03.json",
+       "soru": 15
+      },
+      {
+       "deneme": 4,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-04.json",
+       "soru": 15
+      },
+      {
+       "deneme": 5,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-05.json",
+       "soru": 18
+      },
+      {
+       "deneme": 6,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-06.json",
+       "soru": 18
+      },
+      {
+       "deneme": 7,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-07.json",
+       "soru": 19
+      },
+      {
+       "deneme": 8,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-08.json",
+       "soru": 18
+      },
+      {
+       "deneme": 9,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-09.json",
+       "soru": 17
+      },
+      {
+       "deneme": 10,
+       "dosya": "Uzakyol-Vardiya-Muhendisi/Denizcilik-Ingilizcesi/deneme-10.json",
+       "soru": 11
+      }
+     ]
+    }
+   },
+   "toplam_soru": 492
+  },
+  "Makine-Zabiti": {
+   "dersler": {
+    "Gemi-Yardimci-Makineleri": {
+     "kaynak_ders": "Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-03.json",
+       "soru": 17
+      },
+      {
+       "deneme": 4,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-04.json",
+       "soru": 18
+      },
+      {
+       "deneme": 5,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-05.json",
+       "soru": 18
+      },
+      {
+       "deneme": 6,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-06.json",
+       "soru": 19
+      },
+      {
+       "deneme": 7,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-07.json",
+       "soru": 16
+      },
+      {
+       "deneme": 8,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-08.json",
+       "soru": 15
+      },
+      {
+       "deneme": 9,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-09.json",
+       "soru": 20
+      },
+      {
+       "deneme": 10,
+       "dosya": "Makine-Zabiti/Gemi-Yardimci-Makineleri/deneme-10.json",
+       "soru": 16
+      }
+     ]
+    },
+    "Deniz-Hukuku": {
+     "kaynak_ders": "Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-01.json",
+       "soru": 20
+      },
+      {
+       "deneme": 2,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-02.json",
+       "soru": 20
+      },
+      {
+       "deneme": 3,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-03.json",
+       "soru": 19
+      },
+      {
+       "deneme": 4,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-04.json",
+       "soru": 20
+      },
+      {
+       "deneme": 5,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-05.json",
+       "soru": 20
+      },
+      {
+       "deneme": 6,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-06.json",
+       "soru": 20
+      },
+      {
+       "deneme": 7,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-07.json",
+       "soru": 19
+      },
+      {
+       "deneme": 8,
+       "dosya": "Makine-Zabiti/Deniz-Hukuku/deneme-08.json",
+       "soru": 10
+      }
+     ]
+    },
+    "Denizcilik-Ingilizcesi": {
+     "kaynak_ders": "Denizcilik_ingilizcesi",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-01.json",
+       "soru": 18
+      },
+      {
+       "deneme": 2,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-02.json",
+       "soru": 16
+      },
+      {
+       "deneme": 3,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-03.json",
+       "soru": 15
+      },
+      {
+       "deneme": 4,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-04.json",
+       "soru": 15
+      },
+      {
+       "deneme": 5,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-05.json",
+       "soru": 18
+      },
+      {
+       "deneme": 6,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-06.json",
+       "soru": 18
+      },
+      {
+       "deneme": 7,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-07.json",
+       "soru": 19
+      },
+      {
+       "deneme": 8,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-08.json",
+       "soru": 18
+      },
+      {
+       "deneme": 9,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-09.json",
+       "soru": 17
+      },
+      {
+       "deneme": 10,
+       "dosya": "Makine-Zabiti/Denizcilik-Ingilizcesi/deneme-10.json",
+       "soru": 11
+      }
+     ]
+    }
+   },
+   "toplam_soru": 492
+  },
+  "STCW-Temel": {
+   "dersler": {
+    "Can-Kurtarma-Araclari": {
+     "kaynak": "denizcisin.com",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "STCW-Temel/Can-Kurtarma-Araclari/deneme-01.json",
+       "soru": 50
+      },
+      {
+       "deneme": 2,
+       "dosya": "STCW-Temel/Can-Kurtarma-Araclari/deneme-02.json",
+       "soru": 50
+      }
+     ]
+    },
+    "Kisisel-Can-Kurtarma": {
+     "kaynak": "denizcisin.com",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "STCW-Temel/Kisisel-Can-Kurtarma/deneme-01.json",
+       "soru": 50
+      },
+      {
+       "deneme": 2,
+       "dosya": "STCW-Temel/Kisisel-Can-Kurtarma/deneme-02.json",
+       "soru": 36
+      }
+     ]
+    },
+    "Ileri-Yangin": {
+     "kaynak": "denizcisin.com",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "STCW-Temel/Ileri-Yangin/deneme-01.json",
+       "soru": 50
+      },
+      {
+       "deneme": 2,
+       "dosya": "STCW-Temel/Ileri-Yangin/deneme-02.json",
+       "soru": 20
+      }
+     ]
+    },
+    "Personel-Guvenligi": {
+     "kaynak": "denizcisin.com",
+     "denemeler": [
+      {
+       "deneme": 1,
+       "dosya": "STCW-Temel/Personel-Guvenligi/deneme-01.json",
+       "soru": 20
+      }
+     ]
+    }
+   },
+   "toplam_soru": 276
+  }
+ },
+ "toplam_soru": 3273
+}

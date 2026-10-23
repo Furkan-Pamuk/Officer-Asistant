@@ -1,0 +1,243 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-5/",
+ "soru_sayisi": 18,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Gemi filikalarının vira ve maynasını sağlayan makinelere ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Yük vinci",
+    "Matafora",
+    "Irgat",
+    "Lift",
+    "Kreyn"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Devir hareketli pompalar aşağıdakilerden hangisi olarak kullanılmazlar?",
+   "gorsel": [],
+   "siklar": [
+    "Sıvı yakacakların pompalanması",
+    "Yağ tanklarının drenaj pompası",
+    "Yağ aktarma pompası",
+    "Vakum pompası",
+    "Besleme suyu pompası"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "Disüperhierler için aşağıdakilerden hangisi yanlıştır?",
+   "gorsel": [],
+   "siklar": [
+    "Buhar dramı içinde bulunur",
+    "Süperhiterden gelen buharın sıcaklığını azaltır",
+    "Yardımcı sistemler için doymuş buhar üretilir",
+    "Süperhiteri kontrolsüz kazanlarda bulunur",
+    "Süperhiteri kontrollü kazanlarda bulunur"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 4,
+   "soru": "Gemilerin rotalarında gidebilmeleri için dümen yekesine kumanda eden makine aşağıda belirtilenlerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Ana makine yardımcısı",
+    "Dümen donanımı",
+    "Dümen makinesi",
+    "Baş ırgat",
+    "Kıç ırgat"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Demir palamar donanımlarından istenen özellikler aşağıdakilerden hangisi olamaz?",
+   "gorsel": [],
+   "siklar": [
+    "İşletmede güvenli olmak",
+    "Ekonomiklik",
+    "Tam yükte yumuşak bir ilk hareket",
+    "Büyük ağırlık ve güvertede fazla bir kaplama",
+    "Elverişli kontrol düzgün çalışma ve hız ayarının sağlaması"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Basit düz dişli bir pompada eş çalışan dişli sayısı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "2 adet",
+    "4 adet",
+    "1 adet",
+    "3 adet",
+    "Hepsi olabilir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "Yağ-yakıt separatörlerinin çalışma prensibi aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "İtme",
+    "Çekme",
+    "Gerileme",
+    "Merkezkaç",
+    "Erime"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "Gemilerin sintine kuyularında toplanan kirli ve yağlı sulan kirli su tankına basan pompalara ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Balast pompası",
+    "Sintine pompası",
+    "Servis pompası",
+    "Dolaşım pompası",
+    "Yangın pompası"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Ocağa su duvarı borularını yerleştirmenin avantajı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Ana buhar stop valfı",
+    "Hava firar valfı",
+    "Tefsiye şişeleri",
+    "Emniyet valfları",
+    "Vorteks giderici"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "Santrifüj pompalarda hızın düşerek basıncın artması olayına ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Operasyon",
+    "Osilasyon",
+    "Reküperasyon",
+    "Otomasyon",
+    "Kompresyon"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Ambar sintineleri alıcı devre valfının özelliği aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Graftili salmastra",
+    "Yapay kauçuk salmastra",
+    "Don yağlı salmastra",
+    "Pamuk salmastra",
+    "Yumuşak lastik salmastra"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "Gemilerde kullanılan kinistin valfı aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Glob valf",
+    "Geyt valf",
+    "Kelebek valf",
+    "Musluk valf",
+    "Çalpara valf"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "Aşağıdakilerden hangisi bir conta çeşidi değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Klingerit",
+    "Lastik",
+    "Mantar",
+    "Teflon",
+    "Naylon"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Servis havası sisteminde basıncı ayarlayan elemanın adı nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Orifis",
+    "Filitre",
+    "Redyusin valf",
+    "Hava tüpü çıkış valf",
+    "Hava kompresörü emniyet valf"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "Elektrik yangınında hangi tip söndürücü ile müdahale edilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "Kuru toz",
+    "Sıvı oksijen",
+    "Karbon dioksit",
+    "Katı su",
+    "Pulverize su"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 18,
+   "soru": "Gemilerin sintinelerindeki yağlı ve kirli sular aşağıdaki tanklardan hangisine basılır?",
+   "gorsel": [],
+   "siklar": [
+    "Yağlı ve kirli su tankına",
+    "Dabıl botum tanklarından birine",
+    "Dışkı tankına",
+    "Baş pik tankına",
+    "Kıç pik tankına"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "Fid (besi) suyunun kazanlara verilmesini sağlayan valf aşağıda belirtilen valflardan hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Glob valf",
+    "Çalpara valf",
+    "Sülüs valf",
+    "Stop çek valf",
+    "Redyusin valf"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "Gücü ve türü ne olursa olsun, pervane çeviren makineler aşağıdaki sınıflardan hangisine girer?",
+   "gorsel": [],
+   "siklar": [
+    "Gemi yardımcı makineleri",
+    "Ana makine yardımcıları",
+    "Güverte yardımcıları",
+    "Ana makineler",
+    "Dümen makineleri Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 4
+  }
+ ]
+}

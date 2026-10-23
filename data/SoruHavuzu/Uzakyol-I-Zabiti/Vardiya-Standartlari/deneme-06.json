@@ -1,0 +1,273 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 6,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-6/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Kısıtlı görüş şartlarında seyir halinde ancak üzerinde yol olmayan (durup su üzerinde ilerlemeyen) kuvvetle yürütülen bir tekne;",
+   "gorsel": [],
+   "siklar": [
+    "İki dakikadan fazla olmayan aralıklarla birbiri ardından iki uzun düdük çalacak ve bu iki düdük arasında bir saniyelik bir süre bulunacaktır.",
+    "İki dakikadan fazla olmayan aralıklarla birbiri ardından iki uzun düdük çalacak ve bu iki düdük arasında iki saniyelik bir süre bulunacaktır.",
+    "Bir dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacak ve bu iki düdük arasında bir saniyelik bir süre bulunacaktır.",
+    "Bir dakikadan fazla olmayan aralıklarla birbiri ardından iki kısa düdük çalacak ve bu iki düdük arasında bir saniyelik bir süre bulunacaktır.",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Kısıtlı görüş koşullarında su altı işi veya tarama yapan bir tekne bu durumunu nasıl belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun, üç kısa düdük çalarak durumunu belirtir",
+    "Bir dakikayı geçmeyen aralıklara iki uzun düdük çalarak durumunu belirtir",
+    "Bir dakikayı geçmeyen aralıklara bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Kısıtlı görüş koşullarında (su çekimi) draftı nedeniyle manevrası kısıtlı bir tekne bu durumunu nasıl belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Bir dakikayı geçmeyen aralıklara iki uzun düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun, üç kısa düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir",
+    "Bir dakikayı geçmeyen aralıklara bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "Kritik konuma gelen bir tehlikede zabitin yapması gereken ilk şey aşağıdakilerden hangisi olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Kaptanı çağırmak",
+    "Gerekli manevra için hazırlık yapmak",
+    "Gemiyi derhal durdurmak",
+    "Mevkii kontrolü yapmak",
+    "Radar gözlem yapmak"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "Kuvvetle yürütülen iki teknenin aykırı geçiş durumunda yapmaması gereken manevra aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Diğer tekneye yol vermekle yükümlü olan tekne iyice neta olmak üzere, olanağı kadar erken ve belirgin manevra yapacaktır.",
+    "İki tekneden biri diğerinin yolundan çıkmak zorunluluğunda bulunduğu yerlerde diğeri kendi rotasını ve hızını koruyacaktır.",
+    "Aykırı geçiş durumunda yol vermesi gereken teknenin uygun manevra yapmadığı görülür görülmez, manevra yapmakla yükümlü olmayan tekne çatışmayı sadece kendi manevrası ile önlemek üzere harekete geçebilir.",
+    "Aykırı bir geçiş durumunda manevra yapma yükümlüğü olmayan bir tekne, gerektiğinde bir çatışmadan kaçınmak üzere kendi iskele tarafında gördüğü bir tekne için rotasını sancağa alarak değiştirmeyecektir.",
+    "Aykırı bir geçiş durumunda manevra yapma yükümlüğü olmayan bir tekne, gerektiğinde bir çatışmadan kaçınmak üzere kendi iskele tarafında gördüğü bir tekne için rotasını iskeleye alarak değiştirmeyecektir."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Kuvvetle yürütülen ve seyir halinde bulunan bir tekne diğer tekneyi gördüğü zaman, manevra yaptığında vereceği düdük işaretlerine ek olarak, manevra esnasında uygun bir surette tekrarlanacak olan ışıklı bir işaret de gösterebilir. Bu işaret beyaz renkli olacak ve en azından;",
+   "gorsel": [],
+   "siklar": [
+    "1 milden görülecektir",
+    "2 milden görülecektir",
+    "3 milden görülecektir",
+    "4 milden görülecektir",
+    "5 milden görülecektir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Kuvvetle yürütülen ve seyir halinde bulunan bir tekne diğer tekneyi gördüğü zaman, manevra yaptığında vereceği düdük işaretlerine ek olarak, manevra esnasında uygun bir surette tekrarlanacak olan ışıklı bir işaret de gösterebilir. Bu ışıklı işaretler çakar şeklinde olacaktır. Her çakar .......... saniye, iki çakar arasında ise ....... saniye olacaktır. Birbiri ardından verilecek işaretler arasındaki süre ........... saniyeden az olmayacaktır.",
+   "gorsel": [],
+   "siklar": [
+    "1,2,5",
+    "2,1,10",
+    "1,1,10",
+    "2,2,10",
+    "1,1,5"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Mayın temizleme işleri ile uğraşan bir tekneye aşağıda belirtilen mesafeden daha fazla yaklaşılmayacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "800 m",
+    "1000 m",
+    "1200 m",
+    "1400 m",
+    "1600 m"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "Personelin bilgi ve becerisi açısından emniyetli bir seyir vardiyası için en gerekli seçenek hangisi olur?",
+   "gorsel": [],
+   "siklar": [
+    "Vardiyasından sorumlu zabitin GMDSS ehliyeti",
+    "MARPOL (Deniz kirliliği hk.) kurallarının iyi biliniyor oluşu",
+    "MERSAR (Arama-kurtarma hk) kurallarının iyi biliniyor oluşu",
+    "COLREG (Çatışmayı önleme hk.) kurallarının iyi biliniyor oluşu",
+    "SOLAS (Güvenlik hk) kurallarının iyi biliniyor oluşu"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "Pilot çarmıhında basamaklar arasındaki yükseklik ne olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "30–38 cm",
+    "34–40 cm",
+    "38–40 cm",
+    "38–44 cm",
+    "40–44 cm"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 11,
+   "soru": "Pilotlu seyir tamamlandı. Kaptan gemiyi rotasına aldı ve vardiya zabitine “vardiya şimdi sende” dedi ama kendisi hala köprüüstünde. Kaptanın söylediği bu sözün önem derecesi hangi şıkta doğru olarak verilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Kesinlikle o andan itibaren sorumluluğun kimde olduğunun bilinmesi açısından çok önemli",
+    "Çok önemli değil çünkü kaptan hala köprüüstünde",
+    "Kaptanın bu sözü zabitin sorumluluk duygusunu artırması bakımından çok önemli",
+    "Çok önemli değil, çünkü kaptan her zaman sorumlu",
+    "Hiçbiri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "Rotanız 245° (hakiki) dir. Pupa feneriniz hangi sektörler (hakiki) arasında görülür?",
+   "gorsel": [],
+   "siklar": [
+    "350,5°- 090,5°",
+    "357,5°- 132,5°",
+    "357,5°- 032,5°",
+    "332,5°- 132,5°",
+    "335°-132,5°"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "Rüzgarı aynı bordalardan kullanarak yelkenleri ile aykırı rotalarda seyreden iki tekne çatışma tehlikesi yaratacak şekilde birbirlerine yaklaşan teknelerden hangisi diğerinin yolundan çıkacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "Rüzgarı üstündeki tekne diğerinin yolundan çıkacaktır.",
+    "Rüzgarı sancak bordasından kullanan tekne diğerinin yolundan çıkacaktır.",
+    "Yaklaşan tekneyi sancağında gören tekne diğerinin yolundan çıkacaktır.",
+    "Yaklaşan tekneyi iskelesinde gören tekne diğerinin yolundan çıkacaktır.",
+    "Rüzgar altındaki tekne diğerinin yolundan çıkacaktır."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Rüzgarı farklı bordalardan kullanarak yelkenleri ile aykırı rotalarda seyreden iki tekne çatışma tehlikesi yaratacak şekilde birbirlerine yaklaşan teknelerden hangisi diğerinin yolundan çıkacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "Rüzgar üstündeki tekne diğerinin yolundan çıkacaktır",
+    "Rüzgarı sancak bordasından kullanan tekne diğerinin yolundan çıkacaktır",
+    "Yaklaşan tekneyi sancağında gören tekne diğerinin yolundan çıkacaktır",
+    "Yaklaşan tekneyi iskelesinde gören tekne diğerinin yolundan çıkacaktır",
+    "Rüzgarı iskele bordasından kullanan tekne diğerinin yolundan çıkacaktır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "Sahil ışıkları ve kendi ışıklarının geceleyin geriye doğru yayılması gibi arka cephe ışıklarının varlığında:",
+   "gorsel": [],
+   "siklar": [
+    "Makineler stop edilir",
+    "Asgari sürate düşülür",
+    "Emniyetli sürate düşülür",
+    "Süratimizde herhangi bir değişiklik yapılmaz",
+    "Makine dairesi sürat düşülme ihtimaline karşı uyarılır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 16,
+   "soru": "Sancak baş omuzluğunuzda ki teknede bir silindir alameti gördünüz. Bu teknenin kerterizi sabittir. Sizin teknenizde de düşey bir doğrultuda üstte ve altta birer küre, ortada bir adet eşkenar dörtgen alameti bulunmaktadır. Çatışmayı Önleme Tüzüğüne göre nasıl manevra yaparsınız?",
+   "gorsel": [],
+   "siklar": [
+    "Sancağa dönerim ve bu teknenin kıçından geçerim",
+    "Rota ve süratimi muhafaza ederim",
+    "İskeleye dönerim ve bu teknenin kıçından geçecek şekilde manevra yaparım",
+    "Süratimi arttırır, pruvasından geçerim",
+    "Süratimi azaltır, teknelerin pruvamdan geçmelerini sağlarım"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 17,
+   "soru": "Sancak baş omuzluğunuz 10° olan ve 3mil mesafesi bulunan aşağıdaki fenerleri gösteren tekne/teknelere çatışmayı önleme tüzüğü gereği en etkin olarak nasıl manevra yaparsınız?",
+   "gorsel": [
+    "17.png"
+   ],
+   "siklar": [
+    "Sancağa dönerim ve bu teknelerin kıçından geçerim",
+    "İskeleye dönerim ve bu teknelerin kıçından geçerim",
+    "Süratimi arttırır, pruvasından geçerim",
+    "Rota ve süratimi muhafaza ederim",
+    "Süratimi azaltır, teknelerin pruvamdan geçmelerini sağlarım"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "Sancak baş omuzluğunuz 35° de aşağıdaki fenerleri taşıyan bir tekne gördünüz. Bu teknenin kerterizi değişmemektedir. Sizin teknede seyir fenerlerine ilaveten düşey bir doğrultuda üç adet her yönden görünür kırmızı fener çekili durumdadır. Çatışma tehlikesini önlemek üzere Çatışmayı Önleme Tüzüğüne göre sancak baş omuzluktaki tekneye nasıl manevra yaparsınız.",
+   "gorsel": [
+    "18.png"
+   ],
+   "siklar": [
+    "Rota ve süratimi muhafaza ederim",
+    "Süratimi azaltır ve bu teknenin pruvamdan geçmesini beklerim",
+    "İskeleye dönerim ve bu teknenin kıçından geçecek şekilde manevra yaparım",
+    "Süratimi arttırır, pruvasından geçerim",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "Seyir emniyeti açısından kaptanın köprüüstüne çağrılmasındaki şartlardan biri aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Ambar sintineleri iskandil edildiğinde",
+    "Gece ışık sızan bölmeler fark edildiğinde",
+    "Telsiz cihazı bozulursa",
+    "Gemi trafiğinin yoğunlaşmaya başlaması",
+    "Rota üzerinde olup olunmadığının kontrolü sırasında"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "”Seyir halinde” deyimi;",
+   "gorsel": [],
+   "siklar": [
+    "Demirli olmayan bir tekne anlamına gelecektir",
+    "Demirli olmayan veya karaya bağlı olmayan bir tekne anlamına gelecektir",
+    "Demirli olmayan veya karaya bağlı olmayan veya karaya oturmamış bir tekne anlamına gelecektir",
+    "Demirli olmayan veya karaya oturmamış bir tekne anlamına gelecektir",
+    "Karaya bağlı olmayan ve üzerinde yol bulunan bir tekne anlamına gelecektir Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

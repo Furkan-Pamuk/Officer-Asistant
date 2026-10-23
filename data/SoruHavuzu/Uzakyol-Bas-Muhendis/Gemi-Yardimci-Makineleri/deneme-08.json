@@ -1,0 +1,204 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Gemi-Yardimci-Makineleri",
+ "deneme": 8,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Gemi_Yardimci_Makineleri_Operasyon_ve_Bakimi/Deneme_Sinavi-8/",
+ "soru_sayisi": 15,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Disçarcından su girişine kaçak oluşan bir santrifüj pompanın olası arızası aşağıdakilerden hangisi olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Salmastrası aşınmıştır",
+    "Mili aşınmıştır",
+    "Aşınma ringi bozulmuştur",
+    "Impeller kanatları kirlenmiştir",
+    "Difrözü aşınmıştır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Vakumlu fid suyu sisteminde buster pompaları çoğu zaman hangi türden pompalardır?",
+   "gorsel": [],
+   "siklar": [
+    "Yağlama devresi",
+    "Yakıt devresi",
+    "Serküleytin devresi",
+    "Balast devresi",
+    "Sintine devresi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 5,
+   "soru": "Alev borulu kazanlarda Brayn valfının bulunduğu yer aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Kazan ön aynasının üst tarafında",
+    "Külhan altındaki adam deliğine yakın bir yerde",
+    "Seyfti valfının hemen yanında",
+    "Kazan arka aynasında tesviye şişesine yakın bir yerde",
+    "Duman sandığının apteyke bağlandığı yerde"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Bir gemide olası bir akaryakıt yangınına aşağıdakilerden hangisi ile müdahale edilir?",
+   "gorsel": [],
+   "siklar": [
+    "Su",
+    "CO2 (karbon dioksit)",
+    "Inter gaz veya buhar",
+    "Köpük",
+    "Yukarıdakilerin tümü"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 7,
+   "soru": "Gemi jeneratörlerinin arızası nedeni ile önemli sistemlerin beslenmesini ve aynı zamanda geminin aydınlatılmasını sağlayan jeneratörlere ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Yardımcı jeneratör",
+    "Şaft jeneratörü",
+    "Emercensi jeneratör",
+    "Akümülatör",
+    "Manyeto"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "Bir gemide dabıl botum tanklarına alınan safra ile aşağıdakilerden hangisi düzenlenir?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin sintineleri yıkanır",
+    "Geminin su gereksinimini karşılanır",
+    "Geminin çektiği su ve dengesi düzenlenir",
+    "Geminin hızı düzenlenir",
+    "Geminin rotası düzenlenir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Yüksek basınçlı devrelerde tek yön akım sağlayan valfa verilen ad aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Freon",
+    "Halon",
+    "Propan",
+    "Metan",
+    "Karbon dioksit"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "İçme suyunu geminin her tarafındaki lavabo ve sebillere verebilmek için kullanılan sistemlerin adı nedir?",
+   "gorsel": [],
+   "siklar": [
+    "Sintine sistemi",
+    "Safra ve balast sistemi",
+    "İçme suyu hidrofor sistemi",
+    "Deniz suyu servis sistemi",
+    "Besleme suyu sistemi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "Aşağıdakilerden hangisi yakıt alım 'double bottom' valflarının arızası sonucu yakıtın taşmasının sebebidir?",
+   "gorsel": [],
+   "siklar": [
+    "Valf kaverinin çatlak olması",
+    "Valf kapalı olduğu halde bir adet devre flenç saplamasının gevşek olması",
+    "Valf sıpındıl salmastrasının yakıt kaçırması",
+    "Valf diskinin sıpıdıldan kurtularak yuvasına yan oturup sıkıldığı halde açık kalması",
+    "Valf hendılının kırık olması"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 14,
+   "soru": "Tam açık yada kapak kullanılması gereken valf aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Lift çek valf",
+    "Çalpara çek valf",
+    "Manyetik valf",
+    "İğne valf",
+    "Geyt valf"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "Gemilerde filika motorları kaç günde bir tornaçark edilir?",
+   "gorsel": [],
+   "siklar": [
+    "Her gün",
+    "Gün aşırı",
+    "Haftada bir",
+    "Ayda bir",
+    "Filika boyandıktan sonra"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 16,
+   "soru": "Düzgün ve devamlı bir akım sağlayabilmek için tek etkili pompaların boru devreleri üzerine aşağıdakilerden hangisi donatılır?",
+   "gorsel": [],
+   "siklar": [
+    "Bir basınç ölçer",
+    "Bir sıcaklık ölçer",
+    "Bir hava hücresi",
+    "Bir vakum hücresi",
+    "Bir akım düzenleyici"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 17,
+   "soru": "İçinde bir impelleri olan pompa aşağıdaki tiplerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Dişli pompa",
+    "Vidalı pompa",
+    "Santrifüj pompa",
+    "Loblu pompa",
+    "Diyaframlı pompa"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 18,
+   "soru": "Gemi dabıl botum tanklarında yakıtı alarak diğer tanklara veya dinlendirme tanklarına veren pompalara ne ad verilir?",
+   "gorsel": [],
+   "siklar": [
+    "Transfer veya aktarma pompası",
+    "Sintine pompası",
+    "Balast pompası",
+    "Servis pompası",
+    "Yangın pompası"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 19,
+   "soru": "Gemilerin baş taraflarında bulunan ve demirin funda veya vira edilmesi için kullanılan makineye verilen isim aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Kompresör",
+    "Termostat",
+    "Manyetik valf",
+    "Brülör",
+    "Evaporator Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

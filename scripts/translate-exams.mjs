@@ -2,14 +2,16 @@
 // Usage: node web/scripts/translate-exams.mjs
 // Resume-safe: cache file updated after every batch.
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const havuz = "C:\\Users\\furka\\Desktop\\Projects\\Officer Asistant\\SoruHavuzu";
+const havuz = process.argv[2] ?? path.join(here, "..", "data", "SoruHavuzu");
 const outDir = path.join(here, "..", "src", "lib", "exam-data", "en");
-const cacheFile = "C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\exam-en-cache.json";
-const failedFile = "C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\exam-en-failed.txt";
+const tmpOpencode = path.join(os.tmpdir(), "opencode");
+const cacheFile = path.join(tmpOpencode, "exam-en-cache.json");
+const failedFile = path.join(tmpOpencode, "exam-en-failed.txt");
 
 const cache = fs.existsSync(cacheFile) ? JSON.parse(fs.readFileSync(cacheFile, "utf8")) : {};
 let calls = 0;

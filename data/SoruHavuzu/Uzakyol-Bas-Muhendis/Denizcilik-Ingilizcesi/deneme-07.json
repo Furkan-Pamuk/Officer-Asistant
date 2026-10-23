@@ -1,0 +1,256 @@
+{
+ "rank": "Uzakyol-Bas-Muhendis",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 7,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Bas_Muhendis/Denizcilik_ingilizcesi/Deneme_Sinavi-7/",
+ "soru_sayisi": 19,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "A device which will function to bring an engine to a full stop in order to protect it from damage due to excessively high speed is known as a/an:",
+   "gorsel": [],
+   "siklar": [
+    "Torque limiter",
+    "Overspeed trip",
+    "Overspeed governor",
+    "Load limit governor",
+    "Any of above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Performance of a turbocharged engine can be improved by:",
+   "gorsel": [],
+   "siklar": [
+    "Decreasing valve over lap",
+    "Preheating",
+    "Aftercooling intake air",
+    "Preheating light fuels",
+    "Heating intake air"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "When the valves are operated ........................... on a diesel engine, they are actuated by means of cams, pushrods, rocker arms and rollers.",
+   "gorsel": [],
+   "siklar": [
+    "Mechanically",
+    "Hydraulically",
+    "Pneumatically",
+    "Electrically",
+    "Any above"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "The reciprocating motion of a connecting rod is transformed into a rotary motion by the ...................",
+   "gorsel": [],
+   "siklar": [
+    "Crankshaft",
+    "Crankwebs",
+    "Crank cheeks",
+    "Crankpine",
+    "Piston"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 5,
+   "soru": "Lubrication oil viscosity in an operation diesel engine can be reduced by:",
+   "gorsel": [],
+   "siklar": [
+    "Overloading the engine",
+    "Increasing the amount of lube oil",
+    "Decreasing the amount of cooling water",
+    "Combustion by products contamination",
+    "Fuel oil dilution"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "All details of fuel bunkering, balast handling, tank cleaning or slop disposal must be entered in the ..............................",
+   "gorsel": [],
+   "siklar": [
+    "Rough log",
+    "Engine room log",
+    "Oil record book",
+    "Smooth log",
+    "1 and 2"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Refrigerant leakage from the compressor crankcase is prevented by ........................................",
+   "gorsel": [],
+   "siklar": [
+    "Using skirt type pistons",
+    "Using shaftseals",
+    "Using lantern rings",
+    "Maintaining a vacuum in the crankcase",
+    "Any above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "When oil is heated, it becomes ..................",
+   "gorsel": [],
+   "siklar": [
+    "High pressure, temperature, capacity",
+    "Low pressure but high capacity",
+    "Heavy but quick steam raiding process",
+    "1 ve 3",
+    "For the auxiliary purposes"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 10,
+   "soru": "In terms of pressure and temperature, what happens to the primary refrigerant the compressor?",
+   "gorsel": [],
+   "siklar": [
+    "Its pressure and temperature are both lowered",
+    "Its pressure and temperature are both raised",
+    "Its pressure and lowered and its temperature is raised",
+    "Its pressure is raised and its temperature is lowered",
+    "None of the above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "The pistonheads in the engine are manufactured concave and convex shaped in order that .....................",
+   "gorsel": [],
+   "siklar": [
+    "The vessel will be faster",
+    "It will control the temperature of the engine",
+    "It will increase oil pressure in the engine",
+    "It will increase the durability of the piston",
+    "It will provide a powerful engine"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Emergency generators can be stopped via ....................................",
+   "gorsel": [],
+   "siklar": [
+    "Ovelvoltage trip",
+    "Overspeed trip",
+    "Manual trip",
+    "Undervoltage",
+    "Any above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 13,
+   "soru": "The purpose of the low pressure cutout switch is to:",
+   "gorsel": [],
+   "siklar": [
+    "Maintain liquid refrigerant at the suction of the compressor",
+    "Maintain a preset suction pressure to the compressor",
+    "Cut out the compressor at a set pressure",
+    "Maintain compressor in at a preset temperature",
+    "Cut compressor in and out at a preset pressure"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 14,
+   "soru": "The instrument always used in conjunction with a salinity indicator is the:",
+   "gorsel": [],
+   "siklar": [
+    "Pyrometer",
+    "Thermometer",
+    "Hygrometer",
+    "Hydrometer",
+    "Oxygen meter"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "All of the following are used for low temperature starting, except:",
+   "gorsel": [],
+   "siklar": [
+    "Ether",
+    "Jacket water heaters",
+    "Both 1 and 2",
+    "Air intake heaters",
+    "Cylinder compression ratio reduced"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "A pyrometer is normally used to measure:",
+   "gorsel": [],
+   "siklar": [
+    "Steam pressure",
+    "Water temperature",
+    "Draft loss",
+    "Humidity",
+    "Gas temperature"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 17,
+   "soru": "When maneuvering, you discover heavy smoke coming from the turbocharger casing. You should:",
+   "gorsel": [],
+   "siklar": [
+    "Check the air fitler for dirty",
+    "Check for an exhaust leak",
+    "Check the cooling water temperature",
+    "Notify the bridge and ask to shut the engine down",
+    "Check fuel oil consumption"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 18,
+   "soru": "The successive order of 4 stroke diesel engines:",
+   "gorsel": [],
+   "siklar": [
+    "Compression - suction - firing - exhaust",
+    "Suction - firing - compression - exhaust",
+    "Suction - compression - exhaust - firing",
+    "Suction-compression - firing - exhaust",
+    "Compression - air inlet - firing exhaust"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Prior to port arrival, a diesel alternator ........................... turbo alternator ............................. and all the full away procedure should be done ...........................",
+   "gorsel": [],
+   "siklar": [
+    "Will have to be started / will be shut down / in reverse order",
+    "Does not have to be started / will have to be shut down / in reverse order",
+    "Will have to be started / will have to be started / in right order",
+    "Will have to be shut down / will have to be started / in reverse order",
+    "Doesn't have to be shut down / will have to be shut down / in right order"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 20,
+   "soru": "The drains from both effects in a low pressure evaporator have their pressures equalized in the:",
+   "gorsel": [],
+   "siklar": [
+    "Equalizer tank",
+    "Drain tank",
+    "Flash chamber",
+    "Air ejector condense",
+    "Fuel oil tank Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

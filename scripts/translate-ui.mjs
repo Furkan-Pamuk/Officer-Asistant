@@ -3,12 +3,13 @@
 // Source of truth: src/lib/locales/ui-en.ts (+ hand-written ui-tr.ts, never touched).
 // Resume-safe: cache file updated every 50 segments. Re-run after adding keys.
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const locDir = path.join(here, "..", "src", "lib", "locales");
-const cacheFile = "C:\\Users\\furka\\AppData\\Local\\Temp\\opencode\\ui-cache.json";
+const cacheFile = path.join(os.tmpdir(), "opencode", "ui-cache.json");
 
 const ONLY = (process.argv.find((a) => a.startsWith("--only="))?.slice(7).split(",") ?? []).map((s) => s.trim()).filter(Boolean);
 const TARGETS_ALL = [

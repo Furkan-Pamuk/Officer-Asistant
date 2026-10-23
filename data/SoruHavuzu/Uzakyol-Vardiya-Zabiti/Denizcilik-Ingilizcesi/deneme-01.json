@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol Vardiya Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 1,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_Vardiya_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-1/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "A cloud of great width and an altitude of between 2000 and 7000 feet is called ……………..",
+   "gorsel": [],
+   "siklar": [
+    "nimbus",
+    "nimbostratus",
+    "stratus",
+    "cumulus",
+    "stratocumulus"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "A device for measuring pressure of atmosphere is known as a:",
+   "gorsel": [],
+   "siklar": [
+    "Windscale",
+    "Compass",
+    "Barometer",
+    "Blip",
+    "Shaft"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "A fire started in the main engine room of a vessel when at sea. Both main engines were stopped by the crew. The ship had full electrical power supply during the event due to having a separate auxiliary engine room. The crew used CO2 and water to start the fire, which was finally extinguished after about 4 hours. Which of the underlined words must be changed to get a correct meaning?",
+   "gorsel": [],
+   "siklar": [
+    "at sea",
+    "stopped",
+    "used",
+    "start",
+    "finally"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "A male passenger, Selçuk Güneş, aged 35, has been ill for three days. His temperature is 39 and his pulse rate is 85. This is a description of a .....................................................",
+   "gorsel": [],
+   "siklar": [
+    "doctor’s state",
+    "nurse’s state",
+    "patient’s state",
+    "pupil’s state",
+    "customer’s state"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "A receipt of goods shipped on board a ship signed by the person (or his agent) who contracts to carry them, and stating the terms on which the goods are carried is known as ……………. .",
+   "gorsel": [],
+   "siklar": [
+    "Bill of Health",
+    "Bill of Lading",
+    "Bill of Bulkhead",
+    "Bill of Sale",
+    "Notice of Readiness"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 6,
+   "soru": "A safety message is sent whenever ………........……………..",
+   "gorsel": [],
+   "siklar": [
+    "There is an important navigational or meteorological warning",
+    "There is an urgent message about the safety of a ship",
+    "There is an urgent message about the safety of a person",
+    "Immediate assistance is required",
+    "There is loss of life"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 7,
+   "soru": "A ship’s position may be found by a ……………………………….",
+   "gorsel": [],
+   "siklar": [
+    "knots",
+    "navtex",
+    "GPS",
+    "cable",
+    "gmdss"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 8,
+   "soru": "A vessel overtaking another ………………………….…………… of the overtaken vessel.",
+   "gorsel": [],
+   "siklar": [
+    "must keep clear",
+    "must alter course",
+    "will be kept",
+    "shall keep out of the way",
+    "follow"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 9,
+   "soru": "A vessel which is able to load and discharge by itself is called .......................................",
+   "gorsel": [],
+   "siklar": [
+    "self-employed",
+    "self-serving",
+    "self-made",
+    "self-sustaining",
+    "non-self sustaining"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 10,
+   "soru": "A vessel which is not made fast to the shore, at anchor or aground and not moving through the water is ............",
+   "gorsel": [],
+   "siklar": [
+    "A vessel underway and making way",
+    "A vessel underway and misled",
+    "A vessel underway but not making way over the ground",
+    "A vessel underway and stopped",
+    "A vessel which is disabled"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 11,
+   "soru": "A vessel which is used for pulling or pushing a disabled vessel is known as a/an …………… .",
+   "gorsel": [],
+   "siklar": [
+    "Tug",
+    "OBO",
+    "Reefer",
+    "Dredger",
+    "Icebreaker"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "A VHF message isn’t made up of ……………………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "Ship’s name and call sign",
+    "Ship’s position given by latitude and longitude",
+    "Distance and bearing from coast station",
+    "The name of the master",
+    "Ship’s next port of call"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "A wind which first blows from South, then changes direction to blow from the South East, then changes direction to blow from the East is said to be ..............",
+   "gorsel": [],
+   "siklar": [
+    "veering",
+    "backing",
+    "clockwise",
+    "freezing",
+    "funneling"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 14,
+   "soru": "A wind which first blows from South, then changes direction to blow from the South West, then changes direction to blow from the West is said to be ..............",
+   "gorsel": [],
+   "siklar": [
+    "anti-clockwise",
+    "deliberate",
+    "swelling",
+    "veering",
+    "backing"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 15,
+   "soru": "According to COLREG 1972 and its supplement, the master is not obligated to be on the bridge himself;",
+   "gorsel": [],
+   "siklar": [
+    "While checking whistles daily",
+    "While mooring",
+    "When there is poor visibility",
+    "While berthing",
+    "While passing through the restricted waters"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "According to the International Code of Signal, the statement “I must abandon my vessel ” is symbolized by means of the code letters ……………?",
+   "gorsel": [],
+   "siklar": [
+    "AE",
+    "BF",
+    "DX",
+    "HW",
+    "ED"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "According to this clause of a charter party, if loading operation is performed on holidays, time spent for loading ............................ ; otherwise, these days ...........................",
+   "gorsel": [],
+   "siklar": [
+    "shall count / shall not count",
+    "shall not count / shall count",
+    "is permitted / are not permitted",
+    "isn’t to be included in laytime / are to be included in laytime",
+    "should be excepted / should be accepted"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Acil durumda tüm merdivenler ve çıkışlar aydınlatılacaktır. Correct translation of this sentence into English is;",
+   "gorsel": [],
+   "siklar": [
+    "All stairways and embarkation stations shall be illuminated in an emergency.",
+    "All stairways and exits shall be illuminated before an emergency.",
+    "All stairways and exits shall illuminate in an emergency.",
+    "All stairways and exits shall be illuminated in an emergency.",
+    "All stairways and muster stations shall be lighted."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 19,
+   "soru": "Air draught means the same as ...............",
+   "gorsel": [],
+   "siklar": [
+    "weight",
+    "length",
+    "height",
+    "width",
+    "size"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "“An oil derrick” is …………………………………………………..",
+   "gorsel": [],
+   "siklar": [
+    "a platform where all the needed machinery for drilling is mounted",
+    "all the equipment needed on the ground",
+    "where brokers and captains live",
+    "a machine used to dive into the sea bottom",
+    "an experienced greaser Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

@@ -1,0 +1,269 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Deniz-Hukuku",
+ "deneme": 4,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Deniz_Hukuku_ve_Uluslararasi_Denizcilik_Sozlesmeleri/Deneme_Sinavi-4/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "\"Serbest Pratika\" aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Temiz patenta",
+    "Serbest geçiş",
+    "Transit geçiş",
+    "Uğraksız geçiş",
+    "Liman giriş müsadesi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 2,
+   "soru": "Aynı menfaatin aynı rizikolara karşı birden çok sigortacılara sigorta ettirilmesine ne denir?",
+   "gorsel": [],
+   "siklar": [
+    "Aşkın sigorta",
+    "Çifte sigorta",
+    "Güvenceli sigorta",
+    "Teşvik sigortası",
+    "Tedbir sigortası"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "IMO tarafından yapılan sözleşmeler, genel olarak aşağıdaki gibi dört temel grup altında incelenecek olursa, International Convention on Civil Liabillity for Oil Pollution Damage (CLC) 1969 sözleşmesi, aşağıdaki sınıflandırmalardan hangisi ya da hangilerine dahil olur ? (I) Denizcilik Güvenliği (II) Deniz Kirliliği (III) Sorumluluk ve Tazminat (IV) Diğer Konular",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "II ve III"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 4,
+   "soru": "400 GRT'dan büyük yük gemileri için makine daireleri sintinelerinde oluşan kirlenmeyi önlemek üzere EK-1 gereği bu gemilerde bulunması gerekmeyen eçhize (teçhizat) aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "IOPP sertifikası",
+    "Yüklü su hattı üzerinde balast tahliyesi cihazı",
+    "Petrol atıklarını izleme ve kontrol cihazı",
+    "Sintine separatörü, 15 ppm alarm otomatik stop aleti",
+    "Atıklar için slop tank"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "MARPOL 73/78 EK-IV'da belirtilen hava kirliliğinin önlenmesine dair kurallar gereği kaç GRT ve üzeri gemi, sabit ve yüzer sondaj platformları, sörvey ve denetime tabidir?",
+   "gorsel": [],
+   "siklar": [
+    "150GRT",
+    "200GRT",
+    "300GRT",
+    "400GRT",
+    "500GRT"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 6,
+   "soru": "Aşağıdakilerin hangisi TTK.md.851/1’e göre gemi sicil kaydının terkini (silinmesi) için şart değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Malikin talebi",
+    "Kurtarılamayacak şekilde batması",
+    "Tamir kabul etmez hale gelmesi",
+    "Türk Bayrağını çekme hakkını kaybetmesi",
+    "Navlun getirecek surette yolcu veya yük taşıma kabiliyetini zayi etmesi (kaybetmesi)"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "1969 Gemilerin Tonaj Ölçümleri Uluslar arası Sözleşmesi'ne göre, askeri gemiler ve boyu ......... metreden daha az olan gemiler, Sözleşme kapsamı dışında tutulmuşlardır. Noktalı yerlere aşağıdakilerden uygun olanı seçiniz.",
+   "gorsel": [],
+   "siklar": [
+    "10 metre",
+    "15 metre",
+    "18 metre",
+    "24 metre",
+    "34 metre"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "(I) Yaşam mahallerinin fiziki durumu ile ilgili düzenlemeler, (II) Kazaları önleme konusundaki düzenlemeler, (III) Gemideki çeşitli alarm düzenekleri ile ilgili düzenlemeler, (IV) Telsiz teçhizatları ve donanımların fiziki durumu ile ilgili düzenlemeler, (V) Yükleme sınırı ve markası ile ilgili düzenlemeler. Yukarıdaki düzenlemelerden hangisi ya da hangileri Uluslar arası Denizde Can ve Mal Emniyeti sözleşmesinin temel amacına hizmet eder ?",
+   "gorsel": [],
+   "siklar": [
+    "I, III, IV",
+    "II, IV",
+    "III, IV, V",
+    "II",
+    "I, II, III, IV, V"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Yaşam mahalindeki tüm elektrik ve su borularının, uygun izole edilmesini sağlamak amacıyla gerekli olan teknik düzenlemeler ve kuralları belirleyen uluslar arası denizcilik sözleşmesi, aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "SOLAS",
+    "SAR",
+    "IMO",
+    "MARPOL",
+    "COLREG"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 10,
+   "soru": "\"Use of and familiarization with the International Dangerous Goods (IMDG) Code\" adı verilen ve tehlikeli yüklerle ilgili olan hususların ilgili gemiadamları tarafından bilinmesine yönelik düzenlemeler, aşağıdaki uluslar arası denizcilik sözleşmelerinden hangisinin kapsamında ele alınmıştır?",
+   "gorsel": [],
+   "siklar": [
+    "SOLAS code",
+    "STCW code",
+    "IBC code",
+    "ISM code",
+    "BCH code"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 11,
+   "soru": "IMO tarafından yapılan sözleşmeler, genel olarak aşağıdaki gibi dört temel grup altında incelenecek olursa Special Trade Passenger Ships Agreement (STP), 1971 sözleşmesi, yukarıdaki sınıflandırmalardan hangisi ya da hangilerine dahil olur?",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "I ve III"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 12,
+   "soru": "(I) Savaş Gemileri, (II) Boyu 24 metreden kısa olan gemiler, (III) 150 GRT' dan küçük yaşlı gemiler, (IV) Ticari yatlar, (V) Balıkçı Gemileri Yukarıdaki gemi türlerinden hangisi ya da hangileri, Load Line 1966 sözleşmesinin hükümlerini yerine getirmek zorunda değildir?",
+   "gorsel": [],
+   "siklar": [
+    "I, II, III, IV, V",
+    "III",
+    "I, II, IV",
+    "I, II, III, V",
+    "I, III, IV, V"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslar arası sözleşmesi (MARPOL 73/78) gereği 400 GRT' dan büyük yük gemileri için makine daireleri sintinelerinde oluşan kirlenmeyi önlemek üzere EK-1 uyarınca bulunması gereken aşağıdaki maddelerden hangisine gerek yoktur?",
+   "gorsel": [],
+   "siklar": [
+    "IOPP sertifikası",
+    "Petrol kayıt kitapçığı",
+    "Balastın denize verilmesinin güverteden durdurulması",
+    "Petrol atıklarını toplama tankı",
+    "Sintine separatörü"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 14,
+   "soru": "150 GRT üzerindeki petrol tankerleri ile 400 GRT üzerindeki tüm gemilere Uluslar arası Denizin Petrolle Kirlenmesini Önleme Belgesi (IOPP) verilir. Bu sertifika kaç yılda bir yenilenir?",
+   "gorsel": [],
+   "siklar": [
+    "1 yıl",
+    "2 yıl",
+    "3 yıl",
+    "4 yıl",
+    "5 yıl"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "(I) 500 GRT' dan küçük tüm yolcu gemileri MARPOL sözleşmesinin hükümlerinden muaftır. (II) 400 GRT' dan küçük tüm tankerler, MARPOL sözleşmesinin hükümlerinden muaftır. (III) 400 GRT' dan küçük tüm kuruyük gemileri MARPOL sözleşmesinin hükümlerimden muaftır. (IV) 300GRT' dan küçük tüm kimyasal tankerler, MARPOL sözleşmesinin hükümlerimden muaftır. MARPOL Sözleşmesinin kapsamı gereği, yukarıdaki ifadelerden hangisi veya hangileri doğru değildir?",
+   "gorsel": [],
+   "siklar": [
+    "I, IV",
+    "II, III",
+    "III",
+    "III, IV",
+    "I, II, IV"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslar arası sözleşmesi (MARPOL 73/78) 'in EK-IV' ünde belirtilen gemilerden çıkan pis sularla (tuvalet, revir, hastane ve canlı hayvan) ilgili denizlerin kirlenmesini önleyici kurallar, aşağıda belirtilen gemilere uygulanmaz?",
+   "gorsel": [],
+   "siklar": [
+    "200 GRT' un altında 10 kişi veya daha az kişi taşıyan bütün gemiler",
+    "250 GRT' un altında 15 kişi veya daha az kişi taşıyan bütün gemiler",
+    "300 GRT' un altında 20 kişi veya daha az kişi taşıyan bütün gemiler",
+    "350 GRT' un altında 25 kişi veya daha az kişi taşıyan bütün gemiler",
+    "400 GRT' un altında 30 kişi veya daha az kişi taşıyan bütün gemiler"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Gemilerden kaynaklanan kirliliğin önlenmesi uluslar arası sözleşmesi (MARPOL 73/78) in EK-VI' sı, hangi maddelerle denizlerin kirletilmesinin önlenmesine ilişkin alınacak tedbirleri kapsar?",
+   "gorsel": [],
+   "siklar": [
+    "Petrol ile deniz kirlenmesini önleyici kurallar",
+    "Dökme zehirli sıvı maddelerle deniz kirlenmesini önleyici kurallar",
+    "Ambalajlı bir şekilde veya konteynerlerde, portatif tanklarda veya kara ve demiryolu tank vagonlarında deniz yolu ile taşınan zararlı maddelerle deniz kirlenmesini önleyici kurallar",
+    "Gemilerden çıkan pis sularla (tuvalet, revir, hastane ve canlı hayvan) deniz kirlenmesini önleyici kurallar",
+    "Gemilerden kaynaklanan hava kirliliğinin önlenmesine ait kurallar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "I. LDC 1972 II. MARPOL 78 III. SFV 1977 IV. MARPOL 73 V. OPRC1990 Yukarıdakilerden hangisi ya da hangileri, karadaki tesisler tarafından atılan atıklarla denizlerin kirletilmesini önlemek amacıyla yapılmış ve 30 Ağustos 1975'te yürürlüğe girmiş olan Uluslar arası denizcilik sözleşmesine ait kısaltmadır?",
+   "gorsel": [],
+   "siklar": [
+    "II, IV",
+    "II",
+    "III",
+    "I, II, IV",
+    "I"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 19,
+   "soru": "Aşağıdakilerden hangisi gemilerin büyüklüklerinin, hacimlerinin ölçümleri ile ilgili uluslar arası kuralları içerir?",
+   "gorsel": [],
+   "siklar": [
+    "MARPOL 73/78",
+    "SOLAS 74",
+    "LOADLINE 66",
+    "TONNAGE 69",
+    "STCW 78"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 20,
+   "soru": "IMO tarafından yapılan sözleşmeler, genel olarak aşağıdaki gibi dört temel grup altında incelenecek olursa, International Maritime Satellite Organisation (INMARSAT), 1976 sözleşmesi, aşağıdaki sınıflandırmalardan hangisi ya da hangilerine dahil olur ? (I) Maritime Safety (Denizcilik Güvenliği) (II) Marine Pollution (Deniz Kirliliği) (III) Liability and Compensation (Sorumluluk ve Tazminat) (IV) Other Subjects (Diğer Konular)",
+   "gorsel": [],
+   "siklar": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "I ve III Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 1
+  }
+ ]
+}

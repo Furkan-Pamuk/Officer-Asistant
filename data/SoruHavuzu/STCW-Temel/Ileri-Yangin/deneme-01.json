@@ -1,0 +1,659 @@
+{
+ "rank": "STCW-Temel",
+ "ders": "Ileri-Yangin",
+ "deneme": 1,
+ "kaynak_url": "https://denizcisin.com/index.php/2017/01/27/stcw-soru-ileri-yangin-sorulari-test-1/",
+ "soru_sayisi": 50,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Solunum cihazındaki alçak basınç uyarı düdüğü ne zaman çalar?",
+   "gorsel": [],
+   "siklar": [
+    "Tüpün valfi ilk açıldığında",
+    "Tüpte yaklaşık 10 dakikalık hava kaldığında",
+    "Tüpteki hava bitmek üzereyken",
+    "Aşırı dumanlı ortama girildiğinde",
+    "Kullanıma başladıktan 15 dakika sonra"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Portatif bir CO2 yangın söndürücüyü kullanırken boşaltma hunisinden değil, fakat sapından tutulması neden istenir?",
+   "gorsel": [],
+   "siklar": [
+    "Huniyi tutarsanız yerinden çıkabilir",
+    "Çünkü huni aşırı derecede soğur",
+    "Çünkü huni çok ısınır",
+    "Huni kısmı direkt olarak yanan maddeye değdirilir.",
+    "Çünkü huni tutulamayacak kadar geniştir"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 3,
+   "soru": "Ana yangın devresindeki separasyon (ayırıcı) valfler nerede bulunacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "Ana devre üzerinde, makine dairesinden çıkmadan önce",
+    "Yangın pompasının çıkışında",
+    "Ana devrede, Makine dairesinden çıktıktan sonra",
+    "Makine dairesi dışarısında ve açık güvertede belirgin bir yerde, ana devrenin başa kıça ayrıldığı yerde",
+    "Ana devrede geminin baş tarafında"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "Yangının kondüksiyon yoluyla yayılmasını önlemek için aşağıdakilerden hangisi yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın yerinin civarındaki perdeleri(duvarları) soğutmalıdır",
+    "Yangın yerinin tüm kaportaları kapatılmalıdır",
+    "Yanıcı maddeleri ortamdan çıkartmalıdır",
+    "Tüm elektrik kesilmeli (kapatılmalıdır)",
+    "Yangın mahallinin sigortasından lokal elektrik kesilmelidir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 5,
+   "soru": "Aşağıdakilerden hangisi limanda yangınla mücadele yöntemlerindendir?",
+   "gorsel": [],
+   "siklar": [
+    "Gerekli olmayan personeli gemiden tahliye etmek",
+    "Liman itfaiyesine haber vermek",
+    "Gerekirse uluslar arası sahil bağlantısıyla sahilden su almak",
+    "Liman idaresine bilgi vermek",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Bir gemide, yangın hortumlarının ucuna takılan nozulların en az kaç tanesi spreyleme(yağmurlama) yapan tipte olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Gemideki mevcut nozulların %80 i.",
+    "Makine dairesindekilerin hepsi spreyleme yapabilmelidir",
+    "En az yarısı",
+    "Makine dairesindekilerden en az 2 tanesi ve güvertedekilerden en az 2 tanesi",
+    "Gemideki tüm nozullar hem jet ve hem de spreyleme yapabilmelidir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Karbondioksitli bir portatif yangın söndürme tüpü kısmen kullanılırsa ne yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Eğer ağırlık olarak % 25 ten fazla kullanılmadıysa tekrar eski yerine takılır",
+    "\"Boş\" olarak etiketlenir ve ilk fırsatta doluma gönderilmek üzere ayrı bir yere istiflenir",
+    "Eğer ağırlık olarak %15 ten fazla kullanılmadıysa tekrar eski yerine takılır",
+    "Yedek tüplerin arasına konur",
+    "Ağırlığına bakılmaksızın tekrar eski yerine takılır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 8,
+   "soru": "1000 grt dan büyük gemilerde güvertede en fazla kaç metrede bir yangın musluğu (ve hortumu) olacak ve toplam olarak en az kaç adet olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "her 40 metrede bir adet / toplam 10 adet",
+    "her 15 metrede bir tane ve toplamda 6 tane",
+    "gemi boyunca her 20 metrede bir tane / toplam en az 8 tane",
+    "her 25 metrede bir tane / toplam 10 tane",
+    "gemi boyunca her 30 metrede bir tane / toplam en az 5 adet"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 9,
+   "soru": "Küçük hacimli yerleri yangına karşı korumak için bu yelere konulan karbondioksit tüpleri nasıl olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Duyulabilen sesli bir alarm olmalıdır",
+    "Bu tüpler en fazla 80 kg karbondioksit gazı ihtiva etmelidir",
+    "Isıya duyarlı bir sensör vasıtasıyla otomatik olarak çalışmalıdır",
+    "Uzaktan kumanda ile çalıştırılmalıdır",
+    "Hepsi doğru"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Aşağıdakilerden hangisi CO2 li yangın söndürücülerin özelliklerindendir?",
+   "gorsel": [],
+   "siklar": [
+    "Havadan 1.5 kat daha ağırdır",
+    "Hacminin 450 katı genleşir",
+    "Tüpten çıkarken ısısı -78oC ye düşer",
+    "Hiçbiri",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 11,
+   "soru": "Sadece makine dairesi için kurulan bir karbondioksit sisteminde en az ne kadar karbondioksit bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Makine dairesi sintine katı hacminin % 50 sine yetecek kadar",
+    "Makine dairesi kazan ve jeneratörlerin bulunduğu alandaki brüt hacme yetecek kadar",
+    "Makine kaportası da dahil olmak üzere korunan en büyük makine mahallinin brüt hacminin %35 ine eşit serbest gaz hacmine yetecek kadar",
+    "Makine kaportası da dahil, korunan en büyük makine mahallinin gros hacminin % 30 una eşit",
+    "Hiçbiri"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 12,
+   "soru": "Aşağıdakilerden hangisi seyirde yangınla mücadele yöntemidir?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın alarmı verilir",
+    "Yangına panik yapmadan hızlı bir şekilde acil ekiplerle müdahale edilir",
+    "Yangın pompaları çalıştırılır",
+    "Geminin rotası ve hızı uygun şekilde değiştirilir",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 13,
+   "soru": "Statik elektrik oluşmasını önlemek için ne yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Yukarıdan aşağıya serbest dökülerek dolum yapılmaz",
+    "Topraklama yapılır",
+    "Sıvılar yavaş basılır",
+    "Elektriklenebilen yünlü giysiler giyilmez",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 14,
+   "soru": "Hangi yük gemilerinde sabit bir acil yangın pompası bulundurulması zorunluluğu vardır?",
+   "gorsel": [],
+   "siklar": [
+    "2000 gros ton ve daha büyük olan gemilerde",
+    "500 gros tonda büyüklerde",
+    "1500 grostan büyüklerde",
+    "1000 gros ton ve daha büyük olanlarda",
+    "Hiçbiri doğru değil"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "Yük ambarlarını yangına karşı korumak amacıyla bir gemiye kurulan sabit karbondioksit sisteminde en az ne kadar karbondioksit bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Makine dairesine en yakın ambarın hacmine eşit miktarda",
+    "En büyük yük ambarının gros hacminin %30 una eşit miktarda",
+    "Tüm ambarların hacmine eşit miktarda",
+    "En büyük yük ambarının gros hacmine yetecek miktarda",
+    "Hiçbiri"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 16,
+   "soru": "Solunum cihazlarının (breathing apparatus) kullanım süresi en az ne kadar olacaktır ve en az kaç litre hava olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "30 dakika- 1200 litre",
+    "1 saat - 1500 litre",
+    "12 saat - 25 litre",
+    "24 saat - 500 litre",
+    "30 dakika- 600 litre"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Solunum cihazlarının (breathing apparatus) kullanım süresi en az ne kadar olacaktır ve en az kaç litre hava olacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "30 dakika- 1200 litre",
+    "1 saat - 1500 litre",
+    "12 saat - 25 litre",
+    "24 saat - 500 litre",
+    "30 dakika- 600 litre"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Makine dairesinde ana elektrik dağıtım panosunda çıkan bir yangını söndürmek için, ilk olarak ana şalteri kapattıktan sonra ne yaparsınız?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın hortumu donatıp su sıkarım",
+    "Yangının nedenini araştırırım",
+    "Yangın hortumu nozulunu ince spreyleme olarak kullanırım",
+    "Köpüklü portatif yangın söndürücü kullanırım",
+    "Karbondioksitli portatif yangın söndürücü kullanırım"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 19,
+   "soru": "Bir yangında makine dairesine boşaltılan karbondioksit gazı ne kadar sürede tamamı boşalmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Gazın tamamı 10 dakikada boşalmalıdır",
+    "Gazın tamamı 15 dakika içersinde boşalmalıdır",
+    "Gazın tamamı 30 dakika içersinde boşalmış olmalıdır",
+    "Gazın %80i 2 dakika içinde boşalmalıdır",
+    "Gazın %85 i 2 dakikada boşalmalıdır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 20,
+   "soru": "Deniz suyu yangın devresindeki Yangın musluklarındaki maksimum basınç ne kadar olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın hortumunun etkili olarak kontrol edilebildiğinden fazla olamaz",
+    "3 N/mm2",
+    "0.27 N/mm2",
+    "1 N/ mm2",
+    "Yangın musluğu tam açıkken hortumdan suyu 20 metre uzağa fışkırtacak kadar"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 21,
+   "soru": "Dışı kırmızı boyalı, etiketi ise MAVİ renkli olan taşınabilir yangın söndürücünün içersinde aşağıdakilerden hangisi bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "Kimyasal kuru toz",
+    "CO2",
+    "Köpük",
+    "Halon",
+    "tuz"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 22,
+   "soru": "Denizde giderken baş tarafta bir yangın çıktığında ne yaparsınız?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin kıçını rüzgara çeviririm",
+    "Yardım çağırırım",
+    "Rüzgar üstü tarafından gemiyi terk ederim",
+    "Yarım yola düşerim",
+    "Geminin başını rüzgara çeviririm"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 23,
+   "soru": "Bir yangında, dışarıdan yardıma gelecek yangın ekiplerine yardımcı olmak amacıyla, her gemide kaç adet yangın planı nerede bulunacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "1 adet- baş tarafta lostromo mağazasında",
+    "2 adet- sancak-iskele gemiye giriş mahallerine yakın ve belirgin yerde",
+    "1 adet- köprü üstünde",
+    "2 adet- Kıç üstü güvertesinde, vardavelalara takılmış olarak",
+    "1 adet - sancak taraftaki borda iskelesi lumbar ağzında"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 24,
+   "soru": "Duman veya zararlı gazların çıktığı yangınlara müdahale ederken takılan/kullanılan solunum cihazından uyarı düdüğü duyduğunuzda aşağıdakilerden hangisini yapmalısınız?",
+   "gorsel": [],
+   "siklar": [
+    "Ortamdaki gazların azaldığını ve yangına müdahaleye maskeyi çıkarıp, maskesiz olarak devam edebileceğimi anlarım ve maskeyi çıkartırım",
+    "İşime devam ederim",
+    "Hava tüpünün normal çalıştığını anlarım",
+    "Daha 1 saatlik hava kaldığını anlarım ve yangınla mücadeleye devam ederim",
+    "Sadece 10 dakikalık hava kaldığını anlar ve o mahalden çıkarım"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 25,
+   "soru": "Aşağıdakilerden hangisi acil yangın ekibinin görevlerindendir?",
+   "gorsel": [],
+   "siklar": [
+    "Yangına girecek personeli ve giriş şeklini tespit eder",
+    "Yangının yerini, durumunu, cinsini ve büyüklüğünü saptar",
+    "Varsa yangın mahallinden yaralıları kurtarır",
+    "Yangın mahallinde yaralı olup olmadığına bakar",
+    "Hepsi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 26,
+   "soru": "Bir karbondioksitli yangın söndürme tüpü kullanıldıktan sonra ne yapılmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Yeniden etiketlenir",
+    "Yeniden doldurulmalıdır",
+    "Hidrostatik test uygulanır",
+    "Eğer içinde biraz daha karbondioksit kaldıysa tekrar ilk durduğu yere takılır",
+    "Dinamik su testi yapılmalıdır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 27,
+   "soru": "Solunum cihazının yedek hava tüpleri gemide nerede bulundurulur?",
+   "gorsel": [],
+   "siklar": [
+    "Solunum cihazının muhafaza edildiği aynı yerde",
+    "Kolayca bulunabileceği bir yerde",
+    "Köprü üstünde",
+    "Acil ekipman portucunda",
+    "Baş altı mağazasında"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 28,
+   "soru": "İzolasyon (separasyon) valfi nedir, nerede bulunur?",
+   "gorsel": [],
+   "siklar": [
+    "Ana yangın devresi ile acil yangın devresinin birleşim yerinde bulunur. Acili devreye alınca kapatırız",
+    "Yangın devresi üzerinde bulunan ve gemide belirli bir bölgedeki yangın devresi basıncını arttırmak için kullanılan bir valftir, daima açık tutulur ve sadece yangın durumunda yangın olan bölgenin basıncını arttırmak için kapatırız. Fakat bunu doğru kullanmak için yangın devresinin şemasını ve o anda hangi yangın pompasının devrede olduğunu (normal veya acil) bilmemiz gereklidir",
+    "Yangın devresi üzerinde bulunan ve gemide belirli bir bölgedeki yangın devresi basıncını arttırmak için kullanılan bir valftir, daima açık olur ve sadece acil durumda kapatırız",
+    "Yangın devresinde baş taraftaki ilk valf grubudur. Baş tarafı kıç taraftan ayırmak için kullanılır",
+    "Yangın devresi üzerinde bulunan ve gemide belirli bir bölgedeki yangın devresi basıncını arttırmak için kullanılan bir valftir, daima kapalıdır ve sadece acil durumda açarız"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 29,
+   "soru": "Akaryakıt yangınında aşağıdaki hangi söndürücü kullanıldığında, yakıtın tutuşma sıcaklığının altına kadar soğutulamaması nedeniyle, tekrar tutuşma olasılığı vardır?",
+   "gorsel": [],
+   "siklar": [
+    "Su jeti",
+    "CO2",
+    "Tatlı su",
+    "Köpük",
+    "Suyla spreyleme(yağmurlama)"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 30,
+   "soru": "Acil yangın pompasının kapasitesi nasıl olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Normal yangın pompasının %80 i kadar olmalıdır",
+    "En az 25 m3/saat olmalı",
+    "En az 60 m3/saat olmalıdır",
+    "En az 30 m3/saat olmalıdır",
+    "Normal yangın pompasının en az %40 ı kadar olmalıdır(ama en az 25 m3/saat)"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 31,
+   "soru": "Hangi gemilerde, en az bir adet Uluslararası sahil bağlantı flenci (International Shore Connection) bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "1000 dwt dan büyük gemiler",
+    "boyu 100 metreden büyük olan gemiler",
+    "500- 5000 grt arası gemiler",
+    "500 grt dan küçük gemiler",
+    "500 grt dan büyük gemiler"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 32,
+   "soru": "Acil yangın pompasının yedek yakıt tankının (ana makine hallinin dışında) kapasitesi en az ne kadar olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "25 Litre",
+    "15 saatlik",
+    "40 Litre",
+    "8 saatlik",
+    "12 saatlik"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 33,
+   "soru": "Yangıncı teçhizatından olan yanmaz ve patlamaz tipte emniyetli olan el lambası en az kaç saat yanabilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "30 dakika",
+    "5 saat",
+    "1 saat",
+    "3 saat",
+    "2 saat"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 34,
+   "soru": "Yangının konveksiyon yoluyla yayılmasını önlemek için ne yapmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Yanıcı maddeleri o civardan uzaklaştırırım",
+    "Yangın mahalline ait tüm kaporta ve havalandırmaları kapatırım",
+    "Yanan mahallin etrafındaki perdelere/duvarlara soğutma yaparım",
+    "O mahallin elektriği kesilmelidir",
+    "Tüm elektrikler ana şalterden kapatılmalıdır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 35,
+   "soru": "Bir yangına girmeden önce solunum cihazını kontrol ederken hangi test yapılmaz?",
+   "gorsel": [],
+   "siklar": [
+    "Basınç göstergesine giden valf kapandığında basıncın 60 sn.'den önce 30 bara düşmediğinin test edilmesi",
+    "Maske sızdırmazlık testinin yapılması",
+    "Alarm sisteminin çalıştığının test edilmesi ve göstergeden tüp doluluğunun testi",
+    "Tüp tahliye valfi ve maske emme valflerinin testi",
+    "Tüpün sağlamlık testi"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 36,
+   "soru": "Yangın pompalarının hepsinin toplam kapasitesi bir gemide en fazla ne kadar olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "90 m3/saat",
+    "200 m3/saat",
+    "180 m3/saat",
+    "120 m3/saat",
+    "100 m3/saat"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 37,
+   "soru": "Makine dairesine veya ambarlara CO2 gazı vermeden önce çalması gereken, özel gaz ikaz alarmı ne zaman ve nasıl çalacaktır?",
+   "gorsel": [],
+   "siklar": [
+    "Gaz boşaltma kontrollarının bulunduğu kutunun kapağı açıldığı anda otomatik olarak çalmaya başlayacaktır.",
+    "Makine dairesinin tüm kapı ve kaportaları kapatılınca çalar.",
+    "Makine dairesi veya ambarın tüm havalandırmaları kapatılırsa kendiliğinden çalar",
+    "Makine dairesinin girişinde çalar",
+    "Köprü üstünde çalacaktır"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 38,
+   "soru": "EEBD cihazının tüpünde en az ne kadar hava bulunmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "10 dakikalık",
+    "5 dakikalık",
+    "5 atmosfer",
+    "30 dakikalık",
+    "20 dk."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 39,
+   "soru": "IMO, Solas'a tabi gemilerde yangınla mücadele için ekiplerin nasıl kurulmasını ve en az kaç kişilik olmasını tavsiye etmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "3'er kişilik 2 yangın ekibi + 3 kişilik ilk yardım ekibi",
+    "3'er kişilik 4 yangın ekibi",
+    "4 kişilik 1 yangın ekibi + 2 kişilik ilk yardım ekibi",
+    "2'şer kişilik 2 yangın ekibi",
+    "3 kişilik 1 yangın ekibi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 40,
+   "soru": "Boyalıktan kesif duman çıktığını görünce yangına karşı İLK yapmanız gereken ne olabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Boyalığa girer ve portatif bir yangın söndürücü kullanırım",
+    "Boyalığın kapısını açıp içerdeki yangının durumuna bakarım",
+    "Durum tespiti için, kapıyı ve havalandırma kapaklarını açıp, içerdeki dumanın dağılmasını beklerim",
+    "Boyalığın havalandırma kapaklarını kapatırım",
+    "Karbondioksit sistemini çalıştırmak"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 41,
+   "soru": "1200 lt'lik hava tüplerinin çalışma basıncı ne kadardır",
+   "gorsel": [],
+   "siklar": [
+    "20 bar",
+    "50 bar",
+    "130 bar",
+    "100 bar",
+    "120 bar"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 42,
+   "soru": "Deniz Kirliliğini Önleme Acil Planı (SOPEP), MARPOL 73/78 Sözleşmesinin hangi EK'i kapsamında kaç GRT'dan büyük yük gemileri için düzenlenerek gemide bulundurulması gereklidir?",
+   "gorsel": [],
+   "siklar": [
+    "EK-IV, 400 GRT",
+    "EK-IV, 150 GRT",
+    "EK-I, 400 GRT",
+    "EK-I, 150 GRT",
+    "EK-V, 400 GRT"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 43,
+   "soru": "Bir yangın ekibindeki yangıncının giydiği yangıncı elbisesinde bulunan yanmaz halat ne işe yarar?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın mahallindeki yaralıların kurtarılması içindir",
+    "Yangıncının yangına müdahalede kullanacağı yangın söndürücülerin taşınması içindir",
+    "Yangın hortumunu sabitlemek içindir",
+    "Sadece yangıncı ile arkadakilerin haberleşmesi içindir",
+    "Yangıncının yangın mahallinden dışarıya çıkarken yolunu bulabilmesi ve haberleşme içindir"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 44,
+   "soru": "Standart ticari gemilerde yaşam mahallerinde aşağıda bulunan hangi ölçülerdeki nozullar kullanılır?",
+   "gorsel": [],
+   "siklar": [
+    "12 mm-16 mm",
+    "16 mm- 19 mm",
+    "12 mm- 14mm",
+    "9 mm- 12 mm",
+    "Hiçbiri"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 45,
+   "soru": "Hangi tip yangın algılama/ihbar sistemi ortamdaki ısı yükselmesini algılayarak çalışır?",
+   "gorsel": [],
+   "siklar": [
+    "Elle çalıştırılan yangın ihbar sistemi",
+    "Vardiyacının gözlem sistemi",
+    "Duman ihbar sistemi",
+    "Otomatik yangın ihbar sistemi",
+    "Hepsi"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 46,
+   "soru": "Aşağıdakilerden hangisi acil yangın ekibinin görevlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Yangın mahallinde yaralı olup olmadığına bakar",
+    "Yangına girecek personeli ve giriş şeklini tespit eder",
+    "Varsa yangın mahallinden yaralıları kurtarır",
+    "Kurtarılan kazazedelerin ilk tıbbi müdahalesini yapar",
+    "Yangının yerini, durumunu, cinsini ve büyüklüğünü saptar"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 47,
+   "soru": "Alev dedektörleri yaygın olarak ne ile çalışır?",
+   "gorsel": [],
+   "siklar": [
+    "Kızılötesi sistem",
+    "Morötesi sistem",
+    "Sıcaklık",
+    "İyonlama",
+    "Radyasyon"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 48,
+   "soru": "İçinden gaz geçen hortum ve boruların gaz kaçırması sebebiyle meydana gelen yangın hangi tip yangın sınıfına girer ve hangi tip minimax ile müdahale edilir?",
+   "gorsel": [],
+   "siklar": [
+    "C sınıfı- Kuru kimyevi toz",
+    "B sınıfı- A-B ilaçlı minimax",
+    "A sınıfı-Köpüklü",
+    "C sınıfı-Kimyasal köpüklü",
+    "E sınıfı- Kuru kimyevi toz"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 49,
+   "soru": "Yangın söndürme metotlarından, boğma metodu yangın kollarından hangisini ortadan kaldırır?",
+   "gorsel": [],
+   "siklar": [
+    "Zincirleme reaksiyon",
+    "Yanıcı madde",
+    "Oksijen",
+    "Yanma sınırı",
+    "Isı"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 50,
+   "soru": "Yanma sırasında açığa çıkan gaz karışımı içerisinde,karbon-sülfür oranının yüksek olması durumunda ne renk duman çıkar?",
+   "gorsel": [],
+   "siklar": [
+    "Siyah duman",
+    "Açık mavi",
+    "Sarı",
+    "Yeşil",
+    "Beyaz duman"
+   ],
+   "cevap": 4
+  }
+ ]
+}

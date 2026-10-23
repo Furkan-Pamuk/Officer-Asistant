@@ -1,0 +1,256 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 5,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-5/",
+ "soru_sayisi": 19,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Gece dikey bir doğru üzerinde ufkun her yönünden görünür üst üste iki kırmızı fenerden başka her hangi bir işaret göstermeyen gemi hangi durumu veya yaptığı işi belirtmektedir?",
+   "gorsel": [],
+   "siklar": [
+    "Üzerinde yol olmayan kumanda altında olmayan bir teknedir",
+    "Üzerinde yol olmayan ve ağ balıkçılığı yapan bir teknedir",
+    "Üzerinde yol olmayan ve trol ağları engele takılmış bir teknedir",
+    "Üzerinde yol olmayan ve su çekimi nedeniyle manevrası kısıtlı teknedir",
+    "Üzerinde yol olmayan manevrası kısıtlı teknedir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 2,
+   "soru": "Gece hem yelken hem makine ile seyreden bir tekne bu durumunu hangi fenerlerle belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Borda fenerlerini, silyon fener veya fenerlerini ve pupa fenerini göstererek belirtir",
+    "Borda fenerleri ile pupa fenerine ilaveten direk başında ufkun her yönünden görülür dikey bir doğrultuda üstte kırmızı altta yeşil birer fener göstererek belirtir",
+    "Borda fenerleri ile pupa fenerine ilaveten direk başında ufkun her yönünden görülür dikey bir doğrultuda üstte yeşil altta kırmızı birer fener göstererek belirtir",
+    "Borda fenerleri, silyon feneri ve pupa fenerine ilaveten direk başında ufkun her yönünden görülür dikey bir doğrultu-da üstte kırmızı altta yeşil birer fener göstererek belirtir",
+    "Borda fenerleri, silyon feneri ve pupa fenerine ilaveten direk başında ufkun her yönünden görülür dikey bir doğrultu-da üstte yeşil altta kırmızı birer fener göstererek belirtir"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 3,
+   "soru": "Gece ufkun her yönünden görülebilen bir beyaz fener ve bu fenerden uzak ve yukarıda yine ufkun her yönünden görünür üstte kırmızı ortada beyaz ve en altta kırmızı fener taşıyan bu geminin diğer fenerlerinden aşağıda ve uzak sancak bordasında yine ufkun her yönünden görünür üst üste iki kırmızı fener vardır. Bu gemiyi tanımlayınız.",
+   "gorsel": [],
+   "siklar": [
+    "Boyu elli metreden kısa su altı çalışması yapan ve sancak bordasından geçilmemesi gereken bir teknedir.",
+    "Boyu elli metreden kısa su altı çalışması yapan ve iskele bordasından geçilmemesi gereken bir teknedir.",
+    "Boyu elli metreden kısa ağları engele takılmış bir balıkçı teknesidir.",
+    "Boyu elli metreden kısa karaya oturmuş bir teknedir.",
+    "Boyu elli metreden kısa mayın arama-tarama gemisinin engele takıldığını tanımlar."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 4,
+   "soru": "Gemi düdüklerinin çalışma frekansları Denizde Çatışmayı Önleme Tüzüğü gereği;",
+   "gorsel": [],
+   "siklar": [
+    "60 – 600 Hz. bandı içerisinde olacaktır",
+    "65 – 650 Hz. bandı içerisinde olacaktır",
+    "70 – 700 Hz. bandı içerisinde olacaktır",
+    "75 – 750 Hz. bandı içerisinde olacaktır",
+    "80 – 800 Hz. bandı içerisinde olacaktır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 5,
+   "soru": "Gemilere gerektiğinde birleşik düdük sistemi monte edilebilir. Denizde Çatışmayı Önleme Tüzüğü gereği, Birleşik Düdük Sistemine tek bir düdük gözü ile bakılacaktır. Ancak bu düdükler birbirlerinden;",
+   "gorsel": [],
+   "siklar": [
+    "90 metreden daha uzak mesafeye konmayacaktır",
+    "95 metreden daha uzak mesafeye konmayacaktır",
+    "100 metreden daha uzak mesafeye konmayacaktır",
+    "105 metreden daha uzak mesafeye konmayacaktır",
+    "110 metreden daha uzak mesafeye konmayacaktır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "Geminin genel olarak emniyetle seyirden hangi gemi adamı öncelikli sorumludur?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin bağlı olduğu şirket",
+    "Vardiyasını tutmakta olan zabit",
+    "Gemi kaptanı",
+    "Gemi 1. Zabiti",
+    "Gemi sahibi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 7,
+   "soru": "Gündüz yelken ile seyreden aynı zamanda makine ile de yürütülen bir tekne gündüz süresince baş tarafında ufkun her tarafından görülebilecek bir yerde;",
+   "gorsel": [],
+   "siklar": [
+    "Tepeleri birbirlerine bitişik iki koni gösterecektir.",
+    "Bir küre gösterecektir.",
+    "Sivri ucu yukarı doğru bir koni gösterecektir.",
+    "Sivri ucu aşağı doğru bir koni gösterecektir.",
+    "Hiçbir alamet göstermeyecektir."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 8,
+   "soru": "İki silyon feneri taşıyan bir gemiye deniz yüzeyinde bodoslamasının kaç metre ilerisinden bakıldığında kıç silyon feneri, baş silyon fenerinin üzerinde ve baş silyon fenerinden ayrı görülmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "900 m",
+    "1000 m",
+    "1100 m",
+    "1200 m",
+    "1300 m"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 9,
+   "soru": "İskele baş omuzluğunuzda ki teknede bir silindir alameti gördünüz. Bu teknenin kerterizi sabittir. Sizin tek-nenizde sivri uçları birbirine bitişik iki koni bulunmaktadır. Çatışmayı Önleme Tüzüğüne göre en uygun nasıl manevra yaparsınız?",
+   "gorsel": [],
+   "siklar": [
+    "Geminin tipi",
+    "Liman işçileri",
+    "Limanda kalış süresi",
+    "Liman iş yoğunluğu",
+    "Personel sayısı ve yeterliliği"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Kaptanın köprüüstüne çağrılıp çağrılmamasında şüphe içine giren zabitin yapacağı en uygun davranış aşağıdakilerden hangisi olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Kendini toplar, gereken en uygun hareketi yapar",
+    "Derhal kaptanı çağırır",
+    "Durumun daha netleşmesi için bekler",
+    "Genel alarm verir",
+    "Makine dairesini durumdan haberdar eder"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 12,
+   "soru": "Karaya oturan boyu 90 m olan bir tekne kısıtlı görüş şartlarında;",
+   "gorsel": [],
+   "siklar": [
+    "Aralarında bir dakikadan fazla olmayan aralıklar ile seri bir şekilde ve yaklaşık beş saniye süre ile bir kampana çala-cak ve kampana çalınması başlamadan hemen önce ve kampana çalınması bittikten hemen sonra kampanasına üç ayrı ve belirgin vuruşlar yapacaktır.",
+    "Aralarında iki dakikadan fazla olmayan aralıklar ile seri bir şekilde ve yaklaşık beş saniye süre ile bir kampana çalacak ve kampana çalınması başlamadan hemen önce ve kampana çalınması bittikten hemen sonra kampanasına üç ayrı ve belirgin vuruşlar yapacaktır.",
+    "Aralarında bir dakikadan fazla olmayan aralıklar ile seri bir şekilde ve yaklaşık beş saniye süre ile bir kampana çalacak ve kampana çalınması bittikten hemen sonra kampanasına üç ayrı ve belirgin vuruşlar yapacaktır.",
+    "Aralarında iki dakikadan fazla olmayan aralıklar ile seri bir şekilde ve yaklaşık beş saniye süre ile bir kampana çalacak ve kampana çalınması bittikten hemen sonra kampanasına üç ayrı ve belirgin vuruşlar yapacaktır.",
+    "Aralarında üç dakikadan fazla olmayan aralıklar ile seri bir şekilde ve yaklaşık beş saniye süre ile bir kampana çalacak ve kampana çalınması bittikten hemen sonra kampanasına beş ayrı ve belirgin vuruşlar yapacaktır."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 13,
+   "soru": "Karaya oturmuş bir gemi durumunu gündüz nasıl belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "En iyi görünür yerine dikey bir doğrultuda üç adet siyah küre toka eder.",
+    "Baş tarafta bir adet siyah küre ve en iyi görünür yerine iki adet siyah küre toka eder.",
+    "Baş tarafa bir adet siyah küre ve en iyi görünür yerine dikey bir doğrultuda üstte bir siyah küre ortada bir siyah eşkenar dörtgen ve en altta bir siyah küre toka eder.",
+    "Baş tarafa bir adet siyah küre ve en iyi görünür yerine uluslar arası işaret sancaklarından (J) Juliet – (G) Golf sancaklarını toka eder.",
+    "Baş tarafta bir adet siyah küre ve en iyi görünür yerine dikey bir doğrultuda iki adet siyah eşkenar dörtgen toka eder."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Kılavuz Kaptanın gemiye alınması için kullanılacak iskele su seviyesinden asgari kaç metreye kadar mayna edilmelidir?",
+   "gorsel": [],
+   "siklar": [
+    "1 m",
+    "1.5 m",
+    "2 m",
+    "2.5 m",
+    "3 m"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 15,
+   "soru": "Kılavuz Kaptanın gemiye gelişinde karşılanması ve köprüüstüne kadar refakat edilmesi gereklidir. Bu işlem kaptan tarafından görevlendirilen;",
+   "gorsel": [],
+   "siklar": [
+    "Miço tarafından yapılır",
+    "Serdümen tarafından yapılır",
+    "Usta gemici tarafından yapılır",
+    "Güverte lostromosu tarafından yapılır",
+    "Güverte vardiya zabiti tarafından yapılır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 16,
+   "soru": "Kılavuzluk görevi ile uğraşan tekneler ile ilgili aşağıdaki ifadelerden yanlış olanını işaretleyiniz.",
+   "gorsel": [],
+   "siklar": [
+    "Bir kılavuz teknesi görevde değilken (içinde kılavuz kaptan bulunmadığı zaman) kendi boyundaki benzeri bir tekne için belirtilen fenerler veya şekilleri göstereceklerdir.",
+    "Bir kılavuz teknesi görevdeyken gündüz Hotel (H) sancağını toka eder.",
+    "Bir kılavuz teknesi görevdeyken geceleyin direk başı veya direk başına yakın bir yerde ufkun her tarafından görünür düşey bir doğrultuda üstte beyaz altta kırmızı fener çeker.",
+    "Bir kılavuz teknesi geceleyin görevde iken eğer üzerinde yol varsa paragraf “c” de belirtilen fenerlere ilave olarak silyon feneri, borda fenerleri ve pupa fenerini çeker.",
+    "Bir kılavuz teknesi demirli iken görevde olabilir (İçinde kılavuz kaptan var). Bu durumda geceleyin direk başı veya direk başına yakın bir yerde ufkun her tarafından görünür düşey bir doğrultuda üstte beyaz altta kırmızı fener çeker.Bu fenerlere demir fenerini de gösterecektir."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Kısıtlı görüş koşullarında, bir diğerini tek bir tekne konumunda iterek yedekleyen tekne üstünde yol olduğunda nasıl bir seda işareti verir?",
+   "gorsel": [],
+   "siklar": [
+    "İterek tekbir tekne gibi diğerini yedekleyen bir tekne üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla bir uzun düdük çalar.",
+    "İterek tek bir tekne gibi diğerini yedekleyen bir tekne üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalar.",
+    "İterek tek bir tekne gibi bir diğerini yedekleyen bir tekne üstünde yol olduğunda bir dakikayı geçmeyen aralıklarla bir uzun düdük çalar.",
+    "İterek tek bir tekne gibi bir diğerini yedekleyen bir tekne, üstünde yol olduğunda bir dakikayı geçmeyen aralıklar-la bir uzun iki kısa düdük çalar.",
+    "İterek tek bir tekne gibi bir diğerini yedekleyen bir tekne, üstünde yol olduğunda iki dakikayı geçmeyen aralıklarla bir uzun iki kısa düdük çalar, yedeklenen gemi ise bunu takiben bir uzun üç kısa düdük çalar."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 18,
+   "soru": "Kısıtlı görüş koşullarında boyu 200 metreden uzun ve karaya oturmuş bir gemi hangi seda işaretlerini verir?",
+   "gorsel": [],
+   "siklar": [
+    "Bir dakikayı geçmeyen baş tarafta beş saniye süreli sürekli kampana ve bunu takiben kıç tarafta beş saniye sürekli gong çalar.",
+    "Bir dakikayı geçmeyen aralıklarla, baş tarafta üç adet tek kampana darbesi vurur ve beş saniye süreli sürekli kampana çalar bunları takiben kıç tarafta da önce üç tek kampana darbesi ve beş saniye sürekli gong çalar.",
+    "Bir dakikayı geçmeyen aralıklarla, baş tarafından üç adet tek kampana darbesini takiben beş saniye süreli sürekli kampana çalar ve hemen peşinden yine üç adet tek kampana darbesi vurur bunları takiben kıç tarafta da beş saniye süreli gong çalar.",
+    "İki dakikayı geçmeyen aralıklarla, baş tarafından üç adet tek kampana darbesini takiben beş saniye süreli sürekli kampana çalar ve hemen peşinden yine üç adet tek kampana darbesi vurur, bunları takiben gemi düdüğü ile bir kısa bir uzun bir kısa düdük çalar sonra da kıç taraftan beş saniye süreli gong çalar.",
+    "İki dakikayı geçmeyen aralıklarla bir uzun, bir kısa, bir uzun gemi düdüğü ve beş saniye süreli sürekli kampana çalar."
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 19,
+   "soru": "Kısıtlı görüş koşullarında kumanda altında bulunmayan bir tekne bu durumunu nasıl belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "İki dakikayı geçmeyen aralıklarla bir uzun, üç kısa düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun düdük çalarak durumunu belirtir",
+    "İki dakikayı geçmeyen aralıklarla bir uzun, iki kısa düdük çalarak durumunu belirtir",
+    "Bir dakikayı geçmeyen aralıklara iki uzun düdük çalarak durumunu belirtir",
+    "Bir dakikayı geçmeyen aralıklara bir kısa, bir uzun, bir kısa düdük çalarak durumunu belirtir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Kısıtlı görüş koşullarında sadece radarda tespit edilen bir hedefe aşağıda belirtilen hareketlerden hangisi uygulanabilir?",
+   "gorsel": [],
+   "siklar": [
+    "Yetişilen bir tekne hariç, kemere doğrultusunun ilerisinde bulunan bir tekne için rotanın iskeleye alınması",
+    "Yetişilen bir tekne hariç, kemere doğrultusunun ilerisinde bulunan bir tekne için rotanın sancağa alınması",
+    "Rotanın kemere doğrultusunda veya kemer doğrultusunun gerisinde olan bir tekneye doğru sancaktan dönüşle değiştirilmesi",
+    "Rotanın kemere doğrultusunda veya kemer doğrultusunun gerisinde olan bir tekneye doğru iskeleden dönüşle değiştirilmesi",
+    "Hiçbirisi uygulanamaz Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}

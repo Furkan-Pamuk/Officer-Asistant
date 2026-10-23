@@ -1,0 +1,62 @@
+{
+ "rank": "STCW-Temel",
+ "dersler": {
+  "Can-Kurtarma-Araclari": {
+   "kaynak": "denizcisin.com",
+   "denemeler": [
+    {
+     "deneme": 1,
+     "dosya": "STCW-Temel/Can-Kurtarma-Araclari/deneme-01.json",
+     "soru": 50
+    },
+    {
+     "deneme": 2,
+     "dosya": "STCW-Temel/Can-Kurtarma-Araclari/deneme-02.json",
+     "soru": 50
+    }
+   ]
+  },
+  "Kisisel-Can-Kurtarma": {
+   "kaynak": "denizcisin.com",
+   "denemeler": [
+    {
+     "deneme": 1,
+     "dosya": "STCW-Temel/Kisisel-Can-Kurtarma/deneme-01.json",
+     "soru": 50
+    },
+    {
+     "deneme": 2,
+     "dosya": "STCW-Temel/Kisisel-Can-Kurtarma/deneme-02.json",
+     "soru": 36
+    }
+   ]
+  },
+  "Ileri-Yangin": {
+   "kaynak": "denizcisin.com",
+   "denemeler": [
+    {
+     "deneme": 1,
+     "dosya": "STCW-Temel/Ileri-Yangin/deneme-01.json",
+     "soru": 50
+    },
+    {
+     "deneme": 2,
+     "dosya": "STCW-Temel/Ileri-Yangin/deneme-02.json",
+     "soru": 20
+    }
+   ]
+  },
+  "Personel-Guvenligi": {
+   "kaynak": "denizcisin.com",
+   "denemeler": [
+    {
+     "deneme": 1,
+     "dosya": "STCW-Temel/Personel-Guvenligi/deneme-01.json",
+     "soru": 20
+    }
+   ]
+  }
+ },
+ "toplam_soru": 276,
+ "cevapsiz": 1
+}

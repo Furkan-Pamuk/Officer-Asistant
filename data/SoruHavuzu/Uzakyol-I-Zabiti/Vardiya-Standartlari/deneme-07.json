@@ -1,0 +1,269 @@
+{
+ "rank": "Uzakyol-I-Zabiti",
+ "ders": "Vardiya-Standartlari",
+ "deneme": 7,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Uzakyol_I_Zabiti/Vardiya_Standartlari/Deneme_Sinavi-7/",
+ "soru_sayisi": 20,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "Seyir halinde üzerinde yol olan ve bordasında, sahil sıhhiye işlemi yapan veya pilot alıp veren bir gemi veya kumanya alan bir gemi bu durumunu gündüz nasıl belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Bu gemi en iyi görünür bir yerine bir siyah eşkenar dörtgen şekil toka eder",
+    "Bu gemi en iyi görünür bir yerine siyah bir silindir toka eder",
+    "Bu gemi en iyi görünür bir yerine yukarıdan aşağı düşey bir doğrultuda siyah bir küre, siyah bir eşkenar dörtgen ve yine bir siyah küre toka ederler",
+    "Bu gemi en iyi görünür bir yerine yukarıdan aşağı düşey bir doğrultuda iki adet siyah küre toka eder",
+    "Bu gemi en iyi görünür bir yerine yukarıdan aşağı düşey bir doğrultuda iki adet siyah eşkenar dörtgen toka eder"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 2,
+   "soru": "Seyir vardiyası tutmakta olan bir zabitin meteorolojik bilgilerle ilgili sorumluluğu vardır. Vardiyasında görevi ile bütünleşmiş bir zabitin her zaman aklında olmayacak bilgi hangi şıkta verilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Rüzgarın hızı ve yönü",
+    "Dalga yönü ve yüksekliği",
+    "Mevsimsel akıntı yönü ve hızı",
+    "Görüş netliği",
+    "Barometre değeri"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 3,
+   "soru": "Seyir vardiyasından sorumlu zabit görevi esnasında geminin emniyetini zora sokacak önemli bir engel ile karşılaştığında ilk hareket tarzı ne olur?",
+   "gorsel": [],
+   "siklar": [
+    "Sorunu derhal gidermek zorunda olarak her imkanı kullanır",
+    "Zaman geçirmeden Kaptana haber verir",
+    "Sorunu tanımak için uğraşır",
+    "Gemi düdüğünü çalar",
+    "Gemi alarm sistemini çalıştırır"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 4,
+   "soru": "Seyir vardiyasından sorumlu zabitin bilgi ve becerisindeki hangi eksiklik o vardiyanın emniyetsiz olacağı anlamına gelmez?",
+   "gorsel": [],
+   "siklar": [
+    "Radar ve ARPA hakkında temel bilgilere sahip olmak",
+    "Vardiyasından sorumlu zabitin deniz tecrübesi",
+    "Genel rota bilgilerine göre vardiya tutma becerisi",
+    "Seyir vardiyası tutma prensiplerinin bilinmesi",
+    "Uluslararası denizde çatışmayı önleme kurallarının bilinmesi"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "Seyir vardiyasının emniyeti açısından aşağıdakilerden hangisi dikkate alınmayacak türden bir seçenektir?",
+   "gorsel": [],
+   "siklar": [
+    "Gemide otomatik dümen donanımının varlığı",
+    "Seyir yayın, katalog ve haritaların varlığı",
+    "Elektronik radar gözleme cihazlarının varlığı",
+    "Manyetik puslanın hata düzeltmesinin uzun süre yapılmamış oluşu",
+    "Geminin taşımakta olduğu yükü"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 6,
+   "soru": "Seyir vardiyasının emniyeti açısından köprüüstü düzenlemesinde olması gerekenler hangi seçenekte doğru verilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "Tüm seyir cihazları çalışıyor olmalıdır",
+    "Harita kamarası ayrı bir kamara şeklinde olmamalıdır",
+    "Harita ve yayınlar son düzeltmeleri yapılmış kullanıma hazır olmalıdır",
+    "Kaptan devamlı köprü üstünde olmalıdır",
+    "Seyir ve hidrografik yayınlar, tüm seyir cihazları tam ve eksiksiz olmalı, faal durumda olmalı köprüüstü adamsız kalmamalıdır"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 7,
+   "soru": "Tehlikeli yük taşıyan bir gemide kaptan; vardiya tutacak olan personelinin özellikle ve öncelikle neleri bilmesini sağlamalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Yükün tabiatı, miktarı, nasıl istifleneceği ve özel durumları",
+    "Çıkılacak seyrin şartları",
+    "Gemi liman arası haberleşme",
+    "Hava ve deniz durumu",
+    "Vardiya sistemi"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 8,
+   "soru": "Tehlikeli yük taşıyan gemilerde limanda uygulanacak prensipleri arasında yer almayacak prensip aşağıdakilerden hangisidir?",
+   "gorsel": [],
+   "siklar": [
+    "Isıtma ve geri dönüş flençleri kullanılmalıdır",
+    "Çevre kirliliğinden kaçınma tedbirleri özellikle alınmış olmalıdır",
+    "Güvertede kimse bırakılmamalıdır",
+    "Özel liman kuralları dikkate alınmış olmalıdır",
+    "Güvenli makine vardiyasının tutulması sağlanmalıdır"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Teknelerde kullanılan kampanaların ağız çapları hangi ölçülerde olmalıdır?",
+   "gorsel": [],
+   "siklar": [
+    "Boyları, 20 metre ve daha uzun tekneler için 350 mm’den, 12 metre ile 20 metre arasında olanlar için 250 mm.den az olamaz",
+    "Boyları, 20 metre ve daha uzun tekneler için 400 mm’den, 12 metre ile 20 metre arasında olanlar için 300 mm.den az olamaz",
+    "Boyları, 20 metre ve daha uzun tekneler için 300 mm’den, 12 metre ile 20 metre arasında olanlar için 200 mm.den az olamaz",
+    "Boyları, 20 metre ve daha uzun tekneler için 250 mm’den, 12 metre ile 20 metre arasında olanlar için 150 mm.den az olamaz",
+    "Boyları, 20 metre ve daha uzun tekneler için 450 mm’den, 12 metre ile 20 metre arasında olanlar için 350 mm.den az olamaz"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 10,
+   "soru": "Teknelerin birbirlerini gördüklerinin var sayılması için;",
+   "gorsel": [],
+   "siklar": [
+    "Her iki teknenin birbirlerini radar ile tespit etmeleri gerekir",
+    "Bir teknenin diğerini radar ile tespit etmesi yeterlidir",
+    "Bir teknenin diğerini gözle görmesi yeterlidir",
+    "Her iki teknenin birbirlerini gözle görmeleri gerekir",
+    "Her iki teknenin birbirini gözle görmeleri ve radarla tespit etmeleri gerekir"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 11,
+   "soru": "Torbalı ağ balıkçılığı yapıldığında kullanılan fenerler;",
+   "gorsel": [],
+   "siklar": [
+    "2 adet Sarı renkli, her yönden görülen, düşey doğrultuda çekilen, her iki saniyede bir münavebe ile parlayacak ve sönük kalma müddeti ışık süresine eşit olacaktır.",
+    "2 adet Sarı renkli, her yönden görülen,düşey doğrultuda çekilen, her üç saniyede bir münavebe ile parlayacak ve sönük kalma müddeti ışık süresine eşit olacaktır.",
+    "Bir adet Sarı renkli, silyon feneri sektörüne sahip,düşey doğrultuda çekilen, her iki saniyede bir münavebe ile parlayacak ve sönük kalma müddeti ışık süresine eşit olacaktır.",
+    "2 adet Sarı renkli, her yönden görülen, düşey doğrultuda çekilen, her bir saniyede bir münavebe (birbiri peşi sıra) ile parlayacak ve sönük kalma müddeti ışık süresine eşit olacaktır.",
+    "3 adet Sarı renkli, her yönden görülen düşey doğrultuda çekilen, her iki saniyede bir münavebe ile parlayacak ve sönük kalma müddeti ışık süresine eşit olacaktır."
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 12,
+   "soru": "Trol çeken ve trol ağlarını atmakta olan bir teknede trol ağlarını atmakta olduğunu belirten düşey doğrultuda çekilen fenerler .......... milden görünürler ve aralarında .......... mesafe vardır.",
+   "gorsel": [],
+   "siklar": [
+    "2 mil, 2 metre",
+    "1.5 mil, 1.5 metre",
+    "1 mil, 1 metre",
+    "1 mil, 0.9 metre",
+    "0.5 mil, 0.9 metre"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 13,
+   "soru": "Trol çekerek balıkçılık yapan boyu 50 metreden kısa bir tekne, seyir halinde ağlarını toplarken, gece durumunu hangi fenerlerle belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üste beyaz onun altında kırmızı bir fener gösterir.",
+    "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil onun altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde silyon fenerinden aşağıda ufkun her yönünden görünür üst üste iki beyaz fener gösterir.",
+    "Borda fenerlerini, bunlarında gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üst üste iki kırmızı fener gösterir.",
+    "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil onun altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde silyon fenerinden aşağıda ufkun her yönünden görünür, üstte kırmızı onun altında beyaz bir fener gösterir.",
+    "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte beyaz altta yeşil bir fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür, üstte kırmızı onun altında beyaz bir fener gösterir."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Trol çekerek balıkçılık yapan boyu 50 metreden kısa bir tekne, seyir halinde ağları engele takılmış, gece durumunu hangi fenerlerle belirtir?",
+   "gorsel": [],
+   "siklar": [
+    "Ufkun her yönünden görülebilir üstte yeşil altında bir beyaz fener ve bu fenerlerin altında ufkun her yönünden görünür üst üste iki kırmızı fener gösterir.",
+    "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil onun altında bir beyaz fener kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde silyon fenerinden aşağıda ufkun her yönünden görünür üst üste iki beyaz fener gösterir.",
+    "Borda fenerlerini, bunlarında gerisinde ve üstünde ufkun her yönünden görülebilir üstte yeşil altında bir beyaz fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür üstte beyaz altta kırmızı fener gös-terir.",
+    "Borda fenerlerini, silyon fenerini, bunun gerisinde ufkun her yönünden görülür üstte yeşil onun altında bir beyaz fener kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde silyon fenerinden aşağıda ufkun her yönünden görünür, üstte kırmızı onun altında beyaz bir fener gösterir.",
+    "Borda fenerlerini, bunların gerisinde ve üstünde ufkun her yönünden görülebilir üstte beyaz altta yeşil bir fener, kıç tarafta bir pupa feneri, borda fenerlerinin gerisinde ufkun her yönünden görünür, üstte kırmızı onun altında beyaz bir fener gösterir."
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 15,
+   "soru": "Uluslararası teamüller liman vardiyasında kaptanın gemi lumbar ağzında ziyaretçi kaydı tutulmasını gerekli görür. Buna göre aşağıdakilerden hangisi böyle bir kaydın düşülmesinde zorlayıcı bir neden teşkil etmez",
+   "gorsel": [],
+   "siklar": [
+    "Kaçak yolcunun engellenmesi",
+    "Gemi teçhizat ve donanımlarının korunması",
+    "Geminin korunması",
+    "Liman otoritesinin kontrol sıklığı",
+    "Gemi adamlarının güvenliği"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 16,
+   "soru": "Vardiya esnasında zabitin kullanması gereken haritanın özellikleri en iyi hangi şıkta verilmiştir?",
+   "gorsel": [],
+   "siklar": [
+    "O bölgenin en genel haritası kullanılır.",
+    "En küçük ölçekli harita kullanmak seyir planlaması açısından verimlidir",
+    "En yeni harita kullanılır",
+    "Ölçeği en büyük ve en son düzeltmeleri yapılmış harita kullanılır",
+    "En küçük ölçekli ve tüm düzeltmeleri yapılmış harita kullanılır"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 17,
+   "soru": "Vardiya Zabiti; Geminin seyir emniyetini muhafaza etmek ve gemiyi tehlikelerden sakınmaktan sorumludur. Aşağıdaki görevlerinden hangisi bu kapsam dahilindeki görevlerinden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Mevcut durumu kavramak için iyi bir çevresel gözcülük (görme ve işitme) yaptırmalı ve buna civardaki mevcut gemiler ile kara işaretlerini dahil etmelidir.",
+    "Yaklaşan gemilerin kerterizlerini ve hareketlerini yakından takip etmelidir.",
+    "Geminin çatışma riskini, karaya oturma olasılığını ve diğer seyir tehlikelerini tam ve doğru olarak tahmin edebil-melidir.",
+    "Gemilerin veya deniz uçaklarının yaratabileceği tehlikeleri ayırt edebilmeli, gemi enkazı, deniz üzerinde başı boş yüzen cisimler ve diğer seyir tehlikeleri konularında daima müteyakkız bulunmalıdır.",
+    "Güverte üzerinde çalışan personeli izlemeli ve yük ile yük elleçleme eçhizelerini kontrol altında tutmalıdır."
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 18,
+   "soru": "Vardiya Zabiti geminin karaya oturduğunu tespit ettiğinde ilk yapması gereken işlemlerden değildir?",
+   "gorsel": [],
+   "siklar": [
+    "Dahili Emergency alarm çalınacak",
+    "Makine/makineler stop edilecek",
+    "Su geçirmez kaportalar kapatılacak",
+    "Kaptana haber verilecek",
+    "Geminin oturma şeklini belirlemek"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 19,
+   "soru": "Vardiya zabitinin köprüüstündeki “Ana Görevlerini” destekleyen diğer görevleri;",
+   "gorsel": [],
+   "siklar": [
+    "Geminin rota ve süratinin kontrolü",
+    "Geminin rota ve süratinin kontrolü ve deniz kirliliğinin önlenmesi",
+    "Geminin rota ve süratinin kontrolü, deniz kirliliğinin önlenmesi ve acil durumların rapor edilmesi",
+    "Geminin rota ve süratinin kontrolü ve acil durumların rapor edilmesi",
+    "Acil durumların rapor edilmesi ve deniz kirliliğinin önlenmesi"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 20,
+   "soru": "Vardiya Zabitinin köprüüstünde ki genel nezaret görevleri;",
+   "gorsel": [],
+   "siklar": [
+    "Güvertede çalışan personelin kontrolü",
+    "Güvertede çalışan personelin, yük ve yük elleçleme cihazlarının kontrolü",
+    "Güvertede çalışan personelin, yük ve yük elleçleme cihazlarının kontrolü, korsanlık ve silahlı saldırıların yapıldığı denizlerde bu tip olaylara karşı müteyakkız bulunulması",
+    "Korsanlık ve silahlı saldırıların yapıldığı denizlerde bu tip olaylara karşı müteyakkız bulunulması",
+    "Güvertede çalışan personelin kontrolü, Korsanlık ve silahlı saldırıların yapıldığı denizlerde bu tip olaylara karşı müteyakkız bulunulması Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 3
+  }
+ ]
+}

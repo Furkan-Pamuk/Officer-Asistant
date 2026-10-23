@@ -1,0 +1,230 @@
+{
+ "rank": "Makine-Zabiti",
+ "ders": "Denizcilik-Ingilizcesi",
+ "deneme": 9,
+ "kaynak_url": "https://www.gemiadamlarisinavi.com/testler/Makine_Zabiti/Denizcilik_ingilizcesi/Deneme_Sinavi-9/",
+ "soru_sayisi": 17,
+ "sorular": [
+  {
+   "no": 1,
+   "soru": "This gauge measures both inlet and outlet pressures of a strainer:",
+   "gorsel": [],
+   "siklar": [
+    "A compound gauge",
+    "A duplex gauge",
+    "A biogauge",
+    "Pressure / Vacuum gauge",
+    "None of the above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 2,
+   "soru": "Which one is not identical with the characteristics of the construction of a-2-stroke diesel engines?",
+   "gorsel": [],
+   "siklar": [
+    "Instead of valve holes, ports are installed",
+    "A cycle is completed in 2 strokes of the piston",
+    "Produce high power in compare with 4 stroke engines",
+    "The maintenance is simple",
+    "A cycle is completed in 2 revolution of the crackcase"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 3,
+   "soru": "All refrigerator compressor valves are opened and closed via ............................",
+   "gorsel": [],
+   "siklar": [
+    "Springs",
+    "Camshaft",
+    "Pressure differential",
+    "1 or 3",
+    "None above"
+   ],
+   "cevap": 4
+  },
+  {
+   "no": 4,
+   "soru": "One horsepower equals ....................",
+   "gorsel": [],
+   "siklar": [
+    "1000 watts",
+    "746 watts",
+    "100 watts",
+    "940 watts",
+    "786 watts"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 5,
+   "soru": "When distilling salt water the cooling-water discharge from the distiller is fed back to the evaporator as feedwater:",
+   "gorsel": [],
+   "siklar": [
+    "To cut down on the amount of cooling water needed",
+    "To prevent an excess amount of cooling water from being discharged to the bilges",
+    "To supply hot water to the evaporator for more economical operation",
+    "To supply sufficient amount of sea water",
+    "None of the above"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 6,
+   "soru": "If the flow of water from a centrifugal pump is stopped by closing the discharge valve with the pump running:",
+   "gorsel": [],
+   "siklar": [
+    "The relief valve will open",
+    "The water pressure will stabilize at shut off head",
+    "The water pressure will tend tor ise continuously",
+    "The driver will be over loaded",
+    "The water temperature will tend to decrease continuously"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 7,
+   "soru": "The purpose of an evaporator is to .......................",
+   "gorsel": [],
+   "siklar": [
+    "Piston, valves, cylinder, fuel injector",
+    "Crankshaft, crosshead, cylinder",
+    "Turbocharger, piston, gudgeonpin, cylinder",
+    "Crankshaft, connecting rod, pistons",
+    "Cylinder, connecting rod, pistons"
+   ],
+   "cevap": 3
+  },
+  {
+   "no": 9,
+   "soru": "Which factor below is not the cause of vibration and noise in turbines?",
+   "gorsel": [],
+   "siklar": [
+    "Unbalance",
+    "Distortion of casing",
+    "Loose couplings",
+    "Tight couplings",
+    "Any above"
+   ],
+   "cevap": 5
+  },
+  {
+   "no": 10,
+   "soru": "Pre-ignition can be caused by .................... in an operating diesel engine.",
+   "gorsel": [],
+   "siklar": [
+    "Refrigeration",
+    "Air conditioning",
+    "Ventilation",
+    "Heating",
+    "Freezing"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 13,
+   "soru": "A ball bearing will overheated if:",
+   "gorsel": [],
+   "siklar": [
+    "Completely full of grease",
+    "Half full of grease",
+    "In us efor a long time",
+    "Operated at high speed",
+    "Operated at high speed"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 14,
+   "soru": "Emergency generators are placed .......................",
+   "gorsel": [],
+   "siklar": [
+    "Near the machinery space",
+    "Above the bulkhead or freeboard deck whichever the higher",
+    "Midships near the engine room casing",
+    "Above the deep load line",
+    "None above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 15,
+   "soru": "In a 4 stroke engine 2 revolution of the crank is completed within the angle of ....................",
+   "gorsel": [],
+   "siklar": [
+    "720°",
+    "360°",
+    "180°",
+    "90°",
+    "45°"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 16,
+   "soru": "What will happen to a small diesel engine that is equipped with an \"auto type\" thermostat if the bellows develop a hole in it?",
+   "gorsel": [],
+   "siklar": [
+    "The engine will overheat",
+    "The engine will remain cold",
+    "The engine will remain not start",
+    "The cooling water will \"by pass\" the engine",
+    "None of the above"
+   ],
+   "cevap": 1
+  },
+  {
+   "no": 17,
+   "soru": "Which of the following is not one of the parts of D/G overhaul?",
+   "gorsel": [],
+   "siklar": [
+    "Valve rotator",
+    "Valve sprindle",
+    "Intake valve",
+    "Valve seat",
+    "Starting valve"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 18,
+   "soru": "A spring bearing on the line shaft is lubricated by:",
+   "gorsel": [],
+   "siklar": [
+    "The lube oil gravity tank",
+    "Water leak off from the stern tube",
+    "An oil ring and scraper",
+    "The main lube oil pump",
+    "Any above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 19,
+   "soru": "The second effect on a two pass evaporator receives its steam from:",
+   "gorsel": [],
+   "siklar": [
+    "De-superheated steam",
+    "Vapors from first effect",
+    "Auxiliary back pressure",
+    "Auxiliary forward pressure",
+    "None of the above"
+   ],
+   "cevap": 2
+  },
+  {
+   "no": 20,
+   "soru": "Flashlights used aboard tankers must be ................",
+   "gorsel": [],
+   "siklar": [
+    "Waterproof",
+    "Of the three cell type",
+    "Approved by the Board of fire underwriters",
+    "All above",
+    "1 and 3 Önceki Sayfaya Geri Dön - Deneme Sınavına Git &copy; Gemiadamları Sınavı Anasayfa Hakkımızda Haberler Köşe Yazıları Bilgi Bankası Sınav Tarihleri Online Test İletişim //Disable select-text script (IE4+, NS6+) function disableselect(e){ return false } function reEnable(){ return true } //if IE4+ document.onselectstart=new Function (\"return false\") //if NS6 if (window.sidebar){ document.onmousedown=disableselect document.onclick=reEnable } var _paq = window._paq = window._paq || []; /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u=\"//gemiadamlarisinavi.com/matomo/\"; _paq.push(['setTrackerUrl', u+'matomo.php']); _paq.push(['setSiteId', '2']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s); })();"
+   ],
+   "cevap": 2
+  }
+ ]
+}
