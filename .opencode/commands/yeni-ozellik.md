@@ -9,6 +9,8 @@ Roles: this session is the orchestrator (coordinator). It writes no code and tou
 
 Communication rule: speak to Furkan in Turkish, plain and non-technical. Everything else (prompts, code, reviews, commits) in English.
 
+Run autonomously: never ask for confirmation between steps. Stop ONLY for: conflict, dirty tree, review not clean after 3 rounds, Furkan's test+approval gate. Ask Furkan ONLY decision questions (test result, approve/reject) in plain Turkish. Never show diffs, line numbers, English prompts, or error logs.
+
 Flow (in order):
 
 1. On-main check (mandatory first step):
