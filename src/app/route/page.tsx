@@ -8,6 +8,7 @@ import { PORTS, VHF_DEFAULTS, type Port } from "@/lib/ports";
 import { LOAD_MARKS, zoneAt } from "@/lib/loadlines";
 import { CHOKEPOINTS } from "@/lib/route-data";
 import { formatDuration, haversineNm, isWater, mergeLegs, planRoute, planRouteWithStops, unwrapTrack, wrapLon, type RoutePlan, type TrackPoint } from "@/lib/route";
+import { canEditTrack, nearestTrackLeg, planEditedTrack, restoreEditedTrack } from "@/lib/route-editor";
 import { useLocale } from "@/lib/i18n";
 import { useDocTitle } from "@/lib/doctitle";
 
@@ -138,10 +139,12 @@ export default function RoutePage() {
   const [closed, setClosed] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
   const [mapReady, setMapReady] = useState(false);
+  const [editZoom, setEditZoom] = useState(0);
   const [editMode, setEditMode] = useState(false);
   const [seamarks, setSeamarks] = useState(true);
   const [customs, setCustoms] = useState<CustomStop[]>([]);
   const [avoid, setAvoid] = useState<string[]>([]);
+  const [editedPoints, setEditedPoints] = useState<TrackPoint[] | null>(null);
   const [storyOpen, setStoryOpen] = useState(false);
   const [notice, setNotice] = useState("");
   const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -164,7 +167,7 @@ export default function RoutePage() {
       if (raw) {
         const s = JSON.parse(raw) as {
           from?: string; to?: string; speed?: string; closed?: string[];
-          customs?: { id?: number; lat?: number; lon?: number }[]; avoid?: string[]; seamarks?: boolean;
+          customs?: { id?: number; lat?: number; lon?: number }[]; avoid?: string[]; seamarks?: boolean; manual?: unknown;
         };
         if (s.from && PORTS.some((p) => p.code === s.from)) setFrom(s.from);
         if (s.to && PORTS.some((p) => p.code === s.to)) setTo(s.to);
@@ -181,6 +184,9 @@ export default function RoutePage() {
         }
         if (Array.isArray(s.avoid)) setAvoid(s.avoid.filter((a) => typeof a === "string" && a.length > 0));
         if (typeof s.seamarks === "boolean") setSeamarks(s.seamarks);
+        const savedFrom = PORTS.some((p) => p.code === s.from) ? s.from! : "NLRTM";
+        const savedTo = PORTS.some((p) => p.code === s.to) ? s.to! : "TRIST";
+        setEditedPoints(restoreEditedTrack(s.manual, savedFrom, savedTo));
       }
     } catch {
       /* ignore */
@@ -192,17 +198,18 @@ export default function RoutePage() {
   useEffect(() => {
     if (!ready) return;
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ from, to, speed, closed, customs, avoid, seamarks }));
+      localStorage.setItem(LS_KEY, JSON.stringify({ from, to, speed, closed, customs, avoid, seamarks, manual: editedPoints }));
     } catch {
       /* ignore */
     }
-  }, [from, to, speed, closed, customs, avoid, seamarks, ready]);
+  }, [from, to, speed, closed, customs, avoid, seamarks, editedPoints, ready]);
 
-  const plan: RoutePlan | null = useMemo(() => {
+  const automaticPlan: RoutePlan | null = useMemo(() => {
     if (!from || !to || from === to) return null;
     if (customs.length > 0 || avoid.length > 0) return planRouteWithStops(from, to, customs, avoid, closed);
     return planRoute(from, to, closed);
   }, [from, to, customs, avoid, closed]);
+  const plan = useMemo(() => editedPoints ? planEditedTrack(from, to, editedPoints) : automaticPlan, [from, to, editedPoints, automaticPlan]);
   planRef.current = plan;
 
   const displayLegs = useMemo(() => (plan ? mergeLegs(plan.legs) : []), [plan]);
@@ -213,22 +220,26 @@ export default function RoutePage() {
   const arrMs = isFinite(hours) && isFinite(depMs) ? depMs + hours * 3600e3 : NaN;
 
   function toggleChoke(id: string) {
+    setEditedPoints(null);
     setClosed((prev) => (prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]));
   }
 
   // Route edits belong to one port pair: changing ports clears custom
   // stops and avoided waypoints so an old edit can't hijack a new route.
   function handleFrom(code: string) {
+    setEditedPoints(null);
     setFrom(code);
     setCustoms([]);
     setAvoid([]);
   }
   function handleTo(code: string) {
+    setEditedPoints(null);
     setTo(code);
     setCustoms([]);
     setAvoid([]);
   }
   function handleSwap() {
+    setEditedPoints(null);
     setFrom(to);
     setTo(from);
     setCustoms([]);
@@ -236,6 +247,7 @@ export default function RoutePage() {
   }
 
   function pickPort(code: string) {
+    setEditedPoints(null);
     const s = selRef.current;
     if (!s.from || (s.from && s.to)) {
       setFrom(code);
@@ -251,66 +263,54 @@ export default function RoutePage() {
   const pickPortRef = useRef(pickPort);
   pickPortRef.current = pickPort;
 
-  function countCustomsBefore(pts: TrackPoint[], trackIdx: number): number {
-    let n = 0;
-    for (let i = 0; i <= trackIdx && i < pts.length; i++) if (pts[i].kind === "custom") n++;
-    return n;
+  function commitTrack(points: TrackPoint[], message = t("route.onLandStop")): boolean {
+    const previous = planRef.current?.points;
+    if (!previous || !canEditTrack(previous, points)) { flashNotice(message); return false; }
+    setEditedPoints(points);
+    setCustoms([]);
+    setAvoid([]);
+    setNotice("");
+    return true;
   }
 
-  function insertCustomAt(lat: number, lon: number, trackIdx?: number) {
+  function insertCustomAt(lat: number, lon: number, trackIdx?: number): boolean {
+    const points = planRef.current?.points;
+    if (!points || points.length < 2) return false;
+    if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90) { flashNotice(t("route.onLandStop")); return false; }
     lon = wrapLon(lon);
-    if (!isWater(lat, lon)) {
-      flashNotice(t("route.onLandStop"));
-      return;
-    }
-    const p = planRef.current;
-    const pts = p?.points ?? [];
-    let at = customsRef.current.length;
-    if (pts.length > 1) {
-      let seg = pts.length - 2;
-      if (trackIdx == null) {
-        let best = Infinity;
-        for (let i = 0; i < pts.length - 1; i++) {
-          const d = segDist(lat, lon, pts[i].lat, pts[i].lon, pts[i + 1].lat, pts[i + 1].lon);
-          if (d < best) { best = d; seg = i; }
-        }
-      } else {
-        seg = Math.max(0, Math.min(pts.length - 2, trackIdx));
-      }
-      at = countCustomsBefore(pts, seg);
-    }
-    const id = idRef.current++;
-    setCustoms((prev) => [...prev.slice(0, at), { id, lat, lon }, ...prev.slice(at)]);
-  }
-  const customsRef = useRef(customs);
-  customsRef.current = customs;
-
-  // Dragging an auto waypoint turns it into a custom stop at the new position.
-  // The original is avoided only when dragged far (>50 nm); small nudges keep
-  // it routable so tiny corrections don't blow up the whole route.
-  function convertWaypoint(trackIdx: number, wayId: string, lat: number, lon: number) {
-    lon = wrapLon(lon);
-    if (!isWater(lat, lon)) {
-      flashNotice(t("route.onLandDrag"));
-      return;
-    }
-    const pts = planRef.current?.points ?? [];
-    const orig = pts[trackIdx];
-    const moved = orig ? haversineNm(orig.lat, orig.lon, lat, lon) : Infinity;
-    const at = countCustomsBefore(pts, trackIdx);
-    const id = idRef.current++;
-    if (moved > 50) setAvoid((prev) => (prev.includes(wayId) ? prev : [...prev, wayId]));
-    setCustoms((prev) => [...prev.slice(0, at), { id, lat, lon }, ...prev.slice(at)]);
+    const leg = trackIdx ?? nearestTrackLeg(points, lat, lon);
+    const at = Math.max(1, Math.min(points.length - 1, leg + 1));
+    const point: TrackPoint = { id: `c:manual-${Date.now()}-${idRef.current++}`, kind: "custom", lat, lon, label: t("route.stop").replace("{n}", String(at)) };
+    return commitTrack([...points.slice(0, at), point, ...points.slice(at)]);
   }
 
-  function segDist(lat: number, lon: number, lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const dx = lon2 - lon1, dy = lat2 - lat1;
-    const len2 = dx * dx + dy * dy;
-    let t = len2 === 0 ? 0 : ((lon - lon1) * dx + (lat - lat1) * dy) / len2;
-    t = Math.max(0, Math.min(1, t));
-    const px = lon1 + t * dx - lon, py = lat1 + t * dy - lat;
-    return px * px + py * py;
+  function moveWaypoint(index: number, lat: number, lon: number): boolean {
+    const points = planRef.current?.points;
+    if (!points || index <= 0 || index >= points.length - 1) return false;
+    if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90) { flashNotice(t("route.onLandDrag")); return false; }
+    const moved: TrackPoint = { ...points[index], lat, lon: wrapLon(lon), kind: "custom", id: points[index].kind === "custom" ? points[index].id : `c:manual-${Date.now()}-${idRef.current++}` };
+    return commitTrack(points.map((p, i) => i === index ? moved : p), t("route.onLandDrag"));
   }
+
+  function removeWaypoint(index: number): boolean {
+    const points = planRef.current?.points;
+    if (!points || index <= 0 || index >= points.length - 1) return false;
+    return commitTrack(points.filter((_, i) => i !== index));
+  }
+
+  function reorderWaypoint(index: number, direction: number) {
+    const points = planRef.current?.points;
+    const target = index + direction;
+    if (!points || target <= 0 || target >= points.length - 1) return;
+    const next = points.slice();
+    [next[index], next[target]] = [next[target], next[index]];
+    commitTrack(next);
+  }
+
+  const moveWaypointRef = useRef(moveWaypoint);
+  moveWaypointRef.current = moveWaypoint;
+  const removeWaypointRef = useRef(removeWaypoint);
+  removeWaypointRef.current = removeWaypoint;
 
   // ---- Leaflet map: init once ----
   useEffect(() => {
@@ -319,10 +319,12 @@ export default function RoutePage() {
       const L = (await import("leaflet")).default;
       if (cancelled || !mapEl.current || mapRef.current) return;
       const map = L.map(mapEl.current).setView([30, 20], 2);
+      map.on("zoomend", () => setEditZoom(map.getZoom()));
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 12,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
       }).addTo(map);
+      map.attributionControl.addAttribution('<a href="/third-party/searoute/NOTICE.txt" target="_blank" rel="noopener">Eurostat / SeaRoute · EUPL-1.2</a>');
       const portLayer = L.layerGroup().addTo(map);
       const routeLayer = L.layerGroup().addTo(map);
       const stopLayer = L.layerGroup().addTo(map);
@@ -362,22 +364,6 @@ export default function RoutePage() {
           if (d < bestPx) { bestPx = d; best = p; }
         }
         if (best) pickPortRef.current(best.code);
-      });
-      // Popup buttons (remove stop / avoid waypoint), wired once.
-      map.on("popupopen", (e: import("leaflet").PopupEvent) => {
-        const el = e.popup.getElement() as HTMLElement | undefined;
-        const rm = el?.querySelector("[data-rm]");
-        rm?.addEventListener("click", () => {
-          const id = Number((rm as HTMLElement).dataset.rm);
-          setCustoms((prev) => prev.filter((c) => c.id !== id));
-          map.closePopup();
-        });
-        const av = el?.querySelector("[data-avoid]");
-        av?.addEventListener("click", () => {
-          const id = (av as HTMLElement).dataset.avoid ?? "";
-          if (id) setAvoid((prev) => (prev.includes(id) ? prev : [...prev, id]));
-          map.closePopup();
-        });
       });
       setMapReady(true);
     })();
@@ -425,14 +411,16 @@ export default function RoutePage() {
       const pts = unwrapTrack(raw.map(([lat, lon]) => ({ lat, lon }))).map(
         (p) => [p.lat, p.lon] as [number, number]
       );
-      const line = ref.L.polyline(pts, { color: "#b45309", weight: 3 });
+      const line = ref.L.polyline(pts, { color: "#b45309", weight: 3, interactive: false }).addTo(ref.routeLayer);
       if (selRef.current.editMode) {
-        line.on("click", (e: import("leaflet").LeafletMouseEvent) => {
-          ref.L.DomEvent.stopPropagation(e);
-          insertCustomAtRef.current(e.latlng.lat, e.latlng.lng);
+        pts.slice(1).forEach((point, index) => {
+          ref.L.polyline([pts[index], point], { weight: 22, opacity: 0, className: "shark-route-insert-leg" })
+            .on("click", (event: import("leaflet").LeafletMouseEvent) => {
+              ref.L.DomEvent.stopPropagation(event);
+              insertCustomAtRef.current(event.latlng.lat, event.latlng.lng, index);
+            }).addTo(ref.routeLayer);
         });
       }
-      line.addTo(ref.routeLayer);
       const key = `${from}|${to}|${closed.join(",")}`;
       if (fitKeyRef.current !== key) {
         fitKeyRef.current = key;
@@ -442,74 +430,78 @@ export default function RoutePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan, mapReady, editMode, from, to, closed]);
 
-  // Edit-mode stop markers: EVERY intermediate route point is numbered and
-  // draggable. Dragging an auto waypoint converts it into a custom stop at the
-  // new position (the original is avoided so the router won't loop back).
+  // Edit handles modify the displayed track itself; recalculation cannot snap
+  // them back to the original graph waypoint after a drag or removal.
   useEffect(() => {
     const ref = mapRef.current;
     if (!ref || !mapReady) return;
     ref.stopLayer.clearLayers();
     if (!editMode || !plan?.points) return;
     const L = ref.L;
-    const byId = new Map(customs.map((c) => [c.id, c]));
-    const customSeq = customs.map((c) => c.id);
-    let seenCustom = 0;
-    let n = 0;
-    plan.points.forEach((pt, idx) => {
-      if (pt.kind === "port") return;
-      n++;
-      if (pt.kind === "custom") {
-        const cid = customSeq[seenCustom++] ?? -1;
-        const c = byId.get(cid);
-        const water = c ? isWater(c.lat, c.lon) : true;
-        const dot = L.marker([pt.lat, pt.lon], {
-          draggable: true,
-          icon: L.divIcon({
-            className: "",
-            html: `<div title="${t("route.stopDrag").replace("{n}", String(n))}" style="width:26px;height:26px;border-radius:50%;background:#b45309;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid ${water ? "#fff" : "#dc2626"};box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;">${n}</div>`,
-            iconSize: [26, 26],
-            iconAnchor: [13, 13],
-          }),
-        });
-        dot.on("dragend", () => {
-          const ll = dot.getLatLng();
-          setCustoms((prev) => prev.map((x) => (x.id === cid ? { ...x, lat: ll.lat, lon: ll.lng } : x)));
-        });
-        dot.bindPopup(
-          `<div style="font-size:13px"><b>${t("route.stop").replace("{n}", String(n))}</b> ${water ? "" : `<br/><span style='color:#dc2626;font-weight:700'>${t("route.onLand")}</span>`}<br/>${pt.lat.toFixed(2)}, ${pt.lon.toFixed(2)}<br/><button data-rm="${cid}" style="margin-top:6px;padding:4px 10px;border-radius:8px;border:1px solid #dc2626;color:#dc2626;font-weight:700;background:#fff;cursor:pointer;">${t("route.removeStop")}</button></div>`
-        );
-        dot.addTo(ref.stopLayer);
-      } else {
-        const wayId = pt.id.startsWith("w:") ? pt.id.slice(2) : pt.id;
-        if (avoid.includes(wayId)) return;
-        const dot = L.marker([pt.lat, pt.lon], {
-          draggable: true,
-          icon: L.divIcon({
-            className: "",
-            html: `<div title="${t("route.stopLabel").replace("{n}", String(n)).replace("{label}", pt.label)}" style="width:26px;height:26px;border-radius:50%;background:#2AA198;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:grab;">${n}</div>`,
-            iconSize: [26, 26],
-            iconAnchor: [13, 13],
-          }),
-        });
-        dot.on("dragend", () => {
-          const ll = dot.getLatLng();
-          convertWaypointRef.current(idx, wayId, ll.lat, ll.lng);
-        });
-        dot.bindPopup(
-          `<div style="font-size:13px"><b>${t("route.stopTitle").replace("{n}", String(n)).replace("{label}", pt.label)}</b><br/><button data-avoid="${wayId}" style="margin-top:6px;padding:4px 10px;border-radius:8px;border:1px solid #dc2626;color:#dc2626;font-weight:700;background:#fff;cursor:pointer;">${t("route.removeStop")}</button></div>`
-        );
-        dot.addTo(ref.stopLayer);
-      }
+    const points = unwrapTrack(plan.points);
+    const stopLayer = ref.stopLayer;
+    function marker(lat: number, lon: number, title: string, text: string, kind: string, index: number) {
+      const badge = document.createElement("span");
+      badge.className = "shark-route-waypoint-badge";
+      badge.textContent = text;
+      badge.dataset.kind = kind;
+      const dot = L.marker([lat, lon], {
+        draggable: true, autoPan: true, bubblingMouseEvents: false, title,
+        zIndexOffset: kind === "insert" ? 500 : 1000,
+        icon: L.divIcon({ className: "shark-route-waypoint", html: badge, iconSize: [44, 44], iconAnchor: [22, 22] }),
+      }).addTo(stopLayer);
+      const element = dot.getElement();
+      element?.setAttribute("aria-label", title);
+      if (element) { element.dataset.routeKind = kind; element.dataset.trackIndex = String(index); }
+      return dot;
+    }
+    points.slice(1, -1).forEach((point, offset) => {
+      const index = offset + 1;
+      const title = t("route.stopLabel").replace("{n}", String(index)).replace("{label}", point.label);
+      const dot = marker(point.lat, point.lon, title, String(index), point.kind, index);
+      dot.on("dragend", () => {
+        const position = dot.getLatLng();
+        if (!moveWaypointRef.current(index, position.lat, position.lng)) dot.setLatLng([point.lat, point.lon]);
+      });
+      const popup = document.createElement("div");
+      const heading = document.createElement("strong");
+      heading.textContent = t("route.stopTitle").replace("{n}", String(index)).replace("{label}", point.label);
+      const coordinates = document.createElement("p");
+      coordinates.textContent = point.lat.toFixed(5) + ", " + wrapLon(point.lon).toFixed(5);
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "shark-route-remove";
+      remove.textContent = t("route.removeStop");
+      remove.addEventListener("click", (event) => { L.DomEvent.stopPropagation(event); if (removeWaypointRef.current(index)) ref.map.closePopup(); });
+      popup.append(heading, coordinates, remove);
+      dot.bindPopup(popup);
     });
-  }, [plan, editMode, customs, avoid, mapReady]);
-  const convertWaypointRef = useRef(convertWaypoint);
-  convertWaypointRef.current = convertWaypoint;
+    points.slice(1).forEach((point, index) => {
+      const previous = points[index];
+      if (ref.map.latLngToLayerPoint([previous.lat, previous.lon]).distanceTo(ref.map.latLngToLayerPoint([point.lat, point.lon])) < 100) return;
+      if (haversineNm(previous.lat, previous.lon, point.lat, point.lon) < 2) return;
+      const midpoint = ref.map.layerPointToLatLng(ref.map.latLngToLayerPoint([previous.lat, previous.lon]).add(ref.map.latLngToLayerPoint([point.lat, point.lon])).divideBy(2));
+      const lat = midpoint.lat, lon = midpoint.lng;
+      if (!isWater(lat, wrapLon(lon))) return;
+      const dot = marker(lat, lon, t("common.add") + " · " + t("route.stop").replace("{n}", String(index + 1)), "+", "insert", index);
+      dot.on("click", (event: import("leaflet").LeafletMouseEvent) => {
+        L.DomEvent.stopPropagation(event);
+        insertCustomAtRef.current(lat, lon, index);
+      });
+      dot.on("dragend", () => {
+        const position = dot.getLatLng();
+        if (!insertCustomAtRef.current(position.lat, position.lng, index)) dot.setLatLng([lat, lon]);
+      });
+    });
+    return () => { ref.stopLayer.clearLayers(); };
+  }, [plan, editMode, mapReady, editZoom, t]);
 
   const fromPort: Port | undefined = PORTS.find((p) => p.code === from);
   const toPort: Port | undefined = PORTS.find((p) => p.code === to);
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("route.title")}</h1>
         <p className="text-sm font-medium opacity-70">
@@ -581,6 +573,7 @@ export default function RoutePage() {
               <h2 className="font-bold">{t("route.editRoute")}</h2>
               <button
                 onClick={() => setEditMode((v) => !v)}
+                aria-pressed={editMode}
                 disabled={!plan}
                 className={`rounded-full px-3 py-1 text-xs font-bold ${editMode ? "bg-amber-600 text-white" : "border"} disabled:opacity-40`}
               >
@@ -591,26 +584,48 @@ export default function RoutePage() {
               <div className="mt-2 text-xs">
                 <p className="opacity-60">{t("route.editHint")}</p>
                 {notice && <p className="mt-2 rounded-xl bg-red-50 px-3 py-2 font-bold text-red-700 dark:bg-red-950">{notice}</p>}
-                {customs.length > 0 && (
-                  <ul className="mt-2 grid gap-1">
-                    {customs.map((c, i) => (
-                      <li key={c.id} className="flex items-center justify-between gap-2 rounded-xl bg-amber-50 px-3 py-1.5 dark:bg-black">
-                        <span><b>{t("route.stop").replace("{n}", String(i + 1))}</b> · {c.lat.toFixed(2)}, {c.lon.toFixed(2)}{isWater(c.lat, c.lon) ? "" : t("route.onLandShort")}</span>
-                        <button
-                          onClick={() => setCustoms((prev) => prev.filter((x) => x.id !== c.id))}
-                          className="shrink-0 rounded-full border border-red-400 px-2 py-0.5 font-bold text-red-700"
-                        >
-                          {t("route.remove")}
-                        </button>
+                <ol className="mt-3 grid max-h-96 gap-2 overflow-y-auto pr-1">
+                  {plan?.points.slice(1, -1).map((point, offset) => {
+                    const index = offset + 1;
+                    const label = t("route.stop").replace("{n}", String(index));
+                    return (
+                      <li key={point.id + "-" + index} className="rounded-xl border border-amber-100 bg-amber-50/50 p-3 dark:border-red-950 dark:bg-black">
+                        <div className="flex items-start justify-between gap-2">
+                          <button className="min-h-11 text-left font-bold" onClick={() => {
+                            const displayed = unwrapTrack(plan.points)[index];
+                            const map = mapRef.current?.map;
+                            map?.setView([displayed.lat, displayed.lon], Math.max(9, map.getZoom()), { animate: false });
+                          }}>{label}<span className="block text-[11px] font-normal opacity-60">{point.label}</span></button>
+                          <div className="flex shrink-0 gap-1">
+                            <button title={label + " ↑"} aria-label={label + " ↑"} disabled={index === 1} onClick={() => reorderWaypoint(index, -1)} className="min-h-11 min-w-9 rounded-lg border disabled:opacity-30">↑</button>
+                            <button title={label + " ↓"} aria-label={label + " ↓"} disabled={index === plan.points.length - 2} onClick={() => reorderWaypoint(index, 1)} className="min-h-11 min-w-9 rounded-lg border disabled:opacity-30">↓</button>
+                            <button title={t("route.removeStop")} aria-label={t("route.removeStop") + " · " + label} onClick={() => removeWaypoint(index)} className="min-h-11 min-w-9 rounded-lg border border-red-400 font-bold text-red-700 dark:text-red-400">×</button>
+                          </div>
+                        </div>
+                        <div className="mt-2 grid grid-cols-2 gap-2">
+                          {(["lat", "lon"] as const).map((axis) => (
+                            <label key={axis} className="min-w-0"><span className="mb-1 block opacity-60">{axis === "lat" ? "φ" : "λ"}</span><input
+                              key={String(point[axis])} aria-label={label + (axis === "lat" ? " φ" : " λ")} type="number" step="0.00001" min={axis === "lat" ? -90 : -180} max={axis === "lat" ? 90 : 180}
+                              defaultValue={point[axis].toFixed(5)} className="min-h-11 w-full min-w-0 rounded-lg border px-2 py-2 font-mono text-xs"
+                              onKeyDown={(event) => { if (event.key === "Enter") event.currentTarget.blur(); }}
+                              onBlur={(event) => {
+                                const value = Number.parseFloat(event.currentTarget.value);
+                                if (value === point[axis]) return;
+                                const accepted = moveWaypoint(index, axis === "lat" ? value : point.lat, axis === "lon" ? value : point.lon);
+                                if (!accepted) event.currentTarget.value = point[axis].toFixed(5);
+                              }}
+                            /></label>
+                          ))}
+                        </div>
                       </li>
-                    ))}
-                  </ul>
-                )}
+                    );
+                  })}
+                </ol>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="font-bold">{t("route.customSummary").replace("{a}", String(customs.length)).replace("{b}", String(avoid.length))}</span>
-                  {(customs.length > 0 || avoid.length > 0) && (
+                  <span className="font-bold">{t("route.customSummary").replace("{a}", String(editedPoints ? editedPoints.filter((p) => p.kind === "custom").length : customs.length)).replace("{b}", String(avoid.length))}</span>
+                  {(editedPoints || customs.length > 0 || avoid.length > 0) && (
                     <button
-                      onClick={() => { setCustoms([]); setAvoid([]); }}
+                      onClick={() => { setEditedPoints(null); setCustoms([]); setAvoid([]); setNotice(""); }}
                       className="rounded-full border border-red-400 px-3 py-1 font-bold text-red-700"
                     >
                       {t("route.reset")}
@@ -722,6 +737,7 @@ export default function RoutePage() {
       )}
       {storyOpen && plan && fromPort && toPort && (
         <StoryModal
+          routePlan={plan}
           fromCode={fromPort.code}
           toCode={toPort.code}
           fromTime={depart || undefined}
@@ -729,6 +745,7 @@ export default function RoutePage() {
           onClose={() => setStoryOpen(false)}
         />
       )}
+    </div>
     </div>
   );
 }

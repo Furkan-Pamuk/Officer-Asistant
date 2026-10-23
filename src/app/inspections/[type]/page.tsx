@@ -8,8 +8,10 @@ export function generateStaticParams() {
 
 export default function InspectionDetail({ params }: { params: Promise<{ type: string }> }) {
   return (
-    <Suspense fallback={<p>Loading cards…</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>Loading cards…</p>}>
       <DetailClient params={params} />
     </Suspense>
+    </div>
   );
 }

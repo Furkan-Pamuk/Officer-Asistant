@@ -14,7 +14,7 @@ export interface NewsPost {
 
 export const SECTIONS: { id: NewsSection; label: string; blurb: string }[] = [
   { id: "news", label: "📰 News", blurb: "Fleet, regulation and Shark updates." },
-  { id: "crew", label: "💬 Sizden Gelenler", blurb: "Stories from the crew, for the crew." },
+  { id: "crew", label: "💬 From the Crew", blurb: "Stories from the crew, for the crew." },
   { id: "blog", label: "✍️ Blogs", blurb: "Life-at-sea reads, port guides and the fishing grounds." },
 ];
 
@@ -115,7 +115,7 @@ export const NEWS: NewsPost[] = [
     section: "crew",
     author: "Shark Team",
     body: [
-      "Sizden Gelenler is the crew's own wall: funny bridge moments, ports that surprised you, galley victories, storms you won't forget.",
+      "From the Crew is the crew's own wall: funny bridge moments, ports that surprised you, galley victories, storms you won't forget.",
       "Use the form below — nickname, title and your story. It stays on your device and you can share it anywhere.",
       "House rule: no company names in blame stories, no personal data of others. Sea stories, not gossip.",
     ],

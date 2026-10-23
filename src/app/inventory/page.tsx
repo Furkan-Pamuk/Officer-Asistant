@@ -157,8 +157,10 @@ export default function InventoryPage() {
   useDocTitle("inv.title");
   const { t } = useLocale();
   return (
-    <Suspense fallback={<p>{t("inv.loading")}</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>{t("inv.loading")}</p>}>
       <InventoryInner />
     </Suspense>
+    </div>
   );
 }

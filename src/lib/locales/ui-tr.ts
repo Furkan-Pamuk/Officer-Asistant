@@ -26,6 +26,8 @@ export const UI_TR: Record<string, string> = {
   "nav.career": "Kariyer",
   "nav.exams": "Sınavlar",
   "nav.cv": "CV Oluşturucu",
+  "nav.admin": "Yönetici Paneli",
+  "admin.title": "Yönetici Paneli — Shark",
   "nav.news": "Haberler",
   "nav.menuBtn": "Menü",
 

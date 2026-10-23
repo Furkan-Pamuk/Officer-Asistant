@@ -51,7 +51,8 @@ export default function CargoDetail({ params }: { params: Promise<{ slug: string
   ];
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">{t("cargo.back")}</Link>
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">{c.name}</h1>
@@ -109,6 +110,7 @@ export default function CargoDetail({ params }: { params: Promise<{ slug: string
       </div>
       {c.notes && <p className="text-sm text-slate-600">{c.notes}</p>}
       <p className="text-xs text-slate-400">{t("cargo.refOnly")}</p>
+    </div>
     </div>
   );
 }

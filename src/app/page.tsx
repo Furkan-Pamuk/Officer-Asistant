@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import SharkMascot, { type SharkMascotHandle } from "@/components/SharkMascot";
 import OrbitMenu from "@/components/OrbitMenu";
+import CrewWall from "@/components/CrewWall";
 import { useLocale } from "@/lib/i18n";
 import { TESTIMONIALS } from "@/lib/testimonials";
 
@@ -29,6 +30,7 @@ const MENU_CARDS: MenuCard[] = [
       { href: "/route", key: "nav.route" },
       { href: "/log", key: "nav.decklog" },
       { href: "/bell-book", key: "nav.bellbook" },
+      { href: "/celestial", key: "nav.celestial" },
     ],
   },
   {
@@ -113,6 +115,8 @@ export default function Home() {
           <SharkMascot ref={mascotRef} />
         </OrbitMenu>
       </section>
+
+      <CrewWall />
 
       <section>
         <h2 className="text-2xl font-semibold sm:text-3xl">{t("home.tmTitle")}</h2>

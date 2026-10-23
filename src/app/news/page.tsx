@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { db, uid } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
@@ -41,9 +42,14 @@ function compressPhoto(file: File): Promise<string> {
   });
 }
 
-export default function NewsPage() {
+function NewsContent() {
+  const searchParams = useSearchParams();
+  const sectionParam = searchParams.get("section");
   useDocTitle("news.title");
   const [sec, setSec] = useState<"all" | NewsSection>("all");
+  useEffect(() => {
+    setSec(sectionParam === "news" || sectionParam === "crew" || sectionParam === "blog" ? sectionParam : "all");
+  }, [sectionParam]);
   const { t } = useLocale();
   const o = useContentOverlay();
   const sectionsOv = SECTIONS.map((s) => withOv(s, cov(o, "sections", s.id)));
@@ -166,7 +172,8 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("news.title")}</h1>
         <p className="text-sm font-medium opacity-70">{t("news.sub")}</p>
@@ -245,5 +252,10 @@ export default function NewsPage() {
       </div>
       {shown.length === 0 && <p className="text-sm opacity-60">{t("news.empty")}</p>}
     </div>
+    </div>
   );
+}
+
+export default function NewsPage() {
+  return <Suspense fallback={null}><NewsContent /></Suspense>;
 }

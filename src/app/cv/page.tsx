@@ -7,5 +7,7 @@ export default function CvPage() {
   useEffect(() => {
     router.replace("/profile?tab=cv");
   }, [router]);
-  return <p>Opening CV Builder…</p>;
+  return <div className="shark-interior-page">
+      <p>Opening CV Builder…</p>
+    </div>;
 }

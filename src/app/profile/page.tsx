@@ -50,8 +50,10 @@ export default function ProfilePage() {
   useDocTitle("profile.title");
   const { t } = useLocale();
   return (
-    <Suspense fallback={<p>{t("profile.loading")}</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>{t("profile.loading")}</p>}>
       <ProfileTabs />
     </Suspense>
+    </div>
   );
 }

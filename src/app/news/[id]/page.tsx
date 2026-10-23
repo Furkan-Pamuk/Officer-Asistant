@@ -8,8 +8,10 @@ export function generateStaticParams() {
 
 export default function NewsPost({ params }: { params: Promise<{ id: string }> }) {
   return (
-    <Suspense fallback={<p>Loading…</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>Loading…</p>}>
       <NewsPostClient params={params} />
     </Suspense>
+    </div>
   );
 }

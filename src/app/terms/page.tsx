@@ -15,7 +15,8 @@ const SECTIONS: { key: string; p: string }[] = [
 export default function TermsPage() {
   const { t } = useLocale();
   return (
-    <div className="grid max-w-2xl gap-4">
+    <div className="shark-interior-page">
+      <div className="grid max-w-2xl gap-4">
       <div>
         <h1 className="text-3xl font-black">{t("terms.title")}</h1>
         <p className="text-sm opacity-60">{t("terms.updated")}</p>
@@ -27,6 +28,7 @@ export default function TermsPage() {
         </section>
       ))}
       <Link href="/privacy" className="text-sm font-bold underline">{t("terms.toPrivacy")}</Link>
+    </div>
     </div>
   );
 }

@@ -58,7 +58,8 @@ export default function Library() {
   const btn = (t: Tab, label: string) =>
     `min-w-24 flex-1 rounded-full px-3 py-1.5 text-sm font-bold ${tab === t ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "opacity-70 hover:opacity-100"}`;
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("lib.title")}</h1>
         <p className="text-sm text-slate-600">{t("lib.sub")}</p>
@@ -160,6 +161,7 @@ export default function Library() {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -144,16 +144,6 @@ export default function SharkIntro() {
 
   return (
     <div ref={overlayRef} className="shark-intro" role="dialog" aria-label={t("intro.aria")}>
-      <style>{`
-        .shark-intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: #020608; will-change: transform; }
-        .shark-footage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        .shark-footage.idle-drift { animation: drift 12s ease-in-out infinite alternate; }
-        @keyframes drift { from { transform: scale(1) translateX(0); } to { transform: scale(1.12) translateX(-4%); } }
-        .shark-tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,10,20,0.55), rgba(4,10,20,0.3) 45%, rgba(4,10,20,0.6)); }
-        .shark-vignette { position: absolute; inset: 0; box-shadow: inset 0 0 18vmin 6vmin rgba(0,0,0,0.85); pointer-events: none; }
-        .shark-dive-btn { animation: glowPulse 1.6s ease-in-out infinite; }
-        @keyframes glowPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(42,161,152,0.55); } 50% { box-shadow: 0 0 34px 6px rgba(42,161,152,0.45); } }
-      `}</style>
 
       <video
         ref={(el) => {
@@ -170,26 +160,29 @@ export default function SharkIntro() {
       />
       <div className="shark-tint" />
       <div className="shark-vignette" />
+      <div className="shark-intro-frame" aria-hidden="true" />
 
       {stage === "idle" && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 px-6 text-center">
+        <div className="shark-intro-content absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
+          <div className="shark-intro-seal">
           <svg width="84" height="84" viewBox="0 0 64 64" aria-hidden="true">
             <rect x="2" y="2" width="60" height="60" rx="14" fill="#081120" stroke="#2AA198" strokeWidth="1.5" />
             <path d="M21 48 C24 32 31 21 48 13 C44 26 42 36 42 48 Z" fill="#8B98A5" />
             <rect x="12" y="44" width="40" height="3" rx="1.5" fill="#2AA198" />
             <rect x="18" y="50" width="28" height="3" rx="1.5" fill="#2AA198" opacity="0.45" />
           </svg>
+          </div>
           <div>
-            <p className="text-4xl font-black tracking-[0.2em] text-white">SHARK</p>
-            <p className="mt-2 text-sm font-semibold tracking-widest text-[#2AA198]">{t("intro.tagline")}</p>
+            <p className="shark-intro-wordmark">SHARK</p>
+            <p className="shark-intro-tagline">{t("intro.tagline")}</p>
           </div>
           <button
             onClick={dive}
-            className="shark-dive-btn rounded-full bg-[#2AA198] px-10 py-4 text-lg font-black tracking-widest text-[#081120]"
+            className="shark-dive-btn"
           >
             {t("intro.start")}
           </button>
-          <p className="text-xs font-medium text-[#8B98A5]">{t("intro.sound")}</p>
+          <p className="shark-intro-sound">{t("intro.sound")}</p>
         </div>
       )}
     </div>

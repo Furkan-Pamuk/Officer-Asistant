@@ -210,11 +210,13 @@ export default function BellBookPage() {
 
   if (!contractId) {
     return (
+      <div className="shark-interior-page">
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{t("bell.title")}</h1>
         <p className="text-sm">{t("bell.needVessel")}</p>
         <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
+    </div>
     );
   }
 
@@ -273,7 +275,8 @@ export default function BellBookPage() {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">{t("bell.title")}</h1>
@@ -421,6 +424,7 @@ export default function BellBookPage() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

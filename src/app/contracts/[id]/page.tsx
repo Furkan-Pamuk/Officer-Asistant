@@ -3,8 +3,10 @@ import ArchiveClient from "./ArchiveClient";
 
 export default function ContractArchivePage({ params }: { params: Promise<{ id: string }> }) {
   return (
-    <Suspense fallback={<p>Loading archive…</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>Loading archive…</p>}>
       <ArchiveClient params={params} />
     </Suspense>
+    </div>
   );
 }

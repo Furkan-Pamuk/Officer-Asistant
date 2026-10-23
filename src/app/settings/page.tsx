@@ -7,5 +7,7 @@ export default function SettingsPage() {
   useEffect(() => {
     router.replace("/profile?tab=settings");
   }, [router]);
-  return <p>Opening Settings…</p>;
+  return <div className="shark-interior-page">
+      <p>Opening Settings…</p>
+    </div>;
 }

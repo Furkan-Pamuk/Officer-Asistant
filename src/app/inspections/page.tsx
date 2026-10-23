@@ -8,7 +8,8 @@ export default function Inspections() {
   useDocTitle("nav.inspections");
   const { t } = useLocale();
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <h1 className="text-2xl font-bold">{t("insp.pick")}</h1>
       <div className="grid gap-3 md:grid-cols-2">
         {INSPECTION_TYPES.map((it) => (
@@ -24,6 +25,7 @@ export default function Inspections() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

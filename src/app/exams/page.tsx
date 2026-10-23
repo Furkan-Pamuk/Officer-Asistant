@@ -10,8 +10,10 @@ function ExamsFallback() {
 
 export default function ExamsPage() {
   return (
-    <Suspense fallback={<ExamsFallback />}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<ExamsFallback />}>
       <ExamsInner />
     </Suspense>
+    </div>
   );
 }

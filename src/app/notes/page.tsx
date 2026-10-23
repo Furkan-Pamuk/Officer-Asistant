@@ -17,21 +17,27 @@ export default function NotesPage() {
     setReady(true);
   }, []);
 
-  if (!ready) return <p>{t("common.loading")}</p>;
+  if (!ready) return <div className="shark-interior-page">
+      <p>{t("common.loading")}</p>
+    </div>;
   if (!has) {
     return (
+      <div className="shark-interior-page">
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{t("notes.title")}</h1>
         <p className="text-sm">{t("notes.needVessel")}</p>
         <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
+    </div>
     );
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div><h1 className="text-2xl font-bold">{t("notes.titleVessel")}</h1><p className="text-sm font-medium opacity-70">{t("notes.sub")}</p></div>
       <NotesPanel />
+    </div>
     </div>
   );
 }

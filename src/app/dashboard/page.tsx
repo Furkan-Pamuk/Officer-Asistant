@@ -36,7 +36,8 @@ export default function Dashboard() {
   const on = (id: string) => prefs[id] !== false;
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       {on("counter") && <ActiveContractBoard />}
       {on("firstaid") && <FirstAid />}
       {on("gibs") && (
@@ -69,6 +70,7 @@ export default function Dashboard() {
         </div>
       )}
       {on("frequent") && <FrequentMenus />}
+    </div>
     </div>
   );
 }

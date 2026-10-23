@@ -15,7 +15,8 @@ export default function GasBooklet() {
   const ovResults = results.map((g) => withOv(g, cov(o, "gas", g.slug)));
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("gas.title")}</h1>
         <p className="text-sm text-slate-600">
@@ -47,6 +48,7 @@ export default function GasBooklet() {
       {results.length === 0 && (
         <p className="text-sm text-slate-500">{t("gas.noMatch")}</p>
       )}
+    </div>
     </div>
   );
 }

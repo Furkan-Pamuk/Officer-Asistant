@@ -22,7 +22,8 @@ export default function Pricing() {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <h1 className="text-2xl font-bold">{t("pricing.title")}</h1>
       <p className="text-sm text-slate-600">{t("pricing.sub")} <Link href="/faq" className="font-bold underline underline-offset-4">{t("pricing.faq")}</Link></p>
       <div className="grid gap-3 md:grid-cols-3">
@@ -37,6 +38,7 @@ export default function Pricing() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

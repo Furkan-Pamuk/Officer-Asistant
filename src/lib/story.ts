@@ -168,26 +168,42 @@ export function buildStorySVG(s: StoryStats, pts: RoutePoint[]): string {
   <text x="80" y="205" font-family="Arial,sans-serif" font-size="26" fill="#8B98A5">DON'T BE THE PREY. BE THE SHARK.</text>
   <text x="80" y="330" font-family="Arial,sans-serif" font-size="64" font-weight="900" fill="#FFFFFF">${esc(s.fromName.toUpperCase())}</text>
   <text x="80" y="400" font-family="Arial,sans-serif" font-size="44" font-weight="bold" fill="#2AA198">↓  ${esc(s.toName.toUpperCase())}</text>
-  <g>
-    <path d="M855,235 L878,178 L982,178 L1005,235 Z" fill="#F1F5F9"/>
-    <path d="M905,178 L930,205 L955,178" fill="none" stroke="#0f172a" stroke-width="5"/>
-    <rect x="862" y="192" width="34" height="12" rx="4" fill="#0f172a"/>
-    <rect x="964" y="192" width="34" height="12" rx="4" fill="#0f172a"/>
-    <line x1="866" y1="198" x2="892" y2="198" stroke="#c9a227" stroke-width="2.5"/>
-    <line x1="968" y1="198" x2="994" y2="198" stroke="#c9a227" stroke-width="2.5"/>
-    <circle cx="930" cy="218" r="3.5" fill="#c9a227"/>
-    <ellipse cx="930" cy="128" rx="44" ry="46" fill="#8B98A5"/>
-    <ellipse cx="930" cy="150" rx="27" ry="20" fill="#E2E8F0"/>
-    <circle cx="913" cy="116" r="10" fill="#ffffff"/><circle cx="913" cy="117" r="4.5" fill="#0f172a"/>
-    <circle cx="947" cy="116" r="10" fill="#ffffff"/><circle cx="947" cy="117" r="4.5" fill="#0f172a"/>
-    <path d="M902,146 Q930,158 958,146" fill="none" stroke="#0f172a" stroke-width="4"/>
-    <path d="M912,149 L917,157 L922,149 L927,157 L932,149 L937,157 L942,149 L947,157" fill="none" stroke="#ffffff" stroke-width="3"/>
-    <path d="M892,128 q-6,10 0,20 M968,128 q6,10 0,20" fill="none" stroke="#475569" stroke-width="3"/>
-    <ellipse cx="930" cy="86" rx="50" ry="11" fill="#0f172a"/>
-    <path d="M890,84 L892,52 Q930,40 968,52 L970,84 Z" fill="#F1F5F9"/>
-    <rect x="890" y="78" width="80" height="8" fill="#0f172a"/>
-    <circle cx="930" cy="62" r="9" fill="#c9a227"/><circle cx="930" cy="62" r="3.5" fill="#0f172a"/>
-  </g>
+  <!-- Static rendering of the current SharkMascot artwork; no external assets. -->
+  <svg x="830" y="20" width="210" height="230" viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" fill="none">
+    <ellipse cx="160" cy="290" rx="91" ry="9" fill="#0000002e" />
+      <g>
+        <path d="M104 230C60 232 34 211 21 180L58 186 45 155C83 161 101 184 111 205Z" fill="#718b9a" stroke="#081120" stroke-width="3" stroke-linejoin="round" />
+        <path d="M133 101C126 67 145 48 179 40L182 110Z" fill="#718b9a" stroke="#081120" stroke-width="3" />
+        <path d="M102 196C81 192 68 208 60 231 84 232 99 225 112 215" fill="#718b9a" stroke="#081120" stroke-width="3" stroke-linejoin="round" />
+        <path d="M94 164C94 117 118 92 163 91 213 89 238 121 239 172 248 221 226 270 172 276 118 281 87 246 94 164Z" fill="#718b9a" stroke="#081120" stroke-width="3" />
+        <path d="M110 187C120 174 139 171 164 173 194 172 221 179 228 199 237 234 211 263 173 266 129 269 106 241 110 187Z" fill="#dce9ec" />
+        <g>
+          <path d="M227 180C247 173 267 156 283 136 292 165 278 203 238 215Z" fill="#718b9a" stroke="#081120" stroke-width="3" stroke-linejoin="round" />
+          <path d="M244 190 267 169" stroke="#2aa198" stroke-width="3" stroke-linecap="round" />
+        </g>
+        <path d="M123 124 144 119M185 119 207 125" stroke="#081120" stroke-width="5" stroke-linecap="round" />
+        <g>
+        <ellipse cx="138" cy="151" rx="18" ry="23" fill="#fff8e9" />
+        <g><ellipse cx="140" cy="153" rx="7" ry="11" fill="#081120" /><circle cx="142" cy="149" r="2.5" fill="#fff8e9" /></g>
+
+        </g>
+        <g>
+        <ellipse cx="195" cy="151" rx="18" ry="23" fill="#fff8e9" />
+        <g><ellipse cx="193" cy="153" rx="7" ry="11" fill="#081120" /><circle cx="195" cy="149" r="2.5" fill="#fff8e9" /></g>
+
+        </g>
+        <path d="M129 192Q167 209 211 188C205 218 149 233 129 192Z" fill="#081120" stroke="#081120" stroke-width="4" stroke-linejoin="round" />
+        <path d="M134 196 144 207 151 201 162 213 171 203 182 210 192 198 200 202 207 194Q169 207 134 196Z" fill="#fff8e9" />
+        <path d="M220 162 226 168M218 173 225 178" stroke="#2aa198" stroke-width="3" stroke-linecap="round" />
+        <path d="M114 110 111 75Q164 48 219 75L213 111Z" fill="#f4f7fa" stroke="#081120" stroke-width="3" stroke-linejoin="round" />
+        <path d="M109 99Q163 84 217 100L213 113Q162 101 115 116Z" fill="#081120" />
+        <path d="M114 99Q164 85 216 99" stroke="#c8ab68" stroke-width="4" />
+        <path d="M118 114Q166 101 214 113C200 130 146 133 118 114Z" fill="#081120" stroke="#c8ab68" stroke-width="2" />
+        <circle cx="164" cy="79" r="11" fill="#081120" />
+        <path d="M158 86Q160 76 172 72L168 86Z" fill="#c8ab68" />
+        <path d="M125 249Q169 270 210 244" stroke="#2aa198" stroke-width="7" stroke-linecap="round" />
+      </g>
+  </svg>
   ${grid}
   ${land}
   <rect x="${mx}" y="${my}" width="${mw}" height="${mh}" fill="none" stroke="#2AA198" stroke-width="3" opacity="0.6"/>
@@ -199,9 +215,13 @@ export function buildStorySVG(s: StoryStats, pts: RoutePoint[]): string {
   <line x1="80" y1="1560" x2="1000" y2="1560" stroke="#1b2a4a" stroke-width="3"/>
   <g>
     <rect x="400" y="1620" width="280" height="140" rx="40" fill="#081120" stroke="#2AA198" stroke-width="4"/>
-    <path d="M511 1720 C519 1680 533 1652 569 1640 C559 1662 557 1680 557 1700 Z" fill="#8B98A5"/>
-    <rect x="489" y="1700" width="102" height="8" rx="4" fill="#2AA198"/>
-    <rect x="503" y="1714" width="74" height="8" rx="4" fill="#2AA198" opacity="0.45"/>
+    <!-- Keep the SharkMark's original square viewBox to preserve fin proportions. -->
+    <svg x="470" y="1620" width="140" height="140" viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet">
+      <rect x="2" y="2" width="60" height="60" rx="14" fill="#081120" />
+      <path d="M23 41 C27 28 34 20 48 13 C44 24 42 32 42 41 Z" fill="#8B98A5" />
+      <rect x="12" y="44" width="40" height="3" rx="1.5" fill="#2AA198" />
+      <rect x="18" y="50" width="28" height="3" rx="1.5" fill="#2AA198" opacity="0.45" />
+    </svg>
   </g>
   <text x="540" y="1800" text-anchor="middle" font-family="Arial,sans-serif" font-size="34" font-weight="900" fill="#FFFFFF">SHARK</text>
   <text x="540" y="1845" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" fill="#8B98A5">${esc(s.dateLabel)} • shark at sea</text>

@@ -31,7 +31,8 @@ export default function ContactPage() {
   }, [sent]);
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("contact.title")}</h1>
         <p className="text-sm font-medium text-stone-600 dark:text-red-300/70">{t("contact.sub")}</p>
@@ -66,6 +67,7 @@ export default function ContactPage() {
         <button onClick={send} className="mt-2 rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("contact.send")}</button>
         {sent && <p className="mt-2 text-sm font-bold text-emerald-700">{t("contact.saved")}</p>}
       </div>
+    </div>
     </div>
   );
 }

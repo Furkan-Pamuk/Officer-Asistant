@@ -146,7 +146,8 @@ export default function ContractsPage() {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       {runner > 0 && <RunnerOverlay key={runner} onDone={() => setRunner(0)} />}
       <div className="flex items-end justify-between">
         <div>
@@ -255,6 +256,7 @@ export default function ContractsPage() {
         ))}
         {(contracts ?? []).length === 0 && <p className="text-sm">{t("ctr.empty")}</p>}
       </div>
+    </div>
     </div>
   );
 }

@@ -15,6 +15,7 @@ export const CERTS: Cert[] = [
   { id: "arpa", name: "ARPA / Radar Observer", cat: "STCW" },
   { id: "btm", name: "Bridge Team / Resource Management", cat: "STCW" },
   { id: "shiphandling", name: "Ship Handling", cat: "STCW" },
+  { id: "erm", name: "Engine Room Resource Management (ERM)", cat: "STCW" },
   { id: "ers", name: "Engine Room Simulator", cat: "STCW" },
   { id: "hv", name: "High Voltage (Operational/Management)", cat: "STCW" },
   { id: "dp-basic", name: "DP Induction (Basic)", cat: "STCW" },

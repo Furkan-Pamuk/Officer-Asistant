@@ -6,6 +6,9 @@ import { useDocTitle } from "@/lib/doctitle";
 import { db, uid, exportJSON, getActiveContractId } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import { parseCatalogueCSV, importCatalogue, learnFromHistory } from "@/lib/catalogue";
+import { maintainMyListCatalog, loadCachedMyListCatalog } from "@/lib/my-list-catalog";
+import CameraCaptureModal from "@/components/CameraCaptureModal";
+import MyListCatalogModal from "@/components/MyListCatalogModal";
 import type { CatalogueItem, RequestTab, SavedList, SavedListItem, StoreRequest } from "@/lib/types";
 
 type Scope = RequestTab | "all";
@@ -62,8 +65,19 @@ export default function RequestsPage() {
   const [qtyBy, setQtyBy] = useState<Record<string, string>>({});
   const [popup, setPopup] = useState<CatalogueItem | null>(null);
   const [popupQty, setPopupQty] = useState("");
+  const [showCamera, setShowCamera] = useState(false);
+  const [showCatalogModal, setShowCatalogModal] = useState(false);
+  const [catalogCount, setCatalogCount] = useState(0);
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   useEffect(() => { setContractId(getActiveContractId()); }, []);
+  useEffect(() => {
+    if (contractId) {
+      maintainMyListCatalog(contractId).then((items) => {
+        setCatalogCount(items.length);
+      });
+    }
+  }, [contractId, all, saved]);
   useEffect(() => {
     async function seed() {
       try {
@@ -98,6 +112,7 @@ export default function RequestsPage() {
     const target: RequestTab = tab === "all" ? "other" : tab;
     await db.requests.add({ id: uid("r"), tab: target, item: item.trim(), code: code.trim(), quantity: qty.trim() || "0", unit, status: "draft", note: "", updatedAt: new Date().toISOString(), contractId });
     await learnFromHistory(item, code, unit, target);
+    await maintainMyListCatalog(contractId);
     setItem(""); setCode(""); setQty(""); setBrowse("");
   }
 
@@ -106,6 +121,7 @@ export default function RequestsPage() {
     const qty = (q ?? qtyBy[c.code] ?? "").trim() || "0";
     const target = normCat(c.category);
     await db.requests.add({ id: uid("r"), tab: target, item: c.name, code: c.code, quantity: qty, unit: c.unit || "pcs", status: "draft", note: "", updatedAt: new Date().toISOString(), contractId });
+    await maintainMyListCatalog(contractId);
     setQtyBy((m) => ({ ...m, [c.code]: "" }));
     setPopup(null);
   }
@@ -159,26 +175,32 @@ export default function RequestsPage() {
     for (const it of s.items) {
       await db.requests.add({ id: uid("r"), tab: targetTab, item: it.item, code: it.code, quantity: it.quantity, unit: it.unit, status: "draft", note: `from: ${s.name}`, updatedAt: now, contractId });
     }
+    await maintainMyListCatalog(contractId);
   }
 
   if (!contractId) {
     return (
+      <div className="shark-interior-page">
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{t("req.title")}</h1>
         <p className="text-sm">{t("req.needVessel")}</p>
         <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
+    </div>
     );
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">{t("req.titleVessel")}</h1>
           <p className="text-sm font-medium opacity-70">{t("req.sub")}{seeding ? ` ${seeding}` : ""}</p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <button onClick={() => setShowCamera(true)} className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 px-3.5 py-1.5 text-sm font-black text-black shadow-sm hover:from-amber-400 hover:to-amber-500 active:scale-95 dark:from-red-600 dark:to-red-700 dark:text-white" title="Scan store product using camera AI">📷 Scan Product</button>
+          <button onClick={() => setShowCatalogModal(true)} className="rounded-full border border-amber-300 bg-amber-50/80 px-3 py-1.5 text-sm font-bold text-stone-800 hover:bg-amber-100 dark:border-red-900 dark:bg-red-950/30 dark:text-red-200" title="View & maintain catalog generated from My List">📚 Catalog ({catalogCount})</button>
           <button onClick={() => all && exportJSON(`requests-${contractId}.json`, all)} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">{t("common.export")}</button>
           <button onClick={shareList} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">📤 {t("common.share")}</button>
           <button onClick={() => window.print()} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">🖨️ {t("common.print")}</button>
@@ -186,6 +208,16 @@ export default function RequestsPage() {
           <button onClick={() => setShowSaved(!showSaved)} className="rounded-full border bg-white px-3 py-1.5 text-sm font-bold dark:bg-black">{t("req.savedN").replace("{n}", String((saved ?? []).length))}</button>
         </div>
       </div>
+
+      {toastMsg && (
+        <div className="flex items-center justify-between rounded-2xl border border-emerald-400 bg-emerald-50 px-4 py-2.5 text-sm font-bold text-emerald-900 shadow-sm dark:border-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-200">
+          <div className="flex items-center gap-2">
+            <span>✨</span>
+            <span>{toastMsg}</span>
+          </div>
+          <button onClick={() => setToastMsg(null)} className="ml-2 font-black opacity-60 hover:opacity-100">✕</button>
+        </div>
+      )}
 
       {showSaved && (
         <div className="rounded-2xl border border-dashed border-amber-400 bg-amber-50/50 p-4 text-sm dark:border-red-900 dark:bg-red-950/10">
@@ -240,6 +272,7 @@ export default function RequestsPage() {
           <input value={qty} onChange={(e) => setQty(e.target.value)} placeholder={t("req.qtyPh")} inputMode="decimal" className="w-24 rounded-xl border px-3 py-2" />
           <input value={unit} onChange={(e) => setUnit(e.target.value)} placeholder={t("req.unitPh")} className="w-24 rounded-xl border px-3 py-2" />
           <button onClick={add} className="rounded-full bg-stone-900 px-4 py-2 font-bold text-amber-50 dark:bg-red-700 dark:text-white">{t("common.add")}</button>
+          <button onClick={() => setShowCamera(true)} className="rounded-full border border-amber-400 bg-amber-100 px-3.5 py-2 font-bold text-stone-900 hover:bg-amber-200 dark:border-red-800 dark:bg-red-950 dark:text-red-200" title="Scan product with camera">📷</button>
         </div>
       </div>
 
@@ -272,7 +305,7 @@ export default function RequestsPage() {
                 <strong className="min-w-24 flex-1">{r.item}</strong>
                 <input value={r.quantity} onChange={(e) => db.requests.update(r.id, { quantity: e.target.value })} inputMode="decimal" title={t("req.qtyTitle")} className="w-16 rounded-lg border px-1.5 py-0.5 text-right text-xs" />
                 <span className="text-xs opacity-60">{r.unit}</span>
-                <button onClick={() => db.requests.delete(r.id)} className="text-xs font-bold text-red-600">✕</button>
+                <button onClick={async () => { await db.requests.delete(r.id); await maintainMyListCatalog(contractId); }} className="text-xs font-bold text-red-600">✕</button>
               </div>
             ))}
             {list.length === 0 && <p className="text-xs opacity-70">{t("req.emptyAdd")}</p>}
@@ -294,6 +327,28 @@ export default function RequestsPage() {
           </div>
         </div>
       )}
+
+      <CameraCaptureModal
+        isOpen={showCamera}
+        onClose={() => setShowCamera(false)}
+        contractId={contractId}
+        currentTab={tab}
+        onAdded={(prod) => {
+          setToastMsg(`Recognized & appended "${prod.name}" [${prod.productId}] to My List!`);
+          setTimeout(() => setToastMsg(null), 6000);
+        }}
+      />
+
+      <MyListCatalogModal
+        isOpen={showCatalogModal}
+        onClose={() => setShowCatalogModal(false)}
+        contractId={contractId}
+        onItemAdded={(prod) => {
+          setToastMsg(`Added "${prod.name}" [${prod.productId}] from catalog to My List!`);
+          setTimeout(() => setToastMsg(null), 5000);
+        }}
+      />
+    </div>
     </div>
   );
 }

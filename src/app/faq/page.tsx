@@ -9,7 +9,8 @@ export default function FaqPage() {
   useDocTitle("faq.title");
   const { t } = useLocale();
   return (
-    <div className="grid gap-5">
+    <div className="shark-interior-page">
+      <div className="grid gap-5">
       <div className="rounded-3xl border border-amber-200 bg-stone-900 p-7 text-amber-50 md:p-10 dark:border-red-900 dark:bg-black dark:text-red-200">
         <p className="text-sm font-semibold uppercase tracking-widest text-amber-300 dark:text-red-400">{t("faq.eyebrow")}</p>
         <h1 className="mt-2 text-3xl font-bold">{t("faq.title")}</h1>
@@ -42,6 +43,7 @@ export default function FaqPage() {
           <Link href="/about" className="rounded-full border border-amber-300 px-5 py-2 text-sm font-bold dark:border-red-900">{t("faq.about")}</Link>
         </div>
       </div>
+    </div>
     </div>
   );
 }

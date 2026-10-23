@@ -26,7 +26,8 @@ export default function BulkBooklet() {
   const ovResults = results.map((b) => withOv(b, cov(o, "bulk", b.slug)));
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("bulk.title")}</h1>
         <p className="text-sm text-slate-600">
@@ -71,6 +72,7 @@ export default function BulkBooklet() {
       {results.length === 0 && (
         <p className="text-sm text-slate-500">{t("bulk.noMatch")}</p>
       )}
+    </div>
     </div>
   );
 }

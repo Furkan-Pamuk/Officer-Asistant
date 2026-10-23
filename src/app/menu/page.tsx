@@ -36,15 +36,19 @@ export default function MenuPage() {
 
   if (!contractId) {
     return (
+      <div className="shark-interior-page">
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{t("menu.title")}</h1>
         <p className="text-sm">{t("menu.needVessel")}</p>
         <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
+    </div>
     );
   }
 
-  if (!week) return <p>{t("menu.loading")}</p>;
+  if (!week) return <div className="shark-interior-page">
+      <p>{t("menu.loading")}</p>
+    </div>;
 
   const plan: WeekPlan | undefined = (plans ?? []).find((p) => p.id === `${contractId}__${week}`);
   const extra = customDishes ?? [];
@@ -121,7 +125,8 @@ export default function MenuPage() {
   let weekCount = 0;
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">{t("menu.titleEmoji")}</h1>
@@ -249,6 +254,7 @@ export default function MenuPage() {
         </div>
       </div>
       </div>
+    </div>
     </div>
   );
 }

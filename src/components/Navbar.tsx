@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import LocaleSelect from "./LocaleSelect";
@@ -8,15 +8,17 @@ import NotificationCenter from "./NotificationCenter";
 import SharkMark from "./SharkMark";
 import { useProfile } from "@/hooks/useProfile";
 import { useLocale } from "@/lib/i18n";
+import { SECTIONS } from "@/lib/news";
+import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 
-type SubEntry = { href: string; key: string; icon: string; external?: boolean } | { header: string };
+type SubEntry = { href: string; key: string; icon: string; external?: boolean; label?: string } | { header: string };
 interface Item {
   key: string;
   href?: string;
   subs?: SubEntry[];
 }
 
-function isLink(s: SubEntry): s is { href: string; key: string; icon: string; external?: boolean } {
+function isLink(s: SubEntry): s is { href: string; key: string; icon: string; external?: boolean; label?: string } {
   return "href" in s;
 }
 
@@ -53,8 +55,8 @@ const ITEMS: Item[] = [
     key: "nav.cargo",
     subs: [
       { href: "/cargo", key: "nav.chemical", icon: "🧪" },
-      { href: "/bulks", key: "nav.bulk", icon: "🧱" },
-      { href: "/gas", key: "nav.gas", icon: "🧊" },
+      { href: "/bulks", key: "nav.bulk", icon: "🌾" },
+      { href: "/gas", key: "nav.gas", icon: "💨" },
     ],
   },
   {
@@ -69,6 +71,7 @@ const ITEMS: Item[] = [
     subs: [
       { href: "/exams", key: "nav.exams", icon: "🎓" },
       { href: "/profile?tab=cv", key: "nav.cv", icon: "📄" },
+      { href: "/admin", key: "nav.admin", icon: "👑" },
     ],
   },
   { key: "nav.news", href: "/news" },
@@ -76,6 +79,17 @@ const ITEMS: Item[] = [
 
 export default function Navbar() {
   const path = usePathname();
+  const searchParams = useSearchParams();
+  const newsSection = searchParams.get("section");
+  const overlay = useContentOverlay();
+  const items: Item[] = ITEMS.map(item => item.key !== "nav.news" ? item : {
+    ...item,
+    subs: SECTIONS.map(section => {
+      const translated = withOv(section, cov(overlay, "sections", section.id));
+      const [icon, ...words] = translated.label.split(" ");
+      return { href: `/news?section=${section.id}`, key: "nav.news", icon, label: words.join(" ") };
+    }),
+  });
   const { t } = useLocale();
   const profile = useProfile();
   const [open, setOpen] = useState<string | null>(null);
@@ -101,7 +115,7 @@ export default function Navbar() {
   useEffect(() => {
     setOpen(null);
     setMobileOpen(false);
-  }, [path]);
+  }, [path, newsSection]);
 
   useEffect(() => {
     function close(e: MouseEvent) {
@@ -115,7 +129,8 @@ export default function Navbar() {
   // the pathname, so computing it during the first render causes hydration mismatch.
   const isActive = (href: string) => {
     if (!mounted) return false;
-    const base = href.split("?")[0];
+    const [base, query] = href.split("?");
+    if (base === "/news" && query) return path === base && newsSection === new URLSearchParams(query).get("section");
     return path === base || path?.startsWith(base + "/");
   };
 
@@ -134,17 +149,18 @@ export default function Navbar() {
           {mobileOpen ? "✕" : "☰"}
         </button>
         <nav className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-0.5 text-xs xl:flex">
-          {ITEMS.map((item) =>
+          {items.map((item) =>
             item.subs ? (
               <div key={item.key} className="relative">
                 <button
                   onClick={() => setOpen(open === item.key ? null : item.key)}
-                  className={`shark-nav-item rounded-full px-2.5 py-2.5 font-semibold ${item.subs.some((s) => isLink(s) && isActive(s.href)) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
+                  className={`shark-nav-item inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2.5 font-semibold ${item.subs.some((s) => isLink(s) && isActive(s.href.split("?")[0])) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
                 >
                   {t(item.key)} {open === item.key ? "▴" : "▾"}
                 </button>
                 {open === item.key && (
                   <div className="shark-nav-dropdown absolute left-0 top-full z-50 mt-3 max-h-[70vh] w-64 overflow-y-auto rounded-2xl border border-amber-200 bg-white p-2 shadow-xl dark:border-red-900 dark:bg-neutral-950">
+                    <div className="shark-submenu-heading"><SharkMark size={22} /><span>{t(item.key)}</span></div>
                     {item.subs.map((s, i) =>
                       !isLink(s) ? (
                         <p key={`h-${i}`} className="px-3 pb-0.5 pt-2 text-[11px] font-black tracking-widest opacity-50">{s.header.toUpperCase()}</p>
@@ -154,17 +170,17 @@ export default function Navbar() {
                           href={s.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="block rounded-xl px-3 py-2 font-medium hover:bg-amber-50 dark:hover:bg-red-950/50"
+                          className="shark-submenu-link rounded-xl px-3 py-2 font-medium hover:bg-amber-50 dark:hover:bg-red-950/50"
                         >
-                          {s.icon} {t(s.key)} ↗
+                          <span className="shark-submenu-icon" aria-hidden="true">{s.icon}</span><span className="shark-submenu-label">{s.label ?? t(s.key)}</span><span className="shark-submenu-arrow" aria-hidden="true">↗</span>
                         </a>
                       ) : (
                         <Link
                           key={s.href}
                           href={s.href}
-                          className={`block rounded-xl px-3 py-2 font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "hover:bg-amber-50 dark:hover:bg-red-950/50"}`}
+                          className={`shark-submenu-link rounded-xl px-3 py-2 font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "hover:bg-amber-50 dark:hover:bg-red-950/50"}`}
                         >
-                          {s.icon} {t(s.key)}
+                          <span className="shark-submenu-icon" aria-hidden="true">{s.icon}</span><span className="shark-submenu-label">{s.label ?? t(s.key)}</span><svg className="shark-submenu-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
                         </Link>
                       )
                     )}
@@ -175,7 +191,7 @@ export default function Navbar() {
               <Link
                 key={item.key}
                 href={item.href!}
-                className={`shark-nav-item rounded-full px-2.5 py-2.5 font-semibold ${isActive(item.href!) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
+                className={`shark-nav-item inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2.5 font-semibold ${isActive(item.href!) ? "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white" : "text-stone-700 hover:bg-amber-100 dark:text-red-300/80 dark:hover:bg-red-950"}`}
               >
                 {t(item.key)}
               </Link>
@@ -185,6 +201,10 @@ export default function Navbar() {
         <LocaleSelect />
         <ThemeToggle />
         <NotificationCenter />
+        <Link href="/admin" title="Admin Dashboard" className="hidden sm:flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-xs font-bold text-stone-800 hover:bg-amber-100 dark:border-red-900 dark:bg-stone-900 dark:text-amber-200">
+          <span>👑</span>
+          <span className="hidden md:inline">Admin</span>
+        </Link>
         <Link href="/profile" title="Profile" className="shark-profile flex shrink-0 items-center gap-2 rounded-full p-1">
           {profile?.photoDataUrl
             ? <img src={profile.photoDataUrl} alt="Profile" className="h-8 w-8 rounded-full object-cover ring-2 ring-amber-300 dark:ring-red-800" />
@@ -193,11 +213,11 @@ export default function Navbar() {
         </Link>
       </div>
       {mobileOpen && (
-        <div className="shark-mobile-menu grid max-h-[70vh] gap-3 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-5 xl:hidden dark:border-red-950">
-          {ITEMS.map((item) =>
+        <div className="shark-mobile-menu grid sm:grid-cols-2 lg:grid-cols-3 max-h-[70vh] gap-3 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-5 xl:hidden dark:border-red-950">
+          {items.map((item) =>
             item.subs ? (
-              <div key={item.key}>
-                <p className="px-3 pb-0.5 pt-1 text-[11px] font-black tracking-widest opacity-50">{t(item.key).toUpperCase()}</p>
+              <div key={item.key} className="shark-mobile-group">
+                <p className="shark-mobile-heading text-[10px]">{t(item.key).toUpperCase()}</p>
                 <div className="grid gap-0.5">
                   {item.subs.map((s, i) =>
                     !isLink(s) ? (
@@ -208,24 +228,24 @@ export default function Navbar() {
                         href={s.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="block rounded-xl px-5 py-3 text-sm font-medium opacity-80"
+                        className="shark-submenu-link rounded-xl px-5 py-3 text-sm font-medium opacity-80"
                       >
-                        {s.icon} {t(s.key)} ↗
+                        <span className="shark-submenu-icon" aria-hidden="true">{s.icon}</span><span className="shark-submenu-label">{s.label ?? t(s.key)}</span><span className="shark-submenu-arrow" aria-hidden="true">↗</span>
                       </a>
                     ) : (
                       <Link
                         key={s.href}
                         href={s.href}
-                        className={`block rounded-xl px-5 py-3 text-sm font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "opacity-80"}`}
+                        className={`shark-submenu-link rounded-xl px-5 py-3 text-sm font-medium ${isActive(s.href) ? "bg-amber-100 dark:bg-red-950" : "opacity-80"}`}
                       >
-                        {s.icon} {t(s.key)}
+                        <span className="shark-submenu-icon" aria-hidden="true">{s.icon}</span><span className="shark-submenu-label">{s.label ?? t(s.key)}</span><svg className="shark-submenu-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
                       </Link>
                     )
                   )}
                 </div>
               </div>
             ) : (
-              <Link key={item.key} href={item.href!} className="block rounded-xl px-3 py-3 text-sm font-semibold">
+              <Link key={item.key} href={item.href!} className="shark-submenu-link rounded-xl px-3 py-3 text-sm font-semibold">
                 {t(item.key)}
               </Link>
             )

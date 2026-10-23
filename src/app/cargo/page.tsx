@@ -26,7 +26,8 @@ export default function CargoBooklet() {
   const catLabel = (c: string, i: number) => pick(cov(o, "cargoCats", i), c);
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("cargo.title")}</h1>
         <p className="text-sm text-slate-600">
@@ -83,6 +84,7 @@ export default function CargoBooklet() {
       {results.length === 0 && (
         <p className="text-sm text-slate-500">{t("cargo.noMatch")}</p>
       )}
+    </div>
     </div>
   );
 }

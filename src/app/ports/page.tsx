@@ -51,7 +51,8 @@ export default function PortsPage() {
   const box = "rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950";
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("ports.title")}</h1>
         <p className="text-sm opacity-70">{t("ports.sub")}</p>
@@ -112,6 +113,7 @@ export default function PortsPage() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

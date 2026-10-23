@@ -281,8 +281,10 @@ export default function ChecklistsPage() {
   useDocTitle("nav.checklists");
   const { t } = useLocale();
   return (
-    <Suspense fallback={<p>{t("chk.loading")}</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>{t("chk.loading")}</p>}>
       <ChecklistsInner />
     </Suspense>
+    </div>
   );
 }

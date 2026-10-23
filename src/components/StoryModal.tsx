@@ -1,21 +1,21 @@
 "use client";
 import { useMemo, useState } from "react";
 import { buildStorySVG, downloadStoryPNG, routePoints, shareStoryPNG, voyageStats } from "@/lib/story";
+import type { RoutePlan } from "@/lib/route";
 import { PORTS } from "@/lib/ports";
 import { useLocale } from "@/lib/i18n";
 
-export default function StoryModal({ fromCode, toCode, fromTime, toTime, onClose }: {
-  fromCode: string; toCode: string; fromTime?: string; toTime?: string; onClose: () => void;
+export default function StoryModal({ fromCode, toCode, fromTime, toTime, onClose, routePlan }: {
+  fromCode: string; toCode: string; fromTime?: string; toTime?: string; onClose: () => void; routePlan?: RoutePlan;
 }) {
   const [msg, setMsg] = useState("");
   const { t } = useLocale();
-  const svg = useMemo(() => {
-    const st = voyageStats(fromCode, toCode, fromTime, toTime);
-    if (!st) return "";
-    return buildStorySVG(st, routePoints(fromCode, toCode));
-  }, [fromCode, toCode, fromTime, toTime]);
-  if (!svg) return null;
-  const st = voyageStats(fromCode, toCode, fromTime, toTime)!;
+  const st = useMemo(() => {
+    const stats = voyageStats(fromCode, toCode, fromTime, toTime);
+    return stats && routePlan ? { ...stats, distanceNm: routePlan.totalNm, avgKn: stats.hours ? routePlan.totalNm / stats.hours : null } : stats;
+  }, [fromCode, toCode, fromTime, toTime, routePlan]);
+  const svg = useMemo(() => st ? buildStorySVG(st, routePlan?.points ?? routePoints(fromCode, toCode)) : "", [st, routePlan, fromCode, toCode]);
+  if (!svg || !st) return null;
   const fname = `shark-${fromCode}-${toCode}.png`;
 
   async function onDownload() {
@@ -29,6 +29,7 @@ export default function StoryModal({ fromCode, toCode, fromTime, toTime, onClose
   }
 
   async function onShare() {
+    if (!st) return;
     setMsg(t("story.opening"));
     const ok = await shareStoryPNG(svg, fname, `${st.fromName} → ${st.toName} with Shark`);
     setMsg(ok ? "" : t("story.noShare"));

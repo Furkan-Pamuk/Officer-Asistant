@@ -425,8 +425,10 @@ export default function PortDocsPage() {
   useDocTitle("pdoc.title");
   const { t } = useLocale();
   return (
-    <Suspense fallback={<p>{t("pdoc.loading")}</p>}>
+    <div className="shark-interior-page">
+      <Suspense fallback={<p>{t("pdoc.loading")}</p>}>
       <DocsInner />
     </Suspense>
+    </div>
   );
 }

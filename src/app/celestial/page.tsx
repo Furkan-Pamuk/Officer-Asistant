@@ -37,10 +37,12 @@ export default function CelestialPage() {
 
   if (!pos) {
     return (
+      <div className="shark-interior-page">
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
         <p className="text-sm">{t("cel.needPos")}</p>
       </div>
+    </div>
     );
   }
 
@@ -58,7 +60,8 @@ export default function CelestialPage() {
   const box = "rounded-2xl border border-amber-200 bg-white p-4 dark:border-red-950 dark:bg-neutral-950";
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div>
         <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
         <p className="text-sm opacity-70">{t("cel.computed").replace("{a}", pos.lat.toFixed(2)).replace("{o}", pos.lon.toFixed(2))}</p>
@@ -110,6 +113,7 @@ export default function CelestialPage() {
       </div>
 
       <AlmanacPage pos={pos} />
+    </div>
     </div>
   );
 }

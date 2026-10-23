@@ -516,5 +516,7 @@ function DocsInner() {
 
 export default function DocumentsPage() {
   useDocTitle("doc.title");
-  return <DocsInner />;
+  return <div className="shark-interior-page">
+      <DocsInner />
+    </div>;
 }

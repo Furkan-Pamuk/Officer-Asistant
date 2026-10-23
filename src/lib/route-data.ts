@@ -8,11 +8,26 @@ export interface Waypoint {
   name: string;
   lat: number;
   lon: number;
+  corridor?: string;
 }
 
 export const WAYPOINTS: Waypoint[] = [
   // --- NW Europe / Baltic ---
-  { id: "dover", name: "Dover Strait", lat: 51.0, lon: 1.8 },
+  // Schematic, offshore TSS corridors referenced to MCA Dover TSS (2024).
+  // https://www.gov.uk/government/publications/dover-strait-traffic-separation-scheme-chart
+  // These are planning waypoints, not surveyed fairway or safe-water positions.
+  { id: "le_havre_approach", name: "Le Havre Offshore Approach", lat: 49.47, lon: -0.15, corridor: "dover" },
+  { id: "seine_bay", name: "Seine Bay Approach", lat: 49.75, lon: -0.1, corridor: "dover" },
+  { id: "dover_ne_entry", name: "Dover NE Lane Entry", lat: 50.43, lon: 0.9, corridor: "dover" },
+  { id: "dover_ne_s", name: "Dover NE Lane South", lat: 50.65, lon: 1.3, corridor: "dover" },
+  { id: "dover_ne_gris", name: "Gris-Nez Offshore NE", lat: 50.88, lon: 1.45, corridor: "dover" },
+  { id: "dover", name: "Dover Strait NE Lane", lat: 51.08, lon: 1.7, corridor: "dover" },
+  { id: "dover_ne_exit", name: "Dover NE Lane Exit", lat: 51.32, lon: 2.22, corridor: "dover" },
+  { id: "dover_sw_entry", name: "Dover SW Lane Entry", lat: 51.55, lon: 2.05, corridor: "dover" },
+  { id: "dover_sw_mid", name: "Dover SW Lane North", lat: 51.18, lon: 1.47, corridor: "dover" },
+  { id: "dover_sw_gris", name: "Gris-Nez Offshore SW", lat: 50.94, lon: 1.2, corridor: "dover" },
+  { id: "dover_sw_s", name: "Dover SW Lane South", lat: 50.68, lon: 0.6, corridor: "dover" },
+  { id: "dover_sw_exit", name: "Dover SW Lane Exit", lat: 50.4, lon: -0.1, corridor: "dover" },
   { id: "channel_c", name: "English Channel (Central)", lat: 50.2, lon: -1.5 },
   { id: "channel_w", name: "Ushant / Channel West", lat: 49.6, lon: -5.5 },
   { id: "finisterre_w", name: "Finisterre West", lat: 43.5, lon: -10.5 },
@@ -236,8 +251,8 @@ export const WAYPOINTS: Waypoint[] = [
 
 // Open-water waypoint legs (undirected). Canals: kiel_w-kiel_e, cristobal_r-balboa_r, said_roads-suez_roads.
 export const EDGES: [string, string][] = [
-  ["dover", "northsea_s"],
-  ["dover", "channel_c"],
+  ["le_havre_approach", "seine_bay"],
+  ["seine_bay", "channel_c"],
   ["northsea_s", "german_bight"],
   ["german_bight", "jutland_w"],
   ["jutland_w", "hanstholm_off"],
@@ -282,7 +297,6 @@ export const EDGES: [string, string][] = [
   ["malta_s", "crete_w"],
   ["malta_s", "crete_s"],
   ["crete_s", "med_east"],
-  ["dover", "channel_w"],
   ["bs_e", "bs_c"],
   ["bs_c", "bosphorus_n"],
   ["campeche_n", "yucatan"],
@@ -496,11 +510,31 @@ export interface Chokepoint {
   ports?: string[];
 }
 
+// Direction matters in a TSS: reverse voyages use the separate SW corridor.
+export const DIRECTED_EDGES: [string, string][] = [
+  ["seine_bay", "dover_ne_entry"],
+  ["channel_c", "dover_ne_entry"],
+  ["channel_w", "dover_ne_entry"],
+  ["dover_ne_entry", "dover_ne_s"],
+  ["dover_ne_s", "dover_ne_gris"],
+  ["dover_ne_gris", "dover"],
+  ["dover", "dover_ne_exit"],
+  ["dover_ne_exit", "northsea_s"],
+  ["northsea_s", "dover_sw_entry"],
+  ["dover_sw_entry", "dover_sw_mid"],
+  ["dover_sw_mid", "dover_sw_gris"],
+  ["dover_sw_gris", "dover_sw_s"],
+  ["dover_sw_s", "dover_sw_exit"],
+  ["dover_sw_exit", "seine_bay"],
+  ["dover_sw_exit", "channel_c"],
+  ["dover_sw_exit", "channel_w"],
+];
+
 export const CHOKEPOINTS: Chokepoint[] = [
   { id: "suez", name: "Suez Canal", edges: [["said_roads", "suez_roads"]] },
   { id: "panama", name: "Panama Canal", edges: [["cristobal_r", "balboa_r"]] },
   { id: "kiel", name: "Kiel Canal", edges: [["kiel_w", "kiel_e"]] },
-  { id: "dover", name: "Dover Strait", edges: [["dover", "northsea_s"], ["dover", "channel_c"], ["dover", "channel_w"]] },
+  { id: "dover", name: "Dover Strait", edges: DIRECTED_EDGES },
   {
     id: "gibraltar",
     name: "Strait of Gibraltar",
@@ -515,8 +549,8 @@ export const PORT_GATEWAYS: Record<string, string[]> = {
   BEANR: ["northsea_s"],
   DEHAM: ["german_bight"],
   DEBRV: ["german_bight"],
-  FRLEH: ["channel_c"],
-  GBFXT: ["dover"],
+  FRLEH: ["le_havre_approach"],
+  GBFXT: ["northsea_s"],
   GBSOU: ["channel_c"],
   SEGOT: ["kattegat"],
   PLGDN: ["gdansk_bay"],

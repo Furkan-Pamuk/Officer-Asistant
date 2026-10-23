@@ -26,7 +26,8 @@ export default function BulkDetail({ params }: { params: Promise<{ slug: string 
   ];
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <Link href="/bulks" className="text-sm font-bold text-slate-600 underline">{t("cargo.back")}</Link>
       <h1 className="text-2xl font-bold">{b.name}</h1>
       <p className="text-sm text-slate-500">{t("cargo.aka").replace("{x}", b.synonyms.join(" · "))}</p>
@@ -57,6 +58,7 @@ export default function BulkDetail({ params }: { params: Promise<{ slug: string 
       </div>
       {b.note && <p className="rounded-2xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">ℹ️ {b.note}</p>}
       <p className="text-xs text-slate-400">{t("bulk.refOnly")}</p>
+    </div>
     </div>
   );
 }

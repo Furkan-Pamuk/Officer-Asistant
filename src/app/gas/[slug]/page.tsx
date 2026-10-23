@@ -29,7 +29,8 @@ export default function GasDetail({ params }: { params: Promise<{ slug: string }
   ];
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <Link href="/gas" className="text-sm font-bold text-slate-600 underline">{t("gas.back")}</Link>
       <div className="flex flex-wrap items-center gap-2">
         <h1 className="text-2xl font-bold">{g.name}</h1>
@@ -63,6 +64,7 @@ export default function GasDetail({ params }: { params: Promise<{ slug: string }
       </div>
       {g.notes && <p className="rounded-2xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">⚠️ {g.notes}</p>}
       <p className="text-xs text-slate-400">{t("gas.refOnly")}</p>
+    </div>
     </div>
   );
 }

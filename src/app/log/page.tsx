@@ -117,11 +117,13 @@ export default function LogPage() {
   // app is open — this page only flips the persisted switch.
   if (!contractId) {
     return (
+      <div className="shark-interior-page">
       <div className="grid gap-3">
         <h1 className="text-2xl font-bold">{t("nav.decklog")}</h1>
         <p className="text-sm">{t("common.needContract")}</p>
         <Link href="/contracts" className="w-fit rounded-full bg-stone-900 px-4 py-2 text-sm font-bold text-amber-50">{t("common.goContracts")}</Link>
       </div>
+    </div>
     );
   }
 
@@ -140,7 +142,8 @@ export default function LogPage() {
   const inp = "rounded-xl border px-2 py-1.5 text-sm w-full";
 
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">{t("log.titleHourly")}</h1>
@@ -208,6 +211,7 @@ export default function LogPage() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }

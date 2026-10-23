@@ -1,0 +1,12 @@
+Eurostat / SeaRoute maritime network
+Licence: EUPL-1.2 (LICENSE.txt in this directory).
+Upstream: https://github.com/eurostat/searoute
+Revision: 88a2e568a8e0144d1f5a81c3931a7bc2bcce6901
+Dataset: modules/core/src/main/resources/marnet/marnet_plus_5km.gpkg
+Upstream SHA256: 75ca6cc130b3748f568196a9caf62889e9f096ec358f65223b4095ac070be0e7
+Source: https://raw.githubusercontent.com/eurostat/searoute/88a2e568a8e0144d1f5a81c3931a7bc2bcce6901/modules/core/src/main/resources/marnet/marnet_plus_5km.gpkg
+Modified for Shark on 2026-10-23: coordinates quantized to 1e-6 degrees and converted into indexed edges, with original passage attributes retained. Human-readable transformed data: network-source.json in this directory.
+The network follows common shipping routes and includes European AIS-derived lines, based on the Oak Ridge National Labs CTA Transportation Network Group Global Shipping Lane Network (2000), as described by the upstream project.
+Shark uses an independently implemented TypeScript shortest-path router; no upstream Java code was copied. Dover uses separate directional corridors. Polar passages and Corinth Canal are disabled by default (vessel/ice restrictions are not modeled by the current UI). Some port/river approaches remain approximate.
+Additional Paraná river centerline: Natural Earth ne_10m_rivers_lake_centerlines, public domain, https://www.naturalearthdata.com/about/terms-of-use/
+Planning and visualization only; not a navigation chart or a guarantee of navigability.

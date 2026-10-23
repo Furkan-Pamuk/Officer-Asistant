@@ -42,7 +42,8 @@ export default function CargoCleaning() {
   const o = useContentOverlay();
   const methods = CLEANING_METHODS.map((m) => withOv(m, cov(o, "cleanMethods", m.key)));
   return (
-    <div className="grid gap-4">
+    <div className="shark-interior-page">
+      <div className="grid gap-4">
       <Link href="/cargo" className="text-sm font-bold text-slate-600 underline">{t("cargo.back")}</Link>
       <div>
         <h1 className="text-2xl font-bold">{t("cargo.cleanTitle")}</h1>
@@ -88,6 +89,7 @@ export default function CargoCleaning() {
         <h2 className="font-bold text-red-800">{t("cargo.safety")}</h2>
         <p className="mt-1 text-sm text-red-900">{t("cargo.safetyBody")}</p>
       </div>
+    </div>
     </div>
   );
 }
