@@ -3,7 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useDocTitle } from "@/lib/doctitle";
-import type { AdminUser, ApiActivityLog, AdminMetrics } from "@/lib/server-admin-tracker";
+import type { AdminUser, ApiActivityLog, AdminMetrics, PerUserStats } from "@/lib/server-admin-tracker";
+
+interface SelectedUserDetail {
+  user: AdminUser;
+  stats: PerUserStats;
+  logs: ApiActivityLog[];
+}
 
 export default function AdminDashboardPage() {
   useDocTitle("admin.title");
@@ -16,12 +22,46 @@ export default function AdminDashboardPage() {
   const [logFilter, setLogFilter] = useState<"all" | "success" | "failed">("all");
   const [simulating, setSimulating] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState<string>("");
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [userDetail, setUserDetail] = useState<SelectedUserDetail | null>(null);
+  const [detailLoading, setDetailLoading] = useState(false);
 
   useEffect(() => {
     fetchMetrics();
     const interval = setInterval(fetchMetrics, 8000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeUserDetail();
+    }
+    if (selectedUserId) window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [selectedUserId]);
+
+  async function openUserDetail(userId: string) {
+    setSelectedUserId(userId);
+    setDetailLoading(true);
+    try {
+      const res = await fetch(`/api/admin/metrics?userId=${encodeURIComponent(userId)}`);
+      if (!res.ok) throw new Error("Failed to load user detail");
+      const data = await res.json();
+      if (data.success) {
+        setUserDetail({ user: data.user, stats: data.stats, logs: data.logs || [] });
+      }
+    } catch (err) {
+      console.error("User detail fetch error:", err);
+      setUserDetail(null);
+    } finally {
+      setDetailLoading(false);
+    }
+  }
+
+  function closeUserDetail() {
+    setSelectedUserId(null);
+    setUserDetail(null);
+  }
 
   async function fetchMetrics() {
     try {
@@ -265,6 +305,7 @@ export default function AdminDashboardPage() {
               <h2 className="text-lg font-black tracking-tight">Crew & Officer API Usage</h2>
               <p className="text-xs opacity-70">
                 Tracks the number of AI vision requests made per user, department, and vessel.
+                Select a row to open the per-user API breakdown.
               </p>
             </div>
             <input
@@ -294,9 +335,30 @@ export default function AdminDashboardPage() {
                 {filteredUsers.map((u) => {
                   const rate = u.totalRequests > 0 ? Math.round((u.successfulRequests / u.totalRequests) * 100) : 100;
                   return (
-                    <tr key={u.id} className="hover:bg-amber-50/50 dark:hover:bg-stone-900/50">
+                    <tr
+                      key={u.id}
+                      onClick={() => openUserDetail(u.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") openUserDetail(u.id);
+                        else if (e.key === " ") {
+                          e.preventDefault();
+                          openUserDetail(u.id);
+                        }
+                      }}
+                      tabIndex={0}
+                      className="cursor-pointer hover:bg-amber-50/50 focus:bg-amber-50/50 focus:outline-none dark:hover:bg-stone-900/50"
+                      title={`View per-user API breakdown for ${u.name}`}
+                    >
                       <td className="py-3 font-bold text-stone-900 dark:text-stone-100">
-                        <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openUserDetail(u.id);
+                          }}
+                          className="flex items-center gap-2 rounded-xl text-left underline-offset-2 hover:underline focus:underline focus:outline-none"
+                          aria-label={`View API usage detail for ${u.name}`}
+                        >
                           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-stone-900 text-[11px] font-bold text-amber-50 dark:bg-red-700">
                             {u.name.slice(0, 2).toUpperCase()}
                           </span>
@@ -304,7 +366,7 @@ export default function AdminDashboardPage() {
                             <div>{u.name}</div>
                             <div className="font-mono text-[10px] opacity-50">{u.email}</div>
                           </div>
-                        </div>
+                        </button>
                       </td>
                       <td className="py-3">
                         <span className="font-semibold">{u.rank}</span>
@@ -508,8 +570,16 @@ export default function AdminDashboardPage() {
                       })}
                     </td>
                     <td className="py-3">
-                      <strong className="block text-stone-900 dark:text-stone-100">{log.userName}</strong>
-                      <span className="text-[10px] opacity-60">{log.userRank}</span>
+                      <button
+                        type="button"
+                        onClick={() => openUserDetail(log.userId)}
+                        className="block rounded-lg text-left underline-offset-2 hover:underline focus:underline focus:outline-none"
+                        aria-label={`View API usage detail for ${log.userName}`}
+                        title={`View per-user API breakdown for ${log.userName}`}
+                      >
+                        <strong className="block text-stone-900 dark:text-stone-100">{log.userName}</strong>
+                        <span className="text-[10px] opacity-60">{log.userRank}</span>
+                      </button>
                     </td>
                     <td className="py-3 text-stone-600 dark:text-stone-400">{log.vessel}</td>
                     <td className="py-3">
@@ -556,6 +626,235 @@ export default function AdminDashboardPage() {
             </table>
           </div>
         </div>
+
+        {/* Per-user drilldown modal */}
+        {selectedUserId && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+            onClick={closeUserDetail}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Per-user API usage detail"
+          >
+            <div
+              className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-amber-200 bg-white p-5 shadow-xl dark:border-stone-800 dark:bg-neutral-950"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {detailLoading || !userDetail ? (
+                <div className="py-10 text-center text-sm opacity-70">
+                  {detailLoading ? "Loading per-user API breakdown..." : "User detail unavailable."}
+                </div>
+              ) : (
+                <div className="grid gap-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-900 text-sm font-bold text-amber-50 dark:bg-red-700">
+                        {userDetail.user.name.slice(0, 2).toUpperCase()}
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-black tracking-tight">{userDetail.user.name}</h3>
+                        <p className="font-mono text-[11px] opacity-60">{userDetail.user.email}</p>
+                        <p className="mt-0.5 text-xs opacity-70">
+                          {userDetail.user.rank} • {userDetail.user.vessel} •{" "}
+                          {userDetail.user.department.toUpperCase()}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={closeUserDetail}
+                      className="rounded-full border border-stone-300 px-3 py-1 text-xs font-bold hover:bg-stone-50 dark:border-stone-700 dark:hover:bg-stone-900"
+                      aria-label="Close user detail"
+                    >
+                      ✕ Close
+                    </button>
+                  </div>
+
+                  <div className="grid gap-2 text-[11px] sm:grid-cols-2">
+                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
+                      <span className="font-bold uppercase tracking-wide opacity-60">Status</span>
+                      <div className="mt-1 font-bold">{userDetail.user.status.toUpperCase()}</div>
+                    </div>
+                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
+                      <span className="font-bold uppercase tracking-wide opacity-60">Last active</span>
+                      <div className="mt-1 font-mono">
+                        {new Date(userDetail.user.lastActiveAt).toLocaleString("en-GB", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          day: "2-digit",
+                          month: "short",
+                        })}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
+                      <span className="font-bold uppercase tracking-wide opacity-60">Created</span>
+                      <div className="mt-1 font-mono">
+                        {new Date(userDetail.user.createdAt).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
+                      <span className="font-bold uppercase tracking-wide opacity-60">Totals</span>
+                      <div className="mt-1 font-mono font-bold">
+                        {userDetail.stats.total} total •{" "}
+                        <span className="text-emerald-600">{userDetail.stats.success} success</span> •{" "}
+                        <span className="text-red-600">{userDetail.stats.failed} failed</span> •{" "}
+                        {userDetail.stats.successRate}% • {userDetail.stats.avgLatencyMs}ms avg
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    <div>
+                      <h4 className="text-sm font-black">Per-API-service usage (by endpoint)</h4>
+                      {Object.keys(userDetail.stats.byEndpoint).length === 0 ? (
+                        <p className="mt-1 text-xs opacity-60">
+                          No endpoint breakdown yet — showing seeded totals only.
+                        </p>
+                      ) : (
+                        <table className="mt-2 w-full text-left text-xs">
+                          <thead>
+                            <tr className="border-b border-amber-100 text-stone-500 dark:border-stone-800">
+                              <th className="py-1.5 font-bold">Endpoint</th>
+                              <th className="py-1.5 text-center font-bold">Count</th>
+                              <th className="py-1.5 text-center font-bold">Rate</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-stone-100 dark:divide-stone-900">
+                            {Object.entries(userDetail.stats.byEndpoint).map(([endpoint, b]) => (
+                              <tr key={endpoint}>
+                                <td className="py-1.5 font-mono text-[11px]">{endpoint}</td>
+                                <td className="py-1.5 text-center font-mono">
+                                  {b.total} (<span className="text-emerald-600">{b.success}</span>/
+                                  <span className="text-red-600">{b.failed}</span>)
+                                </td>
+                                <td className="py-1.5 text-center font-mono font-bold">{b.successRate}%</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-black">Per-API-service usage (by model)</h4>
+                      {Object.keys(userDetail.stats.byModel).length === 0 ? (
+                        <p className="mt-1 text-xs opacity-60">
+                          No model breakdown yet — showing seeded totals only.
+                        </p>
+                      ) : (
+                        <table className="mt-2 w-full text-left text-xs">
+                          <thead>
+                            <tr className="border-b border-amber-100 text-stone-500 dark:border-stone-800">
+                              <th className="py-1.5 font-bold">Model</th>
+                              <th className="py-1.5 text-center font-bold">Count</th>
+                              <th className="py-1.5 text-center font-bold">Rate</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-stone-100 dark:divide-stone-900">
+                            {Object.entries(userDetail.stats.byModel).map(([model, b]) => (
+                              <tr key={model}>
+                                <td className="py-1.5 font-mono text-[11px]">{model}</td>
+                                <td className="py-1.5 text-center font-mono">
+                                  {b.total} (<span className="text-emerald-600">{b.success}</span>/
+                                  <span className="text-red-600">{b.failed}</span>)
+                                </td>
+                                <td className="py-1.5 text-center font-mono font-bold">{b.successRate}%</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </div>
+
+                  {Object.keys(userDetail.stats.byCategory).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 text-[11px]">
+                      {Object.entries(userDetail.stats.byCategory).map(([cat, count]) => (
+                        <span
+                          key={cat}
+                          className="rounded-full bg-stone-100 px-2.5 py-1 font-mono font-bold dark:bg-stone-800"
+                        >
+                          {cat}: {count}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div>
+                    <h4 className="text-sm font-black">
+                      Account statement — chronological request list ({userDetail.logs.length})
+                    </h4>
+                    {userDetail.logs.length === 0 ? (
+                      <p className="mt-1 text-xs opacity-60">
+                        No individual request logs recorded for this user yet.
+                      </p>
+                    ) : (
+                      <div className="mt-2 max-h-64 overflow-y-auto">
+                        <table className="w-full text-left text-xs">
+                          <thead>
+                            <tr className="border-b border-amber-100 text-stone-500 dark:border-stone-800">
+                              <th className="py-1.5 font-bold">Time</th>
+                              <th className="py-1.5 font-bold">Endpoint / Model</th>
+                              <th className="py-1.5 font-bold">Result</th>
+                              <th className="py-1.5 font-bold">Status</th>
+                              <th className="py-1.5 font-bold">Latency</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-stone-100 dark:divide-stone-900">
+                            {userDetail.logs.map((log) => (
+                              <tr key={log.id}>
+                                <td className="py-1.5 font-mono text-[11px] opacity-70">
+                                  {new Date(log.timestamp).toLocaleString("en-GB", {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    second: "2-digit",
+                                    day: "2-digit",
+                                    month: "short",
+                                  })}
+                                </td>
+                                <td className="py-1.5 font-mono text-[11px]">
+                                  {log.endpoint}
+                                  <span className="block opacity-60">{log.model}</span>
+                                </td>
+                                <td className="py-1.5 text-[11px]">
+                                  {log.status === "success" ? (
+                                    <span className="font-bold">
+                                      {log.productId ? `${log.productId} — ` : ""}
+                                      {log.productName || "Identified"}
+                                    </span>
+                                  ) : (
+                                    <span className="text-red-600 dark:text-red-400">
+                                      {log.errorMessage || "Recognition failed"}
+                                    </span>
+                                  )}
+                                </td>
+                                <td className="py-1.5">
+                                  <span
+                                    className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                                      log.status === "success"
+                                        ? "bg-emerald-500/10 text-emerald-600"
+                                        : "bg-red-500/10 text-red-600"
+                                    }`}
+                                  >
+                                    {log.status.toUpperCase()}
+                                  </span>
+                                </td>
+                                <td className="py-1.5 font-mono text-[11px]">{log.latencyMs}ms</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Quick Link back to Store Requests */}
         <div className="flex items-center justify-between rounded-2xl border border-amber-200 bg-amber-50/60 p-4 text-xs dark:border-stone-800 dark:bg-stone-900">
