@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   experimental: {
     useOffline: true,
+    agentUpgrade: "security",
   },
   turbopack: {
     rules: {
