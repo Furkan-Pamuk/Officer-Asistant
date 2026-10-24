@@ -43,5 +43,8 @@ next-env.d.ts
 # licensed reference publications live here — never commit or deploy
 /docs/
 
+# runtime local databases and auth storage
+/.data/
+
 .vercel
 .env*

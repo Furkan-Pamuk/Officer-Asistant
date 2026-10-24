@@ -7,6 +7,7 @@ import LocaleSelect from "./LocaleSelect";
 import NotificationCenter from "./NotificationCenter";
 import SharkMark from "./SharkMark";
 import { useProfile } from "@/hooks/useProfile";
+import { useAuth } from "@/hooks/useAuth";
 import { useLocale } from "@/lib/i18n";
 import { SECTIONS } from "@/lib/news";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
@@ -91,6 +92,7 @@ export default function Navbar() {
   });
   const { t } = useLocale();
   const profile = useProfile();
+  const { user } = useAuth();
   const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -202,16 +204,35 @@ export default function Navbar() {
         <LocaleSelect />
         <ThemeToggle />
         <NotificationCenter />
-        <Link href="/profile" title="Profile" className="shark-profile flex shrink-0 items-center gap-2 rounded-full p-1">
-          {profile?.photoDataUrl
-            // eslint-disable-next-line @next/next/no-img-element
-            ? <img src={profile.photoDataUrl} alt="Profile" className="h-8 w-8 rounded-full object-cover ring-2 ring-amber-300 dark:ring-red-800" />
-            : <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-sm font-bold dark:bg-red-950">🧑‍✈️</span>}
-          {profile?.rank && <span className="hidden text-xs font-medium 2xl:block">{profile.rank}</span>}
-        </Link>
+        {user ? (
+          <Link href="/profile" title="Profile" className="shark-profile flex shrink-0 items-center gap-2 rounded-full p-1">
+            {profile?.photoDataUrl
+              // eslint-disable-next-line @next/next/no-img-element
+              ? <img src={profile.photoDataUrl} alt="Profile" className="h-8 w-8 rounded-full object-cover ring-2 ring-amber-300 dark:ring-red-800" />
+              : <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-sm font-bold dark:bg-red-950">🧑‍✈️</span>}
+            <span className="hidden text-xs font-medium 2xl:block">{profile?.rank || user.displayName}</span>
+          </Link>
+        ) : (
+          <Link
+            href="/login"
+            className="shrink-0 rounded-full bg-stone-900 px-3.5 py-1.5 text-xs font-bold text-amber-50 hover:bg-stone-800 dark:bg-red-700 dark:text-white dark:hover:bg-red-600"
+          >
+            {t("auth.login")}
+          </Link>
+        )}
       </div>
       {mobileOpen && (
         <div className="shark-mobile-menu grid sm:grid-cols-2 lg:grid-cols-3 max-h-[70vh] gap-3 overflow-y-auto overscroll-contain border-t border-amber-200 px-4 py-5 xl:hidden dark:border-red-950">
+          {!user && (
+            <div className="col-span-full pb-1">
+              <Link
+                href="/login"
+                className="flex w-full items-center justify-center rounded-xl bg-stone-900 py-2.5 text-center text-sm font-bold text-amber-50 hover:bg-stone-800 dark:bg-red-700 dark:text-white"
+              >
+                {t("auth.login")}
+              </Link>
+            </div>
+          )}
           {items.map((item) =>
             item.subs ? (
               <div key={item.key} className="shark-mobile-group">

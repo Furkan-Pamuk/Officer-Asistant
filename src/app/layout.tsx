@@ -12,6 +12,7 @@ import ReminderChecker from "@/components/ReminderChecker";
 import AutoLog from "@/components/AutoLog";
 import { I18nProvider } from "@/lib/i18n";
 import { Analytics } from "@vercel/analytics/react";
+import AuthGuard from "@/components/AuthGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,6 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col bg-[#F4F7FA] text-stone-900 dark:bg-black dark:text-red-200">
         <I18nProvider>
+        <AuthGuard>
         <SharkIntro />
         <SWRegister />
         <ReminderChecker />
@@ -106,6 +108,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">{children}</main>
         <SiteFooter />
         <Analytics />
+        </AuthGuard>
         </I18nProvider>
       </body>
     </html>
