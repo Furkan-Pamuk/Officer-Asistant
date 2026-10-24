@@ -859,6 +859,7 @@ export const UI_EN: Record<string, string> = {
   "terms.title": "Terms of Use",
   "terms.updated": "Last updated October 2026",
   "terms.hWhat": "What Shark is",
+  "terms.hSolas": "SOLAS & Navigation Safety Notice",
   "terms.hLicensed": "Licensed material",
   "terms.hContent": "Your content",
   "terms.hSubs": "Subscriptions",

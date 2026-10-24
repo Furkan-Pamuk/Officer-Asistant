@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
+import { useAuth } from "@/hooks/useAuth";
 
 const SEEN_KEY = "shark-intro-seen";
 
@@ -21,19 +23,21 @@ const SWIM_S = 6.2; // seconds for the full crossing
 export default function SharkIntro() {
   const [stage, setStage] = useState<Stage | null>(null);
   const { t } = useLocale();
+  const { user } = useAuth();
+  const pathname = usePathname();
   const voiceRef = useRef<HTMLAudioElement | null>(null);
   const timers = useRef<number[]>([]);
   const rafRef = useRef<number>(0);
   const vidRef = useRef<HTMLVideoElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  function clearAll() {
+  const clearAll = useCallback(() => {
     timers.current.forEach((t) => window.clearTimeout(t));
     timers.current = [];
     cancelAnimationFrame(rafRef.current);
-  }
+  }, []);
 
-  function finish() {
+  const finish = useCallback(() => {
     clearAll();
     try {
       voiceRef.current?.pause();
@@ -53,7 +57,21 @@ export default function SharkIntro() {
       /* ignore */
     }
     setStage(null);
-  }
+  }, [clearAll]);
+
+  // Listen for dismiss event from registration, login or offline bypass
+  useEffect(() => {
+    const handleDismiss = () => finish();
+    window.addEventListener("shark-intro-dismiss", handleDismiss);
+    return () => window.removeEventListener("shark-intro-dismiss", handleDismiss);
+  }, [finish]);
+
+  // If user becomes authenticated while intro is showing, dismiss it immediately
+  useEffect(() => {
+    if (user && stage !== null) {
+      finish();
+    }
+  }, [user, stage, finish]);
 
   function playVideo() {
     try {
@@ -118,6 +136,7 @@ export default function SharkIntro() {
     } catch {
       /* ignore */
     }
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       try {
         localStorage.setItem(SEEN_KEY, "1");
@@ -126,9 +145,41 @@ export default function SharkIntro() {
       }
       return;
     }
-    // TEMP preview mode: show on every visit (owner review). Restore the
-    // `if (!seen || forced)` gate to go back to once-only.
+
+    // Never show intro on authentication or administrative paths
+    if (
+      pathname &&
+      (pathname.startsWith("/login") ||
+        pathname.startsWith("/admin") ||
+        pathname.startsWith("/api"))
+    ) {
+      return;
+    }
+
+    // If user has already seen the intro and it's not forced via ?intro=1, do not show
+    if (seen && !forced) {
+      return;
+    }
+
+    // If user is already authenticated (or cached), mark seen and skip
+    try {
+      const cached = localStorage.getItem("shark_cached_user");
+      if (cached && !forced) {
+        localStorage.setItem(SEEN_KEY, "1");
+        return;
+      }
+    } catch {}
+
+    if (user && !forced) {
+      try {
+        localStorage.setItem(SEEN_KEY, "1");
+      } catch {}
+      return;
+    }
+
+    // First-ever visit or forced via ?intro=1: show intro
     setStage("idle");
+
     return () => {
       clearAll();
       try {
@@ -138,13 +189,12 @@ export default function SharkIntro() {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pathname, user]);
 
   if (stage === null) return null;
 
   return (
     <div ref={overlayRef} className="shark-intro" role="dialog" aria-label={t("intro.aria")}>
-
       <video
         ref={(el) => {
           vidRef.current = el;
@@ -163,27 +213,37 @@ export default function SharkIntro() {
       <div className="shark-intro-frame" aria-hidden="true" />
 
       {stage === "idle" && (
-        <div className="shark-intro-content absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-          <div className="shark-intro-seal">
-          <svg width="84" height="84" viewBox="0 0 64 64" aria-hidden="true">
-            <rect x="2" y="2" width="60" height="60" rx="14" fill="#081120" stroke="#2AA198" strokeWidth="1.5" />
-            <path d="M21 48 C24 32 31 21 48 13 C44 26 42 36 42 48 Z" fill="#8B98A5" />
-            <rect x="12" y="44" width="40" height="3" rx="1.5" fill="#2AA198" />
-            <rect x="18" y="50" width="28" height="3" rx="1.5" fill="#2AA198" opacity="0.45" />
-          </svg>
-          </div>
-          <div>
-            <p className="shark-intro-wordmark">SHARK</p>
-            <p className="shark-intro-tagline">{t("intro.tagline")}</p>
-          </div>
+        <>
           <button
-            onClick={dive}
-            className="shark-dive-btn"
+            onClick={finish}
+            type="button"
+            aria-label="Skip intro"
+            className="absolute top-6 right-6 z-20 rounded-full border border-teal-400/30 bg-stone-900/80 px-4 py-1.5 text-xs font-bold text-teal-200 backdrop-blur-md transition hover:bg-stone-800 hover:text-white"
           >
-            {t("intro.start")}
+            Skip ✕
           </button>
-          <p className="shark-intro-sound">{t("intro.sound")}</p>
-        </div>
+          <div className="shark-intro-content absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
+            <div className="shark-intro-seal">
+              <svg width="84" height="84" viewBox="0 0 64 64" aria-hidden="true">
+                <rect x="2" y="2" width="60" height="60" rx="14" fill="#081120" stroke="#2AA198" strokeWidth="1.5" />
+                <path d="M21 48 C24 32 31 21 48 13 C44 26 42 36 42 48 Z" fill="#8B98A5" />
+                <rect x="12" y="44" width="40" height="3" rx="1.5" fill="#2AA198" />
+                <rect x="18" y="50" width="28" height="3" rx="1.5" fill="#2AA198" opacity="0.45" />
+              </svg>
+            </div>
+            <div>
+              <p className="shark-intro-wordmark">SHARK</p>
+              <p className="shark-intro-tagline">{t("intro.tagline")}</p>
+            </div>
+            <button
+              onClick={dive}
+              className="shark-dive-btn"
+            >
+              {t("intro.start")}
+            </button>
+            <p className="shark-intro-sound">{t("intro.sound")}</p>
+          </div>
+        </>
       )}
     </div>
   );

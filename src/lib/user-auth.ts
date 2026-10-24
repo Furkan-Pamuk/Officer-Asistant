@@ -65,14 +65,22 @@ const memoryStore: UserMemoryStore =
 // Durable File-Based Persistence
 // -------------------------------------------------------------
 
+const IS_SERVERLESS = Boolean(
+  process.env.VERCEL ||
+  process.env.AWS_LAMBDA_FUNCTION_NAME ||
+  process.env.LAMBDA_TASK_ROOT
+);
+
 const DATA_FILE_PATH =
   process.env.USER_DATA_FILE ||
-  path.join(process.cwd(), ".data", "users.json");
+  (IS_SERVERLESS
+    ? path.join("/tmp", "users.json")
+    : path.join(process.cwd(), ".data", "users.json"));
 
 function persistToDisk(): void {
   try {
     const dataDir = path.dirname(DATA_FILE_PATH);
-    if (!fs.existsSync(dataDir)) {
+    if (!fs.existsSync(/*turbopackIgnore: true*/ dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true, mode: 0o700 });
     }
     const payload = {
@@ -80,7 +88,7 @@ function persistToDisk(): void {
       sessions: Array.from(memoryStore.sessions.values()),
     };
     const tmp = `${DATA_FILE_PATH}.tmp.${crypto.randomBytes(4).toString("hex")}`;
-    fs.writeFileSync(tmp, JSON.stringify(payload, null, 2), { mode: 0o600 });
+    fs.writeFileSync(/*turbopackIgnore: true*/ tmp, JSON.stringify(payload, null, 2), { mode: 0o600 });
     fs.renameSync(tmp, DATA_FILE_PATH);
   } catch (err) {
     console.warn("[user-auth] Unable to persist to disk:", err);
@@ -89,8 +97,8 @@ function persistToDisk(): void {
 
 function loadFromDisk(): void {
   try {
-    if (!fs.existsSync(DATA_FILE_PATH)) return;
-    const raw = fs.readFileSync(DATA_FILE_PATH, "utf-8");
+    if (!fs.existsSync(/*turbopackIgnore: true*/ DATA_FILE_PATH)) return;
+    const raw = fs.readFileSync(/*turbopackIgnore: true*/ DATA_FILE_PATH, "utf-8");
     if (!raw.trim()) return;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed.users)) {

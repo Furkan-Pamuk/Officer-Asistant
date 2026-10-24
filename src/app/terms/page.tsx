@@ -5,6 +5,7 @@ import { useLocale } from "@/lib/i18n";
 // Bodies stay inline (data-driven); only h2 titles go through i18n.
 const SECTIONS: { key: string; p: string }[] = [
   { key: "terms.hWhat", p: "An offline-first preparation workspace for seafarers: check cards, checklists, notes, stores and planning tools. It does not replace official publications, company SMS procedures or the master's authority." },
+  { key: "terms.hSolas", p: "SOLAS Chapter V Non-Carriage Notice: Shark is strictly an operational preparation, informational, and training tool. It is NOT an Electronic Chart Display and Information System (ECDIS), does not satisfy carriage requirements under SOLAS Chapter V Regulation 19 or 27, and must NEVER be used as the primary means of navigation. Official paper charts, type-approved ECDIS, and flag-approved nautical publications remain legally mandatory." },
   { key: "terms.hLicensed", p: "SIRE 2.0 and CDI question banks are licensed publications. Shark ships original summaries only — always consult the official library or manual for exact wording before an inspection." },
   { key: "terms.hContent", p: "Notes, photos, voice recordings and uploads remain yours. Keep your own backups via Settings → Data export." },
   { key: "terms.hSubs", p: "Pro plans bill in USD through Stripe, renew per the chosen period, and can be cancelled any time with access until period end. Free plan stays free." },

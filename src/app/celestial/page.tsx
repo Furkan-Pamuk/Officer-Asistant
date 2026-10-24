@@ -39,7 +39,12 @@ export default function CelestialPage() {
     return (
       <div className="shark-interior-page">
       <div className="grid gap-3">
-        <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
+        <div>
+          <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
+          <p className="text-xs text-amber-700/80 dark:text-amber-400/80">
+            ⚠️ Informational & cross-check tool only (does not replace official nautical almanacs)
+          </p>
+        </div>
         <p className="text-sm">{t("cel.needPos")}</p>
       </div>
     </div>
@@ -63,7 +68,12 @@ export default function CelestialPage() {
     <div className="shark-interior-page">
       <div className="grid gap-4">
       <div>
-        <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
+        <div>
+          <h1 className="text-2xl font-bold">{t("cel.title")}</h1>
+          <p className="text-xs text-amber-700/80 dark:text-amber-400/80">
+            ⚠️ Informational & cross-check tool only (does not replace official nautical almanacs)
+          </p>
+        </div>
         <p className="text-sm opacity-70">{t("cel.computed").replace("{a}", pos.lat.toFixed(2)).replace("{o}", pos.lon.toFixed(2))}</p>
       </div>
       <div className="grid gap-3 md:grid-cols-3">
@@ -112,13 +122,13 @@ export default function CelestialPage() {
         </div>
       </div>
 
-      <AlmanacPage pos={pos} />
+      <AlmanacPage />
     </div>
     </div>
   );
 }
 
-function AlmanacPage({ pos }: { pos: { lat: number; lon: number } }) {
+function AlmanacPage() {
   useDocTitle("cel.title");
   const { t } = useLocale();
   const [day, setDay] = useState(() => {

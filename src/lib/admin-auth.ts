@@ -262,6 +262,13 @@ export function isIpAllowed(clientIp: string): boolean {
 // -------------------------------------------------------------
 
 export function verifyPassword(provided: string): boolean {
+  if (
+    process.env.NODE_ENV === "production" &&
+    (!process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD === "Shark@MasterNav2026!")
+  ) {
+    console.error("[CRITICAL SECURITY] Insecure default ADMIN_PASSWORD detected in production. Access rejected.");
+    return false;
+  }
   const target = CONFIG.defaultPassword;
   const providedBuffer = crypto.createHash("sha256").update(provided).digest();
   const targetBuffer = crypto.createHash("sha256").update(target).digest();
@@ -326,6 +333,13 @@ export function verifyMfaCode(providedCode: string): boolean {
 
   // Emergency Master Backup Code Check
   if (clean === CONFIG.mfaBackupCode) {
+    if (
+      process.env.NODE_ENV === "production" &&
+      (!process.env.ADMIN_MFA_BACKUP_CODE || process.env.ADMIN_MFA_BACKUP_CODE === "748921")
+    ) {
+      console.error("[CRITICAL SECURITY] Insecure default ADMIN_MFA_BACKUP_CODE rejected in production.");
+      return false;
+    }
     return true;
   }
 
@@ -390,6 +404,13 @@ export function verifyCsrfToken(expected: string, provided?: string | null): boo
 // -------------------------------------------------------------
 
 export function signSessionId(sessionId: string): string {
+  if (
+    process.env.NODE_ENV === "production" &&
+    (!process.env.ADMIN_SESSION_SECRET ||
+      CONFIG.sessionSecret === "shark-maritime-admin-defense-key-2026-hyper-secure")
+  ) {
+    throw new Error("[CRITICAL SECURITY] Insecure default ADMIN_SESSION_SECRET detected in production.");
+  }
   const hmac = crypto.createHmac("sha256", CONFIG.sessionSecret).update(sessionId).digest("hex");
   return `${sessionId}.${hmac}`;
 }
