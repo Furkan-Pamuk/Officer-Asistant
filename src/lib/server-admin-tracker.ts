@@ -46,6 +46,33 @@ export interface AdminMetrics {
   avgLatencyMs: number;
   categoryBreakdown: Record<string, number>;
   rankBreakdown: Record<string, number>;
+  endpointBreakdown: Record<string, number>;
+  modelBreakdown: Record<string, number>;
+}
+
+export interface BreakdownEntry {
+  total: number;
+  success: number;
+  failed: number;
+  successRate: number;
+  avgLatencyMs: number;
+}
+
+export interface PerUserStats {
+  total: number;
+  success: number;
+  failed: number;
+  successRate: number;
+  avgLatencyMs: number;
+  byEndpoint: Record<string, BreakdownEntry>;
+  byModel: Record<string, BreakdownEntry>;
+  byCategory: Record<string, number>;
+}
+
+export interface UserDetail {
+  user: AdminUser;
+  stats: PerUserStats;
+  logs: ApiActivityLog[];
 }
 
 // Initial realistic crew/officer users
@@ -231,6 +258,30 @@ const INITIAL_LOGS: ApiActivityLog[] = [
   },
 ];
 
+// Seed baselines: INITIAL_USERS totals already include INITIAL_LOGS activity,
+// so reconciled totals = baseline + (current logs - initial logs for that user).
+// This keeps seed history (e.g. 28) and makes the first tracked request increment (28->29).
+const SEED_BASELINE: Record<string, { total: number; success: number; failed: number }> = {};
+for (const u of INITIAL_USERS) {
+  SEED_BASELINE[u.id] = {
+    total: u.totalRequests,
+    success: u.successfulRequests,
+    failed: u.failedRequests,
+  };
+}
+
+const SEED_INITIAL_LOG_COUNT: Record<string, { total: number; success: number; failed: number }> = {};
+for (const l of INITIAL_LOGS) {
+  const c = (SEED_INITIAL_LOG_COUNT[l.userId] = SEED_INITIAL_LOG_COUNT[l.userId] || {
+    total: 0,
+    success: 0,
+    failed: 0,
+  });
+  c.total += 1;
+  if (l.status === "success") c.success += 1;
+  else c.failed += 1;
+}
+
 // Persistent state storage in memory with backup to data folder
 class AdminTrackerStore {
   private users: AdminUser[] = [...INITIAL_USERS];
@@ -274,11 +325,138 @@ class AdminTrackerStore {
   }
 
   public getUsers(): AdminUser[] {
-    return [...this.users].sort((a, b) => b.totalRequests - a.totalRequests);
+    return this.getReconciledUsers();
   }
 
   public getLogs(limit = 100): ApiActivityLog[] {
-    return this.logs.slice(0, limit);
+    return [...this.logs]
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      .slice(0, limit);
+  }
+
+  public getLogsForUser(userId: string, limit = 100): ApiActivityLog[] {
+    return this.logs
+      .filter((l) => l.userId === userId)
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      .slice(0, limit);
+  }
+
+  /**
+   * Reconciliation: INITIAL_USERS totals are the baseline (they already include
+   * INITIAL_LOGS), plus the delta of logs tracked since baseline.
+   * First tracked request increments (28->29), never wipes seed history.
+   */
+  public getReconciledUsers(): AdminUser[] {
+    return this.users
+      .map((u) => {
+        const userLogs = this.logs.filter((l) => l.userId === u.id);
+        const baseline = SEED_BASELINE[u.id];
+        // Unknown (newly created) users have no seed baseline — use stored counters.
+        if (!baseline) return { ...u };
+        const initial = SEED_INITIAL_LOG_COUNT[u.id] || { total: 0, success: 0, failed: 0 };
+        const success = userLogs.filter((l) => l.status === "success").length;
+        const failed = userLogs.length - success;
+        const newest = [...userLogs].sort(
+          (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        )[0];
+        // Clamp deltas at 0 so trimmed/persisted logs can never drop below baseline.
+        const total = baseline.total + Math.max(0, userLogs.length - initial.total);
+        const reconciledSuccess = baseline.success + Math.max(0, success - initial.success);
+        const reconciledFailed = baseline.failed + Math.max(0, failed - initial.failed);
+        return {
+          ...u,
+          totalRequests: Math.max(u.totalRequests, total),
+          successfulRequests: Math.max(u.successfulRequests, reconciledSuccess),
+          failedRequests: Math.max(u.failedRequests, reconciledFailed),
+          lastActiveAt:
+            newest && newest.timestamp > u.lastActiveAt ? newest.timestamp : u.lastActiveAt,
+        };
+      })
+      .sort((a, b) => b.totalRequests - a.totalRequests);
+  }
+
+  public getPerUserStats(userId: string): PerUserStats | null {
+    const stored = this.users.find((u) => u.id === userId);
+    if (!stored) return null;
+    const userLogs = this.logs.filter((l) => l.userId === userId);
+
+    const logSuccess = userLogs.filter((l) => l.status === "success").length;
+    const logFailed = userLogs.length - logSuccess;
+    const totalLatency = userLogs.reduce((acc, l) => acc + (l.latencyMs || 0), 0);
+
+    // Totals match getReconciledUsers(): seed baseline + delta since baseline.
+    const baseline = SEED_BASELINE[userId];
+    let total: number;
+    let success: number;
+    let failed: number;
+    if (!baseline) {
+      total = stored.totalRequests;
+      success = stored.successfulRequests;
+      failed = stored.failedRequests;
+    } else {
+      const initial = SEED_INITIAL_LOG_COUNT[userId] || { total: 0, success: 0, failed: 0 };
+      total = Math.max(
+        stored.totalRequests,
+        baseline.total + Math.max(0, userLogs.length - initial.total)
+      );
+      success = Math.max(
+        stored.successfulRequests,
+        baseline.success + Math.max(0, logSuccess - initial.success)
+      );
+      failed = Math.max(
+        stored.failedRequests,
+        baseline.failed + Math.max(0, logFailed - initial.failed)
+      );
+    }
+
+    const groupBy = (key: (l: ApiActivityLog) => string) => {
+      const groups: Record<string, ApiActivityLog[]> = {};
+      for (const log of userLogs) {
+        const k = key(log) || "unknown";
+        (groups[k] = groups[k] || []).push(log);
+      }
+      const out: Record<string, BreakdownEntry> = {};
+      for (const [k, items] of Object.entries(groups)) {
+        const s = items.filter((i) => i.status === "success").length;
+        const f = items.length - s;
+        const lat = items.reduce((acc, i) => acc + (i.latencyMs || 0), 0);
+        out[k] = {
+          total: items.length,
+          success: s,
+          failed: f,
+          successRate: items.length > 0 ? Math.round((s / items.length) * 100) : 100,
+          avgLatencyMs: items.length > 0 ? Math.round(lat / items.length) : 0,
+        };
+      }
+      return out;
+    };
+
+    const byCategory: Record<string, number> = {};
+    for (const log of userLogs) {
+      if (log.status === "success") {
+        const cat = log.category || "other";
+        byCategory[cat] = (byCategory[cat] || 0) + 1;
+      }
+    }
+
+    return {
+      total,
+      success,
+      failed,
+      successRate: total > 0 ? Math.round((success / total) * 100) : 100,
+      avgLatencyMs: userLogs.length > 0 ? Math.round(totalLatency / userLogs.length) : 0,
+      byEndpoint: groupBy((l) => l.endpoint),
+      byModel: groupBy((l) => l.model),
+      byCategory,
+    };
+  }
+
+  public getUserDetail(userId: string): UserDetail | null {
+    const reconciled = this.getReconciledUsers().find((u) => u.id === userId);
+    if (!reconciled) return null;
+    const stats = this.getPerUserStats(userId);
+    if (!stats) return null;
+    return { user: reconciled, stats, logs: this.getLogsForUser(userId, 100) };
   }
 
   public trackApiRequest(entry: {
@@ -359,13 +537,15 @@ class AdminTrackerStore {
   }
 
   public getMetrics(): AdminMetrics {
-    const totalRequests = this.users.reduce((acc, u) => acc + u.totalRequests, 0);
-    const successfulRequests = this.users.reduce((acc, u) => acc + u.successfulRequests, 0);
-    const failedRequests = this.users.reduce((acc, u) => acc + u.failedRequests, 0);
+    // Totals come from reconciled users so KPI cards always match the user table sum.
+    const reconciled = this.getReconciledUsers();
+    const totalRequests = reconciled.reduce((acc, u) => acc + u.totalRequests, 0);
+    const successfulRequests = reconciled.reduce((acc, u) => acc + u.successfulRequests, 0);
+    const failedRequests = reconciled.reduce((acc, u) => acc + u.failedRequests, 0);
     const successRate = totalRequests > 0 ? Math.round((successfulRequests / totalRequests) * 100) : 100;
 
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    const activeUsersCount = this.users.filter((u) => u.lastActiveAt > oneDayAgo).length;
+    const activeUsersCount = reconciled.filter((u) => u.lastActiveAt > oneDayAgo).length;
 
     const categoryBreakdown: Record<string, number> = {
       "spare-deck": 0,
@@ -377,6 +557,9 @@ class AdminTrackerStore {
 
     const rankBreakdown: Record<string, number> = {};
 
+    const endpointBreakdown: Record<string, number> = {};
+    const modelBreakdown: Record<string, number> = {};
+
     let totalLatency = 0;
     let latencyCount = 0;
     let totalIdentified = 0;
@@ -385,6 +568,12 @@ class AdminTrackerStore {
       if (log.latencyMs) {
         totalLatency += log.latencyMs;
         latencyCount += 1;
+      }
+      if (log.endpoint) {
+        endpointBreakdown[log.endpoint] = (endpointBreakdown[log.endpoint] || 0) + 1;
+      }
+      if (log.model) {
+        modelBreakdown[log.model] = (modelBreakdown[log.model] || 0) + 1;
       }
       if (log.status === "success" && log.productId) {
         totalIdentified += 1;
@@ -400,24 +589,31 @@ class AdminTrackerStore {
       successfulRequests,
       failedRequests,
       successRate,
-      activeUsersCount: Math.max(activeUsersCount, 1),
+      activeUsersCount,
       totalUsersCount: this.users.length,
       totalProductsIdentified: totalIdentified,
       avgLatencyMs: latencyCount > 0 ? Math.round(totalLatency / latencyCount) : 740,
       categoryBreakdown,
       rankBreakdown,
+      endpointBreakdown,
+      modelBreakdown,
     };
   }
 
   public resetData() {
-    this.users = [...INITIAL_USERS];
-    this.logs = [...INITIAL_LOGS];
+    this.users = INITIAL_USERS.map((u) => ({ ...u }));
+    this.logs = INITIAL_LOGS.map((l) => ({ ...l }));
     this.saveToDisk();
   }
 }
 
 // Global singleton instance for server session
-const globalStore = (globalThis as any).__adminTrackerStore || new AdminTrackerStore();
-(globalThis as any).__adminTrackerStore = globalStore;
+const globalForAdminTracker = globalThis as unknown as {
+  __adminTrackerStore?: AdminTrackerStore;
+};
 
-export const serverAdminTracker = globalStore as AdminTrackerStore;
+const globalStore =
+  globalForAdminTracker.__adminTrackerStore || new AdminTrackerStore();
+globalForAdminTracker.__adminTrackerStore = globalStore;
+
+export const serverAdminTracker = globalStore;
