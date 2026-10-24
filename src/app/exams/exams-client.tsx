@@ -3,20 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { EXAM_RANKS, EXAM_TOPLAM_SORU, EXAM_TOPLAM_DENEME } from "@/lib/exam-data";
-import { DENEMELER as D_STCW } from "@/lib/exam-data/stcw-temel";
-import { DENEMELER as D_MZ } from "@/lib/exam-data/makine-zabiti";
-import { DENEMELER as D_UVZ } from "@/lib/exam-data/uzakyol-vardiya-zabiti";
-import { DENEMELER as D_VZ } from "@/lib/exam-data/vardiya-zabiti";
-import { DENEMELER as D_UIZ } from "@/lib/exam-data/uzakyol-i-zabiti";
-import { DENEMELER as D_UBM } from "@/lib/exam-data/uzakyol-bas-muhendis";
-import { DENEMELER as D_UVM } from "@/lib/exam-data/uzakyol-vardiya-muhendisi";
-import { DENEMELER_EN as E_STCW } from "@/lib/exam-data/en/stcw-temel";
-import { DENEMELER_EN as E_MZ } from "@/lib/exam-data/en/makine-zabiti";
-import { DENEMELER_EN as E_UVZ } from "@/lib/exam-data/en/uzakyol-vardiya-zabiti";
-import { DENEMELER_EN as E_VZ } from "@/lib/exam-data/en/vardiya-zabiti";
-import { DENEMELER_EN as E_UIZ } from "@/lib/exam-data/en/uzakyol-i-zabiti";
-import { DENEMELER_EN as E_UBM } from "@/lib/exam-data/en/uzakyol-bas-muhendis";
-import { DENEMELER_EN as E_UVM } from "@/lib/exam-data/en/uzakyol-vardiya-muhendisi";
 import type { HavuzDeneme } from "@/lib/exams";
 import { useLocale } from "@/lib/i18n";
 import { useDocTitle } from "@/lib/doctitle";
@@ -24,28 +10,31 @@ import { useDocTitle } from "@/lib/doctitle";
 interface EnSoru { no: number; soru_en: string; siklar_en: string[] }
 interface EnDeneme { ders: string; deneme: number; sorular: EnSoru[] }
 
-const RANK_DATA: Record<string, HavuzDeneme[]> = {
-  "stcw-temel": D_STCW,
-  "makine-zabiti": D_MZ,
-  "uzakyol-vardiya-zabiti": D_UVZ,
-  "vardiya-zabiti": D_VZ,
-  "uzakyol-i-zabiti": D_UIZ,
-  "uzakyol-bas-muhendis": D_UBM,
-  "uzakyol-vardiya-muhendisi": D_UVM,
-};
+async function loadRankData(slug: string): Promise<HavuzDeneme[]> {
+  switch (slug) {
+    case "stcw-temel": return (await import("@/lib/exam-data/stcw-temel")).DENEMELER;
+    case "makine-zabiti": return (await import("@/lib/exam-data/makine-zabiti")).DENEMELER;
+    case "uzakyol-vardiya-zabiti": return (await import("@/lib/exam-data/uzakyol-vardiya-zabiti")).DENEMELER;
+    case "vardiya-zabiti": return (await import("@/lib/exam-data/vardiya-zabiti")).DENEMELER;
+    case "uzakyol-i-zabiti": return (await import("@/lib/exam-data/uzakyol-i-zabiti")).DENEMELER;
+    case "uzakyol-bas-muhendis": return (await import("@/lib/exam-data/uzakyol-bas-muhendis")).DENEMELER;
+    case "uzakyol-vardiya-muhendisi": return (await import("@/lib/exam-data/uzakyol-vardiya-muhendisi")).DENEMELER;
+    default: return [];
+  }
+}
 
-// Answers live in localStorage and params are runtime-only: never prerender
-// (see page.tsx `instant`).
-
-const RANK_EN_QA: Record<string, EnDeneme[]> = {
-  "stcw-temel": E_STCW,
-  "makine-zabiti": E_MZ,
-  "uzakyol-vardiya-zabiti": E_UVZ,
-  "vardiya-zabiti": E_VZ,
-  "uzakyol-i-zabiti": E_UIZ,
-  "uzakyol-bas-muhendis": E_UBM,
-  "uzakyol-vardiya-muhendisi": E_UVM,
-};
+async function loadRankEnQa(slug: string): Promise<EnDeneme[]> {
+  switch (slug) {
+    case "stcw-temel": return (await import("@/lib/exam-data/en/stcw-temel")).DENEMELER_EN;
+    case "makine-zabiti": return (await import("@/lib/exam-data/en/makine-zabiti")).DENEMELER_EN;
+    case "uzakyol-vardiya-zabiti": return (await import("@/lib/exam-data/en/uzakyol-vardiya-zabiti")).DENEMELER_EN;
+    case "vardiya-zabiti": return (await import("@/lib/exam-data/en/vardiya-zabiti")).DENEMELER_EN;
+    case "uzakyol-i-zabiti": return (await import("@/lib/exam-data/en/uzakyol-i-zabiti")).DENEMELER_EN;
+    case "uzakyol-bas-muhendis": return (await import("@/lib/exam-data/en/uzakyol-bas-muhendis")).DENEMELER_EN;
+    case "uzakyol-vardiya-muhendisi": return (await import("@/lib/exam-data/en/uzakyol-vardiya-muhendisi")).DENEMELER_EN;
+    default: return [];
+  }
+}
 
 const HARFLER = ["A", "B", "C", "D", "E"];
 const LS_KEY = "oa-exam-v1";
@@ -140,36 +129,44 @@ function ExamsContent() {
   useDocTitle("exam.title");
   const params = useSearchParams();
   const { t } = useLocale();
-  const [sel, setSel] = useState({ rank: "", ders: "", denemeNo: 0 });
-  const { rank, ders, denemeNo } = sel;
+  const rank = params.get("rank") ?? "";
+  const ders = params.get("ders") ?? "";
+  const denemeNo = Number(params.get("deneme") ?? 0);
   const meta = EXAM_RANKS.find((r) => r.slug === rank) ?? null;
 
-  useEffect(() => {
-    setSel({
-      rank: params.get("rank") ?? "",
-      ders: params.get("ders") ?? "",
-      denemeNo: Number(params.get("deneme") ?? 0),
-    });
-  }, [params]);
-
   const [denemeler, setDenemeler] = useState<HavuzDeneme[] | null>(null);
-  const [cevaplar, setCevaplar] = useState<Cevaplar>({});
+  const [enListe, setEnListe] = useState<EnDeneme[]>([]);
+  const [cevaplar, setCevaplar] = useState<Cevaplar>(() => (typeof window !== "undefined" ? loadCevaplar() : {}));
   const [yuklendi, setYuklendi] = useState(false);
   const [hata, setHata] = useState("");
-  const [lang, setLang] = useState<Lang>("tr");
+  const [lang, setLang] = useState<Lang>(() => (typeof window !== "undefined" ? loadLang() : "tr"));
 
   useEffect(() => {
-    setCevaplar(loadCevaplar());
-    setLang(loadLang());
-  }, []);
+    let cancelled = false;
+    const slug = meta?.slug;
+    if (!slug) return;
 
-  useEffect(() => {
-    if (!meta) {
-      setDenemeler(null);
-      return;
-    }
-    setDenemeler(RANK_DATA[meta.slug] ?? null);
-    setYuklendi(true);
+    setYuklendi(false);
+    setDenemeler(null);
+    setHata("");
+
+    Promise.all([loadRankData(slug), loadRankEnQa(slug)])
+      .then(([data, enData]) => {
+        if (!cancelled) {
+          setDenemeler(data);
+          setEnListe(enData);
+          setYuklendi(true);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setHata(String(err));
+          setYuklendi(true);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [meta?.slug]);
 
   function kaydet(key: string, next: Record<number, number>) {
@@ -294,7 +291,7 @@ function ExamsContent() {
       </div>
     );
   }
-  return <Quiz anahtar={`${meta.slug}/${ders}/${aktif.deneme}`} deneme={aktif} metaAd={meta.ad} cevaplar={cevaplar} kaydet={kaydet} lang={lang} setLang={setLang} enListe={RANK_EN_QA[meta.slug] ?? []} />;
+  return <Quiz anahtar={`${meta.slug}/${ders}/${aktif.deneme}`} deneme={aktif} metaAd={meta.ad} cevaplar={cevaplar} kaydet={kaydet} lang={lang} setLang={setLang} enListe={enListe} />;
 }
 
 function Quiz({ anahtar, deneme, metaAd, cevaplar, kaydet, lang, setLang, enListe }: {

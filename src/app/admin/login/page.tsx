@@ -7,9 +7,9 @@ import { useDocTitle } from "@/lib/doctitle";
 
 interface MfaInfo {
   enabled: boolean;
-  secret: string;
+  secret?: string;
   backupCodeHint: string;
-  currentSampleCode: string;
+  currentSampleCode?: string;
 }
 
 function AdminLoginForm() {
@@ -179,13 +179,15 @@ function AdminLoginForm() {
                 <label className="block text-xs font-bold text-stone-700 dark:text-stone-300">
                   Two-Factor Passcode (TOTP / Emergency Code)
                 </label>
-                <button
-                  type="button"
-                  onClick={() => setShowHelper(!showHelper)}
-                  className="text-[11px] font-semibold text-amber-700 hover:underline dark:text-amber-400"
-                >
-                  {showHelper ? "Hide Test Credentials" : "Show Test Credentials"}
-                </button>
+                {mfaInfo?.currentSampleCode && (
+                  <button
+                    type="button"
+                    onClick={() => setShowHelper(!showHelper)}
+                    className="text-[11px] font-semibold text-amber-700 hover:underline dark:text-amber-400"
+                  >
+                    {showHelper ? "Hide Dev Credentials" : "Show Dev Credentials"}
+                  </button>
+                )}
               </div>
               <div className="relative">
                 <input
@@ -254,7 +256,7 @@ function AdminLoginForm() {
           </form>
 
           {/* Test Credentials Helper Panel */}
-          {showHelper && (
+          {showHelper && mfaInfo?.currentSampleCode && (
             <div className="mt-5 rounded-2xl border border-amber-300/80 bg-amber-50/80 p-4 text-xs dark:border-stone-800 dark:bg-stone-900">
               <h3 className="font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
                 <span>🔑</span> Default Testing Credentials

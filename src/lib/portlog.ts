@@ -1,6 +1,5 @@
 import { db, uid } from "./db";
 import { PORTS, type Port } from "./ports";
-import type { Voyage } from "./types";
 
 const RADIUS_KM = 25;
 

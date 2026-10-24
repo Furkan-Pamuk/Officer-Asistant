@@ -1,17 +1,17 @@
 const CACHE = "officer-assistant-v7-searoute";
 const CORE = ["/", "/dashboard", "/inspections", "/checklists", "/manifest.webmanifest"];
 
-self.addEventListener("install", (event: ExtendableEvent) => {
-  event.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => (self as unknown as { skipWaiting(): void }).skipWaiting()));
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
 });
 
-self.addEventListener("activate", (event: ExtendableEvent) => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
   );
 });
 
-self.addEventListener("fetch", (event: FetchEvent) => {
+self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   // Range requests (video streaming) must bypass the cache: responding
   // with a full 200 to a Range request breaks media playback.

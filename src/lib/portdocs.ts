@@ -1,5 +1,5 @@
 import { db } from "./db";
-import type { PortDocData, PortDocRow } from "./types";
+import type { PortDocData } from "./types";
 
 export interface PortDocField {
   key: string;

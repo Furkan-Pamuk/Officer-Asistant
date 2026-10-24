@@ -29,6 +29,21 @@ interface ParsedCatalogItem {
   tokens: string[];
 }
 
+interface RawVisionOutput {
+  detectedText?: string;
+  itemType?: string;
+  specs?: string;
+  category?: string;
+  suggestedImpaCode?: string;
+  confidence?: number;
+  description?: string;
+}
+
+interface GeminiModel {
+  name?: string;
+  supportedGenerationMethods?: string[];
+}
+
 // In-memory indexed structures for all 6,795 IMPA items
 let cachedCatalogItems: ParsedCatalogItem[] = [];
 let cachedCodeMap: Map<string, ParsedCatalogItem> = new Map();
@@ -123,8 +138,8 @@ async function discoverSupportedModels(apiKey: string, preferredModel = "gemini-
     }
 
     const supported: string[] = data.models
-      .filter((m: any) => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes("generateContent"))
-      .map((m: any) => String(m.name || "").replace(/^models\//, ""))
+      .filter((m: GeminiModel) => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes("generateContent"))
+      .map((m: GeminiModel) => String(m.name || "").replace(/^models\//, ""))
       .filter(Boolean);
 
     if (supported.length === 0) {
@@ -424,7 +439,7 @@ OUTPUT STRICT JSON ONLY:
     // 5. Discover / Use Supported Gemini Flash Lite Models (cached)
     const modelsToTry = await discoverSupportedModels(resolvedGoogleKey, requestedModel);
 
-    let rawVisionResult: any = null;
+    let rawVisionResult: RawVisionOutput | null = null;
     let successfulModel = requestedModel;
     let lastApiError = "";
 
@@ -487,8 +502,8 @@ OUTPUT STRICT JSON ONLY:
             succeeded = true;
             break;
           }
-        } catch (err: any) {
-          lastApiError = err?.message || String(err);
+        } catch (err: unknown) {
+          lastApiError = err instanceof Error ? err.message : String(err);
           if (lastApiError.includes("API_KEY_INVALID")) break;
         }
       }
@@ -519,7 +534,7 @@ OUTPUT STRICT JSON ONLY:
     }
 
     // Check if the image was unidentifiable
-    if (rawVisionResult.confidence < 0.2 && !rawVisionResult.itemType && !rawVisionResult.suggestedImpaCode) {
+    if ((rawVisionResult.confidence ?? 0) < 0.2 && !rawVisionResult.itemType && !rawVisionResult.suggestedImpaCode) {
       const unidentifiableError =
         "Product Match Failed: The AI could not identify a recognizable marine store product in this image. Please ensure the store item or its label is well-lit and in focus, then retake the photo.";
 
@@ -594,8 +609,8 @@ OUTPUT STRICT JSON ONLY:
       authStatus: "Authenticated via Google API Key",
     });
 
-  } catch (err: any) {
-    const errorMsg = err?.message || "Internal server error during AI image analysis";
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Internal server error during AI image analysis";
     serverAdminTracker.trackApiRequest({
       userId,
       userName,
@@ -616,7 +631,7 @@ OUTPUT STRICT JSON ONLY:
 /**
  * Parses JSON even if wrapped in markdown codeblocks
  */
-function parseStrictJSON(text: string): any {
+function parseStrictJSON(text: string): RawVisionOutput | null {
   try {
     let clean = text.trim();
     if (clean.startsWith("```json")) {

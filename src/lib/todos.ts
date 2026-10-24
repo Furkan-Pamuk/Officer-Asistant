@@ -255,7 +255,7 @@ export function seedTasksFor(contractId: string, now: string): TodoTask[] {
 }
 
 export function defaultListsFor(contractId: string, now: string): TodoList[] {
-  return DEFAULT_LISTS.map((l, i) => ({
+  return DEFAULT_LISTS.map((l) => ({
     id: `${contractId}_list_${l.interval}`,
     contractId,
     name: l.name,

@@ -29,8 +29,8 @@ for (const [a, b, pass] of network.edges) {
   if (["dover", "northwest", "northeast", "corinth"].includes(name)) continue;
   add(a, b, name);
 }
-function nearest(point: {lat:number;lon:number}, count = 64, filter = (_n: Node) => true): Link[] {
-  return nodes.map((n, node) => ({ node, nm: filter(n) ? haversineNm(point.lat, point.lon, n.lat, n.lon) : Infinity }))
+function nearest(point: {lat:number;lon:number}, count = 64, filter?: (n: Node) => boolean): Link[] {
+  return nodes.map((n, node) => ({ node, nm: (!filter || filter(n)) ? haversineNm(point.lat, point.lon, n.lat, n.lon) : Infinity }))
     .sort((a, b) => a.nm - b.nm).slice(0, count).filter(l => Number.isFinite(l.nm));
 }
 // Match to nearby water-visible network vertices, not a distant ocean gateway.

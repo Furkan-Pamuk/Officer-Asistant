@@ -5,7 +5,7 @@ const RAD = Math.PI / 180;
 const DEG = 180 / Math.PI;
 
 function dayOfYear(d: Date) {
-  return Math.floor((Date.UTC(d.getUTCFullYear(), d.getMonth(), d.getDate()) - Date.UTC(d.getUTCFullYear(), 0, 0)) / 86400000);
+  return Math.floor((Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - Date.UTC(d.getUTCFullYear(), 0, 0)) / 86400000);
 }
 
 function solarDeclination(day: number) {
@@ -58,7 +58,9 @@ export function amplitude(lat: number, when: "rising" | "setting", date = new Da
   const sinAmp = Math.sin(decl) / Math.cos(lat * RAD);
   const amp = Math.asin(Math.min(1, Math.max(-1, sinAmp))) * DEG; // deg from E/W towards N/S
   const base = when === "rising" ? 90 : 270;
-  const sign = decl >= 0 ? -1 : 1; // N decl: rising bears N of E
+  // Rising: N decl bears N of E (90 - Amp), S decl bears S of E (90 + Amp).
+  // Setting: N decl bears N of W (270 + Amp), S decl bears S of W (270 - Amp).
+  const sign = when === "rising" ? (decl >= 0 ? -1 : 1) : (decl >= 0 ? 1 : -1);
   return Math.round(((base + sign * Math.abs(amp)) % 360 + 360) % 360 * 10) / 10;
 }
 

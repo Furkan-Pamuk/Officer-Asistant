@@ -54,7 +54,7 @@ function BleedPic() {
       <rect x="15" y="38" width="90" height="16" rx="8" fill="#0f172a" />
       <path d="M60,38 L60,26" stroke="#dc2626" strokeWidth="7" strokeLinecap="round" />
       <path d="M48,26 L72,26" stroke="#dc2626" strokeWidth="7" strokeLinecap="round" />
-      <text x="60" y="76" textAnchor="middle" fontSize="9" fontWeight="800" fill="#475569">press hard · don't lift</text>
+      <text x="60" y="76" textAnchor="middle" fontSize="9" fontWeight="800" fill="#475569">press hard · don&apos;t lift</text>
       <text x="60" y="86" textAnchor="middle" fontSize="9" fontWeight="800" fill="#475569">note tourniquet time</text>
     </Pic>
   );

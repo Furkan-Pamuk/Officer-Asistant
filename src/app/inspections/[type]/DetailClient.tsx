@@ -33,7 +33,7 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
   const info = infoBase ? withOv(infoBase, cov(o, "inspTypes", infoBase.id)) : undefined;
   const [dept, setDept] = useState<"all" | "bridge" | "deck" | "engine" | "safety">("all");
   const [show, setShow] = useState<"all" | "done" | "todo">("all");
-  const [contractId, setContractId] = useState<string | null>(null);
+  const [contractId] = useState<string | null>(() => getActiveContractId());
   const [vesselFlag, setVesselFlag] = useState("");
   const [flagScope, setFlagScope] = useState<"all" | "general" | "flag">("all");
   const progress = useLiveQuery(
@@ -43,7 +43,6 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
 
   useEffect(() => {
     const id = getActiveContractId();
-    setContractId(id);
     if (id) db.contracts.get(id).then((c) => setVesselFlag(c?.flag ?? ""));
     seedChecklistsIfEmpty();
   }, []);
@@ -68,23 +67,15 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
       return !!vesselFlag && (c.flags?.includes(vesselFlag) ?? false);
     });
 
-  if (!info) return <p>{t("insp.unknown")}</p>;
-
   // Optimistic ticks: instant UI, Dexie write in background, live query confirms.
   const [pending, setPending] = useState<Record<string, boolean>>({});
-  useEffect(() => {
-    setPending((prev) => {
-      const keys = Object.keys(prev);
-      if (!keys.length) return prev;
-      const next = { ...prev };
-      let changed = false;
-      for (const k of keys) {
-        if (doneMap.has(k) === prev[k]) { delete next[k]; changed = true; }
-      }
-      return changed ? next : prev;
-    });
-  }, [doneMap]);
-  const isDone = useCallback((id: string) => (id in pending ? pending[id] : doneMap.has(id)), [pending, doneMap]);
+  const isDone = useCallback((id: string) => {
+    if (id in pending) {
+      if (doneMap.has(id) === pending[id]) return doneMap.has(id);
+      return pending[id];
+    }
+    return doneMap.has(id);
+  }, [pending, doneMap]);
 
   const doneCount = cards.filter((c) => isDone(c.id)).length;
 
@@ -113,9 +104,11 @@ export default function DetailClient({ params }: { params: Promise<{ type: strin
     } catch {
       setPending((p) => { const n = { ...p }; delete n[cardId]; return n; });
     }
-  }, [contractId, pending, doneMap]);
+  }, [contractId, pending, doneMap, t]);
 
   const visible = show === "done" ? cards.filter((c) => isDone(c.id)) : show === "todo" ? cards.filter((c) => !isDone(c.id)) : cards;
+
+  if (!info) return <p>{t("insp.unknown")}</p>;
 
   if (!contractId) {
     return (

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
 import PortLogPanel from "@/components/PortLogPanel";
@@ -156,10 +156,13 @@ export default function RoutePage() {
   const idRef = useRef(1);
   const fitKeyRef = useRef("");
 
-  // Stable snapshot for Leaflet callbacks (registered once).
+  // Stable snapshots and handlers for Leaflet callbacks (registered once).
   const selRef = useRef({ from, to, editMode });
-  selRef.current = { from, to, editMode };
   const planRef = useRef<RoutePlan | null>(null);
+  const pickPortRef = useRef<(code: string) => void>(() => {});
+  const insertCustomAtRef = useRef<(lat: number, lon: number, trackIdx?: number) => boolean>(() => false);
+  const moveWaypointRef = useRef<(index: number, lat: number, lon: number) => boolean>(() => false);
+  const removeWaypointRef = useRef<(index: number) => boolean>(() => false);
 
   useEffect(() => {
     try {
@@ -169,6 +172,7 @@ export default function RoutePage() {
           from?: string; to?: string; speed?: string; closed?: string[];
           customs?: { id?: number; lat?: number; lon?: number }[]; avoid?: string[]; seamarks?: boolean; manual?: unknown;
         };
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (s.from && PORTS.some((p) => p.code === s.from)) setFrom(s.from);
         if (s.to && PORTS.some((p) => p.code === s.to)) setTo(s.to);
         if (s.speed) setSpeed(s.speed);
@@ -210,7 +214,6 @@ export default function RoutePage() {
     return planRoute(from, to, closed);
   }, [from, to, customs, avoid, closed]);
   const plan = useMemo(() => editedPoints ? planEditedTrack(from, to, editedPoints) : automaticPlan, [from, to, editedPoints, automaticPlan]);
-  planRef.current = plan;
 
   const displayLegs = useMemo(() => (plan ? mergeLegs(plan.legs) : []), [plan]);
 
@@ -260,10 +263,8 @@ export default function RoutePage() {
       setAvoid([]);
     }
   }
-  const pickPortRef = useRef(pickPort);
-  pickPortRef.current = pickPort;
 
-  function commitTrack(points: TrackPoint[], message = t("route.onLandStop")): boolean {
+  const commitTrack = useCallback((points: TrackPoint[], message = t("route.onLandStop")): boolean => {
     const previous = planRef.current?.points;
     if (!previous || !canEditTrack(previous, points)) { flashNotice(message); return false; }
     setEditedPoints(points);
@@ -271,9 +272,9 @@ export default function RoutePage() {
     setAvoid([]);
     setNotice("");
     return true;
-  }
+  }, [t]);
 
-  function insertCustomAt(lat: number, lon: number, trackIdx?: number): boolean {
+  const insertCustomAt = useCallback((lat: number, lon: number, trackIdx?: number): boolean => {
     const points = planRef.current?.points;
     if (!points || points.length < 2) return false;
     if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90) { flashNotice(t("route.onLandStop")); return false; }
@@ -282,35 +283,39 @@ export default function RoutePage() {
     const at = Math.max(1, Math.min(points.length - 1, leg + 1));
     const point: TrackPoint = { id: `c:manual-${Date.now()}-${idRef.current++}`, kind: "custom", lat, lon, label: t("route.stop").replace("{n}", String(at)) };
     return commitTrack([...points.slice(0, at), point, ...points.slice(at)]);
-  }
+  }, [t, commitTrack]);
 
-  function moveWaypoint(index: number, lat: number, lon: number): boolean {
+  const moveWaypoint = useCallback((index: number, lat: number, lon: number): boolean => {
     const points = planRef.current?.points;
     if (!points || index <= 0 || index >= points.length - 1) return false;
     if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90) { flashNotice(t("route.onLandDrag")); return false; }
     const moved: TrackPoint = { ...points[index], lat, lon: wrapLon(lon), kind: "custom", id: points[index].kind === "custom" ? points[index].id : `c:manual-${Date.now()}-${idRef.current++}` };
     return commitTrack(points.map((p, i) => i === index ? moved : p), t("route.onLandDrag"));
-  }
+  }, [t, commitTrack]);
 
-  function removeWaypoint(index: number): boolean {
+  const removeWaypoint = useCallback((index: number): boolean => {
     const points = planRef.current?.points;
     if (!points || index <= 0 || index >= points.length - 1) return false;
     return commitTrack(points.filter((_, i) => i !== index));
-  }
+  }, [commitTrack]);
 
-  function reorderWaypoint(index: number, direction: number) {
+  const reorderWaypoint = useCallback((index: number, direction: number) => {
     const points = planRef.current?.points;
     const target = index + direction;
     if (!points || target <= 0 || target >= points.length - 1) return;
     const next = points.slice();
     [next[index], next[target]] = [next[target], next[index]];
     commitTrack(next);
-  }
+  }, [commitTrack]);
 
-  const moveWaypointRef = useRef(moveWaypoint);
-  moveWaypointRef.current = moveWaypoint;
-  const removeWaypointRef = useRef(removeWaypoint);
-  removeWaypointRef.current = removeWaypoint;
+  useEffect(() => {
+    selRef.current = { from, to, editMode };
+    planRef.current = plan;
+    pickPortRef.current = pickPort;
+    insertCustomAtRef.current = insertCustomAt;
+    moveWaypointRef.current = moveWaypoint;
+    removeWaypointRef.current = removeWaypoint;
+  });
 
   // ---- Leaflet map: init once ----
   useEffect(() => {
@@ -370,10 +375,7 @@ export default function RoutePage() {
     return () => {
       cancelled = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const insertCustomAtRef = useRef(insertCustomAt);
-  insertCustomAtRef.current = insertCustomAt;
 
   // OpenSeaMap seamark overlay (buoys/beacons, crowd-sourced).
   useEffect(() => {
@@ -427,7 +429,6 @@ export default function RoutePage() {
         ref.map.fitBounds(line.getBounds(), { padding: [24, 24] });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan, mapReady, editMode, from, to, closed]);
 
   // Edit handles modify the displayed track itself; recalculation cannot snap

@@ -92,6 +92,66 @@ function readFix(): Promise<{ lat: number; lon: number; fresh: boolean } | null>
   });
 }
 
+const teleBtn =
+  "w-full rounded-2xl border px-3 py-2.5 text-sm font-black transition active:scale-95";
+const aheadBtn = `${teleBtn} border-emerald-700 bg-emerald-600 text-white dark:border-emerald-900`;
+const asternBtn = `${teleBtn} border-red-700 bg-red-600 text-white dark:border-red-900`;
+const stopBtn = `${teleBtn} border-2 border-red-600 bg-white py-3.5 text-base text-stone-950`;
+const portBtn = `${teleBtn} border-red-700 bg-red-600 text-white dark:border-red-900`;
+const stbdBtn = `${teleBtn} border-emerald-700 bg-emerald-600 text-white dark:border-emerald-900`;
+
+function StatusBox({ label, value, sub }: { label: string; value?: string; sub?: string }) {
+  return (
+    <div className="rounded-2xl border border-amber-200 bg-white px-3 py-2 dark:border-red-950 dark:bg-neutral-950">
+      <p className="text-[11px] font-black tracking-widest opacity-60">{label}</p>
+      <p className="truncate text-sm font-black">{value ?? "—"}</p>
+      {sub && <p className="font-mono text-[11px] opacity-60">{sub}</p>}
+    </div>
+  );
+}
+
+function ThrusterPanel({
+  title,
+  tag,
+  portText,
+  stbdText,
+  stopText,
+  lastVal,
+  onRecord,
+}: {
+  title: string;
+  tag: "Bow" | "Stern";
+  portText: string;
+  stbdText: string;
+  stopText: string;
+  lastVal?: string;
+  onRecord: (side: "thruster", command: string) => void;
+}) {
+  return (
+    <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
+      <h2 className="text-center font-black tracking-wide">{title}</h2>
+      <div className="mt-2 grid grid-cols-[1fr_auto_1fr] gap-2 text-center text-xs font-black opacity-80">
+        <span>{portText}</span>
+        <span />
+        <span>{stbdText}</span>
+      </div>
+      <div className="mt-1 grid grid-cols-[1fr_auto_1fr] items-stretch gap-2">
+        <div className="grid gap-2">
+          {THRUSTER_STEPS.map((c) => (
+            <button key={`p-${c}`} onClick={() => onRecord("thruster", `${tag} Port ${c}`)} aria-label={`${tag} Port ${c}`} className={`${portBtn}${lastVal === `Port ${c}` ? " ring-4 ring-white/80" : ""}`}>{c}</button>
+          ))}
+        </div>
+        <button onClick={() => onRecord("thruster", `${tag} Stop`)} className={`${stopBtn} self-center px-5${lastVal === "Stop" ? " ring-4 ring-red-500" : ""}`}>{stopText}</button>
+        <div className="grid gap-2">
+          {THRUSTER_STEPS.map((c) => (
+            <button key={`s-${c}`} onClick={() => onRecord("thruster", `${tag} Starboard ${c}`)} aria-label={`${tag} Starboard ${c}`} className={`${stbdBtn}${lastVal === `Starboard ${c}` ? " ring-4 ring-white/80" : ""}`}>{c}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function BellBookPage() {
   useDocTitle("bell.title");
   const { t } = useLocale();
@@ -230,50 +290,6 @@ export default function BellBookPage() {
   const lastStern = lastSternEntry?.command.replace(/^Stern /, "");
   const lastEvent = log.find((e) => e.side === "event");
 
-  function StatusBox({ label, value, sub }: { label: string; value?: string; sub?: string }) {
-    return (
-      <div className="rounded-2xl border border-amber-200 bg-white px-3 py-2 dark:border-red-950 dark:bg-neutral-950">
-        <p className="text-[11px] font-black tracking-widest opacity-60">{label}</p>
-        <p className="truncate text-sm font-black">{value ?? "—"}</p>
-        {sub && <p className="font-mono text-[11px] opacity-60">{sub}</p>}
-      </div>
-    );
-  }
-
-  const teleBtn =
-    "w-full rounded-2xl border px-3 py-2.5 text-sm font-black transition active:scale-95";
-  const ahead = `${teleBtn} border-emerald-700 bg-emerald-600 text-white dark:border-emerald-900`;
-  const astern = `${teleBtn} border-red-700 bg-red-600 text-white dark:border-red-900`;
-  const stop = `${teleBtn} border-2 border-red-600 bg-white py-3.5 text-base text-stone-950`;
-  const port = `${teleBtn} border-red-700 bg-red-600 text-white dark:border-red-900`;
-  const stbd = `${teleBtn} border-emerald-700 bg-emerald-600 text-white dark:border-emerald-900`;
-
-  function ThrusterPanel({ title, tag }: { title: string; tag: "Bow" | "Stern" }) {
-    return (
-      <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">
-        <h2 className="text-center font-black tracking-wide">{title}</h2>
-        <div className="mt-2 grid grid-cols-[1fr_auto_1fr] gap-2 text-center text-xs font-black opacity-80">
-          <span>{t("bell.port")}</span>
-          <span />
-          <span>{t("bell.stbd")}</span>
-        </div>
-        <div className="mt-1 grid grid-cols-[1fr_auto_1fr] items-stretch gap-2">
-          <div className="grid gap-2">
-            {THRUSTER_STEPS.map((c) => (
-              <button key={`p-${c}`} onClick={() => record("thruster", `${tag} Port ${c}`)} aria-label={`${tag} Port ${c}`} className={`${port}${(tag === "Bow" ? lastBow : lastStern) === `Port ${c}` ? " ring-4 ring-white/80" : ""}`}>{c}</button>
-            ))}
-          </div>
-          <button onClick={() => record("thruster", `${tag} Stop`)} className={`${stop} self-center px-5${(tag === "Bow" ? lastBow : lastStern) === "Stop" ? " ring-4 ring-red-500" : ""}`}>{t("bell.stop")}</button>
-          <div className="grid gap-2">
-            {THRUSTER_STEPS.map((c) => (
-              <button key={`s-${c}`} onClick={() => record("thruster", `${tag} Starboard ${c}`)} aria-label={`${tag} Starboard ${c}`} className={`${stbd}${(tag === "Bow" ? lastBow : lastStern) === `Starboard ${c}` ? " ring-4 ring-white/80" : ""}`}>{c}</button>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="shark-interior-page">
       <div className="grid gap-4">
@@ -307,19 +323,35 @@ export default function BellBookPage() {
             <h2 className="text-center font-black tracking-wide">{t("bell.mainEngine")}</h2>
             <div className="mx-auto mt-3 grid w-full max-w-[240px] gap-2">
               {ENGINE_AHEAD.map((c) => (
-                <button key={c} onClick={() => record("engine", c)} className={`${ahead}${lastEngine === c ? " ring-4 ring-white/80" : ""}`}>{c.toUpperCase()}</button>
+                <button key={c} onClick={() => record("engine", c)} className={`${aheadBtn}${lastEngine === c ? " ring-4 ring-white/80" : ""}`}>{c.toUpperCase()}</button>
               ))}
-              <button onClick={() => record("engine", "Stop")} className={`${stop}${lastEngine === "Stop" ? " ring-4 ring-red-500" : ""}`}>{t("bell.stop")}</button>
+              <button onClick={() => record("engine", "Stop")} className={`${stopBtn}${lastEngine === "Stop" ? " ring-4 ring-red-500" : ""}`}>{t("bell.stop")}</button>
               {ENGINE_ASTERN.map((c) => (
-                <button key={c} onClick={() => record("engine", c)} className={`${astern}${lastEngine === c ? " ring-4 ring-white/80" : ""}`}>{c.toUpperCase()}</button>
+                <button key={c} onClick={() => record("engine", c)} className={`${asternBtn}${lastEngine === c ? " ring-4 ring-white/80" : ""}`}>{c.toUpperCase()}</button>
               ))}
             </div>
           </div>
         </div>
 
         <div className="grid content-start gap-4">
-          <ThrusterPanel title={t("bell.bowThruster")} tag="Bow" />
-          <ThrusterPanel title={t("bell.sternThruster")} tag="Stern" />
+          <ThrusterPanel
+            title={t("bell.bowThruster")}
+            tag="Bow"
+            portText={t("bell.port")}
+            stbdText={t("bell.stbd")}
+            stopText={t("bell.stop")}
+            lastVal={lastBow}
+            onRecord={record}
+          />
+          <ThrusterPanel
+            title={t("bell.sternThruster")}
+            tag="Stern"
+            portText={t("bell.port")}
+            stbdText={t("bell.stbd")}
+            stopText={t("bell.stop")}
+            lastVal={lastStern}
+            onRecord={record}
+          />
         </div>
 
         <div className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-4 text-amber-50 md:col-span-2 xl:col-span-1 dark:border-red-800 dark:bg-black dark:text-red-200">

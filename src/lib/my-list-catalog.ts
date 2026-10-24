@@ -194,5 +194,13 @@ export async function prepareCatalogContextForAI(
     });
   }
 
+  if (preferredCategory) {
+    contextItems.sort((a, b) => {
+      if (a.category === preferredCategory && b.category !== preferredCategory) return -1;
+      if (b.category === preferredCategory && a.category !== preferredCategory) return 1;
+      return 0;
+    });
+  }
+
   return contextItems;
 }
