@@ -211,7 +211,10 @@ function CvPreview({ cv, profile, service, selCerts }: {
   const body = (
     <>
       <div className={`flex items-center gap-4 rounded-t-2xl p-5 ${headCls}`}>
-        {profile?.photoDataUrl && <img src={profile.photoDataUrl} alt="" className="h-20 w-20 rounded-full object-cover ring-2 ring-white/50" />}
+        {profile?.photoDataUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={profile.photoDataUrl} alt="" className="h-20 w-20 rounded-full object-cover ring-2 ring-white/50" />
+        )}
         <div>
           <div className="font-display text-3xl font-black">{name}</div>
           <div className="font-bold opacity-80">{rank}</div>

@@ -134,34 +134,33 @@ function ExamsContent() {
   const denemeNo = Number(params.get("deneme") ?? 0);
   const meta = EXAM_RANKS.find((r) => r.slug === rank) ?? null;
 
+  const [loadedSlug, setLoadedSlug] = useState<string | null>(null);
   const [denemeler, setDenemeler] = useState<HavuzDeneme[] | null>(null);
   const [enListe, setEnListe] = useState<EnDeneme[]>([]);
   const [cevaplar, setCevaplar] = useState<Cevaplar>(() => (typeof window !== "undefined" ? loadCevaplar() : {}));
-  const [yuklendi, setYuklendi] = useState(false);
   const [hata, setHata] = useState("");
   const [lang, setLang] = useState<Lang>(() => (typeof window !== "undefined" ? loadLang() : "tr"));
 
+  const yuklendi = Boolean(meta?.slug && loadedSlug === meta.slug && (denemeler || hata));
+
   useEffect(() => {
     let cancelled = false;
-    const slug = meta?.slug;
-    if (!slug) return;
+    const currentSlug = meta?.slug;
+    if (!currentSlug) return;
 
-    setYuklendi(false);
-    setDenemeler(null);
-    setHata("");
-
-    Promise.all([loadRankData(slug), loadRankEnQa(slug)])
+    Promise.all([loadRankData(currentSlug), loadRankEnQa(currentSlug)])
       .then(([data, enData]) => {
         if (!cancelled) {
           setDenemeler(data);
           setEnListe(enData);
-          setYuklendi(true);
+          setHata("");
+          setLoadedSlug(currentSlug);
         }
       })
       .catch((err) => {
         if (!cancelled) {
           setHata(String(err));
-          setYuklendi(true);
+          setLoadedSlug(currentSlug);
         }
       });
     return () => {

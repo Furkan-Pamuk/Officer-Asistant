@@ -66,6 +66,6 @@ export function amplitude(lat: number, when: "rising" | "setting", date = new Da
 
 /** Compass error from observed amplitude: error = observed − computed (E negative/W positive per Nautical Almanac sign). */
 export function compassError(observed: number, computed: number) {
-  let e = ((observed - computed + 540) % 360) - 180;
+  const e = ((observed - computed + 540) % 360) - 180;
   return Math.round(e * 10) / 10;
 }
