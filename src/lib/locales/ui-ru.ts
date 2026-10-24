@@ -825,6 +825,8 @@ export const UI_RU: Record<string, string> = {
   "notif.timeOnly": "Только время — звонит в течение 24 часов, пока приложение открыто.",
   "notif.clear": "Все ясно — сейчас никаких оповещений.",
   "notif.checksAria": "{x} проверяет вкл/выкл",
+  "notif.markAllRead": "Отметить все как прочитанные",
+  "notif.dismiss": "Закрыть",
   "story.rendering": "Рендеринг…",
   "story.downloaded": "Скачал — опубликуйте к себе в историю.",
   "story.renderFail": "Не удалось выполнить рендеринг в этом браузере.",
