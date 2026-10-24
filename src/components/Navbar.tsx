@@ -137,6 +137,8 @@ export default function Navbar() {
     return path === base || path?.startsWith(base + "/");
   };
 
+  if (path === "/links" || path?.startsWith("/links/")) return null;
+
   return (
     <header className="shark-navbar sticky top-0 z-40 border-b backdrop-blur-xl print:hidden">
       <div ref={barRef} className="shark-navbar-inner mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-4">

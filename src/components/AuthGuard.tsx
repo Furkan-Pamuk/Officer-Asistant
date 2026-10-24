@@ -4,7 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth, AuthProvider } from "@/hooks/useAuth";
 
 /** Routes that do not require authentication. */
-const PUBLIC_PATHS = ["/login", "/privacy", "/terms", "/contact", "/faq"];
+const PUBLIC_PATHS = ["/login", "/privacy", "/terms", "/contact", "/faq", "/links"];
 /** Prefix-based public routes (e.g. /about, /about/team, /admin). */
 const PUBLIC_PREFIXES = ["/about", "/pricing", "/news", "/admin", "/api"];
 
