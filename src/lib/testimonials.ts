@@ -4,6 +4,7 @@ export interface Testimonial {
   name: string;
   rank: string;
   country: string;
+  countryCode: string;
   flag: string;
   quote: Record<string, string>; // locale -> text (falls back to en)
 }
@@ -13,6 +14,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "J. Dela Cruz",
     rank: "2nd Officer",
     country: "Philippines",
+    countryCode: "ph",
     flag: "🇵🇭",
     quote: {
       en: "PSC came with zero findings. The check cards had us ready for every question they asked.",
@@ -23,6 +25,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "R. Sharma",
     rank: "Bosun",
     country: "India",
+    countryCode: "in",
     flag: "🇮🇳",
     quote: {
       en: "The deck checklists run my whole day. Nothing is forgotten, even on a bad-weather week.",
@@ -33,6 +36,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "O. Kovalenko",
     rank: "Chief Engineer",
     country: "Ukraine",
+    countryCode: "ua",
     flag: "🇺🇦",
     quote: {
       en: "Offline store requests and the route planner paid for the app in my first voyage.",

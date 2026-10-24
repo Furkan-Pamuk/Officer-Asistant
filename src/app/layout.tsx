@@ -78,7 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                     "https://www.instagram.com/shark.application/",
                     "https://x.com/Sharkapplicatio",
                     "https://www.tiktok.com/@sharkapplication",
-                    "https://www.linkedin.com/in/shark-application-a08282446/",
+                    "https://www.linkedin.com/company/shark-application/posts/",
                     "https://whatsapp.com/channel/0029Vb9Wl9yAu3aKG9rv8k2e",
                   ],
                 },
