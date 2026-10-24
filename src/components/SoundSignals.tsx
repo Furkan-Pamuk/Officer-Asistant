@@ -14,13 +14,17 @@ function Blast({ k, x }: { k: BlastKind; x: number }) {
 
 const W: Record<BlastKind, number> = { P: 14, S: 5, bell: 18, gong: 18, R: 30, X: 12 };
 
-function FogRow({ v, seq, note }: { v: string; seq: BlastKind[]; note: string }) {
-  let x = 8;
-  const blocks = seq.map((k, i) => {
-    const el = <Blast key={i} k={k} x={x} />;
-    x += W[k] + 5;
-    return el;
+function computeBlastPositions(seq: BlastKind[]): number[] {
+  let curX = 8;
+  return seq.map((k) => {
+    const pos = curX;
+    curX += W[k] + 5;
+    return pos;
   });
+}
+
+function FogRow({ v, seq, note }: { v: string; seq: BlastKind[]; note: string }) {
+  const positions = computeBlastPositions(seq);
   return (
     <div className="rounded-2xl border bg-white p-3">
       <h3 className="text-sm font-bold">{v}</h3>
@@ -28,7 +32,9 @@ function FogRow({ v, seq, note }: { v: string; seq: BlastKind[]; note: string })
         <line x1="4" y1="40" x2="240" y2="40" stroke="#cbd5e1" strokeWidth="1" />
         <text x="4" y="48" fontSize="7" fill="#94a3b8">0</text>
         <text x="236" y="48" fontSize="7" fill="#94a3b8">≤2 min ⟳</text>
-        {blocks}
+        {seq.map((k, i) => (
+          <Blast key={i} k={k} x={positions[i]} />
+        ))}
       </svg>
       {note ? <p className="text-xs text-slate-500">{note}</p> : null}
     </div>

@@ -27,4 +27,4 @@ Flow (in order):
 10. Furkan tests with `npm run dev` and APPROVES. Explain in simple Turkish, no technical details.
 11. ONLY after Furkan's approval: `git push -u origin vibe/<name>` (only vibe push allowed), open PR, reviewer Yagiz. NEVER merge — merging is Yagiz's.
 
-Forbidden: main push/merge, --force. Bypass attempts are rejected by hook/CI with: "Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
+Forbidden: main push/merge, --force. Bypass attempts are rejected by hook/CI with: "Direct push/bypass attempts are prohibited by branch protection rules."

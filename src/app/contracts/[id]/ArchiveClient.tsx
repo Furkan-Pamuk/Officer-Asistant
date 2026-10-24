@@ -24,14 +24,24 @@ export default function ArchiveClient({ params }: { params: Promise<{ id: string
 
   useEffect(() => {
     async function load() {
-      setContract((await db.contracts.get(id)) ?? null);
-      setProgress(await db.progress.where("contractId").equals(id).toArray());
-      setLists(await db.checklists.where("contractId").equals(id).toArray());
-      setNotes(await db.notes.where("contractId").equals(id).toArray());
-      setRequests(await db.requests.where("contractId").equals(id).toArray());
-      setQuestions(await db.questions.where("contractId").equals(id).toArray());
-      setTodos(await db.todos.where("contractId").equals(id).toArray());
-      setTodoLogs(await db.todoLogs.where("contractId").equals(id).toArray());
+      const [c, prog, chk, n, req, q, tod, tLogs] = await Promise.all([
+        db.contracts.get(id),
+        db.progress.where("contractId").equals(id).toArray(),
+        db.checklists.where("contractId").equals(id).toArray(),
+        db.notes.where("contractId").equals(id).toArray(),
+        db.requests.where("contractId").equals(id).toArray(),
+        db.questions.where("contractId").equals(id).toArray(),
+        db.todos.where("contractId").equals(id).toArray(),
+        db.todoLogs.where("contractId").equals(id).toArray(),
+      ]);
+      setContract(c ?? null);
+      setProgress(prog);
+      setLists(chk);
+      setNotes(n);
+      setRequests(req);
+      setQuestions(q);
+      setTodos(tod);
+      setTodoLogs(tLogs);
     }
     load();
   }, [id]);

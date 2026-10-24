@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { db, uid } from "@/lib/db";
 import { CERTS, CERT_CATS, LANGS, LEVELS, CV_TEMPLATES, MOTIVATION_DRAFT } from "@/lib/certs";
 import { contractDays, fmtService } from "@/components/ServiceBoard";
@@ -14,11 +14,11 @@ export default function CvBuilder() {
   const { t } = useLocale();
   const [cv, setCv] = useState<CvData>(blankCv());
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [contracts, setContracts] = useState<Contract[]>([]);
   const [langQ, setLangQ] = useState("");
   const [langLevel, setLangLevel] = useState("B2");
   const [ref, setRef] = useState({ name: "", email: "", phone: "", position: "", workplace: "" });
   const [certQ, setCertQ] = useState("");
+  const [service, setService] = useState<{ c: Contract; days: number }[]>([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,6 @@ export default function CvBuilder() {
       if (c) setCv({ ...blankCv(), ...c });
       setProfile(p ?? null);
       const sorted = list.slice().sort((a, b) => a.signOnDate.localeCompare(b.signOnDate));
-      setContracts(sorted);
       setService(sorted.map((x) => ({ c: x, days: contractDays(x, new Date()) ?? 0 })).filter((x) => x.days > 0));
       setLoaded(true);
     })();
@@ -37,8 +36,6 @@ export default function CvBuilder() {
     setCv(next);
     await db.cvdata.put({ ...next, updatedAt: new Date().toISOString() });
   }
-
-  const [service, setService] = useState<{ c: Contract; days: number }[]>([]);
 
   const selCerts = CERTS.filter((c) => cv.certs[c.id]?.on);
   const filteredCerts = CERTS.filter((c) => c.name.toLowerCase().includes(certQ.trim().toLowerCase()));
@@ -214,7 +211,10 @@ function CvPreview({ cv, profile, service, selCerts }: {
   const body = (
     <>
       <div className={`flex items-center gap-4 rounded-t-2xl p-5 ${headCls}`}>
-        {profile?.photoDataUrl && <img src={profile.photoDataUrl} alt="" className="h-20 w-20 rounded-full object-cover ring-2 ring-white/50" />}
+        {profile?.photoDataUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={profile.photoDataUrl} alt="" className="h-20 w-20 rounded-full object-cover ring-2 ring-white/50" />
+        )}
         <div>
           <div className="font-display text-3xl font-black">{name}</div>
           <div className="font-bold opacity-80">{rank}</div>

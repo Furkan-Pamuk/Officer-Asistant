@@ -3,7 +3,7 @@ import { validateIMO } from "@/lib/imo";
 
 const OW_BASE = "https://ais.openwaters.io/v1";
 
-async function owGet(path: string): Promise<any> {
+async function owGet(path: string): Promise<Record<string, unknown>> {
   const r = await fetch(`${OW_BASE}${path}`, {
     headers: { accept: "application/json", "User-Agent": "Shark-App/1.0 (contact: support@officerassistant.app)" },
     cache: "no-store",
@@ -14,7 +14,7 @@ async function owGet(path: string): Promise<any> {
   }
   if (r.status === 404) throw { kind: "not-found", message: "Vessel not found in free AIS data." };
   if (!r.ok) throw { kind: "unavailable", message: "Free AIS temporarily unavailable." };
-  return r.json();
+  return (await r.json()) as Record<string, unknown>;
 }
 
 function toError(e: unknown): VesselError {
@@ -32,11 +32,14 @@ export async function searchVesselsFree(q: string): Promise<{ ok: true; candidat
     return {
       ok: true,
       candidates: feats
-        .map((f: any) => ({
-          mmsi: String(f?.properties?.mmsi ?? ""),
-          name: typeof f?.properties?.name === "string" ? f.properties.name : null,
-          seen: typeof f?.properties?.seen === "string" ? f.properties.seen : null,
-        }))
+        .map((f: unknown) => {
+          const feat = f as { properties?: { mmsi?: unknown; name?: unknown; seen?: unknown } };
+          return {
+            mmsi: String(feat?.properties?.mmsi ?? ""),
+            name: typeof feat?.properties?.name === "string" ? feat.properties.name : null,
+            seen: typeof feat?.properties?.seen === "string" ? feat.properties.seen : null,
+          };
+        })
         .filter((c: VesselCandidate) => /^\d{9}$/.test(c.mmsi)),
       attribution: creditLine(j.attribution),
     };

@@ -289,7 +289,10 @@ class AdminTrackerStore {
   private storagePath: string;
 
   constructor() {
-    this.storagePath = path.join(process.cwd(), "public", "third-party", "admin-tracker.json");
+    this.storagePath =
+      process.env.NODE_ENV === "production"
+        ? path.join("/tmp", "admin-tracker.json")
+        : path.join(process.cwd(), "data", "admin-tracker.json");
     this.loadFromDisk();
   }
 

@@ -1,3 +1,2 @@
 * @Vezkk
-# CODEOWNERS zorunlu review icin branch protection'ta
-# "Require review from Code Owners" acilmali.
+# CODEOWNERS requires mandatory review approval under branch protection rules.

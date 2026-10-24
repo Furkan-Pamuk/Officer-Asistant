@@ -344,12 +344,17 @@ export function verifyMfaCode(providedCode: string): boolean {
   return false;
 }
 
-export function getMfaSetupInfo(): { enabled: boolean; secret: string; backupCodeHint: string; currentSampleCode: string } {
+export function getMfaSetupInfo(): { enabled: boolean; backupCodeHint: string; currentSampleCode?: string; secret?: string } {
+  const isDevHelper = process.env.NODE_ENV !== "production" && process.env.ADMIN_DEV_HELPER === "true";
   return {
     enabled: CONFIG.mfaEnabled,
-    secret: CONFIG.mfaSecret,
     backupCodeHint: CONFIG.mfaBackupCode.slice(0, 2) + "**" + CONFIG.mfaBackupCode.slice(-2),
-    currentSampleCode: generateTotpCode(CONFIG.mfaSecret, 0),
+    ...(isDevHelper
+      ? {
+          secret: CONFIG.mfaSecret,
+          currentSampleCode: generateTotpCode(CONFIG.mfaSecret, 0),
+        }
+      : {}),
   };
 }
 
@@ -537,7 +542,6 @@ export function getCookieNames(): { primary: string; fallback: string } {
 
 export function getAdminConfig() {
   return {
-    directPath: CONFIG.directPath,
     mfaEnabled: CONFIG.mfaEnabled,
     allowedIpsConfigured: CONFIG.allowedIps !== "*",
     maxFailedLogins: CONFIG.maxFailedLogins,

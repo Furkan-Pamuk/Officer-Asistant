@@ -116,13 +116,13 @@ export function aisStatusText(n: number | null): string | null {
 }
 
 /** Normalize an Open Waters GeoJSON vessel feature (search or detail). */
-export function normalizeOpenWaters(mmsi: string, f: Record<string, any>): VesselResult {
+export function normalizeOpenWaters(mmsi: string, f: Record<string, unknown>): VesselResult {
   const now = new Date().toISOString();
-  const p: Record<string, any> = f?.properties ?? {};
+  const p = (f?.properties as Record<string, unknown> | undefined) ?? {};
   const coords: unknown = (f as { geometry?: { coordinates?: unknown } })?.geometry?.coordinates;
   const lon = Array.isArray(coords) ? num(coords[0]) : null;
   const lat = Array.isArray(coords) ? num(coords[1]) : null;
-  const part: Record<string, any> = p.particulars ?? {};
+  const part = (p.particulars as Record<string, unknown> | undefined) ?? {};
   return {
     profile: {
       ...blankProfile(typeof p.imo === "number" ? String(p.imo) : ""),
