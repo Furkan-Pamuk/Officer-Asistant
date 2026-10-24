@@ -508,6 +508,9 @@ export default function RoutePage() {
         <p className="text-sm font-medium opacity-70">
           {t("route.sub")}
         </p>
+        <p className="mt-1 text-xs text-amber-700/80 dark:text-amber-400/80">
+          ⚠️ Not an ECDIS · Operational planning only (does not satisfy SOLAS Ch. V carriage requirements)
+        </p>
       </div>
 
       <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[1fr_340px]">

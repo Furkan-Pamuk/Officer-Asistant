@@ -42,6 +42,48 @@ function compressPhoto(file: File): Promise<string> {
   });
 }
 
+interface CrewCardProps {
+  n: NewsPost;
+  big?: boolean;
+  img?: string | null;
+  sectionsOv: typeof SECTIONS;
+  anonText: string;
+  deleteText: string;
+  isMine?: boolean;
+  onRemove: (id: string) => void;
+}
+
+function CrewCard({ n, big, img, sectionsOv, anonText, deleteText, isMine, onRemove }: CrewCardProps) {
+  return (
+    <div className={big
+      ? "overflow-hidden rounded-3xl border-2 border-amber-300 bg-stone-900 text-amber-50 dark:border-red-800 dark:bg-black"
+      : "overflow-hidden rounded-2xl border border-amber-200 bg-white dark:border-red-950 dark:bg-neutral-950"}>
+      {img && (
+        <Link href={`/news/${n.id}`}>
+          <img src={img} alt={n.title} className="aspect-square w-full object-cover" />
+        </Link>
+      )}
+      <div className={big ? "p-5" : "p-4"}>
+        <Link href={`/news/${n.id}`}>
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className={`rounded-full px-2 py-0.5 font-bold ${big ? "bg-amber-400 text-stone-950" : "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white"}`}>{sectionLabel(n.section, sectionsOv)}</span>
+            <span className="opacity-60">{n.date}</span>
+            {n.port && <span className="opacity-60">📍 {n.port}</span>}
+          </div>
+          <div className={`${big ? "mt-2 text-2xl" : "mt-1 text-lg"} font-black`}>{n.title}</div>
+          {n.body[0] !== "📷" && <div className="mt-1 text-sm opacity-70">{n.body[0].slice(0, big ? 160 : 140)}…</div>}
+        </Link>
+        <div className="mt-2 flex items-center gap-2 text-xs font-bold">
+          <span className="flex-1 opacity-70">👤 {n.author ?? anonText}</span>
+          {isMine && (
+            <button onClick={() => onRemove(n.id)} className="rounded-full border px-3 py-1 opacity-70">{deleteText}</button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function NewsContent() {
   const searchParams = useSearchParams();
   const sectionParam = searchParams.get("section");
@@ -139,38 +181,6 @@ function NewsContent() {
   const count = (s: NewsSection) => all.filter((p) => p.section === s).length;
   const inp = "rounded-xl border px-3 py-2 text-sm w-full";
 
-  function CrewCard({ n, big }: { n: NewsPost; big?: boolean }) {
-    const img = photos.get(n.id) ?? null;
-    return (
-      <div className={big
-        ? "overflow-hidden rounded-3xl border-2 border-amber-300 bg-stone-900 text-amber-50 dark:border-red-800 dark:bg-black"
-        : "overflow-hidden rounded-2xl border border-amber-200 bg-white dark:border-red-950 dark:bg-neutral-950"}>
-        {img && (
-          <Link href={`/news/${n.id}`}>
-            <img src={img} alt={n.title} className="aspect-square w-full object-cover" />
-          </Link>
-        )}
-        <div className={big ? "p-5" : "p-4"}>
-          <Link href={`/news/${n.id}`}>
-            <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className={`rounded-full px-2 py-0.5 font-bold ${big ? "bg-amber-400 text-stone-950" : "bg-stone-900 text-amber-50 dark:bg-red-700 dark:text-white"}`}>{sectionLabel(n.section, sectionsOv)}</span>
-              <span className="opacity-60">{n.date}</span>
-              {n.port && <span className="opacity-60">📍 {n.port}</span>}
-            </div>
-            <div className={`${big ? "mt-2 text-2xl" : "mt-1 text-lg"} font-black`}>{n.title}</div>
-            {n.body[0] !== "📷" && <div className="mt-1 text-sm opacity-70">{n.body[0].slice(0, big ? 160 : 140)}…</div>}
-          </Link>
-          <div className="mt-2 flex items-center gap-2 text-xs font-bold">
-            <span className="flex-1 opacity-70">👤 {n.author ?? t("news.anon")}</span>
-            {mine.has(n.id) && (
-              <button onClick={() => remove(n.id)} className="rounded-full border px-3 py-1 opacity-70">{t("common.delete")}</button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="shark-interior-page">
       <div className="grid gap-4">
@@ -212,7 +222,18 @@ function NewsContent() {
       )}
 
       {featured && (
-        mine.has(featured.id) || photos.get(featured.id) ? <CrewCard n={featured} big /> : (
+        mine.has(featured.id) || photos.get(featured.id) ? (
+          <CrewCard
+            n={featured}
+            big
+            img={photos.get(featured.id) ?? null}
+            sectionsOv={sectionsOv}
+            anonText={t("news.anon")}
+            deleteText={t("common.delete")}
+            isMine={mine.has(featured.id)}
+            onRemove={remove}
+          />
+        ) : (
           <Link href={`/news/${featured.id}`} className="rounded-3xl border-2 border-amber-300 bg-stone-900 p-5 text-amber-50 hover:shadow dark:border-red-800 dark:bg-black">
             <div className="flex items-center gap-2 text-xs">
               <span className="rounded-full bg-amber-400 px-2 py-0.5 font-bold text-stone-950">{sectionLabel(featured.section, sectionsOv)}</span>
@@ -231,7 +252,18 @@ function NewsContent() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         {rest.map((n) => (
-          mine.has(n.id) || photos.get(n.id) ? <CrewCard key={n.id} n={n} /> : (
+          mine.has(n.id) || photos.get(n.id) ? (
+            <CrewCard
+              key={n.id}
+              n={n}
+              img={photos.get(n.id) ?? null}
+              sectionsOv={sectionsOv}
+              anonText={t("news.anon")}
+              deleteText={t("common.delete")}
+              isMine={mine.has(n.id)}
+              onRemove={remove}
+            />
+          ) : (
             <div key={n.id} className="rounded-2xl border border-amber-200 bg-white p-4 hover:shadow dark:border-red-950 dark:bg-neutral-950">
               <Link href={`/news/${n.id}`}>
                 <div className="flex flex-wrap items-center gap-2 text-xs">

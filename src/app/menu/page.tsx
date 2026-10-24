@@ -121,8 +121,6 @@ export default function MenuPage() {
     setNewDish(""); setNewKcal("");
   }
 
-  let weekKcal = 0;
-  let weekCount = 0;
 
   return (
     <div className="shark-interior-page">

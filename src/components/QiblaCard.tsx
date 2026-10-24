@@ -57,7 +57,10 @@ export default function QiblaCard() {
       }
     }
     load();
-  }, []);
+    return () => {
+      alive = false;
+    };
+  }, [t]);
 
   return (
     <div className="rounded-2xl border-2 border-amber-300 bg-stone-900 p-2.5 text-amber-50 dark:border-red-800 dark:bg-black dark:text-red-200">

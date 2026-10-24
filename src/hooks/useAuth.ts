@@ -32,13 +32,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const res = await fetch("/api/auth/status");
       if (res.ok) {
         const data = await res.json();
-        setUser(data.authenticated ? data.user : null);
+        const u = data.authenticated ? data.user : null;
+        setUser(u);
+        if (u) {
+          try {
+            localStorage.setItem("shark_cached_user", JSON.stringify(u));
+            localStorage.setItem("shark-intro-seen", "1");
+          } catch {}
+        } else {
+          try {
+            localStorage.removeItem("shark_cached_user");
+          } catch {}
+        }
       } else {
         setUser(null);
+        try {
+          localStorage.removeItem("shark_cached_user");
+        } catch {}
       }
     } catch {
-      // Offline or network error — keep existing user state to support
-      // offline PWA usage after initial login.
+      // Offline or network error — fall back to cached user
+      try {
+        const cached = localStorage.getItem("shark_cached_user");
+        if (cached) setUser(JSON.parse(cached));
+      } catch {}
     } finally {
       setLoading(false);
     }
@@ -51,6 +68,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // ignore
     }
     setUser(null);
+    try {
+      localStorage.removeItem("shark_cached_user");
+    } catch {}
   }, []);
 
   useEffect(() => {
@@ -59,11 +79,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (cancelled) return;
-        setUser(data?.authenticated ? data.user : null);
+        if (data?.authenticated && data.user) {
+          setUser(data.user);
+          try {
+            localStorage.setItem("shark_cached_user", JSON.stringify(data.user));
+            localStorage.setItem("shark-intro-seen", "1");
+          } catch {}
+        } else {
+          setUser(null);
+          try {
+            localStorage.removeItem("shark_cached_user");
+          } catch {}
+        }
       })
       .catch(() => {
-        // Offline or network error — keep existing user state to support
+        // Offline or network error — keep existing user state or read from cache to support
         // offline PWA usage after initial login.
+        if (cancelled) return;
+        try {
+          const cached = localStorage.getItem("shark_cached_user");
+          if (cached) {
+            setUser(JSON.parse(cached));
+          }
+        } catch {}
       })
       .finally(() => {
         if (!cancelled) setLoading(false);

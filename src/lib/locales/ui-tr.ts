@@ -829,6 +829,7 @@ export const UI_TR: Record<string, string> = {
   "terms.title": "Kullanım Şartları",
   "terms.updated": "Son güncelleme Ekim 2026",
   "terms.hWhat": "Shark nedir",
+  "terms.hSolas": "SOLAS ve Seyir Güvenliği Bildirimi",
   "terms.hLicensed": "Lisanslı materyal",
   "terms.hContent": "İçeriğin",
   "terms.hSubs": "Abonelikler",

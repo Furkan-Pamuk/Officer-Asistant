@@ -29,7 +29,13 @@ function LoginForm() {
 
   // Already authenticated — redirect.
   useEffect(() => {
-    if (user) router.replace(returnUrl);
+    if (user) {
+      try {
+        localStorage.setItem("shark-intro-seen", "1");
+        window.dispatchEvent(new CustomEvent("shark-intro-dismiss"));
+      } catch {}
+      router.replace(returnUrl);
+    }
   }, [user, router, returnUrl]);
 
   // Lockout countdown.
@@ -72,8 +78,12 @@ function LoginForm() {
       }
 
       if (data.success) {
+        try {
+          localStorage.setItem("shark-intro-seen", "1");
+          window.dispatchEvent(new CustomEvent("shark-intro-dismiss"));
+        } catch {}
         await refresh();
-        router.push(returnUrl);
+        router.replace(returnUrl);
       }
     } catch {
       setError(t("auth.networkError"));
@@ -85,6 +95,21 @@ function LoginForm() {
   function switchMode() {
     setMode((m) => (m === "login" ? "register" : "login"));
     setError(null);
+  }
+
+  function continueOffline() {
+    const offlineUser = {
+      id: "usr_offline_officer",
+      email: "officer@offline.vessel",
+      displayName: "Officer (Sea Mode)",
+    };
+    try {
+      localStorage.setItem("shark_cached_user", JSON.stringify(offlineUser));
+      localStorage.setItem("shark-intro-seen", "1");
+      window.dispatchEvent(new CustomEvent("shark-intro-dismiss"));
+    } catch {}
+    refresh();
+    router.replace(returnUrl);
   }
 
   return (
@@ -231,6 +256,20 @@ function LoginForm() {
             >
               {mode === "login" ? t("auth.switchToRegister") : t("auth.switchToLogin")}
             </button>
+          </div>
+
+          {/* Offline / Sea Mode Bypass */}
+          <div className="mt-4 border-t border-dashed border-stone-200 pt-4 text-center dark:border-stone-800">
+            <button
+              type="button"
+              onClick={continueOffline}
+              className="inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-stone-100 px-3.5 py-1.5 text-xs font-bold text-stone-700 hover:bg-stone-200 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800"
+            >
+              <span>⚓</span> Continue in Offline Sea Mode
+            </button>
+            <p className="mt-1 text-[11px] text-stone-400 dark:text-stone-500">
+              For officers without internet connection at sea.
+            </p>
           </div>
         </div>
 

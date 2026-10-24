@@ -5,10 +5,10 @@ import { useLocale } from "./i18n";
 // Display-layer content overlay (Turkish). Data files stay English; this
 // merges translations by stable id at render time, so seeded DB rows,
 // search filters and done[] indexes keep working unchanged.
-export type ContentOverlay = Record<string, Record<string, Record<string, any>>>;
+export type ContentOverlay = Record<string, Record<string, Record<string, unknown>>>;
 
-let cache: Record<string, ContentOverlay | null> = {};
-let loading: Record<string, Promise<unknown> | null> = {};
+const cache: Record<string, ContentOverlay | null> = {};
+const loading: Record<string, Promise<unknown> | null> = {};
 const EXP: Record<string, string> = {
   tr: "CONTENT_TR",
   es: "CONTENT_ES",
@@ -35,13 +35,13 @@ export function useContentOverlay(): ContentOverlay {
 }
 
 // Overlay patch for one record, or {} when untranslated/another locale.
-export function cov(o: ContentOverlay, mod: string, id: string | number): Record<string, any> {
+export function cov(o: ContentOverlay, mod: string, id: string | number): Record<string, unknown> {
   return o?.[mod]?.[String(id)] ?? {};
 }
 
 // Merge overlay into a base record (shallow spread; arrays replaced wholesale
 // in source order so done[]/index alignment is preserved).
-export function withOv<T extends object>(base: T, patch: Record<string, any> | undefined): T {
+export function withOv<T extends object>(base: T, patch: Record<string, unknown> | undefined): T {
   if (!patch || Object.keys(patch).length === 0) return base;
   return { ...base, ...patch };
 }
