@@ -29,9 +29,10 @@ export async function GET(req: NextRequest) {
       logs,
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to retrieve admin metrics";
     return NextResponse.json(
-      { error: err?.message || "Failed to retrieve admin metrics" },
+      { error: message },
       { status: 500 }
     );
   }
@@ -76,9 +77,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ error: "Invalid action" }, { status: 400 });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to execute admin action";
     return NextResponse.json(
-      { error: err?.message || "Failed to execute admin action" },
+      { error: message },
       { status: 500 }
     );
   }

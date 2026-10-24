@@ -17,7 +17,6 @@ export default function AdminDashboardPage() {
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [metrics, setMetrics] = useState<AdminMetrics | null>(null);
   const [logs, setLogs] = useState<ApiActivityLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [logFilter, setLogFilter] = useState<"all" | "success" | "failed">("all");
   const [simulating, setSimulating] = useState(false);
@@ -76,8 +75,6 @@ export default function AdminDashboardPage() {
       }
     } catch (err) {
       console.error("Admin fetch error:", err);
-    } finally {
-      setLoading(false);
     }
   }
 

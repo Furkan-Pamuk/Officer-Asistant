@@ -608,7 +608,12 @@ class AdminTrackerStore {
 }
 
 // Global singleton instance for server session
-const globalStore = (globalThis as any).__adminTrackerStore || new AdminTrackerStore();
-(globalThis as any).__adminTrackerStore = globalStore;
+const globalForAdminTracker = globalThis as unknown as {
+  __adminTrackerStore?: AdminTrackerStore;
+};
 
-export const serverAdminTracker = globalStore as AdminTrackerStore;
+const globalStore =
+  globalForAdminTracker.__adminTrackerStore || new AdminTrackerStore();
+globalForAdminTracker.__adminTrackerStore = globalStore;
+
+export const serverAdminTracker = globalStore;
