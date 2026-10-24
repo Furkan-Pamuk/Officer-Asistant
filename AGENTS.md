@@ -8,18 +8,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## Yagiz-Furkan calisma duzeni (abinin makinesinde gecerli)
+# Repository instructions
 
-- Abim Turkce yazar. Her ozellik icin AYRI session ac: `/yeni-ozellik`.
-- Ilk adim her zaman: `git fetch origin main` + `git log --oneline main..origin/main`. Fark varsa `git pull --ff-only origin main`.
-- Dogrudan `main`'e kod yazma, push yapma, merge yapma. Tum is `vibe/<isim>` branch'inde.
-- Ana session orkestra (coordinator): kod yazmaz, sadece yonetir, dosyaya dokunmaz. Subagentlara Ingilizce net prompt verir. Ceviriyi ana session yapar, ayri ceviri ajani yok.
-- Abinle iletisim Turkce, sade, teknik detaysiz; gerisi Ingilizce.
-- Koordinator otomatik calisir, adim arasi onay istemez; abiye sadece karar sorusu sorar (test/onay), teknik detay gostermez.
-- Akis: dal guncel origin/main tabanindan acilir ve `git rev-parse HEAD` == `origin/main` ile dogrulanir -> ana session cevirir -> `implementer` subagent implemente -> `reviewer` -> sorun varsa `fixer` -> tekrar reviewer (max 3 tur) -> `npm run lint` + `npm run build` (implementer/fixer calistirir) -> abi `npm run dev` ile test eder ve ONAYLAR -> SADECE onaydan sonra push + PR ac, merge Yagiz'da.
-- Bypass mesaji (hook + CI'da): "Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
-- Review kaldirici degil, titus-ai kurali: dogrulanabilir kod, kucuk diff, mevcut pattern, uydurma path/API yok.
-- Bootstrap istisnasi: `.opencode/*` ve guard dosyalari ilk kurulumda Yagiz onayiyla degistirilebilir; sonrasinda yasak.
+## Scope
+
+This repository is the source of truth for Officer-Asistant (Shark) — an offline-ready maritime assistant PWA built with Next.js 16, React 19, TypeScript, Tailwind CSS, Dexie (IndexedDB), Supabase, and Stripe. The root `AGENTS.md` is the project maintenance file and follows the AGENTS.md convention for AI coding tools that load it automatically.
 
 ## Operating principles
 
@@ -55,4 +48,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Run the smallest meaningful verification during iteration and the requested or relevant final verification before reporting done.
 - If verification fails, fix the cause instead of weakening the check.
 - For UI or visual changes, verify visually with screenshots or equivalent rendered output.
-- Run `npm run lint` and `npm run build` (or relevant test scripts) to verify changes.
+- Run `npm run lint` and `npm run build` to verify changes.
+
+## Maintenance
+
+- Keep this file short enough to follow. Add rules only when they prevent a real repeat mistake or document durable project behavior.
+- When the user corrects an approach, tighten the relevant rule instead of appending a vague warning.
