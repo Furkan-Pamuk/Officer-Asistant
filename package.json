@@ -1,6 +1,9 @@
 {
-  "name": "apps-web",
+  "name": "officer-assistant",
   "version": "0.1.0",
+  "description": "Officer-Assistant (Shark) — An offline-ready maritime companion PWA for merchant navy officers and crew",
+  "author": "Furkan Pamuk",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",

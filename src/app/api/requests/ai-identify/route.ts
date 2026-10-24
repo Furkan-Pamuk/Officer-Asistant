@@ -99,6 +99,24 @@ function loadFullImpaCatalog(): {
   return { items: [], codeMap: new Map(), count: 0 };
 }
 
+function sanitizeClientErrorMessage(msg: string): string {
+  if (!msg) return "";
+  let clean = msg;
+  // Strip absolute file paths (Linux/macOS and Windows)
+  clean = clean.replace(/(?:[a-zA-Z]:)?(?:\/|\\)[^\s"':;]+(?:\/|\\)[^\s"':;]+/g, "[path]");
+  // Strip potential API keys or query params
+  clean = clean.replace(/key=[^\s&"']+/gi, "key=[redacted]");
+  clean = clean.replace(/AIza[0-9A-Za-z\-_]{35}/g, "[redacted]");
+  // Strip stack trace lines
+  clean = clean.split(/\r?\n\s*at\s+/)[0];
+  // Strip control chars
+  clean = clean.replace(/[\u0000-\u001F\u007F-\u009F]/g, "").trim();
+  if (clean.length > 200) {
+    clean = clean.slice(0, 197) + "...";
+  }
+  return clean;
+}
+
 // In-memory cache for discovered models (TTL 30 minutes)
 let cachedSupportedModels: { models: string[]; timestamp: number } | null = null;
 
@@ -123,7 +141,7 @@ async function discoverSupportedModels(apiKey: string, preferredModel = "gemini-
   ];
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`, {
+    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
       headers: { "x-goog-api-key": apiKey },
       signal: AbortSignal.timeout(3500),
     });
@@ -375,6 +393,25 @@ export async function POST(req: NextRequest) {
     const mimeType = matches ? matches[1] : "image/jpeg";
     const base64Data = matches ? matches[2] : image;
 
+    // Check image base64 length (limit to max 10MB)
+    const MAX_IMAGE_BASE64_BYTES = 10 * 1024 * 1024; // 10MB
+    if (base64Data.length > MAX_IMAGE_BASE64_BYTES) {
+      const sizeErrMessage = "Image payload is too large. Maximum size allowed is 10MB.";
+      serverAdminTracker.trackApiRequest({
+        userId,
+        userName,
+        userRank,
+        vessel,
+        endpoint: "/api/requests/ai-identify",
+        status: "failed",
+        model: requestedModel,
+        latencyMs: Date.now() - startTime,
+        errorMessage: sizeErrMessage,
+        authMethod: "None",
+      });
+      return NextResponse.json({ success: false, error: sizeErrMessage }, { status: 413 });
+    }
+
     // 2. Strict Authentication: Google API Key
     const headerKey = req.headers.get("x-goog-api-key");
     const resolvedGoogleKey = (
@@ -450,7 +487,7 @@ OUTPUT STRICT JSON ONLY:
 
       for (const apiVersion of apiVersions) {
         try {
-          const url = `https://generativelanguage.googleapis.com/${apiVersion}/models/${model}:generateContent?key=${resolvedGoogleKey}`;
+          const url = `https://generativelanguage.googleapis.com/${apiVersion}/models/${model}:generateContent`;
           const payload = {
             contents: [
               {
@@ -513,8 +550,9 @@ OUTPUT STRICT JSON ONLY:
 
     // 6. Handle Google API Processing Errors
     if (!rawVisionResult) {
-      const explicitError = lastApiError
-        ? `Google AI Processing Failed: ${lastApiError}. Please verify your Google API key.`
+      const sanitizedError = sanitizeClientErrorMessage(lastApiError);
+      const explicitError = sanitizedError
+        ? `Google AI Processing Failed: ${sanitizedError}. Please verify your Google API key.`
         : `Google AI models could not process the image. Please verify your Google API key.`;
 
       serverAdminTracker.trackApiRequest({
@@ -624,7 +662,12 @@ OUTPUT STRICT JSON ONLY:
       authMethod: "Google API Key",
     });
 
-    return NextResponse.json({ success: false, error: `AI Request Error: ${errorMsg}` }, { status: 500 });
+    const sanitizedErr = sanitizeClientErrorMessage(errorMsg);
+    const clientErr = sanitizedErr && !sanitizedErr.includes("[path]")
+      ? `AI Request Error: ${sanitizedErr}`
+      : "AI Request Error: An unexpected error occurred during AI image analysis.";
+
+    return NextResponse.json({ success: false, error: clientErr }, { status: 500 });
   }
 }
 

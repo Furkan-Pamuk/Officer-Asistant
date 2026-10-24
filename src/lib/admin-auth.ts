@@ -264,7 +264,9 @@ export function isIpAllowed(clientIp: string): boolean {
 export function verifyPassword(provided: string): boolean {
   if (
     process.env.NODE_ENV === "production" &&
-    (!process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD === "Shark@MasterNav2026!")
+    (!process.env.ADMIN_PASSWORD ||
+      process.env.ADMIN_PASSWORD === "Shark@MasterNav2026!" ||
+      provided === "Shark@MasterNav2026!")
   ) {
     console.error("[CRITICAL SECURITY] Insecure default ADMIN_PASSWORD detected in production. Access rejected.");
     return false;
@@ -335,12 +337,23 @@ export function verifyMfaCode(providedCode: string): boolean {
   if (clean === CONFIG.mfaBackupCode) {
     if (
       process.env.NODE_ENV === "production" &&
-      (!process.env.ADMIN_MFA_BACKUP_CODE || process.env.ADMIN_MFA_BACKUP_CODE === "748921")
+      (!process.env.ADMIN_MFA_BACKUP_CODE ||
+        process.env.ADMIN_MFA_BACKUP_CODE === "748921" ||
+        clean === "748921")
     ) {
       console.error("[CRITICAL SECURITY] Insecure default ADMIN_MFA_BACKUP_CODE rejected in production.");
       return false;
     }
     return true;
+  }
+
+  // Reject default MFA secret in production
+  if (
+    process.env.NODE_ENV === "production" &&
+    (!process.env.ADMIN_MFA_SECRET || process.env.ADMIN_MFA_SECRET === "JBSWY3DPEHPK3PXP")
+  ) {
+    console.error("[CRITICAL SECURITY] Insecure default ADMIN_MFA_SECRET rejected in production.");
+    return false;
   }
 
   // RFC 6238 TOTP verification with window of ±1 step (covers 90 seconds)
@@ -359,10 +372,15 @@ export function verifyMfaCode(providedCode: string): boolean {
 }
 
 export function getMfaSetupInfo(): { enabled: boolean; backupCodeHint: string; currentSampleCode?: string; secret?: string } {
-  const isDevHelper = process.env.NODE_ENV !== "production" && process.env.ADMIN_DEV_HELPER === "true";
+  const isProduction = process.env.NODE_ENV === "production";
+  const isDevHelper = !isProduction && process.env.ADMIN_DEV_HELPER === "true";
   return {
     enabled: CONFIG.mfaEnabled,
-    backupCodeHint: CONFIG.mfaBackupCode.slice(0, 2) + "**" + CONFIG.mfaBackupCode.slice(-2),
+    backupCodeHint: isProduction
+      ? ""
+      : CONFIG.mfaBackupCode.length > 4
+        ? CONFIG.mfaBackupCode.slice(0, 2) + "**" + CONFIG.mfaBackupCode.slice(-2)
+        : "****",
     ...(isDevHelper
       ? {
           secret: CONFIG.mfaSecret,
@@ -416,6 +434,14 @@ export function signSessionId(sessionId: string): string {
 }
 
 export function verifySessionId(signedToken: string): string | null {
+  if (
+    process.env.NODE_ENV === "production" &&
+    (!process.env.ADMIN_SESSION_SECRET ||
+      CONFIG.sessionSecret === "shark-maritime-admin-defense-key-2026-hyper-secure")
+  ) {
+    console.error("[CRITICAL SECURITY] Insecure default ADMIN_SESSION_SECRET detected in production. Session rejected.");
+    return null;
+  }
   const parts = signedToken.split(".");
   if (parts.length !== 2) return null;
   const [sessionId, hmac] = parts;
