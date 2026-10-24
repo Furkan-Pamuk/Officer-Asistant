@@ -825,6 +825,8 @@ export const UI_ZH: Record<string, string> = {
   "notif.timeOnly": "仅时间 - 应用程序打开时 24 小时内响铃。",
   "notif.clear": "一切正常——现在没有警报。",
   "notif.checksAria": "{x} 检查开/关",
+  "notif.markAllRead": "全部标记为已读",
+  "notif.dismiss": "关闭",
   "story.rendering": "渲染…",
   "story.downloaded": "已下载 - 将其发布到您的故事中。",
   "story.renderFail": "在此浏览器中渲染失败。",

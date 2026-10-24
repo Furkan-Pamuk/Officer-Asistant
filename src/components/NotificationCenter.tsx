@@ -1,23 +1,16 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { db, getActiveContractId } from "@/lib/db";
-import { getGibsStatus, getSignOffStatus, formatDate } from "@/lib/gibs";
-import { NEWS } from "@/lib/news";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { loadAlarms, saveAlarms, nextFire, type AlestaAlarm } from "@/lib/alesta";
 import { WEEKDAYS, loadReminders, saveReminders, type CheckReminders } from "@/lib/checkReminders";
 import { useLocale } from "@/lib/i18n";
-
-interface Item {
-  id: string;
-  icon: string;
-  title: string;
-  detail: string;
-  href: string;
-  hot: boolean;
-}
-
-const SEEN_KEY = "oa-news-seen";
+import {
+  type NotificationItem,
+  fetchNotifications,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
+  NOTIFICATIONS_UPDATED_EVENT,
+} from "@/lib/notifications";
 
 function CheckRow({ label, on, onToggle, children }: { label: string; on: boolean; onToggle: () => void; children: React.ReactNode }) {
   const { t } = useLocale();
@@ -41,7 +34,7 @@ function CheckRow({ label, on, onToggle, children }: { label: string; on: boolea
 export default function NotificationCenter() {
   const [open, setOpen] = useState(false);
   const { t } = useLocale();
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<NotificationItem[]>([]);
   const [alarms, setAlarms] = useState<AlestaAlarm[]>([]);
   const [showAlarms, setShowAlarms] = useState(false);
   const [checks, setChecks] = useState<CheckReminders | null>(null);
@@ -58,51 +51,52 @@ export default function NotificationCenter() {
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  const load = useCallback(async () => {
+    try {
+      const fresh = await fetchNotifications();
+      setItems(fresh);
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
-    async function load() {
-      const out: Item[] = [];
-      try {
-        const contracts = await db.contracts.toArray();
-        const activeId = getActiveContractId();
-        const active = contracts.find((c) => c.id === activeId) ?? null;
-        if (active) {
-          const g = getGibsStatus(active);
-          if (!g.done && (g.urgent || g.overdue) && g.deadline) {
-            out.push({ id: "gibs", icon: "📋", title: `GIBS: ${g.overdue ? "OVERDUE" : `${g.daysLeft} days left`}`, detail: `Sign-on docs • deadline ${formatDate(g.deadline)}`, href: "/dashboard", hot: true });
-          }
-        }
-        const ended = contracts.find((c) => c.status === "archived" && c.signOffDate && !c.gibsOffDone);
-        if (ended) {
-          const s = getSignOffStatus(ended);
-          out.push({ id: "signoff", icon: "🛳️", title: "Sign-off docs pending", detail: `${ended.shipName} • signed off ${ended.signOffDate}${s.deadline ? ` • deadline ${formatDate(s.deadline)}` : ""}`, href: "/dashboard", hot: Boolean(s.urgent || s.overdue) });
-        }
-        const now = new Date().toISOString();
-        const due = await db.notes.where("remindAt").belowOrEqual(now).toArray();
-        for (const n of due.filter((x) => !x.reminded && x.remindAt).slice(0, 5)) {
-          out.push({ id: `note-${n.id}`, icon: "🔔", title: n.title, detail: (n.body || "Voice note").slice(0, 80), href: "/notes", hot: true });
-        }
-        try {
-          const wxRaw = localStorage.getItem("oa-wx-cache");
-          if (wxRaw) {
-            const wx = JSON.parse(wxRaw);
-            if (wx.wind >= 25) out.push({ id: "wx-wind", icon: "💨", title: `Strong wind ${Math.round(wx.wind)} kn`, detail: wx.place ?? "on position", href: "/dashboard", hot: true });
-            else if ((wx.precip ?? 0) > 5) out.push({ id: "wx-rain", icon: "🌧️", title: `Heavy rain ${wx.precip} mm`, detail: wx.place ?? "on position", href: "/dashboard", hot: false });
-          }
-        } catch { /* ignore */ }
-        let seen: string[] = [];
-        try { seen = JSON.parse(localStorage.getItem(SEEN_KEY) ?? "[]"); } catch { /* ignore */ }
-        for (const p of NEWS.filter((x) => !seen.includes(x.id)).slice(0, 3)) {
-          out.push({ id: `news-${p.id}`, icon: "📰", title: p.title, detail: `${p.tag} • ${p.date}`, href: `/news/${p.id}`, hot: false });
-        }
-      } catch { /* ignore */ }
-      setItems(out);
-    }
     load();
     setAlarms(loadAlarms());
     setChecks(loadReminders());
-    const t = setInterval(load, 60000);
-    return () => clearInterval(t);
-  }, [open]);
+
+    const t = setInterval(load, 30000);
+
+    const onUpdate = () => {
+      load();
+    };
+
+    window.addEventListener(NOTIFICATIONS_UPDATED_EVENT, onUpdate);
+    window.addEventListener("storage", onUpdate);
+
+    return () => {
+      clearInterval(t);
+      window.removeEventListener(NOTIFICATIONS_UPDATED_EVENT, onUpdate);
+      window.removeEventListener("storage", onUpdate);
+    };
+  }, [load]);
+
+  const handleItemClick = async (id: string) => {
+    setItems((prev) => prev.filter((x) => x.id !== id));
+    await markNotificationAsRead(id);
+    setOpen(false);
+  };
+
+  const handleDismissItem = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setItems((prev) => prev.filter((x) => x.id !== id));
+    await markNotificationAsRead(id);
+  };
+
+  const handleMarkAllRead = async () => {
+    const prev = items;
+    setItems([]);
+    await markAllNotificationsAsRead(prev);
+  };
 
   function updateAlarm(id: string, patch: Partial<AlestaAlarm>) {
     const next = alarms.map((a) => (a.id === id ? { ...a, ...patch } : a));
@@ -111,14 +105,6 @@ export default function NotificationCenter() {
     if (patch.on && "Notification" in window && Notification.permission === "default") {
       Notification.requestPermission().catch(() => {});
     }
-  }
-
-  function markNewsSeen() {
-    try {
-      const ids = items.filter((i) => i.id.startsWith("news-")).map((i) => i.id.slice(5));
-      const prev: string[] = JSON.parse(localStorage.getItem(SEEN_KEY) ?? "[]");
-      localStorage.setItem(SEEN_KEY, JSON.stringify(Array.from(new Set([...prev, ...ids]))));
-    } catch { /* ignore */ }
   }
 
   function setChecksAndSave(next: CheckReminders) {
@@ -142,7 +128,20 @@ export default function NotificationCenter() {
       </button>
       {open && (
         <div className="absolute right-0 top-full z-50 mt-2 max-h-96 w-80 overflow-y-auto rounded-2xl border border-amber-200 bg-white p-2 shadow-xl dark:border-red-900 dark:bg-neutral-950">
-          <div className="px-2 py-1 text-xs font-black uppercase tracking-widest opacity-60">{t("notif.titleN").replace("{n}", String(items.length))}</div>
+          <div className="mb-1 flex items-center justify-between px-2 py-1">
+            <span className="text-xs font-black uppercase tracking-widest opacity-60">
+              {t("notif.titleN").replace("{n}", String(items.length))}
+            </span>
+            {items.length > 0 && (
+              <button
+                type="button"
+                onClick={handleMarkAllRead}
+                className="text-[11px] font-bold text-amber-700 hover:underline dark:text-red-400"
+              >
+                {t("notif.markAllRead") || "Mark all as read"}
+              </button>
+            )}
+          </div>
           <button onClick={() => setShowChecks(!showChecks)} className="mb-1 flex w-full items-center justify-between rounded-xl bg-amber-100 px-2.5 py-2 text-sm font-black dark:bg-red-950">
             <span>{t("notif.reminders")}</span>
             <span>{showChecks ? "▴" : "▾"}</span>
@@ -206,13 +205,33 @@ export default function NotificationCenter() {
           )}
           {items.length === 0 && <p className="px-2 py-3 text-sm opacity-70">{t("notif.clear")}</p>}
           {items.map((i) => (
-            <Link key={i.id} href={i.href} onClick={() => { if (i.id.startsWith("news-")) markNewsSeen(); setOpen(false); }} className={`mb-1 flex gap-2 rounded-xl px-2.5 py-2 hover:bg-amber-50 dark:hover:bg-red-950/50 ${i.hot ? "ring-1 ring-red-400" : ""}`}>
-              <span className="text-xl">{i.icon}</span>
-              <span>
-                <span className="block text-sm font-bold">{i.title}</span>
-                <span className="block text-xs opacity-60">{i.detail}</span>
-              </span>
-            </Link>
+            <div
+              key={i.id}
+              className={`group mb-1 flex items-center justify-between rounded-xl px-2.5 py-2 hover:bg-amber-50 dark:hover:bg-red-950/50 ${
+                i.hot ? "ring-1 ring-red-400" : ""
+              }`}
+            >
+              <Link
+                href={i.href}
+                onClick={() => handleItemClick(i.id)}
+                className="flex min-w-0 flex-1 items-start gap-2"
+              >
+                <span className="text-xl shrink-0">{i.icon}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-bold">{i.title}</span>
+                  <span className="block truncate text-xs opacity-60">{i.detail}</span>
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={(e) => handleDismissItem(e, i.id)}
+                title={t("notif.dismiss") || "Dismiss"}
+                aria-label={t("notif.dismiss") || "Dismiss"}
+                className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs opacity-40 hover:bg-amber-200/60 hover:opacity-100 dark:hover:bg-red-900/60"
+              >
+                ✕
+              </button>
+            </div>
           ))}
         </div>
       )}

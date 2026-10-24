@@ -825,6 +825,8 @@ export const UI_ID: Record<string, string> = {
   "notif.timeOnly": "Hanya waktu — berdering dalam waktu 24 jam saat aplikasi terbuka.",
   "notif.clear": "Semua aman — tidak ada peringatan saat ini.",
   "notif.checksAria": "{x} memeriksa hidup/mati",
+  "notif.markAllRead": "Tandai semua telah dibaca",
+  "notif.dismiss": "Tutup",
   "story.rendering": "Merender…",
   "story.downloaded": "Diunduh — poskan ke cerita Anda.",
   "story.renderFail": "Render gagal di browser ini.",

@@ -9,6 +9,7 @@ import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import type { CrewPost } from "@/lib/types";
 import { useLocale } from "@/lib/i18n";
 import { useDocTitle } from "@/lib/doctitle";
+import { markAllNewsAsSeen } from "@/lib/notifications";
 
 const LEGACY_KEY = "oa-crew-posts";
 const MIGRATED_KEY = "oa-crew-migrated";
@@ -89,6 +90,9 @@ function NewsContent() {
   const sectionParam = searchParams.get("section");
   useDocTitle("news.title");
   const [sec, setSec] = useState<"all" | NewsSection>("all");
+  useEffect(() => {
+    markAllNewsAsSeen();
+  }, []);
   useEffect(() => {
     setSec(sectionParam === "news" || sectionParam === "crew" || sectionParam === "blog" ? sectionParam : "all");
   }, [sectionParam]);

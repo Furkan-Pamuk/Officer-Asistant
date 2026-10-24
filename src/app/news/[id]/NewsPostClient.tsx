@@ -1,5 +1,5 @@
 "use client";
-import { use } from "react";
+import { use, useEffect } from "react";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { useLiveQuery } from "@/hooks/useLiveQuery";
@@ -7,6 +7,7 @@ import { NEWS, SECTIONS, type NewsPost } from "@/lib/news";
 import { useContentOverlay, cov, withOv } from "@/lib/i18n-content";
 import FishMap from "@/components/FishMap";
 import { useLocale } from "@/lib/i18n";
+import { markNewsPostAsSeen } from "@/lib/notifications";
 
 const LEGACY_KEY = "oa-crew-posts";
 
@@ -61,6 +62,11 @@ async function sharePost(post: NewsPost, photo: string | null | undefined, t: (k
 
 export default function NewsPostClient({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  useEffect(() => {
+    if (id) {
+      markNewsPostAsSeen(id);
+    }
+  }, [id]);
   const { t } = useLocale();
   const o = useContentOverlay();
   const crew = useLiveQuery(() => db.crewPosts.where("id").equals(id).toArray(), [id]);

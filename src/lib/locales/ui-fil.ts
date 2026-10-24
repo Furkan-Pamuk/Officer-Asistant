@@ -825,6 +825,8 @@ export const UI_FIL: Record<string, string> = {
   "notif.timeOnly": "Oras lang — magri-ring sa loob ng 24h habang bukas ang app.",
   "notif.clear": "Malinaw ang lahat — walang alerto sa ngayon.",
   "notif.checksAria": "Naka-on/na-off ang {x} na pagsusuri",
+  "notif.markAllRead": "Markahan lahat bilang nabasa",
+  "notif.dismiss": "I-dismiss",
   "story.rendering": "Nire-render…",
   "story.downloaded": "Na-download — i-post ito sa iyong kwento.",
   "story.renderFail": "Nabigo ang pag-render sa browser na ito.",

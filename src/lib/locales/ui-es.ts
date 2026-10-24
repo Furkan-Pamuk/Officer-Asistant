@@ -825,6 +825,8 @@ export const UI_ES: Record<string, string> = {
   "notif.timeOnly": "Solo por hora: suena dentro de las 24 horas mientras la aplicación está abierta.",
   "notif.clear": "Todo despejado: no hay alertas en este momento.",
   "notif.checksAria": "{x} activadas/desactivadas",
+  "notif.markAllRead": "Marcar todo como leído",
+  "notif.dismiss": "Descartar",
   "story.rendering": "Representación…",
   "story.downloaded": "Descargado: publícalo en tu historia.",
   "story.renderFail": "El renderizado falló en este navegador.",
