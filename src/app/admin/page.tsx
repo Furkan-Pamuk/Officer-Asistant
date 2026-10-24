@@ -74,6 +74,7 @@ export default function AdminDashboardPage() {
   }, [router]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     checkAuthAndFetch();
     const interval = setInterval(checkAuthAndFetch, 8000);
     return () => clearInterval(interval);
