@@ -1,9 +1,12 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { useLocale } from "@/lib/i18n";
 import { SOCIAL } from "@/lib/social";
 
 export default function SiteFooter() {
+  const pathname = usePathname();
   const { t } = useLocale();
+  if (pathname === "/links" || pathname?.startsWith("/links/")) return null;
   const ext = { target: "_blank", rel: "noreferrer" } as const;
   return (
     <footer className="shark-footer border-t px-4 py-10 text-center text-xs leading-relaxed print:hidden sm:py-12">

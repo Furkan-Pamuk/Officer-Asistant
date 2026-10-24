@@ -146,12 +146,13 @@ export default function SharkIntro() {
       return;
     }
 
-    // Never show intro on authentication or administrative paths
+    // Never show intro on authentication, administrative or standalone link paths
     if (
       pathname &&
       (pathname.startsWith("/login") ||
         pathname.startsWith("/admin") ||
-        pathname.startsWith("/api"))
+        pathname.startsWith("/api") ||
+        pathname.startsWith("/links"))
     ) {
       return;
     }
