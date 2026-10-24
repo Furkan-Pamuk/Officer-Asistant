@@ -1,9 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUserSession, USER_COOKIE_NAME } from "@/lib/user-auth";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function sanitize(str: string): string {
+  return str.replace(/[\u0000-\u001F\u007F-\u009F]/g, "").trim();
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
-  const plan = body.plan === "yearly" ? "yearly" : "monthly";
+  const plan = body.plan;
+
+  if (plan !== "monthly" && plan !== "yearly") {
+    return NextResponse.json(
+      { error: "Invalid plan. Only 'monthly' and 'yearly' are permitted." },
+      { status: 400 }
+    );
+  }
 
   const secret = process.env.STRIPE_SECRET_KEY;
   const monthly = process.env.STRIPE_PRICE_MONTHLY;
@@ -17,8 +30,17 @@ export async function POST(req: NextRequest) {
   // Identify authenticated user from session cookie or body payload
   const token = req.cookies.get(USER_COOKIE_NAME)?.value;
   const session = getUserSession(token);
-  const userId = session?.userId || (typeof body.userId === "string" ? body.userId : "");
-  const userEmail = session?.email || (typeof body.userEmail === "string" ? body.userEmail : "");
+  const rawUserId = session?.userId || (typeof body.userId === "string" ? body.userId : "");
+  const rawEmail = session?.email || (typeof body.userEmail === "string" ? body.userEmail : "");
+
+  const userId = sanitize(rawUserId);
+  const userEmail = sanitize(rawEmail).toLowerCase();
+
+  if (userEmail && !EMAIL_REGEX.test(userEmail)) {
+    return NextResponse.json({ error: "Invalid email format." }, { status: 400 });
+  }
+
+  const validEmail = userEmail && EMAIL_REGEX.test(userEmail) ? userEmail : undefined;
 
   const Stripe = (await import("stripe")).default;
   const stripe = new Stripe(secret);
@@ -26,10 +48,10 @@ export async function POST(req: NextRequest) {
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "subscription",
     client_reference_id: userId || undefined,
-    customer_email: userEmail && userEmail.includes("@") ? userEmail : undefined,
+    customer_email: validEmail,
     metadata: {
       userId: userId || "",
-      userEmail: userEmail || "",
+      userEmail: validEmail || "",
       plan,
     },
     line_items: [{ price: plan === "yearly" ? yearly! : monthly!, quantity: 1 }],

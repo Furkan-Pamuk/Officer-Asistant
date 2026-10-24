@@ -6,8 +6,14 @@ import { lookupVessel, vesselByMmsiFree, legacyShape } from "@/lib/providers";
 // GET /api/vessel/location?mmsi=636026627 (free Open Waters detail)
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const mmsi = searchParams.get("mmsi") ?? "";
-  if (/^\d{9}$/.test(mmsi)) {
+  const mmsiParam = searchParams.get("mmsi");
+  const imoParam = searchParams.get("imo");
+
+  if (mmsiParam !== null) {
+    const mmsi = mmsiParam.trim();
+    if (!/^\d{9}$/.test(mmsi)) {
+      return NextResponse.json({ error: "Invalid MMSI format. Must be exactly 9 digits." }, { status: 400 });
+    }
     const r = await vesselByMmsiFree(mmsi);
     if (!r.ok) {
       const s = r.error.kind === "invalid" ? 400 : r.error.kind === "rate-limited" ? 429 : r.error.kind === "not-found" ? 404 : 502;
@@ -15,14 +21,25 @@ export async function GET(req: Request) {
     }
     return NextResponse.json({ ...legacyShape(r.data), attribution: r.attribution });
   }
-  const imo = searchParams.get("imo") ?? "";
-  const r = await lookupVessel(imo);
-  if (!r.ok) {
-    if (r.error.kind === "invalid") return NextResponse.json({ error: r.error.message }, { status: 400 });
-    if (r.error.kind === "credits") return NextResponse.json({ error: r.error.message }, { status: 403 });
-    if (r.error.kind === "rate-limited") return NextResponse.json({ error: r.error.message }, { status: 429 });
-    if (r.error.kind === "not-found") return NextResponse.json({ error: r.error.message }, { status: 404 });
-    return NextResponse.json({ error: r.error.message }, { status: 502 });
+
+  if (imoParam !== null) {
+    const imo = imoParam.trim();
+    if (!/^\d{7}$/.test(imo)) {
+      return NextResponse.json({ error: "Invalid IMO format. Must be exactly 7 digits." }, { status: 400 });
+    }
+    const r = await lookupVessel(imo);
+    if (!r.ok) {
+      if (r.error.kind === "invalid") return NextResponse.json({ error: r.error.message }, { status: 400 });
+      if (r.error.kind === "credits") return NextResponse.json({ error: r.error.message }, { status: 403 });
+      if (r.error.kind === "rate-limited") return NextResponse.json({ error: r.error.message }, { status: 429 });
+      if (r.error.kind === "not-found") return NextResponse.json({ error: r.error.message }, { status: 404 });
+      return NextResponse.json({ error: r.error.message }, { status: 502 });
+    }
+    return NextResponse.json(legacyShape(r.data));
   }
-  return NextResponse.json(legacyShape(r.data));
+
+  return NextResponse.json(
+    { error: "Query parameter 'mmsi' (9 digits) or 'imo' (7 digits) is required." },
+    { status: 400 }
+  );
 }

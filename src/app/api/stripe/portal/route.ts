@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getUserSession, USER_COOKIE_NAME } from "@/lib/user-auth";
 import { createClient } from "@supabase/supabase-js";
 
+function sanitize(str: string): string {
+  return str.replace(/[\u0000-\u001F\u007F-\u009F]/g, "").trim();
+}
+
 export async function POST(req: NextRequest) {
   const secret = process.env.STRIPE_SECRET_KEY;
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
@@ -23,10 +27,11 @@ export async function POST(req: NextRequest) {
 
   if (url && serviceKey) {
     const supabaseAdmin = createClient(url, serviceKey);
+    const sanitizedUserId = sanitize(session.userId);
     const { data } = await supabaseAdmin
       .from("subscriptions")
       .select("stripe_customer_id")
-      .eq("user_id", session.userId)
+      .eq("user_id", sanitizedUserId)
       .single();
     customerId = data?.stripe_customer_id ?? null;
   }
@@ -38,11 +43,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const sanitizedCustomerId = typeof customerId === "string" ? sanitize(customerId) : "";
+  if (!/^cus_[a-zA-Z0-9]+$/.test(sanitizedCustomerId)) {
+    return NextResponse.json(
+      { error: "Invalid Stripe customer ID format." },
+      { status: 400 }
+    );
+  }
+
   const Stripe = (await import("stripe")).default;
   const stripe = new Stripe(secret);
 
   const portalSession = await stripe.billingPortal.sessions.create({
-    customer: customerId,
+    customer: sanitizedCustomerId,
     return_url: `${appUrl}/pricing`,
   });
 

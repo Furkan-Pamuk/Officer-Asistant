@@ -6,16 +6,17 @@ import { useLocale } from "@/lib/i18n";
 import { useDocTitle } from "@/lib/doctitle";
 
 function usePos() {
-  const [pos, setPos] = useState<{ lat: number; lon: number } | null>(null);
-  useEffect(() => {
+  const [pos] = useState<{ lat: number; lon: number } | null>(() => {
+    if (typeof window === "undefined") return null;
     try {
       const raw = localStorage.getItem("oa-pos");
       if (raw) {
         const p = JSON.parse(raw);
-        if (isFinite(p.lat) && isFinite(p.lon)) setPos({ lat: p.lat, lon: p.lon });
+        if (isFinite(p.lat) && isFinite(p.lon)) return { lat: p.lat, lon: p.lon };
       }
-    } catch { /* ignore */ }
-  }, []);
+    } catch {}
+    return null;
+  });
   return pos;
 }
 
