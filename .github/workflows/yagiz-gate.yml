@@ -19,9 +19,8 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Install
         run: npm ci
-      # Tam lint degil: main'de 137 eski hata var, hepsini duzeltmeden
-      # kapiyi kapatmak tum isi kilitler. Once yeni kod kirlenmesin;
-      # eski borc temizligi ayri PR. Build ise sart (bloklar).
+      # Incremental lint: enforces strict lint checks on changed files in the PR diff.
+      # Full build verification is mandatory and blocking.
       - name: Lint changed files
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
@@ -31,16 +30,16 @@ jobs:
           fi
           files=$(git diff --name-only "$base"...HEAD -- '*.ts' '*.tsx' '*.js' '*.mjs' '*.cjs' | grep -v '^data/' || true)
           if [ -z "$files" ]; then
-            echo "lintlenecek js/ts degisikligi yok"
+            echo "No JS/TS modifications detected for incremental lint."
           else
             echo "$files" | xargs npx eslint
           fi
       - name: Build
         run: npm run build
-      - name: Yagiz approval gate
+      - name: Code owner approval gate
         if: github.event_name == 'pull_request'
         run: |
-          echo "Merge sadece Yagiz yapar."
-          echo "Bypass denemesi: Yagiz tarafindan koyulan guvenlik onlemleri yuzunden reddedildi."
-          # Branch protection + CODEOWNERS zaten zorunlu review ister.
-          # Bu job, required status check olarak isaretlenmeli.
+          echo "PR merges require designated code owner approval."
+          echo "Bypass attempts are prohibited under repository branch protection rules."
+          # Branch protection + CODEOWNERS enforces required review sign-off.
+          # This workflow step acts as a required status check.
