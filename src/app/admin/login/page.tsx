@@ -18,7 +18,7 @@ function AdminLoginForm() {
   const searchParams = useSearchParams();
   const returnUrl = searchParams.get("returnUrl") || "/admin";
 
-  const [username, setUsername] = useState("sharkadmin");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mfaCode, setMfaCode] = useState("");
   const [role, setRole] = useState<"super_admin" | "operator_admin" | "viewer_admin">("super_admin");
@@ -149,7 +149,7 @@ function AdminLoginForm() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={lockedSeconds > 0 || loading}
-                placeholder="e.g. sharkadmin"
+                placeholder="Admin username"
                 className="w-full rounded-xl border border-amber-200 bg-stone-50 px-3.5 py-2.5 text-xs font-mono font-medium text-stone-900 focus:border-amber-500 focus:outline-hidden dark:border-stone-800 dark:bg-stone-900 dark:text-stone-100 disabled:opacity-50"
               />
             </div>
@@ -160,7 +160,7 @@ function AdminLoginForm() {
                 <label className="block text-xs font-bold text-stone-700 dark:text-stone-300">
                   Master Administrative Password
                 </label>
-                <span className="text-[10px] text-stone-400">Timing-safe SHA-256 verification</span>
+                <span className="text-[10px] text-stone-400">Timing-safe verification</span>
               </div>
               <input
                 type="password"
@@ -179,15 +179,13 @@ function AdminLoginForm() {
                 <label className="block text-xs font-bold text-stone-700 dark:text-stone-300">
                   Two-Factor Passcode (TOTP / Emergency Code)
                 </label>
-                {mfaInfo?.currentSampleCode && (
-                  <button
-                    type="button"
-                    onClick={() => setShowHelper(!showHelper)}
-                    className="text-[11px] font-semibold text-amber-700 hover:underline dark:text-amber-400"
-                  >
-                    {showHelper ? "Hide Dev Credentials" : "Show Dev Credentials"}
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setShowHelper(!showHelper)}
+                  className="text-[11px] font-semibold text-amber-700 hover:underline dark:text-amber-400"
+                >
+                  {showHelper ? "Hide Setup Guide" : "Environment Setup"}
+                </button>
               </div>
               <div className="relative">
                 <input
@@ -255,34 +253,44 @@ function AdminLoginForm() {
             </div>
           </form>
 
-          {/* Test Credentials Helper Panel */}
-          {showHelper && mfaInfo?.currentSampleCode && (
+          {/* Environment Variable Setup Instructions */}
+          {showHelper && (
             <div className="mt-5 rounded-2xl border border-amber-300/80 bg-amber-50/80 p-4 text-xs dark:border-stone-800 dark:bg-stone-900">
               <h3 className="font-bold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
-                <span>🔑</span> Default Testing Credentials
+                <span>🔑</span> Authentication Environment Configuration
               </h3>
               <p className="mt-1 text-[11px] opacity-70">
-                Configured via environment variables (<code className="font-mono">ADMIN_USERNAME</code>, <code className="font-mono">ADMIN_PASSWORD</code>, <code className="font-mono">ADMIN_MFA_SECRET</code>).
+                Credentials must be configured securely on the server via environment variables:
               </p>
               <div className="mt-3 grid gap-1.5 font-mono text-[11px]">
                 <div className="flex justify-between bg-white/70 dark:bg-black/40 px-2 py-1 rounded">
-                  <span className="opacity-60">Username:</span>
-                  <span className="font-bold">sharkadmin</span>
+                  <span className="opacity-60">Username Env:</span>
+                  <span className="font-bold">ADMIN_USERNAME</span>
                 </div>
                 <div className="flex justify-between bg-white/70 dark:bg-black/40 px-2 py-1 rounded">
-                  <span className="opacity-60">Password:</span>
-                  <span className="font-bold">Shark@MasterNav2026!</span>
+                  <span className="opacity-60">Password Env:</span>
+                  <span className="font-bold">ADMIN_PASSWORD</span>
                 </div>
                 <div className="flex justify-between bg-white/70 dark:bg-black/40 px-2 py-1 rounded">
-                  <span className="opacity-60">Live TOTP Code:</span>
-                  <span className="font-bold text-amber-700 dark:text-amber-400">
-                    {mfaInfo?.currentSampleCode || "748921"}
-                  </span>
+                  <span className="opacity-60">TOTP Secret Env:</span>
+                  <span className="font-bold">ADMIN_MFA_SECRET</span>
                 </div>
                 <div className="flex justify-between bg-white/70 dark:bg-black/40 px-2 py-1 rounded">
-                  <span className="opacity-60">Emergency Backup Code:</span>
-                  <span className="font-bold">748921</span>
+                  <span className="opacity-60">Backup Code Env:</span>
+                  <span className="font-bold">ADMIN_MFA_BACKUP_CODE</span>
                 </div>
+                <div className="flex justify-between bg-white/70 dark:bg-black/40 px-2 py-1 rounded">
+                  <span className="opacity-60">Session Secret Env:</span>
+                  <span className="font-bold">ADMIN_SESSION_SECRET</span>
+                </div>
+                {mfaInfo?.currentSampleCode && (
+                  <div className="flex justify-between bg-white/70 dark:bg-black/40 px-2 py-1 rounded">
+                    <span className="opacity-60">Dev Live OTP:</span>
+                    <span className="font-bold text-amber-700 dark:text-amber-400">
+                      {mfaInfo.currentSampleCode}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           )}

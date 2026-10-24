@@ -32,14 +32,33 @@ export interface UserSession {
 
 export const USER_COOKIE_NAME = "shark_user_session";
 
-const SESSION_SECRET =
-  process.env.USER_SESSION_SECRET || "shark-user-session-key-2026";
+function getSessionSecret(): string {
+  const configured = process.env.USER_SESSION_SECRET;
+  const isProduction = process.env.NODE_ENV === "production";
+  const isDefaultOrEmpty = !configured || configured === "shark-user-session-key-2026";
+
+  if (isProduction && isDefaultOrEmpty) {
+    const globalStore = globalThis as unknown as { __sharkEphemeralUserSessionSecret?: string };
+    if (!globalStore.__sharkEphemeralUserSessionSecret) {
+      globalStore.__sharkEphemeralUserSessionSecret = crypto.randomBytes(32).toString("hex");
+      console.warn(
+        "[user-auth] WARNING: USER_SESSION_SECRET is unset or using default fallback in production. Generated high-entropy ephemeral secret for process lifetime.",
+      );
+    }
+    return globalStore.__sharkEphemeralUserSessionSecret;
+  }
+
+  return configured || "shark-user-session-key-2026";
+}
 
 const SESSION_ABSOLUTE_LIFETIME_MS = 24 * 60 * 60 * 1000; // 24 hours
 const SESSION_IDLE_TIMEOUT_MS = 4 * 60 * 60 * 1000; // 4 hours
 
 const MAX_FAILED_LOGINS = 10;
 const LOCKOUT_DURATION_MS = 10 * 60 * 1000; // 10 minutes
+
+export const MAX_REGISTRATIONS_PER_HOUR = 5;
+export const REGISTER_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 
 // -------------------------------------------------------------
 // In-Memory Store (survives HMR via globalThis)
@@ -50,6 +69,7 @@ interface UserMemoryStore {
   emailIndex: Map<string, string>; // email → user id
   sessions: Map<string, UserSession>;
   loginFailures: Map<string, { count: number; lockedUntil: number; lastAttempt: number }>;
+  registerAttempts: Map<string, number[]>;
 }
 
 const memoryStore: UserMemoryStore =
@@ -58,7 +78,11 @@ const memoryStore: UserMemoryStore =
     emailIndex: new Map(),
     sessions: new Map(),
     loginFailures: new Map(),
+    registerAttempts: new Map(),
   };
+if (!memoryStore.registerAttempts) {
+  memoryStore.registerAttempts = new Map();
+}
 (globalThis as unknown as { __sharkUserMemory?: UserMemoryStore }).__sharkUserMemory = memoryStore;
 
 // -------------------------------------------------------------
@@ -133,12 +157,20 @@ if (!diskLoaded) {
 // Password Helpers
 // -------------------------------------------------------------
 
+const PBKDF2_ITERATIONS = 100_000;
+const PBKDF2_KEYLEN = 64;
+const PBKDF2_DIGEST = "sha512";
+const PBKDF2_PREFIX = `pbkdf2$${PBKDF2_ITERATIONS}$`;
+
 export function generateSalt(): string {
-  return crypto.randomBytes(16).toString("hex");
+  return crypto.randomBytes(32).toString("hex");
 }
 
 export function hashPassword(password: string, salt: string): string {
-  return crypto.createHash("sha256").update(salt + password).digest("hex");
+  const derived = crypto
+    .pbkdf2Sync(password, salt, PBKDF2_ITERATIONS, PBKDF2_KEYLEN, PBKDF2_DIGEST)
+    .toString("hex");
+  return `${PBKDF2_PREFIX}${derived}`;
 }
 
 // -------------------------------------------------------------
@@ -152,19 +184,38 @@ export function registerUser(
   password: string,
   displayName: string,
 ): { success: boolean; error?: string; user?: { id: string; email: string; displayName: string } } {
-  const normalizedEmail = email.toLowerCase().trim();
-
-  if (!normalizedEmail || !EMAIL_REGEX.test(normalizedEmail)) {
+  if (typeof email !== "string") {
     return { success: false, error: "Invalid email format." };
   }
 
-  if (!password || password.length < 8) {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  if (!normalizedEmail || normalizedEmail.length > 254 || !EMAIL_REGEX.test(normalizedEmail)) {
+    return { success: false, error: "Invalid email format." };
+  }
+
+  if (typeof password !== "string" || password.length < 8) {
     return { success: false, error: "Password must be at least 8 characters." };
   }
 
-  const trimmedName = displayName?.trim();
-  if (!trimmedName) {
+  if (password.length > 128) {
+    return { success: false, error: "Password must not exceed 128 characters." };
+  }
+
+  if (typeof displayName !== "string") {
     return { success: false, error: "Display name is required." };
+  }
+
+  const sanitizedDisplayName = displayName
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, "")
+    .trim();
+
+  if (!sanitizedDisplayName) {
+    return { success: false, error: "Display name is required." };
+  }
+
+  if (sanitizedDisplayName.length > 60) {
+    return { success: false, error: "Display name must not exceed 60 characters." };
   }
 
   if (memoryStore.emailIndex.has(normalizedEmail)) {
@@ -178,7 +229,7 @@ export function registerUser(
   const user: UserAccount = {
     id,
     email: normalizedEmail,
-    displayName: trimmedName,
+    displayName: sanitizedDisplayName,
     passwordHash: hashPassword(password, salt),
     passwordSalt: salt,
     createdAt: now,
@@ -191,7 +242,7 @@ export function registerUser(
 
   return {
     success: true,
-    user: { id, email: normalizedEmail, displayName: trimmedName },
+    user: { id, email: normalizedEmail, displayName: sanitizedDisplayName },
   };
 }
 
@@ -203,7 +254,15 @@ export function authenticateUser(
   email: string,
   password: string,
 ): { success: boolean; error?: string; user?: UserAccount } {
-  const normalizedEmail = email.toLowerCase().trim();
+  if (typeof password !== "string" || password.length < 8 || password.length > 128) {
+    return { success: false, error: "Invalid email or password." };
+  }
+
+  if (typeof email !== "string") {
+    return { success: false, error: "Invalid email or password." };
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
   const userId = memoryStore.emailIndex.get(normalizedEmail);
 
   if (!userId) {
@@ -215,21 +274,69 @@ export function authenticateUser(
     return { success: false, error: "Invalid email or password." };
   }
 
-  const candidateHash = hashPassword(password, user.passwordSalt);
-
-  // Timing-safe comparison
-  const b1 = Buffer.from(candidateHash);
-  const b2 = Buffer.from(user.passwordHash);
-  if (b1.length !== b2.length || !crypto.timingSafeEqual(b1, b2)) {
-    return { success: false, error: "Invalid email or password." };
+  // 1. Check if hash matches PBKDF2 signature
+  if (user.passwordHash.startsWith(PBKDF2_PREFIX)) {
+    const candidateHash = hashPassword(password, user.passwordSalt);
+    const b1 = Buffer.from(candidateHash);
+    const b2 = Buffer.from(user.passwordHash);
+    if (b1.length !== b2.length || !crypto.timingSafeEqual(b1, b2)) {
+      return { success: false, error: "Invalid email or password." };
+    }
+    return { success: true, user };
   }
 
-  return { success: true, user };
+  // 2. Legacy SHA-256 fallback check (64 hex characters and not matching PBKDF2 signature)
+  const isLegacySha256 = /^[0-9a-f]{64}$/i.test(user.passwordHash);
+  if (isLegacySha256) {
+    const legacyCandidate = crypto
+      .createHash("sha256")
+      .update(user.passwordSalt + password)
+      .digest("hex");
+    const b1 = Buffer.from(legacyCandidate);
+    const b2 = Buffer.from(user.passwordHash);
+    if (b1.length === b2.length && crypto.timingSafeEqual(b1, b2)) {
+      // Re-hash transparently with PBKDF2 and new 32-byte salt
+      const newSalt = generateSalt();
+      const newHash = hashPassword(password, newSalt);
+      user.passwordSalt = newSalt;
+      user.passwordHash = newHash;
+      user.updatedAt = new Date().toISOString();
+      persistToDisk();
+      return { success: true, user };
+    }
+  }
+
+  return { success: false, error: "Invalid email or password." };
 }
 
 // -------------------------------------------------------------
-// Rate Limiting (login failures per IP)
+// Rate Limiting (login failures and registrations per IP)
 // -------------------------------------------------------------
+
+export function checkRegisterRateLimit(ip: string): { allowed: boolean; retryAfter: number } {
+  const now = Date.now();
+  const attempts = memoryStore.registerAttempts?.get(ip) || [];
+  const recent = attempts.filter((ts) => now - ts < REGISTER_RATE_LIMIT_WINDOW_MS);
+
+  if (recent.length >= MAX_REGISTRATIONS_PER_HOUR) {
+    const oldest = recent[0];
+    const retryAfter = Math.ceil((oldest + REGISTER_RATE_LIMIT_WINDOW_MS - now) / 1000);
+    return { allowed: false, retryAfter: Math.max(1, retryAfter) };
+  }
+
+  return { allowed: true, retryAfter: 0 };
+}
+
+export function recordRegisterAttempt(ip: string): void {
+  const now = Date.now();
+  if (!memoryStore.registerAttempts) {
+    memoryStore.registerAttempts = new Map();
+  }
+  const attempts = memoryStore.registerAttempts.get(ip) || [];
+  const recent = attempts.filter((ts) => now - ts < REGISTER_RATE_LIMIT_WINDOW_MS);
+  recent.push(now);
+  memoryStore.registerAttempts.set(ip, recent);
+}
 
 export function checkLoginRateLimit(ip: string): { allowed: boolean; retryAfter: number } {
   const now = Date.now();
@@ -288,7 +395,8 @@ export function clearLoginFailures(ip: string): void {
 // -------------------------------------------------------------
 
 function signToken(sessionId: string): string {
-  const hmac = crypto.createHmac("sha256", SESSION_SECRET).update(sessionId).digest("hex");
+  const secret = getSessionSecret();
+  const hmac = crypto.createHmac("sha256", secret).update(sessionId).digest("hex");
   return `${sessionId}.${hmac}`;
 }
 
@@ -298,7 +406,8 @@ function verifyToken(signedToken: string): string | null {
   const [sessionId, hmac] = parts;
   if (!sessionId || !hmac) return null;
 
-  const expectedHmac = crypto.createHmac("sha256", SESSION_SECRET).update(sessionId).digest("hex");
+  const secret = getSessionSecret();
+  const expectedHmac = crypto.createHmac("sha256", secret).update(sessionId).digest("hex");
   if (hmac.length !== expectedHmac.length) return null;
 
   const b1 = Buffer.from(hmac);
