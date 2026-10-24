@@ -13,6 +13,63 @@
   --card: #FFFFFF;
   --muted: #D9E4EA;
   --accent: #2AA198;
+
+  /* Fluid Typography Scale (Utopia mathematical clamp 360px -> 1280px) */
+  --text-fluid-xs: clamp(0.72rem, 0.68rem + 0.18vw, 0.8125rem);
+  --text-fluid-sm: clamp(0.8125rem, 0.77rem + 0.22vw, 0.9375rem);
+  --text-fluid-base: clamp(0.9375rem, 0.88rem + 0.28vw, 1.0625rem);
+  --text-fluid-lg: clamp(1.0625rem, 0.98rem + 0.42vw, 1.25rem);
+  --text-fluid-xl: clamp(1.25rem, 1.12rem + 0.65vw, 1.5625rem);
+  --text-fluid-2xl: clamp(1.5rem, 1.3rem + 1.0vw, 2.0rem);
+  --text-fluid-3xl: clamp(1.875rem, 1.55rem + 1.6vw, 2.75rem);
+  --text-fluid-readout: clamp(1.75rem, 1.4rem + 1.75vw, 3.25rem);
+
+  /* Fluid Spacing Scale */
+  --space-fluid-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
+  --space-fluid-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.875rem);
+  --space-fluid-md: clamp(0.75rem, 0.6rem + 0.75vw, 1.25rem);
+  --space-fluid-lg: clamp(1rem, 0.75rem + 1.25vw, 2rem);
+  --space-fluid-xl: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+
+  /* Maritime & PWA Layout Dimensions */
+  --touch-target-min: 48px;
+  --topbar-height: 52px;
+  --bottombar-height: 64px;
+  --navrail-width: 68px;
+}
+
+/* Fluid Typography Utility Classes */
+.text-fluid-xs { font-size: var(--text-fluid-xs); line-height: 1.35; }
+.text-fluid-sm { font-size: var(--text-fluid-sm); line-height: 1.4; }
+.text-fluid-base { font-size: var(--text-fluid-base); line-height: 1.5; }
+.text-fluid-lg { font-size: var(--text-fluid-lg); line-height: 1.4; }
+.text-fluid-xl { font-size: var(--text-fluid-xl); line-height: 1.3; }
+.text-fluid-2xl { font-size: var(--text-fluid-2xl); line-height: 1.25; }
+.text-fluid-3xl { font-size: var(--text-fluid-3xl); line-height: 1.2; }
+.text-fluid-readout { font-size: var(--text-fluid-readout); line-height: 1.1; font-weight: 800; }
+
+/* Tabular Numerics for Fluctuating Maritime Telemetry */
+.font-tabular {
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+
+/* IEC 62288 Minimum 48px Touch Target Hitbox */
+.touch-target {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+/* PWA Safe Area Utilities */
+.pwa-safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+.pwa-safe-top {
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+
+/* Container Query Card Wrapper */
+.container-query-card {
+  container-type: inline-size;
 }
 
 html:not(.dark) body {
