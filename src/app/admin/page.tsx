@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useDocTitle } from "@/lib/doctitle";
 import type { AdminUser, ApiActivityLog, AdminMetrics, PerUserStats } from "@/lib/server-admin-tracker";
+import type { SecurityAuditEntry } from "@/lib/admin-auth";
 
 interface SelectedUserDetail {
   user: AdminUser;
@@ -13,23 +15,70 @@ interface SelectedUserDetail {
 
 export default function AdminDashboardPage() {
   useDocTitle("admin.title");
+  const router = useRouter();
 
+  // Authentication & Session State
+  const [sessionUser, setSessionUser] = useState<string>("sharkadmin");
+  const [sessionRole, setSessionRole] = useState<string>("super_admin");
+  const [csrfToken, setCsrfToken] = useState<string>("");
+  const [authChecking, setAuthChecking] = useState(true);
+
+  // Dashboard Data State
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [metrics, setMetrics] = useState<AdminMetrics | null>(null);
   const [logs, setLogs] = useState<ApiActivityLog[]>([]);
+  const [securityLogs, setSecurityLogs] = useState<SecurityAuditEntry[]>([]);
+  const [showSecurityDrawer, setShowSecurityDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [logFilter, setLogFilter] = useState<"all" | "success" | "failed">("all");
   const [simulating, setSimulating] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
   const [lastRefreshed, setLastRefreshed] = useState<string>("");
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [userDetail, setUserDetail] = useState<SelectedUserDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
 
+  const checkAuthAndFetch = useCallback(async () => {
+    try {
+      const authRes = await fetch("/api/admin/auth/status");
+      const authData = await authRes.json();
+
+      if (!authRes.ok || !authData.authenticated) {
+        router.replace("/admin/login");
+        return;
+      }
+
+      setSessionUser(authData.user?.username || "sharkadmin");
+      setSessionRole(authData.user?.role || "super_admin");
+      setCsrfToken(authData.csrfToken || "");
+      setAuthChecking(false);
+
+      // Fetch dashboard data
+      const res = await fetch("/api/admin/metrics");
+      if (res.status === 401) {
+        router.replace("/admin/login");
+        return;
+      }
+      if (!res.ok) throw new Error("Failed to load metrics");
+      const data = await res.json();
+      if (data.success) {
+        setUsers(data.users || []);
+        setMetrics(data.metrics || null);
+        setLogs(data.logs || []);
+        setLastRefreshed(new Date().toLocaleTimeString());
+      }
+    } catch (err) {
+      console.error("Admin fetch error:", err);
+    }
+  }, [router]);
+
   useEffect(() => {
-    fetchMetrics();
-    const interval = setInterval(fetchMetrics, 8000);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    checkAuthAndFetch();
+    const interval = setInterval(checkAuthAndFetch, 8000);
     return () => clearInterval(interval);
-  }, []);
+  }, [checkAuthAndFetch]);
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -62,24 +111,34 @@ export default function AdminDashboardPage() {
     setUserDetail(null);
   }
 
-  async function fetchMetrics() {
+  async function fetchSecurityAudit() {
     try {
-      const res = await fetch("/api/admin/metrics");
-      if (!res.ok) throw new Error("Failed to load metrics");
-      const data = await res.json();
-      if (data.success) {
-        setUsers(data.users || []);
-        setMetrics(data.metrics || null);
-        setLogs(data.logs || []);
-        setLastRefreshed(new Date().toLocaleTimeString());
+      const res = await fetch("/api/admin/auth/security-audit");
+      if (res.ok) {
+        const data = await res.json();
+        setSecurityLogs(data.logs || []);
       }
     } catch (err) {
-      console.error("Admin fetch error:", err);
+      console.error("Security audit fetch error:", err);
+    }
+  }
+
+  async function handleLogout() {
+    try {
+      await fetch("/api/admin/auth/logout", { method: "POST" });
+    } finally {
+      router.push("/");
     }
   }
 
   async function simulateRequest() {
+    if (sessionRole === "viewer_admin") {
+      setActionMessage("Read-only Auditor role cannot trigger simulated requests.");
+      return;
+    }
+
     setSimulating(true);
+    setActionMessage(null);
     try {
       const sampleItems = [
         { id: "791821", name: "CHIPPING HAMMER STEEL HANDLE 500G", cat: "spare-deck" },
@@ -98,9 +157,12 @@ export default function AdminDashboardPage() {
 
       const isSuccess = Math.random() > 0.15;
 
-      await fetch("/api/admin/metrics", {
+      const res = await fetch("/api/admin/metrics", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken,
+        },
         body: JSON.stringify({
           action: "simulate",
           userId: randomUser.id,
@@ -115,11 +177,59 @@ export default function AdminDashboardPage() {
         }),
       });
 
-      await fetchMetrics();
-    } catch (err) {
-      console.error("Simulate error:", err);
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Simulation rejected");
+      }
+
+      await checkAuthAndFetch();
+      if (selectedUserId === randomUser.id) {
+        await openUserDetail(randomUser.id);
+      }
+      setActionMessage("Simulated request successfully verified with anti-CSRF token.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Simulate error";
+      setActionMessage(`Error: ${msg}`);
     } finally {
       setSimulating(false);
+    }
+  }
+
+  async function resetBaseline() {
+    if (sessionRole !== "super_admin") {
+      setActionMessage("Only Super Administrator can reset tracking baseline.");
+      return;
+    }
+
+    if (!confirm("Are you sure you want to reset all admin tracking metrics to baseline?")) {
+      return;
+    }
+
+    setResetting(true);
+    setActionMessage(null);
+    try {
+      const res = await fetch("/api/admin/metrics", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken,
+        },
+        body: JSON.stringify({ action: "reset" }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Reset failed");
+      }
+
+      await checkAuthAndFetch();
+      closeUserDetail();
+      setActionMessage("Admin metrics reset to clean baseline.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Reset error";
+      setActionMessage(`Error: ${msg}`);
+    } finally {
+      setResetting(false);
     }
   }
 
@@ -150,9 +260,132 @@ export default function AdminDashboardPage() {
     return logs.filter((l) => l.status === logFilter);
   }, [logs, logFilter]);
 
+  if (authChecking) {
+    return (
+      <div className="shark-interior-page min-h-[70vh] flex flex-col items-center justify-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/20 text-2xl animate-pulse">
+          🛡️
+        </div>
+        <p className="mt-3 text-xs font-bold text-stone-600 dark:text-stone-400">
+          Verifying administrative credentials & secure session...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="shark-interior-page">
       <div className="grid gap-5">
+        {/* Top Hardened Security Status Bar */}
+        <div className="rounded-3xl border border-amber-300/80 bg-amber-50/90 p-4 shadow-sm dark:border-stone-800 dark:bg-stone-900/90">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-amber-500/30 text-lg">
+                🛡️
+              </span>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-stone-900 dark:text-stone-100">
+                    Security Gateway Session
+                  </span>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase tracking-wider ${
+                      sessionRole === "super_admin"
+                        ? "bg-red-500/20 text-red-700 dark:text-red-400 border border-red-300 dark:border-red-900"
+                        : sessionRole === "operator_admin"
+                        ? "bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800"
+                        : "bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-300 dark:border-blue-800"
+                    }`}
+                  >
+                    {sessionRole.replace("_", " ")}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 mt-0.5 text-[11px] text-stone-600 dark:text-stone-400">
+                  <span>User: <strong className="font-mono">{sessionUser}</strong></span>
+                  <span>•</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">● HTTP-Only Cookie Guard</span>
+                  <span>•</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">● Rate Limit Shield (15m Lock)</span>
+                  <span>•</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">● Anti-CSRF Synchronized</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  fetchSecurityAudit();
+                  setShowSecurityDrawer(!showSecurityDrawer);
+                }}
+                className="flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-3 py-1 text-xs font-bold text-stone-800 hover:bg-stone-50 dark:border-stone-800 dark:bg-black dark:text-stone-200"
+              >
+                <span>📜</span>
+                <span>{showSecurityDrawer ? "Hide Security Audit" : "Security Audit Logs"}</span>
+              </button>
+
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 rounded-full border border-red-300 bg-red-50 px-3 py-1 text-xs font-bold text-red-800 hover:bg-red-100 dark:border-red-900 dark:bg-red-950/60 dark:text-red-300"
+              >
+                <span>🔒</span>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Collapsible Security Audit Drawer */}
+          {showSecurityDrawer && (
+            <div className="mt-4 border-t border-amber-200/80 pt-3 dark:border-stone-800">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-xs font-bold text-stone-800 dark:text-stone-200">
+                  Real-Time Security Audit Stream (Logins, Failed Intrusion Attempts, CSRF Checks)
+                </h4>
+                <button
+                  onClick={fetchSecurityAudit}
+                  className="text-[10px] font-bold text-amber-700 hover:underline dark:text-amber-400"
+                >
+                  Refresh Security Events 🔄
+                </button>
+              </div>
+
+              {securityLogs.length === 0 ? (
+                <p className="text-xs text-stone-500 py-2">No security events logged in this session yet.</p>
+              ) : (
+                <div className="max-h-48 overflow-y-auto rounded-2xl bg-white/80 p-2 text-[11px] font-mono dark:bg-black/60 divide-y divide-stone-100 dark:divide-stone-900">
+                  {securityLogs.map((sec) => (
+                    <div key={sec.id} className="py-1.5 px-2 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`rounded px-1.5 py-0.5 text-[9px] font-bold ${
+                            sec.event.includes("failed") || sec.event.includes("blocked") || sec.event.includes("unauthorized")
+                              ? "bg-red-500/20 text-red-600 dark:text-red-400"
+                              : "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                          }`}
+                        >
+                          {sec.event.toUpperCase()}
+                        </span>
+                        <span className="text-stone-800 dark:text-stone-200">{sec.details || sec.event}</span>
+                      </div>
+                      <div className="text-[10px] text-stone-500">
+                        {sec.ipAddress} • {new Date(sec.timestamp).toLocaleTimeString()}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Action feedback message */}
+        {actionMessage && (
+          <div className="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-900 dark:border-stone-800 dark:bg-stone-900 dark:text-amber-200 flex items-between justify-between">
+            <span>{actionMessage}</span>
+            <button onClick={() => setActionMessage(null)} className="opacity-60 hover:opacity-100">✕</button>
+          </div>
+        )}
+
         {/* Top Header */}
         <div className="flex flex-wrap items-end justify-between gap-3 border-b border-amber-200/60 pb-4 dark:border-stone-800">
           <div>
@@ -166,7 +399,7 @@ export default function AdminDashboardPage() {
               </span>
             </div>
             <p className="mt-1 text-sm font-medium opacity-70">
-              User activity oversight, API request counts, and Google AI vision performance.
+              Stealth administrative access: User activity oversight, API request counts, and Google AI vision performance.
               {lastRefreshed && <span className="ml-2 font-mono text-xs opacity-60">• Updated {lastRefreshed}</span>}
             </p>
           </div>
@@ -174,12 +407,24 @@ export default function AdminDashboardPage() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={simulateRequest}
-              disabled={simulating}
+              disabled={simulating || sessionRole === "viewer_admin"}
+              title={sessionRole === "viewer_admin" ? "Requires Operator or Super Admin role" : "Run test request"}
               className="flex items-center gap-1.5 rounded-full border border-amber-400 bg-amber-100 px-3.5 py-1.5 text-xs font-bold text-stone-900 hover:bg-amber-200 disabled:opacity-50 dark:border-red-900 dark:bg-stone-900 dark:text-amber-200"
             >
               <span>⚡</span>
               <span>{simulating ? "Simulating..." : "Simulate Test Request"}</span>
             </button>
+
+            {sessionRole === "super_admin" && (
+              <button
+                onClick={resetBaseline}
+                disabled={resetting}
+                className="flex items-center gap-1.5 rounded-full border border-red-300 bg-red-50 px-3.5 py-1.5 text-xs font-bold text-red-900 hover:bg-red-100 disabled:opacity-50 dark:border-red-900 dark:bg-stone-900 dark:text-red-300"
+              >
+                <span>🔄</span>
+                <span>{resetting ? "Resetting..." : "Reset Data"}</span>
+              </button>
+            )}
 
             <button
               onClick={exportAuditLog}
@@ -190,7 +435,7 @@ export default function AdminDashboardPage() {
             </button>
 
             <button
-              onClick={fetchMetrics}
+              onClick={checkAuthAndFetch}
               className="flex items-center gap-1.5 rounded-full bg-stone-900 px-4 py-1.5 text-xs font-bold text-amber-50 hover:bg-stone-800 dark:bg-red-700 dark:text-white"
             >
               <span>🔄</span>
@@ -301,8 +546,7 @@ export default function AdminDashboardPage() {
             <div>
               <h2 className="text-lg font-black tracking-tight">Crew & Officer API Usage</h2>
               <p className="text-xs opacity-70">
-                Tracks the number of AI vision requests made per user, department, and vessel.
-                Select a row to open the per-user API breakdown.
+                Tracks the number of AI vision requests made per user, department, and vessel. Click any officer row for full API breakdown.
               </p>
             </div>
             <input
@@ -326,6 +570,7 @@ export default function AdminDashboardPage() {
                   <th className="py-2.5 font-bold">Success Rate</th>
                   <th className="py-2.5 font-bold">Last Active</th>
                   <th className="py-2.5 font-bold">Status</th>
+                  <th className="py-2.5 font-bold text-right">Drilldown</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 dark:divide-stone-900">
@@ -335,27 +580,10 @@ export default function AdminDashboardPage() {
                     <tr
                       key={u.id}
                       onClick={() => openUserDetail(u.id)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") openUserDetail(u.id);
-                        else if (e.key === " ") {
-                          e.preventDefault();
-                          openUserDetail(u.id);
-                        }
-                      }}
-                      tabIndex={0}
-                      className="cursor-pointer hover:bg-amber-50/50 focus:bg-amber-50/50 focus:outline-none dark:hover:bg-stone-900/50"
-                      title={`View per-user API breakdown for ${u.name}`}
+                      className="cursor-pointer hover:bg-amber-50/60 dark:hover:bg-stone-900/60 transition-colors"
                     >
                       <td className="py-3 font-bold text-stone-900 dark:text-stone-100">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openUserDetail(u.id);
-                          }}
-                          className="flex items-center gap-2 rounded-xl text-left underline-offset-2 hover:underline focus:underline focus:outline-none"
-                          aria-label={`View API usage detail for ${u.name}`}
-                        >
+                        <div className="flex items-center gap-2">
                           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-stone-900 text-[11px] font-bold text-amber-50 dark:bg-red-700">
                             {u.name.slice(0, 2).toUpperCase()}
                           </span>
@@ -363,7 +591,7 @@ export default function AdminDashboardPage() {
                             <div>{u.name}</div>
                             <div className="font-mono text-[10px] opacity-50">{u.email}</div>
                           </div>
-                        </button>
+                        </div>
                       </td>
                       <td className="py-3">
                         <span className="font-semibold">{u.rank}</span>
@@ -414,6 +642,11 @@ export default function AdminDashboardPage() {
                           {u.status.toUpperCase()}
                         </span>
                       </td>
+                      <td className="py-3 text-right">
+                        <span className="rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[11px] font-bold text-stone-800 hover:bg-amber-100 dark:border-stone-800 dark:bg-stone-900 dark:text-amber-200">
+                          View Drilldown →
+                        </span>
+                      </td>
                     </tr>
                   );
                 })}
@@ -422,7 +655,7 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Section 2: Department Category Breakdown & Model Diagnostics */}
+        {/* Section 2: Department Category Breakdown & Defense Architecture */}
         <div className="grid gap-4 lg:grid-cols-2">
           {/* Category Distribution */}
           <div className="rounded-3xl border border-amber-200 bg-white p-5 shadow-xs dark:border-stone-800 dark:bg-neutral-950">
@@ -455,26 +688,16 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* AI Authentication & Processing Architecture */}
+          {/* Hardened Security & Gateway Architecture */}
           <div className="rounded-3xl border border-amber-200 bg-white p-5 shadow-xs dark:border-stone-800 dark:bg-neutral-950">
-            <h3 className="text-base font-black tracking-tight">Google AI Authentication Architecture</h3>
+            <h3 className="text-base font-black tracking-tight">Hardened Defense Architecture</h3>
             <p className="mt-0.5 text-xs opacity-70">Active protocol and security compliance</p>
 
             <div className="mt-3 grid gap-2.5 text-xs">
               <div className="flex items-center justify-between rounded-2xl bg-amber-50/70 p-3 dark:bg-stone-900">
                 <div>
-                  <strong className="block text-stone-900 dark:text-stone-100">Primary Neural Engine</strong>
-                  <span className="text-[11px] opacity-70">Google Gemini 2.0 Flash (Multimodal Vision)</span>
-                </div>
-                <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                  Online
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between rounded-2xl bg-amber-50/70 p-3 dark:bg-stone-900">
-                <div>
-                  <strong className="block text-stone-900 dark:text-stone-100">Authentication Protocol</strong>
-                  <span className="text-[11px] opacity-70">Google API Key header authentication (x-goog-api-key)</span>
+                  <strong className="block text-stone-900 dark:text-stone-100">Direct Stealth URL Access</strong>
+                  <span className="text-[11px] opacity-70">Navbar and menu entries removed; direct route only</span>
                 </div>
                 <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
                   Enforced
@@ -483,21 +706,31 @@ export default function AdminDashboardPage() {
 
               <div className="flex items-center justify-between rounded-2xl bg-amber-50/70 p-3 dark:bg-stone-900">
                 <div>
-                  <strong className="block text-stone-900 dark:text-stone-100">Strict Error Enforcement</strong>
-                  <span className="text-[11px] opacity-70">Random fallback products disabled; explicit failure reporting active</span>
+                  <strong className="block text-stone-900 dark:text-stone-100">Session Cookie Security</strong>
+                  <span className="text-[11px] opacity-70">HTTP-Only, SameSite=Strict, 8hr max, 60m idle timeout</span>
                 </div>
-                <span className="rounded-full bg-amber-500/20 px-2.5 py-1 text-[11px] font-bold text-amber-700 dark:text-amber-300">
-                  Strict Mode
+                <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                  Secured
                 </span>
               </div>
 
               <div className="flex items-center justify-between rounded-2xl bg-amber-50/70 p-3 dark:bg-stone-900">
                 <div>
-                  <strong className="block text-stone-900 dark:text-stone-100">Catalog Context Sync</strong>
-                  <span className="text-[11px] opacity-70">My List active catalog context included in all inference prompts</span>
+                  <strong className="block text-stone-900 dark:text-stone-100">Brute-Force Shield (Rate Limiter)</strong>
+                  <span className="text-[11px] opacity-70">Max 5 failed attempts per IP → 15-minute temporary lockout</span>
+                </div>
+                <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                  Active
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between rounded-2xl bg-amber-50/70 p-3 dark:bg-stone-900">
+                <div>
+                  <strong className="block text-stone-900 dark:text-stone-100">CSRF & XSS Hardening</strong>
+                  <span className="text-[11px] opacity-70">Double-submit token + X-Frame-Options + strict CSP headers</span>
                 </div>
                 <span className="rounded-full bg-blue-500/20 px-2.5 py-1 text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                  Synchronized
+                  Protected
                 </span>
               </div>
             </div>
@@ -567,16 +800,8 @@ export default function AdminDashboardPage() {
                       })}
                     </td>
                     <td className="py-3">
-                      <button
-                        type="button"
-                        onClick={() => openUserDetail(log.userId)}
-                        className="block rounded-lg text-left underline-offset-2 hover:underline focus:underline focus:outline-none"
-                        aria-label={`View API usage detail for ${log.userName}`}
-                        title={`View per-user API breakdown for ${log.userName}`}
-                      >
-                        <strong className="block text-stone-900 dark:text-stone-100">{log.userName}</strong>
-                        <span className="text-[10px] opacity-60">{log.userRank}</span>
-                      </button>
+                      <strong className="block text-stone-900 dark:text-stone-100">{log.userName}</strong>
+                      <span className="text-[10px] opacity-60">{log.userRank}</span>
                     </td>
                     <td className="py-3 text-stone-600 dark:text-stone-400">{log.vessel}</td>
                     <td className="py-3">
@@ -624,129 +849,73 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Per-user drilldown modal */}
+        {/* Modal: Per-User Detailed Statement & Activity Drilldown */}
         {selectedUserId && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
             onClick={closeUserDetail}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Per-user API usage detail"
           >
             <div
-              className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-amber-200 bg-white p-5 shadow-xl dark:border-stone-800 dark:bg-neutral-950"
+              className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-amber-200 bg-white p-6 shadow-2xl dark:border-stone-800 dark:bg-neutral-950"
               onClick={(e) => e.stopPropagation()}
             >
+              <button
+                onClick={closeUserDetail}
+                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-300"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+
               {detailLoading || !userDetail ? (
-                <div className="py-10 text-center text-sm opacity-70">
-                  {detailLoading ? "Loading per-user API breakdown..." : "User detail unavailable."}
-                </div>
+                <div className="py-12 text-center text-xs opacity-70">Loading user activity statement...</div>
               ) : (
-                <div className="grid gap-4">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="space-y-5">
+                  <div className="border-b border-amber-100 pb-4 dark:border-stone-800">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-900 text-sm font-bold text-amber-50 dark:bg-red-700">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-stone-900 font-bold text-amber-50 dark:bg-red-700">
                         {userDetail.user.name.slice(0, 2).toUpperCase()}
                       </span>
                       <div>
-                        <h3 className="text-lg font-black tracking-tight">{userDetail.user.name}</h3>
-                        <p className="font-mono text-[11px] opacity-60">{userDetail.user.email}</p>
-                        <p className="mt-0.5 text-xs opacity-70">
-                          {userDetail.user.rank} • {userDetail.user.vessel} •{" "}
-                          {userDetail.user.department.toUpperCase()}
+                        <h3 className="text-xl font-black">{userDetail.user.name}</h3>
+                        <p className="text-xs opacity-70">
+                          {userDetail.user.rank} • {userDetail.user.vessel} ({userDetail.user.department.toUpperCase()})
                         </p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={closeUserDetail}
-                      className="rounded-full border border-stone-300 px-3 py-1 text-xs font-bold hover:bg-stone-50 dark:border-stone-700 dark:hover:bg-stone-900"
-                      aria-label="Close user detail"
-                    >
-                      ✕ Close
-                    </button>
-                  </div>
-
-                  <div className="grid gap-2 text-[11px] sm:grid-cols-2">
-                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
-                      <span className="font-bold uppercase tracking-wide opacity-60">Status</span>
-                      <div className="mt-1 font-bold">{userDetail.user.status.toUpperCase()}</div>
-                    </div>
-                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
-                      <span className="font-bold uppercase tracking-wide opacity-60">Last active</span>
-                      <div className="mt-1 font-mono">
-                        {new Date(userDetail.user.lastActiveAt).toLocaleString("en-GB", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          day: "2-digit",
-                          month: "short",
-                        })}
-                      </div>
-                    </div>
-                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
-                      <span className="font-bold uppercase tracking-wide opacity-60">Created</span>
-                      <div className="mt-1 font-mono">
-                        {new Date(userDetail.user.createdAt).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </div>
-                    </div>
-                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
-                      <span className="font-bold uppercase tracking-wide opacity-60">Totals</span>
-                      <div className="mt-1 font-mono font-bold">
-                        {userDetail.stats.total} total •{" "}
-                        <span className="text-emerald-600">{userDetail.stats.success} success</span> •{" "}
-                        <span className="text-red-600">{userDetail.stats.failed} failed</span> •{" "}
-                        {userDetail.stats.successRate}% • {userDetail.stats.avgLatencyMs}ms avg
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    <div>
-                      <h4 className="text-sm font-black">Per-API-service usage (by endpoint)</h4>
-                      {Object.keys(userDetail.stats.byEndpoint).length === 0 ? (
-                        <p className="mt-1 text-xs opacity-60">
-                          No endpoint breakdown yet — showing seeded totals only.
-                        </p>
-                      ) : (
-                        <table className="mt-2 w-full text-left text-xs">
-                          <thead>
-                            <tr className="border-b border-amber-100 text-stone-500 dark:border-stone-800">
-                              <th className="py-1.5 font-bold">Endpoint</th>
-                              <th className="py-1.5 text-center font-bold">Count</th>
-                              <th className="py-1.5 text-center font-bold">Rate</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-stone-100 dark:divide-stone-900">
-                            {Object.entries(userDetail.stats.byEndpoint).map(([endpoint, b]) => (
-                              <tr key={endpoint}>
-                                <td className="py-1.5 font-mono text-[11px]">{endpoint}</td>
-                                <td className="py-1.5 text-center font-mono">
-                                  {b.total} (<span className="text-emerald-600">{b.success}</span>/
-                                  <span className="text-red-600">{b.failed}</span>)
-                                </td>
-                                <td className="py-1.5 text-center font-mono font-bold">{b.successRate}%</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      )}
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
+                      <div className="text-[10px] font-bold uppercase opacity-60">Total Requests</div>
+                      <div className="font-mono text-2xl font-black">{userDetail.stats.total}</div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-black">Per-API-service usage (by model)</h4>
+                    <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-600 dark:text-emerald-400">
+                      <div className="text-[10px] font-bold uppercase opacity-80">Successful</div>
+                      <div className="font-mono text-2xl font-black">{userDetail.stats.success}</div>
+                    </div>
+                    <div className="rounded-2xl bg-red-500/10 p-3 text-red-600 dark:text-red-400">
+                      <div className="text-[10px] font-bold uppercase opacity-80">Failed</div>
+                      <div className="font-mono text-2xl font-black">{userDetail.stats.failed}</div>
+                    </div>
+                    <div className="rounded-2xl bg-stone-50 p-3 dark:bg-stone-900">
+                      <div className="text-[10px] font-bold uppercase opacity-60">Avg Latency</div>
+                      <div className="font-mono text-2xl font-black">{userDetail.stats.avgLatencyMs}ms</div>
+                    </div>
+                  </div>
+
+                  {/* Per-Model Breakdown */}
+                  <div>
+                    <h4 className="text-sm font-black mb-2">Model Performance Breakdown</h4>
+                    <div className="rounded-2xl border border-stone-100 bg-stone-50/50 p-3 dark:border-stone-900 dark:bg-stone-900/40">
                       {Object.keys(userDetail.stats.byModel).length === 0 ? (
-                        <p className="mt-1 text-xs opacity-60">
-                          No model breakdown yet — showing seeded totals only.
-                        </p>
+                        <p className="text-xs opacity-60">No model usage statistics available.</p>
                       ) : (
-                        <table className="mt-2 w-full text-left text-xs">
+                        <table className="w-full text-left text-xs">
                           <thead>
-                            <tr className="border-b border-amber-100 text-stone-500 dark:border-stone-800">
+                            <tr className="border-b border-stone-200 dark:border-stone-800 text-[11px] opacity-60">
                               <th className="py-1.5 font-bold">Model</th>
-                              <th className="py-1.5 text-center font-bold">Count</th>
+                              <th className="py-1.5 text-center font-bold">Requests (Success / Fail)</th>
                               <th className="py-1.5 text-center font-bold">Rate</th>
                             </tr>
                           </thead>

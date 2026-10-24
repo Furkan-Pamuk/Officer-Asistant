@@ -71,7 +71,6 @@ const ITEMS: Item[] = [
     subs: [
       { href: "/exams", key: "nav.exams", icon: "🎓" },
       { href: "/profile?tab=cv", key: "nav.cv", icon: "📄" },
-      { href: "/admin", key: "nav.admin", icon: "👑" },
     ],
   },
   { key: "nav.news", href: "/news" },
@@ -98,6 +97,7 @@ export default function Navbar() {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -113,6 +113,7 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(null);
     setMobileOpen(false);
   }, [path, newsSection]);
@@ -201,12 +202,9 @@ export default function Navbar() {
         <LocaleSelect />
         <ThemeToggle />
         <NotificationCenter />
-        <Link href="/admin" title="Admin Dashboard" className="hidden sm:flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-xs font-bold text-stone-800 hover:bg-amber-100 dark:border-red-900 dark:bg-stone-900 dark:text-amber-200">
-          <span>👑</span>
-          <span className="hidden md:inline">Admin</span>
-        </Link>
         <Link href="/profile" title="Profile" className="shark-profile flex shrink-0 items-center gap-2 rounded-full p-1">
           {profile?.photoDataUrl
+            // eslint-disable-next-line @next/next/no-img-element
             ? <img src={profile.photoDataUrl} alt="Profile" className="h-8 w-8 rounded-full object-cover ring-2 ring-amber-300 dark:ring-red-800" />
             : <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-sm font-bold dark:bg-red-950">🧑‍✈️</span>}
           {profile?.rank && <span className="hidden text-xs font-medium 2xl:block">{profile.rank}</span>}
