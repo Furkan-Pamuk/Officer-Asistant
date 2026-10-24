@@ -22,7 +22,7 @@ const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/shark-application-a08282446/?isSelfProfile=true",
+    url: "https://www.linkedin.com/company/shark-application/posts/",
     active: true,
   },
   {

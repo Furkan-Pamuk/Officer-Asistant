@@ -6,6 +6,7 @@ import OrbitMenu from "@/components/OrbitMenu";
 import CrewWall from "@/components/CrewWall";
 import { useLocale } from "@/lib/i18n";
 import { TESTIMONIALS } from "@/lib/testimonials";
+import CountryFlag from "@/components/CountryFlag";
 
 interface MenuLink {
   href: string;
@@ -124,7 +125,10 @@ export default function Home() {
           {TESTIMONIALS.map((tm) => (
             <figure key={tm.name} className="shark-card rounded-2xl border p-6 sm:p-7">
               <blockquote className="text-sm leading-7">“{tm.quote[locale] ?? tm.quote.en}”</blockquote>
-              <figcaption className="shark-quote-credit mt-6 border-t pt-4 text-xs font-medium leading-relaxed">{tm.flag} {tm.name} — {tm.rank}, {tm.country}</figcaption>
+              <figcaption className="shark-quote-credit mt-6 inline-flex items-center gap-2 border-t pt-4 text-xs font-medium leading-relaxed">
+                <CountryFlag code={tm.countryCode} className="h-3.5 w-5" />
+                <span>{tm.name} — {tm.rank}, {tm.country}</span>
+              </figcaption>
             </figure>
           ))}
         </div>

@@ -1,6 +1,6 @@
 // Official Shark social profiles — single source of truth.
 export const SOCIAL = {
-  linkedin: "https://www.linkedin.com/in/shark-application-a08282446/",
+  linkedin: "https://www.linkedin.com/company/shark-application/posts/",
   instagram: "https://www.instagram.com/shark.application/",
   facebook: "https://www.facebook.com/profile.php?id=61595616215974",
   youtube: "",
